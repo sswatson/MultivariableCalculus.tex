@@ -52,7 +52,7 @@ proofs only when they are sufficiently illuminating to be worth the
 effort. I fully embrace the physicist's perspective that one should
 derive formulas by reasoning about small positive quantities like
 $\Delta x$, trusting that one may replace sums with integrals and
-$\Delta x$ with $dx$ to obtain correct results. Turning these
+$\Delta x$ with $\d x$ to obtain correct results. Turning these
 heuristics into proofs is left to later courses (although the matter
 is discussed further in Appendix~\ref{sec:centralidea}). While there
 are advantages to maintaining a higher standard of rigor, my top
@@ -238,7 +238,7 @@ intersection are called the $x$-axis, the $y$-axis, and the $z$-axis.
 
 The set $\R^4$ is defined to be the set of ordered quadruples of real
 numbers, and similarly for $\R^5, \R^6, \ldots$.  
-\sidenote{Since
+\sidenote{* Since
   we live in three dimensions, spatial visualization of $\R^n$ only
   works for $n \leq 3$. We will use other visualization tools or
   reason by analogy to build intuition in $\R^n$ for $n \geq 4$.} If
@@ -258,10 +258,12 @@ is called the \textbf{dimension} of $\R^n$.
 
 A \textbf{function} from $\R^1$ to $\R^1$ takes a real number $x$ as
 input and returns another real number, denoted $f(x)$, as output. We
-can draw the \textit{graph} of such a function in $1 + 1 = 2$
+can draw the \textit{graph}* of such a function in $1 + 1 = 2$
 dimensions, by associating the horizontal axis with input values and
 the vertical axis with output values. For example, see
-Figure~\ref{fig:squaring} for a graph of the squaring function.
+Figure~\ref{fig:squaring} for a graph of the squaring
+function. \sidenote{* A point $(x,y)$ is on the graph of $f$ if and
+  only if $f(x) = y$.}[-1cm]
 
 A function from $\R^2$ to $\R^1$ can be visualized in $2 + 1 = 3$
 dimensions by using the $xy$-plane for the input values and the
@@ -274,7 +276,7 @@ The graph of function from $\R^2$ to $\R^2$ would require $2 + 2 = 4$
 dimensions to visualize, so we are out of luck there. However, we can
 visualize a function from $\R^2$ to $\R^2$ drawing a picture of where
 all the grid lines go*---see
-Figure~\ref{fig:gridlines}.\sidenote{One way this method of visualization
+Figure~\ref{fig:gridlines}.\sidenote{* One way this method of visualization
   is different from graphing is that we separate the input values on
   the left side from the output values on the right side.}
 
@@ -392,7 +394,7 @@ allowed.
     f(x,y) = (ax + by , cx + dy). 
   \]
 \end{defn}
-\sidenote{This notation means that $a,b,c,d$ are in the set of real numbers.}[-1cm]
+\sidenote{* This notation means that $a,b,c,d$ are in the set of real numbers.}[-1cm]
 
 \begin{figure}[h!]
 \input transformations.tex
@@ -405,13 +407,15 @@ conjecture that linear transformations map equally spaced lines to
 equally spaced lines, where coincident lines count as equally spaced
 (as in the last example). This is almost accurate: sometimes equally
 spaced lines can map to equally spaced \textit{points}
-(Exercise~\ref{exer:espoints}). \sidenote{These transformations \textit{scale}, \textit{shear}, \textit{rotate/scale}, and
+(Exercise~\ref{exer:espoints}). \sidenote{* These transformations \textit{scale}, \textit{shear}, \textit{rotate/scale}, and
   \textit{project}, respectively.}[-1cm]
 
 \begin{theo}{}{equalspacing}
   A function from $\R^2$ to $\R^2$ is linear if and only if it maps
-  the origin to the origin and equally spaced lines to equally spaced
-  lines or points.
+  the origin to the origin and equally spaced lines* to equally spaced
+  lines or points. \sidenote{* \textit{Equally spaced lines} are lines
+  which are parallel and for which the distances between consecutive
+  lines are the same.}
 \end{theo}
 
 \begin{exercise}{}{}
@@ -511,7 +515,7 @@ $ad - bc$ tells us how $f(x,y) = (ax + by, cx + dy)$ transforms areas
 $(0,0)$, $(1,0)$, and $(0,1)$ reverses their orientation* (via its
 sign). This idea is important enough to deserve its own name. To
 simplify the definition, we refer to length as $1$-dimensional volume
-and area as 2-dimensional volume. \sidenote{Reversing the
+and area as 2-dimensional volume. \sidenote{* Reversing the
   orientation of three points $A$, $B$, and $C$ means that if these
   points are given in counterclockwise order around the triangle
   $ABC$, then their images are in clockwise order around the triangle
@@ -519,7 +523,7 @@ and area as 2-dimensional volume. \sidenote{Reversing the
 
 \begin{defn}{Determinant }{def:det} \bang{-5mm}
   The \textbf{determinant} of a linear transformation from $\R^n$ to
-  $\R^n$ is the signed factor by it transforms $n$-dimensional
+  $\R^n$ is the signed factor by which it transforms $n$-dimensional
   volumes. 
 \end{defn}
 
@@ -640,11 +644,9 @@ point of view of a small person standing on the shape with their head
 pointing toward the outside.
 
 The formula for the determinant of a $3 \times 3$ matrix may be
-derived analogously to the $2\times 2$ case, by filling in the
-parallelepiped with polyhedra to get a rectangular prism with edges
-parallel to the coordinate axes. However, this derivation is quite
-messy, and you will develop a more principled approach in a linear
-algebra class. So let's skip straight to the formula:
+derived analogously to the $2\times 2$ case. However, this derivation
+is quite messy, and you will develop a more principled approach in a
+linear algebra class. So let's skip straight to the formula:
 \[
 \det \left[\begin{array}{ccc} a & b & c \\ d & e & f \\ g & h & i \end{array}\right] = 
 aei - afh - bdi + bfg + cdh - ceg. 
@@ -653,7 +655,7 @@ Unlike the formula $ad - bc$ for the $2\times 2$ matrix, this formula is not eas
 \[
 \left|\begin{array}{ccc} a & b & c \\ d & e & f \\ g & h & i \end{array}\right| = 
 +a \left|\begin{array}{cc} e & f \\  h & i \end{array}\right| 
--b \left|\begin{array}{cc} d & i \\  f & g \end{array}\right| 
+-b \left|\begin{array}{cc} d & f \\  g & i \end{array}\right| 
 +c \left|\begin{array}{cc} d & e \\  g & h \end{array}\right|. 
 \]
 This formula is \textit{still} not easy to memorize, so let's break it down: each term on the right-hand side consists of a factor of $+1$ or $-1$ which alternates starting with $+1$, then an entry from the top row (going from left to right), then the determinant of the matrix you get when you remove the row and column of that entry from the original matrix. These smaller matrices are called \textit{minors}, and this method of calculating the determinant is called \textbf{expansion by minors} along the first row. You can also expand by minors along any row or column (see Exercise~\ref{exer:det3b} below), but if it's an even-numbered row or column, then the signs start with $-1$ instead of $+1$. 
@@ -705,12 +707,12 @@ A \textbf{vector} in $\R^n$ is an arrow from one point in $\R^n$ (the
 \textit{tail}) to another (the \textit{head}). See
 Figure~\ref{fig:arrow}). The \textbf{length}* of a vector is the
 distance from the head to the tail. Two vectors are considered
-equivalent if the have the same length and the same direction. 
-\sidenote{The norm of a vector is sometimes called the
+equivalent if they have the same length and the same direction. 
+\sidenote{* The length of a vector is sometimes called the
   \textbf{norm} or the \textbf{magnitude} of the vector}
 
 The \textbf{components} of a vector are the coordinates of its head
-when it is translated so that its tail at the origin. In other words,
+when it is translated so that its tail is at the origin. In other words,
 to find the components of a vector, we subtract each coordinate of its
 tail from the correponding coordinate of the head. The components
 of the vector in Figure~\ref{fig:arrow} are $\langle \frac{3}{2} ,
@@ -719,9 +721,9 @@ components of a vector from coordinates of a point. We can calculate
 the components by subtracting the coordinates of the tail from the
 coordinates of the head. Two vectors are
 equivalent if and only if their components are the same.*
-\sidenote{Actually, vectors and points kind of \textit{are} the
+\sidenote{* Actually, vectors and points kind of \textit{are} the
   same, since they are both specified by an ordered tuple of real
-  numbers. Their distinction is in how we use them and visualize
+  numbers. The distinction is in how we use them and visualize
   them.} 
 
 The main things we will do with vectors are (i) add two of them
@@ -793,15 +795,15 @@ same direction if $\vec{u} = c \, \vec{v}$ for some scalar $c$.
 The following exercise shows that vector operations satisfy one of the
 properties suggested by the notation.* They satisfy several others,
 such as commutativity
-($\vec{u} + \vec{v} = \vec{v} + \vec{w}$), associativity
+($\vec{u} + \vec{v} = \vec{v} + \vec{u}$), associativity
 ($(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} +
 \vec{w})$), and so on. The basic strategy for proving all these
 property-verification exercises is the same: write out what each side
 of the equations in terms of components, and then simplify until you
 can see that both sides are equal. 
-\sidenote{That is, we use the same notation as we use for multiplication/addition
+\sidenote{* That is, we use the same notation as we use for multiplication/addition
   of real numbers because these operations satisfy many of the same
-  properties.}[-1cm]
+  properties.}[-12mm]
 
 \begin{exercise}{}{vector_distribution}
   Show that scalar multiplication distributes across vector
@@ -882,7 +884,7 @@ The \textbf{dot product} of two three-dimensional vectors $\vec{u}
 = \langle u_1, u_2, u_3 \rangle$
 and $\vec{v} =  \langle v_1, v_2, v_3 \rangle$ is defined by 
 \[
-\vec{u} \cdot \vec{v} = \langle u_1, u_2, u_3 \rangle \cdot \langle u_1, u_2, u_3 \rangle =
+\vec{u} \cdot \vec{v} = \langle u_1, u_2, u_3 \rangle \cdot \langle v_1, v_2, v_3 \rangle =
 u_1 v_1 + u_2  v_2+ u_3v_3. 
 \]
 \end{defn}
@@ -910,14 +912,15 @@ Now we establish the relationship between the dot product and angle.
     We apply the law of cosines to the triangle with sides
     $\vec{u}$, $\vec{v}$, and $\vec{u} - \vec{v}$. We get 
     \[
-      |\vec{u} - \vec{v}|^2 =  |\vec{u}|^2 +  |\vec{v}|^2  -2|\vec{u}|\vec{v}|\cos\theta
+      |\vec{u} - \vec{v}|^2 =  |\vec{u}|^2 +  |\vec{v}|^2  -2|\vec{u}|
+      |\vec{v}|\cos\theta
     \]
     The left-hand side works out to 
     \[
        |\vec{u} - \vec{v}|^2 = 
        (\vec{u} - \vec{v}) \cdot 
        (\vec{u} - \vec{v}) = 
-       |\vec{u}|^2 + |\vec{v}|^2 - 2\vec{u} \cdot
+       |\vec{u}|^2 + |\vec{v}|^2 - 2\, \vec{u} \cdot
        \vec{v}. 
     \]
     Subtracting these equations yields $\vec{u} \cdot \vec{v} =
@@ -1065,7 +1068,7 @@ which gives us information about \textit{area}.
 
 The \textbf{cross product} of $\mathbf{u} = (u_1,u_2,u_3)$ and
 $\mathbf{v} = (v_1,v_2,v_3)$ is defined by expanding the following
-`determinant' by minors along the first row:* \sidenote{We put
+`determinant' by minors along the first row:* \sidenote{* We put
   \textit{determinant} in scare quotes because the matrix entries are
   not numbers.} \sidenote{\href{https://www.youtube.com/watch?v=BaM7OCEm3G0}{\tbob} A beautiful explanation
   of this formula}[20mm]
@@ -1130,7 +1133,7 @@ The following exercise provides the advertised connection to
 area. Recall from geometry that the area of a parallelogram with sides
 of length $a$ and $b$ meeting at an angle $\theta$ is equal to $ab\sin
 \theta$.*
-\sidenote{Proof: \usebox{\asybox}}
+\sidenote{* Proof: \usebox{\asybox}}
 
 \begin{exercise}{}{}
 Verify that $|\mathbf{u} \times \mathbf{v}|^2 =
@@ -1248,7 +1251,7 @@ y &= b + v_2 t \\
 z &= c + v_3 t, 
 \end{align*}
 where $\langle v_1, v_2, v_3 \rangle = \overrightarrow{AB}$ is the vector from $A$ to
-$B$.* \sidenote{Note that this representation is not unique, since we
+$B$.* \sidenote{* Note that this representation is not unique, since we
   could've used $B$ (or any other point on the line) in place of $A$.}
 
 \begin{example}{}{planeequation}
@@ -1304,7 +1307,7 @@ $B$.* \sidenote{Note that this representation is not unique, since we
   $\mathbf{n} = \mathbf{u} \times \mathbf{v}$, since the cross product
   of two vectors is orthogonal to both of them. So
 \[
-  \mathbf{n} = \langle -1,0,2\rangle \cdot \langle 0, -1, 1 \rangle =
+  \mathbf{n} = \langle -1,0,2\rangle \times \langle 0, -1, 1 \rangle =
   \langle 2, 1, 1 \rangle. 
 \]
 Now we can say that $(x,y,z)$ is on $P$ if and only if
@@ -1322,10 +1325,10 @@ which simplifies to $\boxed{2x + y + z = 2}$.
   \]
 \end{obs}
 
-One important type of 3D geometry problem that of finding distances
-between points, lines, and planes.* We define the distance between two
-sets to be the \textit{minimum} distance between two points in those
-sets. \sidenote{We can ask about the distance from a point to a
+One important 3D geometry problem is to find distances between points,
+lines, and planes.* We define the distance between two sets to be the
+\textit{minimum} distance between two points in those
+sets. \sidenote{* We can ask about the distance from a point to a
   point, a point to a line, a point to a plane, a line to a line, a
   line to a plane, or a plane to a plane.}
 
@@ -1422,16 +1425,16 @@ is specified by a function customarily denoted $\mathbf{r}(t)$ from
 $\R$ to either $\R^2$ or $\R^3$, and its derivative*
 $\mathbf{v}(t) = \mathbf{r}'(t)$ at time $t$ tells us the speed of the
 particle at that time (via its length) as well as the direction. We
-call $\mathbf{r}$ a \textit{path}*. \sidenote{The derivative of a
+call $\mathbf{r}$ a \textit{path}*. \sidenote{* The derivative of a
   path $\mathbf{r}$ is the vector obtained by taking the derivative of
-  each component. }[-3cm] \sidenote{For a function from $\R^1$ to
+  each component. }[-3cm] \sidenote{* For a function from $\R^1$ to
   $\R^2$ or $\R^3$ to count as a path, we require that each of its
   components be continuous. For example, $\mathbf{r}(t) = (e^t, t^2 \sin
   t)$ is a path. }
 
 
 \begin{example}{}{can}
-  Consider a bug which crawls around a cylinder of radius 1 from
+  Consider a bug which crawls counterclockwise around a cylinder of radius 1 from
   $(1,0,0)$ to $(1,0,1)$ as shown: 
   \begin{center}
     \begin{asy}
@@ -1513,7 +1516,7 @@ the set of points $(x,y,z)$ in $\R^3$ which satisfy the equation. For
 example, we have seen that the graph of $x + y + z = 1$ is a plane in
 $\R^3$. More generally, the graph of any linear equation in $\R^3$ is
 a plane. So let's step it up a notch and consider \textit{quadratic}
-equations.* \sidenote{The 2D analogues are \textit{conic sections}:
+equations.* \sidenote{* The 2D analogues are \textit{conic sections}:
   parabolas, ellipses, and hyperbolas. These are graphs of various
   quadratic equations in two variables.} A graph of a quadratic
 equation in the variables $x,y,z$ is called a \textit{quadric
@@ -1565,7 +1568,7 @@ planes. Here's an archetypal example.
 Similarly, the intersection of the desired graph and the plane
   $z = 1$ is circle centered at $(0,0,1)$ and having radius
   $\sqrt{2}$. Drawing in several more of these traces*, we get a
-  picture that looks like this: \sidenote{A \textit{trace} of a figure
+  picture that looks like this: \sidenote{* A \textit{trace} of a figure
     is an intersection of that figure with a plane}
 This is already a pretty clear picture of what the graph looks like:
 it's rotationally symmetric about the $z$-axis and ``flares out'' as
@@ -1610,7 +1613,6 @@ you move away from the $xy$-plane. This graph is called a
   \end{center}
 \end{exercise}
 
-\newpage 
 
 \section{Polar, cylindrical, and spherical coordinates} \label{sec:coordinates} 
 
@@ -1630,7 +1632,7 @@ origin and $\theta$ to be the angle formed between the positive
 horizontal axis and the vector from the
 origin to the point. The values $r$ and $\theta$ are called the radial
 and angular 
-polar coordinates of the point, respectively.* \sidenote{Properly speaking,
+polar coordinates of the point, respectively.* \sidenote{* Properly speaking,
   coordinates are \textit{functions on the plane}. For example, 
   $r = r(x,y) = \sqrt{x^2 + y^2}$}
 
@@ -1665,13 +1667,13 @@ and only if that point's cylindrical coordinates satisfy them.
 \begin{example}{}{}
   Graph* the system of cylindrical coordinate inequalities $r \leq 4$,
   $0 \leq \theta \leq \pi/3$, $0 \leq z \leq 2$. Find the volume of
-  the resulting region. \sidenote{Familiarity with coordinate
+  the resulting region. \sidenote{* Familiarity with coordinate
     slices (Table~\ref{table:coordinateslices} in
     Appendix~\ref{sec:polarref}) is helpful for graphing inequalities}
 \end{example}
 
 \begin{solution}
-  \begin{minipage}[t]{0.7\textwidth}
+  \begin{minipage}[t]{0.7\textwidth} \parskip = 0.2 in 
   The problem is asking us to find the points whose
     cylindrical coordinates satisfy all of the given
     inequalities. Such a point is less than or equal to 4 units from
@@ -1744,16 +1746,16 @@ is called latitude.
 
 Note that $\theta$ varies from 0 to $2\pi$ as one loops around the
 $z$-axis. However, the angle $\phi$ varies only from 0 to $\pi$ as one
-goes from the north pole to the south pole. Thus the
-angles $\theta$ and $\phi$ do not play symmetric roles*
-\sidenote{This is because $\phi$ measures the angle required to 
-  rotate a vector freely so as to align with the positive $z$-axis, while $\theta$ measures
-  the angle needed to rotate the vector \textit{about the $z$-axis} to
-  get to the positive half of the $xz$-\textit{plane}. }
+goes from the north pole to the south pole. Thus the angles $\theta$
+and $\phi$ do not play symmetric roles* \sidenote{* This is because
+  $\phi$ measures the angle required to rotate a vector freely so as
+  to align with the positive $z$-axis, while $\theta$ measures the
+  angle needed to rotate the vector \textit{about the $z$-axis} to get
+  to the positive half of the $xz$-\textit{plane}. }
 
 \begin{example}{}{spherical}
   Graph the system of inequalities $\tfrac{1}{2} < \rho \leq 1$, \: $0
-  \leq \theta \leq \pi/2$, \: $0 \leq \phi \leq \pi/4$. 
+  \leq \theta \leq \tfrac{\pi}{2}$, \: $0 \leq \phi \leq \tfrac{\pi}{2}$. 
 \end{example}
 
 \begin{solution}
@@ -1805,8 +1807,8 @@ angles $\theta$ and $\phi$ do not play symmetric roles*
 
 \begin{exercise}{}{}
   Find a system of inequalities in spherical coordinates to describe
-  the portion of the unit ball above the plane $z =
-  \tfrac{1}{2}$. \sidenote{The unit ball is the set of points
+  the portion of the unit ball* above the plane $z =
+  \tfrac{1}{2}$. \sidenote{* The unit ball is the set of points
     satisfying $x^2 + y^2 + z^2 \leq 1$.}
 \end{exercise}
 
@@ -1816,7 +1818,7 @@ angles $\theta$ and $\phi$ do not play symmetric roles*
     \begin{align*}
       x &= \rho \cos \theta \sin \phi \\
       y &= \rho \sin \theta \sin \phi \\
-      z &= \rho \sin \phi. 
+      z &= \rho \cos \phi. 
     \end{align*}
     Hint: use right-triangle trigonometry to write $\sqrt{x^2 + y^2}$
     and $z$ in terms of $\rho$ and $\phi$, and then use a different
@@ -1916,7 +1918,7 @@ to $L$ as desired throughout a sufficiently small neighborhood of
 $a$. More precisely, $f(x)$ converges to $L$ as $x\to a$ if and only if for
 every $\epsilon > 0$, there is $\delta>0$ so that $f(x)$ within
 $\epsilon$ of $L$ for all $x$ satisfying $0 < |x - a| < \delta$ (see
-Figure~\ref{fig:oneDlimit}). \sidenote{We abbreviate ``$f(x)$
+Figure~\ref{fig:oneDlimit}). \sidenote{* We abbreviate ``$f(x)$
   converges to $L$ as $x\to a$'' to $\displaystyle{\lim_{x \to a}f(x) = L}$.}
 
 It can be helpful to think of this definition as a game against an
@@ -1936,7 +1938,7 @@ exists and equals a number other than $L$).
 
 \begin{exercise}{}{}
   Show that $\displaystyle{\lim_{x \to 3}}\dfrac{x^2 - 9}{x - 3} = 6$ by explaining
-  the winning strategy in the above-described game. 
+  the winning strategy in the limit game. 
 \end{exercise}
 
 \begin{exercise}{}{}
@@ -2010,13 +2012,15 @@ compare $(x,y)$ to $(a,b)$. This leads to the following definition.
   \caption{The definition of a limit for a two-variable function \label{fig:twoDlimit}}
 \end{wrapfigure}
 
-One way to think about this definition is to consider the shadow*
-of the disk $B((a,b),\delta)$ on the graph (see
+One way to think about this definition is to consider the shadow$^\dagger$
+of the disk* $B((a,b),\delta)$ on the graph (see
 Figure~\ref{fig:twoDlimit}). The limit exists and equals $L$ if for
 every $\epsilon$, there exists $\delta$ small enough that this shadow
 lies entirely in the slab $L - \epsilon < z < L +
-\epsilon$. \sidenote{\textit{Shadow} here means the set of points
-  $(x,y,f(x,y))$ where $(x,y) \in B((a,b),\delta)$.}[-5mm]
+\epsilon$. \sidenote{
+  * $B((a,b),r)$ means the ball of radius $r$ centered at $(a,b)$. 
+  }[-16mm] \sidenote{$^\dagger$\textit{Shadow} here means the set of points
+  $(x,y,f(x,y))$ where $(x,y) \in B((a,b),\delta)$.}[-1mm] 
 
 A plane and a line are geometrically different in a way that has major
 implications for thinking about limits: there are only two directions
@@ -2034,13 +2038,13 @@ higher dimensional case.
   \begin{minipage}{0.7\textwidth}
     Let's begin by graphing the function.  It would appear,
     because of the sharp ``crease'' along the $z$-axis, that the shadow
-    of any small disk around the origin (in the plane) includes some
+    of any small disk around the origin (in the $xy$-plane) includes some
     points which are well above the origin and some points which are
-    well below. This suggests that the limit does not exist.
+    well below. This would imply that the limit does not exist.
 
     The graph suggests that the largest values occur along the line
     $y=-x$, while the smallest values occur along the line $y = x$. We
-    can check this algebraically. If $t$ is a nonzero number, no
+    can investigate this algebraically. If $t$ is a nonzero number, no
     matter how small, then
     \[
       f(t,-t) = \frac{-t(-t)}{t^2 + (-t)^2} = \frac{1}{2}, 
@@ -2051,7 +2055,30 @@ higher dimensional case.
     \]
   \end{minipage}
   \begin{minipage}{0.29\textwidth}
-    \includegraphics[width=5cm]{figures/limit}
+    \begin{asy}
+    import graph3;
+    size(45mm);
+    defaultpen(fontsize(7));
+    material surfacemat = material(diffusepen=LightSeaGreen,
+                                                     emissivepen=0.2*LightSeaGreen);
+    currentprojection = perspective(5,2,2);
+    currentlight.background = softyellow;
+    draw(O--1.2*X,Arrow3());
+    draw(O--1.15*Y,Arrow3());
+    draw(O--1.1*Z,Arrow3());
+    real theta = pi/4; 
+    real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+      return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+    }
+    triple g(pair p) {
+      real r = p.x;
+      real theta = p.y;
+      return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+    }
+    label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+    surface s = surface(g,(0,0),(1,2*pi),50, Spline); 
+    draw(s,surfacemat);
+    \end{asy}
   \end{minipage}
   
   Therefore, the adversary has a strategy for winning the limit game,
@@ -2070,7 +2097,7 @@ In Example~\ref{exam:pinch}, there are two directions of approach
 along which $f$ has different limits. Along the line $y = x$, the
 values of $f(x,y)$ approach* $-\tfrac{1}{2}$. Along the line $y = -x$,
 $f(x,y)$ converges to $\tfrac{1}{2}$. This is always an obstruction to
-the existence of a limit: \sidenote{Indeed, these values are
+the existence of a limit: \sidenote{* Indeed, these values are
   simply equal to $-\tfrac{1}{2}$}[-5mm]
 
 \begin{exercise}{}{}
@@ -2108,7 +2135,45 @@ approach. Remarkably, this turns out not to be the case:
     \end{align*}
   \end{minipage}
   \begin{minipage}{0.29\textwidth}
-  \includegraphics[width=5cm]{figures/limitparab}
+    \begin{asy}
+       import graph3;
+       size(45mm);
+       defaultpen(fontsize(7)); 
+       draw(O--1.2*X,Arrow3());
+       draw(O--1.15*Y,Arrow3());
+       draw(O--1.1*Z,Arrow3());
+
+       currentprojection = perspective(5,2,2);
+       currentlight.background = rgb(0.98, 0.98, 0.9);
+
+       triple g(pair p) {
+         real u = p.x;
+         real v = p.y;
+         real xsq = 2*v^2/(1+sqrt(1+4*v^2*tan(u)^2));
+         return (sqrt(xsq),
+                 xsq*tan(u),
+                 -1/2*sin(2*u));
+       }
+
+       label("$\displaystyle{f(x,y) = -\frac{x^2y}{x^4+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E);
+
+       int prec1 = 80; int prec2 = 30;
+
+       material surfacemat = material(diffusepen=LightSeaGreen,
+                                                         emissivepen=0.2*LightSeaGreen);
+
+       surface s = surface(g,(0.0,0),(pi/2,1),prec1, prec2);
+       draw(s,surfacemat);
+       surface s = surface(new triple(pair p) {triple t = g(p); return (-t.x,t.y,t.z);},
+                    (0.0,0),(pi/2,1),prec1, prec2);
+       draw(s,surfacemat);
+       surface s = surface(new triple(pair p) {triple t = g(p); return (t.x,-t.y,-t.z);},
+                    (0.0,0),(pi/2,1),prec1, prec2);
+       draw(s,surfacemat);
+       surface s = surface(new triple(pair p) {triple t = g(p); return (-t.x,-t.y,-t.z);},
+                    (0.0,0),(pi/2,1),prec1, prec2);
+       draw(s,surfacemat);
+       \end{asy}
 \end{minipage}
 Since we're considering each value of $\theta$ individually, the
   $\cos \theta$ and $\sin \theta$ factors are constants. So we see that the
@@ -2122,7 +2187,7 @@ Since we're considering each value of $\theta$ individually, the
   However, note that if we consider the limit along the parabolic
   path $\mathbf{r}(t) = (t, -t^2)$, we get
   \[
-    f(t,t^2) = \frac{t^2(-t^2)}{t^4+(-t^2)^2} = \frac{1}{2}
+    f(t,-t^2) = -\frac{t^2(-t^2)}{t^4+(-t^2)^2} = \frac{1}{2}
   \]
   Therefore, the limit along this path is equal to
   $-\tfrac{1}{2}$. Thus there are two paths (this one, as well as
@@ -2144,7 +2209,7 @@ continuity the same as in the one-dimensional case.
   point in $\R^n$ if and only if the limit of $f$ exists at that point
   and equals the value of the function there.
 
-  A function $f: \R^n to \R$ is said to be continuous if it is
+  A function $f: \R^n \to \R$ is said to be continuous if it is
   continuous at every point in $\R^n$. 
 \end{defn}
 
@@ -2155,9 +2220,10 @@ continuity.
 
 \begin{theo}{Continuous functions}{continuity_builders}
   \begin{enumerate} 
-    \item If $f : \R^n \to \R$ is continuous and $g: \R \to \R$
-    is continuous, then $g\circ f :\R^n \to \R$ is
-    continuous.
+    \item If $f  \!:\! \R^n \to \R$ is continuous and $g: \R \to \R$
+    is continuous, then* $g\circ f :\R^n \to \R$ is
+    continuous. \sidenote{$g\circ f$ denotes the \textit{composition} of
+      $g$ and $f$. See Appendix~\ref{a:setsandfunctions}}
   \item A sum or product of continuous functions is continuous. 
   \item The ``coordinate-extracting'' functions $f(x,y,z) = x$, $f(x,y,z) = y$, etc., are
     continuous.
@@ -2184,7 +2250,7 @@ continuity.
 
   Since the function above is continuous, its limit at each point is
   equal to its value at that point. So we substitute $x=y=z=0$ and
-  find the that value of the function at the origin is
+  find that the value of the function at the origin is
   $e^0 + \frac{0}{1+0} = 1$.
 \end{solution}
 
@@ -2206,7 +2272,7 @@ We conclude this section with one more tool for showing that a limit
   Now note that the expression $\frac{\cos^6\theta \sin
       \theta}{ \cos^4 \theta + \sin^4\theta}$ is continuous over
     $[0,2\pi]$ and therefore bounded in absolute value* by some
-    constant* $C$. \sidenote{This means that the expression is
+    constant $C$. \sidenote{* This means that the expression is
       never less than $-C$ or greater than $C$.}[-8mm]
     \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/find_local_maximum.ipynb}{\cocalc[-5pt]} Actually, $C = 0.34$ works.
       }[8mm]
@@ -2266,14 +2332,14 @@ We conclude this section with one more tool for showing that a limit
   direction. Two directions are particularly easy to study: (i) move
   $x$ a little while holding $y$ fixed, and (ii) move $y$ a little
   while holding $x$ fixed. Accordingly, we define \textbf{partial
-    derivatives} \sidenote{$\partial_x$ is read ``partial
+    derivatives}* \sidenote{* $\partial_x$ is read ``partial
     $x$''. Also, the role of $x$ here is purely as a label that means
     ``with respect to the first coordinate''. It does not represent a
-    number, as the symbol $x$ usually does. }[1cm]
+    number, as the symbol $x$ usually does. }[5mm]
   \begin{align*}
-    (\partial_x f)(a,b) &= \lim_{h \to 0}\frac{f(a+h,b) - f(a)}{h},
+    (\partial_x f)(a,b) &= \lim_{h \to 0}\frac{f(a+h,b) - f(a,b)}{h},
                           \text{ and} \\
-    (\partial_y f)(a,b) &= \lim_{h \to 0}\frac{f(a,b+h) - f(a)}{h}. 
+    (\partial_y f)(a,b) &= \lim_{h \to 0}\frac{f(a,b+h) - f(a,b)}{h}. 
   \end{align*}
   Calculating partial derivatives is easy because \textit{you already
     know how to do it}. Since one of the two variables is being held
@@ -2288,7 +2354,7 @@ We conclude this section with one more tool for showing that a limit
   \begin{solution}
     We can find the partial derivative with respect to $x$ at
     \textit{any} point $(x,y)$ by treating $y$ as constant and
-    applying single-variable differentiation rules:* \sidenote{If
+    applying single-variable differentiation rules:* \sidenote{* If
       you have difficulty getting used to holding a variable
       constant, consider replacing it with some number like 17; then
       substitute back at the end}
@@ -2350,7 +2416,7 @@ We conclude this section with one more tool for showing that a limit
         point. Similarly, the partial derivative with respect to $y$
         at a point is equal to the slope of the trace of the graph in
         the ``$x =\text{constant}$" plane passing through that
-        point. \sidenote{Thus we can think of partial derivatives
+        point.* \sidenote{* Thus we can think of partial derivatives
           as an application of our ``slice it up'' strategy for
           understanding three dimensional objects through two
           dimension traces}[-2cm]
@@ -2587,7 +2653,10 @@ variables.
   \begin{theo}{}{diff_linear}
     A function $f: \R \to \R$ is differentiable at $a \in \R$ if and
     only if there exists a linear function $L(x) = c_0 + c_1(x-a) $
-    such that
+    such that* \sidenote{* This equation says that $L$ approximates
+      $f$ so well that the difference between $f$ and $L$,
+      \textit{even after being divided by the tiny number $|x-a|$}, still
+      goes to 0 as $x \to a$.}
     \[
       \lim_{x \to a}\frac{f(x) - L(x)}{|x-a|} = 0. 
     \]
@@ -2692,7 +2761,7 @@ variables.
 
   Graphically, Definition~\ref{defn:diff} says that a function is
   differentiable at $(a,b)$ if we can draw a plane which is tangent*
-  to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{This
+  to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* This
     is a little bit of a lie, because to be true strictly speaking it
     would require that we define what it means to be \textit{tangent}
     in terms of Definition~\ref{defn:diff}, which would be
@@ -2727,7 +2796,7 @@ variables.
   \begin{solution}
     Noticing that $(0.99,0.98)$ is very close to $(1,1)$, we
     differentiate $f(x,y)$ with respect and with respect to $y$ and
-    find that* \sidenote{The bar notation means ``substitute''}
+    find that* \sidenote{* The bar notation means ``substitute''}
     \begin{align*}
       (\partial_x f)(1,1) &= \left.\left(
                             \frac{y e^{x y}}{e(x^{2} + 1)} -
@@ -2813,7 +2882,7 @@ function
   partial derivatives of $f$ equal to 0 and solve to find critical
   points inside $D$ (also include any points where $f$ is not
   differentiable), and (ii) find the extreme values of $f$ on*
-  $\partial D$. \sidenote{The notation $\partial D$ means ``the
+  $\partial D$. \sidenote{* The notation $\partial D$ means ``the
     boundary of $D$'', which is the set of points $p \in \R^2$ such that
     any small disk centered at $p$ includes points in $D$ and points
     not in $D$.}[-2cm]
@@ -2867,7 +2936,7 @@ function
       (\partial_yf)(x,y) &= -2y + \frac{2}{3}. 
     \end{align*}
     These quantities are both equal to zero only when $x =
-    \tfrac{1}{2}$ and $y = \frac{2}{3}$. So $(1/2,2/3)$ is the only critical
+    \tfrac{1}{2}$ and $y = \frac{1}{3}$. So $(1/2,1/3)$ is the only critical
     point inside the square.
 
     To optimize $f$ along the $x = 0$ side, we look at
@@ -2977,7 +3046,7 @@ function
   cardinal directions.* What about all the other directions? Suppose
   that $\mathbf{u}$ is a \textbf{unit vector} in $\R^2$, meaning that its
   length is 1. (see
-  Figure~\ref{fig:dirder}). \sidenote{That is: \\ up/down,
+  Figure~\ref{fig:dirder}). \sidenote{* That is: \\ up/down,
     left/right.}[-6mm]
 
   \begin{defn}{Directional derivative}{dirder}
@@ -3122,7 +3191,7 @@ function
 The gradient of a function from $\R^3$ to $\R$ is also defined to
   be the vector of partial derivatives*: 
   $\nabla f = \langle \partial_x f, \partial_y f, \partial_z f
-  \rangle$. \sidenote{More precisely, the gradient at each point is
+  \rangle$. \sidenote{* More precisely, the gradient at each point is
   the vector of partial derivatives of $f$ at that point. Thus the
   gradient is actually a function from $\R^3$ to $\R^3$.} The formula
 $D_{\mathbf{u}} f = \nabla f \cdot \mathbf{u}$ holds for
@@ -3207,7 +3276,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \[
     f\left(
       \overbrace{r_1(t)}^{\text{changes by $hr_1'(t)$}},
-      \overbrace{r_1(t)}^{\text{changes by $hr_2'(t)$}}
+      \overbrace{r_2(t)}^{\text{changes by $hr_2'(t)$}}
     \right)
   \]
   The change of $hr_1'(t)$ in the first argument induces a change of
@@ -3229,17 +3298,17 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   You can write \eqref{eq:chainrule} using the more suggestive
   notation
   \[
-    \frac{df}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} +
-    \frac{\partial f}{\partial y}\frac{dy}{dt}, 
+    \frac{\d f}{\d t} = \frac{\partial f}{\partial x}\frac{\d x}{\d t} +
+    \frac{\partial f}{\partial y}\frac{\d y}{\d t}, 
   \]
   where $x$ and $y$ represent $r_1$ and $r_2$. Although this formula
   is more memorable, it does involve some abuse of notation: the
   symbols $x$ and $y$ are being used* as independent variables (in the
-  partial derivative expressions) and as function names (in $dx/dt$
-  and $dy/dt$). Also, on the left-hand side $f$ looks like it's being
+  partial derivative expressions) and as function names (in $\d x/\d t$
+  and $\d y/\d t$). Also, on the left-hand side $f$ looks like it's being
   treated as a function of a single variable; actually
-  $f\circ \mathbf{r}$ is the single-variable function one has in mind here.
-  \sidenote{using the same symbol to mean different things
+  $f\circ \mathbf{r}$ is the single-variable function that one has in mind here.
+  \sidenote{* using the same symbol to mean different things
     (relying on context to distinguish) is called
     \textit{overloading}}[-1cm]
 
@@ -3315,7 +3384,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   $\left(\tfrac{1}{2}, \tfrac{1}{2}\right)$.
 
   We could actually take a similar approach to this problem. We can
-  parametrize* the boundary of the disk as \sidenote{To
+  parametrize* the boundary of the disk as \sidenote{* To
     \textit{parametrize} a curve means to find a path which traces it
     out}
   \[
@@ -3419,16 +3488,18 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \end{wrapfigure}
   
   Imagine a bug moving around on the edge of the graph in
-  Figure~\ref{fig:lagrange}. How can it tell that it is \textit{not} at a
-  maximum or minimum? One approach is to calculate the gradient of $f$
-  at its location. If the gradient of $f$ is not orthogonal to
+  Figure~\ref{fig:lagrange}. How can it tell that it is \textit{not}
+  at a maximum or minimum? One approach is to calculate the gradient
+  of $f$ at its location. If the gradient of $f$ is not orthogonal to
   $\partial D$, then the value of the function can be increased by
-  sliding a bit in one direction* and can be decreased by sliding a bit
-  in the opposite direction. So, for example, in
+  sliding a bit in one direction* and can be decreased by sliding a
+  bit in the opposite direction. So, for example, in
   Figure~\ref{fig:lagrange2}, a bug at the point $p$ could increase
   the value of $f$ at its location by moving slightly clockwise and
   decrease the value of $f$ by moving slightly counterclockwise around
-  $\partial D$. \sidenote{Specifically, the direction in which }[-1cm]
+  $\partial D$. \sidenote{* Specifically, the direction where $\nabla
+    f$ is leaning (that is, the direction whose dot product with $\nabla f$
+    is positive)}[-1cm]
 
   Therefore, if the gradient of $f$ at a point is \textit{not}
   orthogonal to $\partial D$, then $f$ does not have an extreme
@@ -3453,7 +3524,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     \[
       \nabla f (\mathbf{x}) = \lambda \nabla g (\mathbf{x}). 
     \]
-  \end{theo} \sidenote{So far we've been considering the
+  \end{theo} \sidenote{* So far we've been considering the
     restriction of $f$ to the boundary of a region $D$, but the region
     $D$; any level set of a differential function $g$ will do}[-2cm]
 
@@ -3517,7 +3588,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   The following example is a 3D application of Lagrange multipliers. 
   
   \begin{example}{}{lagrange3d}
-    Find the maximum possible volume of a box made with 80 square
+    Find the maximum possible volume of a box made with 72 square
     centimeters of cardboard and having sides and a bottom but no
     top. 
   \end{example}
@@ -3542,7 +3613,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     = 0$ or $z= 0$ or  $x = y$. Since $\lambda = 0$ or $z = 0$ clearly
     give zero volume (and thus not the maximum volume), it follows
     that $x=y$. Substituting $y$ for $x$ in the third equation gives*
-    \sidenote{Once again, we can divide by $x$ because we know
+    \sidenote{* Once again, we can divide by $x$ because we know
       that $ x= 0$ wouldn't make sense for the maximum volume. }
     \[
       x^2 = 4 \lambda x \implies \lambda = \tfrac{x}{4}. 
@@ -3554,7 +3625,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
 
   \begin{exercise}{}{}
     Find the points on the ellipse $\left(\frac{x - 1}{2}\right)^2 +
-    (y-2)^2 = 1$ which are nearest and farther from the origin. Hint:
+    (y-2)^2 = 1$ which are nearest and farthest from the origin. Hint:
     for the objective function, use \textit{squared} distance rather
     than distance. 
   \end{exercise}
@@ -3589,7 +3660,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
       label("$\displaystyle{\sum_{i=0}^{n-1} f\left(\frac{i}{n}\right) \frac{1}{n}}$", (0.6,0.6)); 
       add(shift((3,0))*gr);
       draw((2.3,1/2)--(2.7,1/2),MidnightBlue,Arrow(3));
-      label("$\displaystyle{\int_0^1 f(x) \, dx}$", (3.6,0.6)); 
+      label("$\displaystyle{\int_0^1 f(x) \, \mathrm{d}x}$", (3.6,0.6)); 
       filldraw(shift((3,0))*(graph(f,0,2)--(2,0)--cycle),softgreen,MidnightBlue);
       real eps = 0.05;
     \end{asy}
@@ -3599,7 +3670,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
 
   In this section we will work out how to generalize this concept
   to integrate of functions of multiple variables over regions in
-  $\R^2$ or $\R^3$.* \sidenote{See Appendix~\ref{sec:centralidea} for a
+  $\R^2$ or $\R^3$.* \sidenote{* See Appendix~\ref{sec:centralidea} for a
     more in-depth discussion}
   
   \section{Double integration} \label{sec:double}
@@ -3613,8 +3684,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   take the number of pieces to $\infty$ and the piece size to zero,
   then this sum should converge to a number, and if it does then we
   declare that number to be the value of the integral.
-  \sidenote{Recall our convention that 1D volume is length and 2D
-    volume is area.}[-1.35cm] \sidenote{It doesn't ultimately matter
+  \sidenote{* Recall our convention that 1D volume is length and 2D
+    volume is area.}[-1.35cm] \sidenote{* It doesn't ultimately matter
     where we evaluate the function, since the piece is very
     small and the function is continous}[1cm]
   
@@ -3624,14 +3695,14 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \begin{defn}{Integral over a 2D region}{twoDintegral}
     Suppose $f: \R^2 \to \R$ is a continuous function, and that $D$ is a region in
     $\R^2$. Then the integral of $f$ over $D$, denoted*
-    $\iint_D f \, dA$, is defined to be
+    $\iint_D f \, \d A$, is defined to be
     \begin{equation} \label{eq:def2D}
-      \iint_D f \, dA = \lim_{n\to\infty} \sum_{(i,j) \, : \left(\frac{i}{n,} \,\frac{j}{n}\right) \in D}
+      \iint_D f \, \d A = \lim_{n\to\infty} \sum_{(i,j) \, : \left(\frac{i}{n,} \,\frac{j}{n}\right) \in D}
       f\left(\frac{i}{n,}\,\frac{j}{n}\right)
       \overbrace{\frac{1}{n^2}}^{\Delta A} \:,  
     \end{equation}
     where the sum includes one term for each integer pair $(i,j)$ such
-    that $(i/n,j/n)$ is in the region $D$.   \sidenote{The $A$ in $dA$ stands for area.}[-25mm]
+    that $(i/n,j/n)$ is in the region $D$.   \sidenote{* The $A$ in $\d A$ stands for area.}[-25mm]
   \end{defn}
 
   \begin{figure}
@@ -3774,7 +3845,9 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   bootstrap our way up from 1D integrals to 2D integrals by applying
   our primary strategy for tackling higher dimensional problems: slice
   it up. Let's start by considering integrals over rectangular regions
-  $D$.
+  $D$. \sidenote{* The fundamental theorem of calculus says that the
+    integral of $f$ from $a$ to $b$ is equal to $F(b)-F(a)$ where $F$
+    is an antiderivative of $f$}[-1cm]
 
   \begin{example}{}{integral2d}
     Find the integral of $f(x,y) = y \sin(\pi x y)$ over the square $[0,1]^2$. 
@@ -3788,11 +3861,11 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
       particular $y$-value, is given by* the thickness $\Delta y$ times
       the area $A(y)$ under the graph of the single-variable function
       $x\mapsto f(x,y)$. So we can use the fundamental theorem of
-      calculus to compute \sidenote{$\ldots$ignoring an error, having to
+      calculus to compute \sidenote{* $\ldots$ignoring an error, having to
         do with the top of the slice not being flat---this error tends
         to zero as the number of slices tends to infinity}[-1cm]
       \begin{align*}
-        A(y) &= \int_0^1 y \sin (\pi xy) \, dx = 
+        A(y) &= \int_0^1 y \sin (\pi xy) \, \d x = 
                \left.-\frac{\cos\left(\pi x y\right)}{\pi}\right|_0^1 \\
              &= \frac{1- \cos \pi y }{\pi}. 
       \end{align*}
@@ -3854,10 +3927,10 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     
     \[
       \sum_{\text{all slices}} A(y) \Delta y \to \int_{0}^1 A(y) \,
-      dy. 
+      \d y. 
     \]
     We can again evaluate this integral using the fundamental theorem to get
-    a final answer* of $\boxed{\frac{1}{\pi}}$. \sidenote{
+    a final answer of $\boxed{\frac{1}{\pi}}$. \sidenote{ 
       \href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/riemann_sum.ipynb}{\cocalc} For some
       confidence that our answer is reasonable, we can calculate a
       Riemann sum for this integrand.  
@@ -3866,8 +3939,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
 
   We can express this process more succinctly as
   \begin{equation} \label{eq:iteratedintegral} 
-    \int_0^1 \int_0^1 y \sin (\pi xy) \, dx \, dy =
-    \int_0^1 \frac{1-\cos \pi y}{\pi}\, dy = \frac{1}{\pi}. 
+    \int_0^1 \int_0^1 y \sin (\pi xy) \, \d x \, \d y =
+    \int_0^1 \frac{1-\cos \pi y}{\pi}\, \d y = \frac{1}{\pi}. 
   \end{equation}
   The first expression in \eqref{eq:iteratedintegral} is called an
   \textbf{iterated integral}, since it expresses an integral over a 2D
@@ -3890,11 +3963,11 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
       distance from the $xz$-plane and $A(y)$ is the area of the
       cross-section (see figure). Since this cross section is an area
       under a curve, we can find it by integrating $x\mapsto f(x,y)$
-      over the set of relevant $x$-values:* \sidenote{We can find
+      over the set of relevant $x$-values:* \sidenote{* We can find
         the formula $2 - \tfrac{2}{3}y$ by writing an equation for the
         line connecting $(2,0)$ to $(0,3)$ and solving for $x$}
       \[
-        A(y) = \int_{0}^{2 - \frac{2}{3} y} f(x,y) \, dx. 
+        A(y) = \int_{0}^{2 - \frac{2}{3} y} f(x,y) \, \d x. 
       \]
       Thus
       $A(y) = \frac{1}{3}\left( 2- \frac{2}{3} y\right)^3 y
@@ -3902,9 +3975,9 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     Finally, adding up all these areas and taking $\Delta y \to 0$
     gives the result 
     \[
-      \int_0^3 A(y) \, dy = \int_0^3 \left(-\frac{8}{81} \, y^{4} +
+      \int_0^3 A(y) \, \d y = \int_0^3 \left(-\frac{8}{81} \, y^{4} +
         \frac{8}{9} \, y^{3} - \frac{8}{3} \, y^{2} + \frac{8}{3} \, y \right)\,
-      dy = \boxed{\frac{6}{5}}. 
+      \d y = \boxed{\frac{6}{5}}. 
     \]
   \end{minipage}
   \begin{minipage}{0.34\textwidth}
@@ -4033,8 +4106,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     \end{itemize}
     Then
     \[
-      \iint_D f \, dA = \int_a^b \int_{c(y)}^{d(y)} f(x,y) \, dx \,
-      dy. 
+      \iint_D f \, {\d}A = \int_a^b \int_{c(y)}^{d(y)} f(x,y) \, \d x \,
+      \d y. 
     \]
   \end{minipage}
   \begin{minipage}{0.29\textwidth}
@@ -4080,13 +4153,13 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
 
 In light of
 Theorem~\ref{th:iterated}, we sometimes write the area differential*
-as $dA = dx \, dy$. We can describe the procedure in
-Theorem~\ref{th:iterated} more casually: \sidenote{Think of $dA$ merely as a reminder that the positive
+as $\d A = \d x \, \d y$. We can describe the procedure in
+Theorem~\ref{th:iterated} more casually: \sidenote{* Think of $\d A$ merely as a reminder that the positive
   quantity $\Delta A$ involved in the corresponding Riemann sums
   represents an area}[-1cm]
 \begin{obs}{Limits of integration over a 2D
     region}{evaluating_integrals}
-      To set up an iterated integral to evaluate $\iint_D f \, dA$ (where $f$ is continuous and $D$ is a
+      To set up an iterated integral to evaluate $\iint_D f \, {\d}A$ (where $f$ is continuous and $D$ is a
     region such that the intersection of every horizontal line with
     $D$ is a segment): 
   \begin{enumerate}
@@ -4107,7 +4180,7 @@ lines in Step 2). The following exercise shows how this can be useful.
 \begin{exercise}{}{}
   Find
   \[
-    \int_0^{1/2} \int_{2y}^1 4e^{x^2}\, dx\, dy
+    \int_0^{1/2} \int_{2y}^1 4e^{x^2}\, \d x\, \d y
   \]
   by first rewriting it as an integral over a 2D
   region and then reversing the order of integration.
@@ -4133,7 +4206,7 @@ function being integrated.
 \begin{example}{}{}
   Consider a square plate occupying the square $[1,3]^2$ whose density
   at each point is $\sigma(x,y) = xy$ kilograms per square meter.* Find
-  the mass of the plate. \sidenote{See the figure in the solution,
+  the mass of the plate. \sidenote{* See the figure in the solution,
   where darker color indicates a denser portion of the plate}
 \end{example}
 
@@ -4149,7 +4222,7 @@ function being integrated.
     which converges as the number of small squares goes to $\infty$ to
     the integral 
     \[
-      \int_1^3 \int_1^3 xy \, dx \, dy = \boxed{8} \text{ kilograms}. 
+      \int_1^3 \int_1^3 xy \, \d x \, \d y = \boxed{8} \text{ kilograms}. 
     \]
     \end{minipage} 
     \begin{minipage}{0.29\textwidth} 
@@ -4202,7 +4275,7 @@ Let's do a three-dimensional example.
     $(x,y,z)$ is approximately equal to the product of its volume
     $\tfrac{1}{n^3}$ and the approximate density $\rho(x,y,z)$
     throughout the small cube. So the approximate volume is
-    \sidenote{Any corner, or indeed any point in the cube, would
+    \sidenote{* Any corner, or indeed any point in the cube, would
       give the same result---we choose the bottom, back corner (the
       point nearest the origin) for concreteness}[-1cm]
     \[
@@ -4214,7 +4287,7 @@ Let's do a three-dimensional example.
     continuous function $f:\R^3 \to \R$: we define the integral of $f$ over $D$
     by 
     \[
-      \iiint_D f(x,y,z) \, dV = \lim_{n\to\infty} \sum_{(i,\,j,\,k) \,:
+      \iiint_D f(x,y,z) \, {\d}V = \lim_{n\to\infty} \sum_{(i,\,j,\,k) \,:
         \left(\frac{i}{n,} \, \frac{j}{n,} \, \frac{k}{n} \right) \in D}
       f\left(\frac{i}{n,} \, \frac{j}{n,} \, \frac{k}{n}
       \right)\frac{1}{n^3}. 
@@ -4287,18 +4360,18 @@ We can calculate the integral by slicing up the region of
   slab. This works the same as double iterated integration, but with
   one extra step. Rather than writing $\Delta z$ and then taking a
   limit to turn $\Delta z$ into $dz$, we'll skip to the limit and work
-  directly with $dz$* \sidenote{This is a general theme: we
+  directly with $dz$* \sidenote{* This is a general theme: we
     contract the following two steps into a single step (by writing
     $dz$ instead of $\Delta z$ from the outset): (i) reason
     about sums involving a small but positive quantity $\Delta z$, and
     (ii) replace the sum with an integral over the relevant $z$ values
     and replace $\Delta z$ with $dz$ }
   \begin{align*}
-    \text{mass} &= \int_1^2 \overbrace{\int_1^2 \int_1^2 (x^2 + y^2 + z^2) \, dx
-                  \, dy \, dz}^{\text{mass of slice from $z$ to $z + dz$}} \\
-                &= \int_1^2 \int_1^2 \left(y^{2} + z^{2} + \frac{7}{3}\right) \, dy
-                  \, dz \\
-                &= \int_1^2 \left(z^2 + \frac{14}{3}\right) \, dz \\
+    \text{mass} &= \int_1^2 \overbrace{\int_1^2 \int_1^2 (x^2 + y^2 + z^2) \, \d x
+                  \, \d y \, {\d}z}^{\text{mass of slice from $z$ to $z + dz$}} \\
+                &= \int_1^2 \int_1^2 \left(y^{2} + z^{2} + \frac{7}{3}\right) \, \d y
+                  \, {\d}z \\
+                &= \int_1^2 \left(z^2 + \frac{14}{3}\right) \, {\d}z \\
                 &= \boxed{7} \text{ kilograms}. 
   \end{align*}
 \end{solution}
@@ -4311,7 +4384,7 @@ breaking down the 3D region of integration into 2D slices.
   Suppose $f$ is a continuous function over a region $D$ which is
   bounded between the planes $z = a$ and $z = b$. For each
   $z \in (a,b)$, define $D_z \subset \R^2$ to be the region*
-  \sidenote{$D_z$ is the region obtained by intersecting $D$ with
+  \sidenote{* $D_z$ is the region obtained by intersecting $D$ with
     the plane which is $z$ units from the $xy$-plane and then dropping
     off the third coordinate.}
   \[
@@ -4319,8 +4392,8 @@ breaking down the 3D region of integration into 2D slices.
   \]
   Then
   \[
-    \iiint _D f \, dV =
-    \int_a^b \left[\iint_{D_z} f(x,y,z) \, dx \, dy \right] \, dz, 
+    \iiint _D f \, {\d}V =
+    \int_a^b \left[\iint_{D_z} f(x,y,z) \, \d x \, \d y \right] \, {\d}z, 
   \]
 \end{theo}
 
@@ -4330,7 +4403,7 @@ Observation~\ref{obs:evaluating_integrals}):
 
 \begin{obs}{Limits of integration over a 3D
     region}{evaluating_3d_integrals}
-  To set up an iterated integral to evaluate $\iiint_D f \, dV$: 
+  To set up an iterated integral to evaluate $\iiint_D f \, {\d}V$: 
   \begin{enumerate}[itemsep=3pt, topsep = 8pt]
 \item Find the least and greatest $z$ values for any point in
   $D$. These are your \textbf{outer limits} of integration. 
@@ -4357,13 +4430,13 @@ Observation~\ref{obs:evaluating_integrals}):
     The volume of a region is equal to the integral of the constant
     function 1 over that region:
     \[
-      \text{volume}(D) = \iiint_D 1 \, dV, 
+      \text{volume}(D) = \iiint_D 1 \, {\d}V, 
     \]
-    because $\iiint_D 1 \, dV$ is equal to the mass of a solid
+    because $\iiint_D 1 \, {\d}V$ is equal to the mass of a solid
     occupying the region $D$ and having density 1 at every point. But
     if a solid has a constant mass density of 1, then its mass is
-    equal to its volume.* \sidenote{Alternatively, note that
-      calculating the Riemann sums approximating $\iiint_D 1 \, dV$
+    equal to its volume.* \sidenote{* Alternatively, note that
+      calculating the Riemann sums approximating $\iiint_D 1 \, {\d}V$
       amounts to splitting $D$ into small pieces and summing their
       volumes.}
 
@@ -4434,25 +4507,28 @@ Observation~\ref{obs:evaluating_integrals}):
   So we get
   \begin{align*}
     \text{volume}(D) &= \int_{0}^{4}\int_{0}^{3-\frac{3}{4}z}\int_{0}^{2 - \frac{2}{3}y -
-                       \frac{1}{2}z} 1 \, dx \, dy \, dz  \\
+                       \frac{1}{2}z} 1 \, \d x \, \d y \, {\d}z  \\
                      &= \int_{0}^{4}\int_{0}^{3-\frac{3}{4}z} \left(2 - \frac{2}{3}y -
-                       \frac{1}{2}z \right) \, dy \, dz \\ 
-                     &= \int_{0}^{4} \frac{3}{16}(z-4)^2 \, dz \\
+                       \frac{1}{2}z \right) \, \d y \, {\d}z \\ 
+                     &= \int_{0}^{4} \frac{3}{16}(z-4)^2 \, {\d}z \\
                      &= \boxed{4}. 
   \end{align*}
 \end{solution}
 
-There is nothing special about the order $dx \, dy \, dz$---any way of
-slicing up the region gives the same result. The following exercise 
+There is nothing special about the order $\d x \, \d y \, {\d}z$---any way of
+slicing up the region gives the same result. The region of integration
+for the following exercise can be sliced up six different ways, and
+you can check that the integral is the same with respect to all the
+different orders of integration. 
 
 \begin{exercise}{}{}
   Write the iterated integral
   \[
-    \int_0^1 \int_{\sqrt{x}}^1\int_0^{1-y} f(x,y,z) \,dz \, dy \, dx. 
+    \int_0^1 \int_{\sqrt{x}}^1\int_0^{1-y} f(x,y,z) \,\d z \, \d y \, \d x. 
   \]
   as an integral over a 3D region. Then sketch that region and use
   your figure to rewrite the integral in five other ways, using the
-  five other permutations of $x$-$y$-$z$.
+  five other permutations of $(x,y,z)$. 
 \end{exercise}
 
 \newpage 
@@ -4495,9 +4571,9 @@ directly in polar coordinates. Let's do an example.
     Now, for fixed $\theta$, we can add up all the coordinate patches
     between $\theta$ and $\theta + \Delta \theta$, and this sum of
     areas is approximately equal to the product of 
-    $\Delta \theta$ the integral
+    $\Delta \theta$ and the integral
     \[
-      \int_0^{1+\cos \theta} r \, dr. 
+      \int_0^{1+\cos \theta} r \, {\d}r. 
     \]
       \end{minipage} 
       \begin{minipage}{0.42\textwidth}
@@ -4586,9 +4662,9 @@ directly in polar coordinates. Let's do an example.
       Adding up these areas over all $\theta$ from $0$ to $2\pi$, we
       get
       \[
-        \int_0^{2\pi} \int_0^{1+\cos \theta} r \, dr \, d\theta =
-                \int_0^{2\pi}\frac{1}{2}(1+\cos \theta)^2 \, d\theta \,
-                d\theta  =  \boxed{\frac{3\pi}{2}}. 
+        \int_0^{2\pi} \int_0^{1+\cos \theta} r \, \d r \, \d\theta =
+        \int_0^{2\pi}\frac{1}{2}(1+\cos \theta)^2 \, \d\theta
+        =  \boxed{\frac{3\pi}{2}}. 
               \]
               
               
@@ -4598,12 +4674,12 @@ directly in polar coordinates. Let's do an example.
     in the patch. Since our function is defined in terms of $x$ and
     $y$, we need to substitute $x = r\cos \theta$ and $x = r\sin
     \theta$ to discover the value of $f$ at the point whose polar
-    coordinates are $(r,\theta)$. So we get*
+    coordinates are $(r,\theta)$. So we get
     \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/polar_integral.ipynb}{\cocalc} This one is tedious if done by
       hand, so we use computer algebra assistance.}
     \[
       \int_0^{2\pi} \int_0^{1+\cos \theta} (r \cos\theta + r\sin
-      \theta)r \, dr \, d\theta = \boxed{\frac{5\pi}{4}}. 
+      \theta)r \, {\d}r \, \d\theta = \boxed{\frac{5\pi}{4}}. 
     \]
 \end{solution}
 
@@ -4617,26 +4693,26 @@ rectangular integration:
 \item For each fixed value of $\theta$, find the least and greatest
   values of $r$ for any point on the ray of angle $\theta$ and in the
   region of integration
-\item Include the area differential* $dA = r \, dr \, d\theta$
+\item Include the area differential* $\d A = r \, {\d}r \, \d\theta$
 \item Substitute $x = r \cos\theta$ and $y=r\sin \theta$ into $f$, so
   that your integrand varies appropriately as $r$ and $\theta$ vary 
-  \sidenote{Don't forget the extra factor of $r$ in the polar area
+  \sidenote{* Don't forget the extra factor of $r$ in the polar area
     differential!}[-1cm]
 \end{enumerate}
 \end{obs}
 
 This same basic idea can be carried out in cylindrical and spherical
 coordinates. The ingredients we need are (i) the volume differential
-$dV$ expressed in terms of cylindrical and spherical coordinates, and
+$\d V$ expressed in terms of cylindrical and spherical coordinates, and
 (ii) the formulas for $x, y, z$ in terms of $r, \theta, z$ and in
 terms of $\rho, \theta, \phi$. This information is listed in
 Appendix~\ref{sec:polarref}. The only surprising entry in the tables
-of that appendix is the spherical coordinate volume differential $dV =
-\rho^2 \sin \phi \, d\rho \, d \phi \, d\theta$.
+of that appendix is the spherical coordinate volume differential $\d V =
+\rho^2 \sin \phi \, {\d}\rho \, {\d} \phi \, \d\theta$.
 
 \begin{example}{Spherical coordinate volume differential}{voldiff}
-  Explain why the volume differential in spherical coordinates is $dV =
-\rho^2 \sin \phi \, d\rho \, d \phi \, d\theta$. 
+  Explain why the volume differential in spherical coordinates is $\d V =
+\rho^2 \sin \phi \, {\d}\rho \, {\d} \phi \, \d\theta$. 
 \end{example}
 
 \begin{solution}
@@ -4648,7 +4724,7 @@ of that appendix is the spherical coordinate volume differential $dV =
     $[\phi, \phi+\Delta \phi]$, respectively (see the top figure,
     where a wedge has been decomposed into spherical coordinate
     patches). Thus we must calculate the approximate volume of one
-    such patch. \sidenote{Here $(\rho, \theta, \phi)$ are the
+    such patch. \sidenote{* Here $(\rho, \theta, \phi)$ are the
       spherical coordinates of one of the corners of the patch.}
 
     When $\Delta \rho$, $\Delta \theta$, and $\Delta \phi$ are all
@@ -4929,7 +5005,7 @@ of that appendix is the spherical coordinate volume differential $dV =
 \begin{solution}
   \begin{minipage}{0.65\textwidth}
     Let's set up the iterated integral with the order
-    $d\rho\, d\phi\, d\theta$. The solid has points with $\theta$
+    $d\rho\, {\d}\phi\, \d\theta$. The solid has points with $\theta$
     values as small as $0$ and as large as $2\pi$, so the outer limits
     will be $0$ and $2\pi$.
 
@@ -4992,14 +5068,14 @@ of that appendix is the spherical coordinate volume differential $dV =
 
 For the integrand, we should substitute the spherical coordinate
 formulas for $x$, $y$, and $z$. However, we know that it will simplify
-to $\frac{1}{\rho^2}$, since $\rho^2 = x^2 + y^2 + z^2$. So we get*
+to $\frac{1}{\rho^2}$, since $\rho^2 = x^2 + y^2 + z^2$. So we get
 \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/cone_integral.ipynb}{\cocalc}
   Help with calculating this integral}
 \[
   \int_{0}^{2\pi}\int_0^{\pi/4} \int_0^{\sec \phi} \rho^{-2} \rho^2 \sin
-  \phi \, d\rho \, d\phi \, d\theta =
+  \phi \, {\d}\rho \, {\d}\phi \, \d\theta =
   \int_{0}^{2\pi}\int_0^{\pi/4} \sec\phi \sin
-  \phi \, d\rho \, d\phi \, d\theta = (2\pi)(\tfrac{1}{2} \ln 2) =
+  \phi \, {\d}\rho \, {\d}\phi \, \d\theta = (2\pi)(\tfrac{1}{2} \ln 2) =
   \boxed{\pi \ln 2}.
 \]
 \end{solution}
@@ -5011,7 +5087,7 @@ to $\frac{1}{\rho^2}$, since $\rho^2 = x^2 + y^2 + z^2$. So we get*
 
 \begin{exercise}{}{}
   Find \[\int_{-2}^2 \int_{-\sqrt{4-x^2}}^{\sqrt{4-x^2}}
-  \int_{\sqrt{x^2 + y^2}}^2 (x^2 + y^2) \, dz \, dy \, dx\] by writing
+  \int_{\sqrt{x^2 + y^2}}^2 (x^2 + y^2) \, {\d}z \, \d y \, \d x\] by writing
   it as integral over a 3D region and then rewriting that integral
   using cylindrical coordinates. 
 \end{exercise}
@@ -5026,7 +5102,7 @@ systems. In this section we will develop a general program for
 integrating with respect to a custom-designed coordinate system.
 
 \begin{example}{}{change_of_variables}
-  Find $\iint_D y^2 \, dA$, where $D$ is the region in the first
+  Find $\iint_D y^2 \, {\d}A$, where $D$ is the region in the first
   quadrant bounded by the lines
   through the origin of slope $\tfrac{1}{2}$ and $2$, as well as the
   hyperbolas $xy = 1$ and $xy = 3$. 
@@ -5109,7 +5185,7 @@ integrating with respect to a custom-designed coordinate system.
   $(u,v)$ pair to its corresponding $(x,y)$ pair, as shown in the
   figure. If we want to find a formula for this map, we can solve the
   system $y = ux$ and $xy = v$ for $x$ and $y$ to find that
-  $y = \sqrt{uv}$ and $x = \sqrt{v/u}$.  \sidenote{These specify,
+  $y = \sqrt{uv}$ and $x = \sqrt{v/u}$.  \sidenote{* These specify,
     respectively, which line through the origin and which hyperbola
     the point is on}[-5mm]
 
@@ -5137,7 +5213,7 @@ integrating with respect to a custom-designed coordinate system.
     (\partial_v h)(u,v) \Delta v). 
   \end{equation}
   Thus the area of the image of $[u, u+\Delta u] \times [v, v + \Delta
-  v]$ under $T$ is approximately* \sidenote{The four entries of the
+  v]$ under $T$ is approximately* \sidenote{* The four entries of the
     matrix below come from the coefficients of $\Delta u$ and $\Delta
     v$ in \eqref{eq:Tu} and \eqref{eq:Tv}}[-1cm]
   \[
@@ -5150,16 +5226,14 @@ integrating with respect to a custom-designed coordinate system.
     \left| \det \left[
       \begin{array}{cc}
         -\frac{1}{2}\sqrt{v}u^{-3/2} & \frac{1}{2\sqrt{uv}} \\
-        \sqrt{v}(2\sqrt{u}) & \sqrt{u}(2\sqrt{v})
+        \frac{\sqrt{v}}{2\sqrt{u}} & \frac{\sqrt{u}}{2\sqrt{v}}
       \end{array} \right]
-      \right| \Delta u \Delta v  = \left(\frac{v}{u} + 1\right)
+      \right| \Delta u \Delta v  = \frac{1}{2u}
       \Delta u \Delta v. 
     \]
-    As usual, we may take $\Delta u, \Delta v \to 0$ to get*
-    \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/change_of_variables.ipynb}{\cocalc}
-    for help with this integral}
-    $\displaystyle{\int_{1}^{3}\int_{1/2}^{2}uv \left(\frac{v}{u} + 1\right) = 
-    du \, dv = \boxed{\frac{41}{2}}}$. 
+    As usual, we may take $\Delta u, \Delta v \to 0$ to get 
+    $\displaystyle{\int_{1}^{3}\int_{1/2}^{2}uv \frac{1}{2u}  
+    \d u \, {\d}v = \boxed{3}}$. 
   \end{solution}
 
   The matrix $\left[
@@ -5170,7 +5244,7 @@ integrating with respect to a custom-designed coordinate system.
     its determinant is called the \textit{Jacobian determinant}. Often we just say
     ``Jacobian'', relying on context to distinguish. It can be written
     as $\left|\frac{\partial (x,y)}{\partial (u,v)} \right|$ for
-    short.* \sidenote{Note that in this new notation, the symbols
+    short.* \sidenote{* Note that in this new notation, the symbols
       $g$ and $h$ are replaced by $x$ and $y$. Thus we are abusing notation by
       regarding $x$ and $y$ as functions of $u$ and $v$, even though
       they also represent independent variables}[-1cm]
@@ -5183,8 +5257,8 @@ integrating with respect to a custom-designed coordinate system.
     that maps a region $R$ one-to-one onto a region $D$. Then for any
     continuous function $f$, we have 
     \[
-      \iint_D f(x,y) \, dx\, dy = \iint_R f(T^{-1}(x,y)) \left|
-        \frac{\partial (x,y)}{\partial (u,v)} \right| \, du \, dv. 
+      \iint_D f(x,y) \, \d x\, \d y = \iint_R f(T^{-1}(x,y)) \left|
+        \frac{\partial (x,y)}{\partial (u,v)} \right| \, {\d}u \, {\d}v. 
     \]
   \end{theo}
 
@@ -5192,7 +5266,7 @@ integrating with respect to a custom-designed coordinate system.
 
   \begin{exercise}{}{}
     Use the change of variables $x = u^2 - v^2$, $y = 2uv$ to evaluate the
-integral $\iint_R y \,dA$, where $R$ is the region above by the $x$-axis
+integral $\iint_R y \,\d A$, where $R$ is the region above by the $x$-axis
 bounded by the parabolas $y^2 = 4-4x$ and $y^2 = 4+4x$. 
 \end{exercise}
 
@@ -5245,7 +5319,7 @@ $n$ is $2$ or $3$). In this chapter we work with functions
 from $\R^n$ to $\R^2$ or $\R^3$. How should such functions be
 visualized? Let's begin by considering how they arise in applications.
 
-\sidenote{Many other physical phenomena, such as electromagnetic
+\sidenote{* Many other physical phenomena, such as electromagnetic
   forces, heat flow, fluid flow are modeled as vector fields. } To
 describe the gravitational force* felt by a particle, we would use a
 function with a three-dimensional input (to specify the particle's
@@ -5305,7 +5379,7 @@ along a path in the presence of a force field (see
 Figure~\ref{fig:trigvectorfield}).* Sometimes the particle is moving
 with the force field and getting a boost from it, whereas other times
 it's working against the force field. How much net work does it take
-to move along the path? \sidenote{A
+to move along the path? \sidenote{* A
   vector field in which the vectors represent a physical force}[-1cm]
 
 If the force field were constant and the path straight, then we get
@@ -5348,7 +5422,7 @@ to varying force and a curvy path? We can cut up the path into small
 pieces, handle each small piece by treating the force as approximately
 constant and the path as approximately straight, and then adding up
 the amount of work for each small piece. We will assume that our path
-$\mathbf{r}(t)$ is differentiable.* \sidenote{The curve could
+$\mathbf{r}(t)$ is differentiable.* \sidenote{* The curve could
   alternatively by \textit{piecewise} differentiable, meaning that the
   curve is non-differentiable at only finitely many points}[-1cm]
 
@@ -5357,7 +5431,7 @@ ranges from $a$ to $b$. Over the time interval $[t,t+\Delta t]$, the
 particle is displaced by* the vector $\mathbf{r}'(t) \, \Delta t$, and
 the force it feels over that time is* to $\mathbf{F}(\mathbf{r}(t))$.
 Therefore, the contribution from the time period $[t, t+\Delta t]$ is
-equal to \sidenote{Approximately, with an error that vanishes as
+equal to \sidenote{* Approximately, with an error that vanishes as
   $\Delta t \to 0$}
 \[
   \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, \Delta t. 
@@ -5365,12 +5439,12 @@ equal to \sidenote{Approximately, with an error that vanishes as
 Summing all these contributions and taking $\Delta t \to 0$, we arrive
 at the formula
 \[
-  W = \int_a^b \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, dt =
-  \int_C \mathbf{F} \cdot d\mathbf{r}, 
+  W = \int_a^b \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}'(t) \, {\d}t =
+  \int_C \mathbf{F} \cdot \d\mathbf{r}, 
 \]
 where the last expression is an abbreviation for the middle
 expression. We call an integral of the form $\int_C \mathbf{F} \cdot
-d\mathbf{r}$ a \textbf{line integral}. 
+\d\mathbf{r}$ a \textbf{line integral}. 
 
 \begin{example}{}{}
   Find the line integral of $\mathbf{F}(x,y) = \langle xy, y \rangle$
@@ -5388,7 +5462,7 @@ d\mathbf{r}$ a \textbf{line integral}.
   origin is visited at time $t=0$. Therefore, 
   \[
     W = \int_0^2 \langle t(t^2), t^2 \rangle \cdot \langle 1, 2t \rangle
-    \, dt = \int_0^2 (t^3 + 2t^3) \, dt = \boxed{12}. 
+    \, {\d}t = \int_0^2 (t^3 + 2t^3) \, {\d}t = \boxed{12}. 
   \]
 \end{solution}
 
@@ -5405,11 +5479,11 @@ example.
   also by $\mathbf{r}_2$ over $[c,d]$, then
   \[
     \int_a^b\mathbf{F}(\mathbf{r}_1(t))  \cdot \,
-    \mathbf{r}'_1(t) \, dt =
+    \mathbf{r}'_1(t) \, {\d}t =
     \int_c^d \mathbf{F}(\mathbf{r}_2(t))  \cdot \,
-    \mathbf{r}'_2(t) \, dt. 
+    \mathbf{r}'_2(t) \, {\d}t. 
   \]
-  In other words, $\int_C \mathbf{F} \cdot d\mathbf{r}$ depends only
+  In other words, $\int_C \mathbf{F} \cdot \d\mathbf{r}$ depends only
   on the curve $C$, not the choice of parametrization. 
 \end{theo}
 
@@ -5426,7 +5500,7 @@ example.
 \begin{exercise}{}{}
   Consider the vector field $\mathbf{F}$ and path $C$ shown in
   Figure~\ref{fig:trigvectorfield}. Is
-  $\int_C \mathbf{F} \cdot d\mathbf{r}$ positive or negative?
+  $\int_C \mathbf{F} \cdot \d\mathbf{r}$ positive or negative?
 \end{exercise}
 
 \section{The fundamental theorem of vector calculus} \label{sec:line_integrals}
@@ -5437,6 +5511,49 @@ integrals}
 \begin{wrapfigure}[17]{R}[1cm]{6cm}
   \begin{asy}[width=5cm]
     import graph;
+    picture vectorfieldmid(path vector(pair), pair a, pair b,
+    int nx=nmesh, int ny=nx, bool truesize=false,
+    real maxlength=truesize ? 0 : maxlength(a,b,nx,ny),
+    bool cond(pair z)=null, pen p=currentpen,
+    arrowbar arrow=Arrow, margin margin=PenMargin)
+    {
+      picture pic;
+      real dx=1/nx;
+      real dy=1/ny;
+      bool all=cond == null;
+      real scale;
+      
+      if(maxlength > 0) {
+        real size(pair z) {
+          path g=vector(z);
+          return abs(point(g,size(g)-1)-point(g,0));
+        }
+        real max=size(a);
+        for(int i=0; i <= nx; ++i) {
+          real x=interp(a.x,b.x,i*dx);
+          for(int j=0; j <= ny; ++j)
+          max=max(max,size((x,interp(a.y,b.y,j*dy))));
+        }
+        scale=max > 0 ? maxlength/max : 1;
+      } else scale=1;
+      
+      for(int i=0; i <= nx; ++i) {
+        real x=interp(a.x,b.x,i*dx);
+        for(int j=0; j <= ny; ++j) {
+          real y=interp(a.y,b.y,j*dy);
+          pair z=(x,y);
+          if(all || cond(z)) {
+            path g=scale(scale)*vector(z);
+            if(truesize)
+            draw(z,pic,g,p,arrow);
+            else
+            draw(pic,shift(-point(g,size(g)-1)/2)*shift(z)*g,p,arrow,margin);
+          }
+        }
+      }
+      return pic;
+    }
+    
     size(6cm);
 
     pair a = (-2,-2);
@@ -5444,7 +5561,7 @@ integrals}
 
     path vector(pair z) {return (0,0)--(-z.y,z.x);}
 
-    add(vectorfield(vector,a,b,gray,arrow=Arrow(3)));
+    add(vectorfieldmid(vector,a,b,gray,arrow=Arrow(3)));
 
     path p = graph(new pair (real t) {return (cos(t),sin(t));}, 0, pi, Spline); 
     pen wirepen = MidnightBlue; 
@@ -5476,7 +5593,7 @@ blue (top) path is positive, while the line integral along the orange
 
 However, there is an important class of vector fields which are
 path-independent, meaning that the value of $\int_C \mathbf{F} \cdot
-d\mathbf{r}$ depends only on the starting and ending points of $C$.
+\d\mathbf{r}$ depends only on the starting and ending points of $C$.
 These are the vector fields which can be written as the gradient of a
 function from $\R^n$ to $\R^1$. For example, $\mathbf{F}(x,y,z) =
 \langle -2x, -2y, z \rangle$ is the gradient of the function
@@ -5489,7 +5606,7 @@ If we calculate the line integral of $\nabla f$ along a curve $C$
 parametrized by $\mathbf{r}(t) = \langle r_1(t), r_2(t), r_3(t) \rangle$,
 then the contribution from the portion of the curve from
 $\mathbf{r}(t)$ to $\mathbf{r}(t+\Delta t)$ is*
-\sidenote{approximately, with an error that vanishes a  $\Delta t
+\sidenote{* approximately, with an error that vanishes a  $\Delta t
   \to 0$}[1cm]
 \[
   \langle \partial_x f, \partial_y f, \partial_z f \rangle \cdot
@@ -5504,12 +5621,12 @@ the beginning to the end of the path.
   If $C$ is a path from $\mathbf{a}$ to $\mathbf{b}$ and $f$ is a
   differentiable function, then 
   \[
-    \int_C \nabla f \, d\mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}). 
+    \int_C \nabla f \cdot \, {\d}\mathbf{r} = f(\mathbf{b}) - f(\mathbf{a}). 
   \]
 \end{theo}
 
 \begin{example}{}{}
-  Suppose $\mathbf{F}(x,y,z) = \langle 2  x y^{3} z, 3 \, x^{2} y^{2}
+  Suppose $\mathbf{F}(x,y,z) = \langle 2  x y^{3} z, 3  x^{2} y^{2}
   z + y, x^{2} y^{3} \rangle$ and that $C$ is circular arc from the
   origin to the point $(1,1,1)$ and passing through the point
   $(1/2,1/2,1)$. Find $\int_C \mathbf{F} \cdot d \mathbf{r}$. 
@@ -5569,8 +5686,7 @@ establishes existence or nonexistence of a gradient function.
       -\frac{y}{{x^2+y^2}},
       \frac{x}{{x^2+y^2}}
     \right\rangle. 
-  \]
-  
+  \]  
   (ii) Show by plotting this vector field that it is not
   conservative. How does this square with Theorem~\ref{th:conservativetest}. 
 \end{exercise}
@@ -5592,20 +5708,20 @@ inspection of the region inside the curve. However, the
 motion of its wheels as its tip traverses the boundary of the region. The
 design of the planimeter takes advantage of the following beautiful
 relationship between line integrals along the boundary of a curve and
-and area integrals over the region it encloses. \sidenote{Invented
+area integrals over the region it encloses. \sidenote{* Invented
   in 1854}[-1cm]
 
 \begin{theo}{Green's theorem}{green}
   If $\mathbf{F} = \langle M, N\rangle$ is a vector field* on $\R^2$
   with continuous partial derivatives and if $D$ is a region bounded by a
   simple, counterclockwise oriented, piecewise smooth curve $C$, then
-  \sidenote{$\mathbf{F} = \mathbf{F}(x,y)$ and similarly for $M$
+  \sidenote{* $\mathbf{F} = \mathbf{F}(x,y)$ and similarly for $M$
     and $N$; we will begin using these abbreviations for notational
     convenience; bear in mind that $\mathbf{F}$ always represents
   a vector field which implicitly depends on $(x,y)$ or $(x,y,z)$}
   \[
-    \int_C \mathbf{F} \cdot d\mathbf{r} = \iint_D \left(\partial_x N -
-      \partial_y M \right) \, dA. 
+    \int_C \mathbf{F} \cdot \d\mathbf{r} = \iint_D \left(\partial_x N -
+      \partial_y M \right) \, {\d}A. 
   \]
 \end{theo}
 
@@ -5619,15 +5735,15 @@ and area integrals over the region it encloses. \sidenote{Invented
   t)$, and we calculate the line integral
   \[
     \int_0^{2\pi} \langle 0, \cos t \rangle \cdot \langle -\sin t, \cos
-    t \rangle \, dt = \int_0^{2\pi} \cos^2 t \, dt = \pi. 
+    t \rangle \, {\d}t = \int_0^{2\pi} \cos^2 t \, {\d}t = \pi. 
   \]
   This last integral can be done with a trick: note that 
   \[
-    \int_0^{2\pi} (\cos^2 t +\sin ^2 t)\, dt = \int_0^{2\pi} 1 \, dt =
+    \int_0^{2\pi} (\cos^2 t +\sin ^2 t)\, {\d}t = \int_0^{2\pi} 1 \, {\d}t =
     2\pi. 
   \]
-  However, the contributions of $\int_0^{2\pi} \cos^2 t\, dt$ and
-  $\int_0^{2\pi} \sin^2 t\, dt$ are equal, since their graphs over the
+  However, the contributions of $\int_0^{2\pi} \cos^2 t\, {\d}t$ and
+  $\int_0^{2\pi} \sin^2 t\, {\d}t$ are equal, since their graphs over the
   region of integration are the same up to a shift. So each is
   equal to $\pi$.
 
@@ -5669,7 +5785,7 @@ and area integrals over the region it encloses. \sidenote{Invented
     clarity). Green's theorem holds approximately on each small
     rectangle $R = [x,x + \Delta x] \times [y,y + \Delta y]$, because
     the left and right sides of $R$ contribute to
-    $\iint_R \mathbf{F} \cdot d\mathbf{r}$ approximately
+    $\iint_R \mathbf{F} \cdot \d\mathbf{r}$ approximately
 \end{minipage}
 \begin{minipage}[b]{0.6\textwidth}
   \hfill 
@@ -5718,9 +5834,9 @@ each interior segment is integrated along twice (once for each
 adjoining rectangle) and in opposite directions. These contributions
 sum to zero, leaving only the integrals along the outer edges. Since
 these outer edges fit together to form $\partial D$, the line integrals
-along them sum to the line integral along $\partial D$. \sidenote{In
+along them sum to the line integral along $\partial D$. \sidenote{* In
   other words, the circulation around the boundary of a region is
-  \textbf{additive}.}[-25mm] 
+  \textbf{additive}.}[-15mm] 
 
 Since the integral of $\partial_xN - \partial_y M$ over $D$ is also
 equal to the sum of the integral of  $\partial_xN - \partial_y M$
@@ -5762,22 +5878,22 @@ becomes exact and yields Green's theorem.
 
 What is the average temperature on the surface of the earth? Let's
 overlook the scientific challenges of this problem and imagine that
-the earth is a sphere $S$ and that we have a reading of the temperature
-$T$ at
-every point on its surface at a particular point in time. What do we
-do with this information to find the average temperature?
+the earth is a sphere $S$ and that we have a reading of the
+temperature $T$ at every point on its surface at a particular point in
+time. What do we do with this information to find the average*
+temperature at that time?
 
-\sidenote{To interpret the result as an average,
-  we should be using an area unit for which
-  the total area of the earth's surface is 1}[-2mm]
-We use the same approach we use throughout calculus when handling
-continuously varying quantities: split $S$ into
+\sidenote{* The average value of a function over a region is the
+  integral of the function over that region divided by the region's
+  length/area/volume}[-5mm]
+We can use the same approach we use throughout calculus when studying
+quantities which are additive and continuously varying: split $S$ into
 tiny patches over which $T$ may be treated as constant,
 multiply the area* of each patch by the value of $T$ somewhere on that patch, and
 sum the resulting products. As the size of the patches tends to zero,
 we expect this sum to converge to some limiting value, and we can
 declare that limit to be the value of the \textbf{surface integral}* of $f$ over
-$S$, denoted $\iint_S f \, dA$. \sidenote{Or scalar surface
+$S$, denoted $\iint_S f \, {\d}A$. \sidenote{* Or scalar surface
   integral, to distinguish from vector surface integral introduced in
   the next subsection}[5mm]
 
@@ -5790,7 +5906,7 @@ $S$, denoted $\iint_S f \, dA$. \sidenote{Or scalar surface
   This function is equal to 2 everywhere on the unit sphere, so the
   integral is
   \[
-    \iint_{S} 2 \,dA =     2 \iint_{S} 1 \,dA = 2 \times \text{surface
+    \iint_{S} 2 \,\d A =     2 \iint_{S} 1 \,\d A = 2 \times \text{surface
       area}(S) = 8\pi, 
   \]
   since the surface area formula for a sphere of radius $r$ is $4\pi
@@ -5818,8 +5934,8 @@ which is planar---see Exercise~\ref{exer:xyz}).
   $\mathbf{r}$ is a \textit{parametrization}* of $S$), then
   \milink{parametrized_surface_introduction}{surface parametrization}
   \begin{equation} \label{eq:surfformula} 
-    \iint_S f \, dA = \iint_D f(\mathbf{r}(u,v)) |\partial_u
-    \mathbf{r} \times \partial_v \mathbf{r}| \, dA. 
+    \iint_S f \, {\d}A = \iint_D f(\mathbf{r}(u,v)) |\partial_u
+    \mathbf{r} \times \partial_v \mathbf{r}| \, {\d}A. 
   \end{equation}
   Explain why $|\partial_u
     \mathbf{r} \times \partial_v \mathbf{r}|$ is the appropriate
@@ -5899,7 +6015,7 @@ which is planar---see Exercise~\ref{exer:xyz}).
     parallelepiped is $A$, while its height is equal to*
     $v \cos\theta$. Therefore, the volume of water passing through the
     net per unit of time is $\boxed{Av \cos
-      \theta}$. \sidenote{This is a right-triangle
+      \theta}$. \sidenote{* This is a right-triangle
       trigonometry exercise}
   \end{minipage}
   \begin{minipage}{0.23\textwidth}
@@ -5945,17 +6061,19 @@ where $\mathbf{v}$ is the river's velocity vector.
 
 \begin{example}{}{waterflow}
   Suppose that the velocity field of a body of water is given by
-  $\mathbf{F} = \langle -2y, 4z, x\rangle$ (in meters per second) and that
-  a rectangular net is positioned in the water with corners at
-  $(1,1,3)$, $(1,4,3)$, $(1,4,5)$, and $(1,1,5)$. Find the volume of
-  water flowing through the frame of the net per unit time.
+  $\mathbf{F} = \langle -2y, 4z, x\rangle$ (in meters per second) and
+  that a rectangular net is positioned in the water with corners at
+  $(1,1,3)$, $(1,4,3)$, $(1,4,5)$, and $(1,1,5)$ (in meters). Find the
+  volume of water flowing through the frame of the net per second. 
 \end{example}
 
 \begin{solution}
   Since the velocity field isn't constant, we divide the net into
-  small patches and treat the velocity as constant on each one.  The
-  flow through a small patch of area $\Delta A$ located at $(x,y,z)$
-  is approximately equal to
+  small patches and treat the velocity as constant on each one. Since
+  the rectangle is contained in the plane $x=1$, the vector
+  $\langle 1, 0, 0 \rangle$ is normal to the rectangle. Therefore, the flow
+  through a small patch of area $\Delta A$ located at $(x,y,z)$ is
+  approximately equal to
   \[
     \mathbf{A} \cdot \mathbf{v} = \big\langle \Delta A, 0, 0 \big\rangle \cdot
     \big\langle -2y, 4z, x \big\rangle = -2y \, \Delta A. 
@@ -5964,23 +6082,29 @@ where $\mathbf{v}$ is the river's velocity vector.
   region occupied by the net, we get a Riemann sum that converges as
   $\Delta A \to 0$ to
   \[
-    \int_1^4 \int_3^5 (-2y) \, dx \, dy = \boxed{-30}. 
+    \int_1^4 \int_3^5 (-2y) \, \d x \, \d y = -30. 
   \]
+  Therefore, the volume of water is \boxed{30} cubic meters per second, and the
+  net flow is in the direction \textit{towards} the side facing the $yz$-plane. 
 \end{solution}
 
 The ideas in Example~\ref{exam:waterflow} yield the following
 definition, which develops the notion of vector field integration over
-surfaces in terms of the scalar surface integral. 
+surfaces in terms of the scalar surface
+integral.\sidenote{A surface with a distinguished side is called an
+  \textit{oriented surface}, and not every surface is orientable (for
+  example, the M\"obius strip)} 
 
 \begin{defn}{}{flow}
   The \textbf{flow} of a vector field $\mathbf{F}$ through a surface
-  $S$ is defined by
+  $S$ from one side $\mathfrak{s}$ to the other side $\mathfrak{t}$ is defined by
   \[
-    \iint_S \mathbf{F} \cdot d\mathbf{A} =  \iint_S \mathbf{F} \cdot \mathbf{n}
-    \, dA, 
+    \iint_S \mathbf{F} \cdot \d\mathbf{A} =  \iint_S \mathbf{F} \cdot \mathbf{n}
+    \, {\d}A, 
   \]
   where $\mathbf{n}=\mathbf{n}(x,y,z)$ is a vector which is
-  orthogonal to $S$ at each point $(x,y,z)$. 
+  orthogonal to $S$ at each point $(x,y,z)$ and points in the
+  direction from $\mathfrak{s}$ to $\mathfrak{t}$. 
 \end{defn}
 
 \begin{exercise}{}{}
@@ -5991,10 +6115,10 @@ surfaces in terms of the scalar surface integral.
 \section{Divergence and curl} \label{sec:divcurl} 
 
 One of the classic and famous vector calculus books is called \textit{div,
-  grad, curl, and all that} by H.M. Schey. We have already discussed the gradient,
+  grad, curl, and all that} by H.M. Schey.* We have already discussed the gradient,
 and in this section we will develop the two other fundamental vector
 calculates derivative operators: divergence and curl. We will
-emphasize the underlying physical intuition. 
+emphasize the underlying physical intuition. \sidenote{* Highly recommended}[-5mm]
 
 \subsection{Divergence}
 
@@ -6008,12 +6132,12 @@ emphasize the underlying physical intuition.
 \]
 \end{defn}
 
-For example, the divergence of $\langle x^2, xy, z, \rangle$ is
+For example, the divergence of $\langle x^2, xy, z \rangle$ is
 $2x + x + 1 = 3x + 1$. The divergence of $\mathbf{F}$ can be
 interpreted physically as the \textbf{net flow} of $\mathbf{F}$ out of
 a small region located at $(x,y,z)$ per volume of that region. 
 
-\sidenote{We dot the normal vector $\langle 0, 0, 1
+\sidenote{* We dot the normal vector $\langle 0, 0, 1
   \rangle$ with $\langle M, N, P \rangle$ to account for the cosine
   factor}
 To see this, note that if we put a small box of dimensions $\Delta x, \Delta y, \Delta z$
@@ -6034,28 +6158,71 @@ the net flow density through the small box.
   \end{minipage}
   \begin{minipage}[t]{0.48\textwidth}
     \begin{lrbox}{\asybox}
-    \begin{asy}[width=7cm]
-      import graph;
-      size(8cm); 
-
-      real eps = 0.2; 
-      
-      pair a=(0,0);
-      pair b=(1,1);
-      
-      path vector(pair z) {return (0,0)--(z.x^2,-z.y^2);}
-
-      draw(a--(b.x+eps,0),Arrow(4));
-      draw(a--(0,b.y+eps),Arrow(4));
-      
-      real eps = 0.03; 
-      draw(Label("1",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
-      draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
-      
-      add(vectorfield(vector,(eps,eps),b,Arrow(3)));
-    \end{asy}
-  \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-\end{minipage}
+      \begin{asy}[width=7cm]
+        int foobar; 
+        import graph;
+        picture vectorfieldmid(path vector(pair), pair a, pair b,
+        int nx=nmesh, int ny=nx, bool truesize=false,
+        real maxlength=truesize ? 0 : maxlength(a,b,nx,ny),
+        bool cond(pair z)=null, pen p=currentpen,
+        arrowbar arrow=Arrow, margin margin=PenMargin)
+        {
+          picture pic;
+          real dx=1/nx;
+          real dy=1/ny;
+          bool all=cond == null;
+          real scale;
+          
+          if(maxlength > 0) {
+            real size(pair z) {
+              path g=vector(z);
+              return abs(point(g,size(g)-1)-point(g,0));
+            }
+            real max=size(a);
+            for(int i=0; i <= nx; ++i) {
+              real x=interp(a.x,b.x,i*dx);
+              for(int j=0; j <= ny; ++j)
+              max=max(max,size((x,interp(a.y,b.y,j*dy))));
+            }
+            scale=max > 0 ? maxlength/max : 1;
+          } else scale=1;
+          
+          for(int i=0; i <= nx; ++i) {
+            real x=interp(a.x,b.x,i*dx);
+            for(int j=0; j <= ny; ++j) {
+              real y=interp(a.y,b.y,j*dy);
+              pair z=(x,y);
+              if(all || cond(z)) {
+                path g=scale(scale)*vector(z);
+                if(truesize)
+                draw(z,pic,g,p,arrow);
+                else
+                draw(pic,shift(-point(g,size(g)-1)/2)*shift(z)*g,p,arrow,margin);
+              }
+            }
+          }
+          return pic;
+        }
+        size(8cm); 
+        
+        real eps = 0.2; 
+        
+        pair a=(0,0);
+        pair b=(1,1);
+        
+        path vector(pair z) {return (0,0)--(z.x^2,-z.y^2);}
+        
+        draw(a--(b.x+eps,0),Arrow(4));
+        draw(a--(0,b.y+eps),Arrow(4));
+        
+        real eps = 0.03; 
+        draw(Label("1",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
+        draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
+        
+        add(vectorfieldmid(vector,(eps,eps),b,Arrow(3)));
+      \end{asy}
+    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+  \end{minipage}
 \end{example}
 
 \begin{solution}
@@ -6064,11 +6231,10 @@ the net flow density through the small box.
   downward-pointing and longer than the vectors below them. Therefore,
   the divergence is negative in the top left.
 
-  Similarly, the divergence is positive in the bottom right part of
-  the figure. The
-  dividing line between regions of positive and negative divergence is
-  $y = x$, since points along that line have vectors of equal length
-  pointing towards and away from them.
+  Similarly, the divergence is positive in the bottom-right part of
+  the figure. The dividing line between regions of positive and
+  negative divergence is $y = x$, since points along that line have
+  vectors of equal length pointing towards and away from them.
 \end{solution}
 
 \begin{exercise}{}{}
@@ -6077,12 +6243,12 @@ the net flow density through the small box.
 \end{exercise}
 
 \begin{exercise}{}{}
-Look
-  at a vector plot*  to figure out where $\nabla \times \mathbf{F} >
-  0$, using the approach of 
-  Example~\ref{exam:div}, for the vector field $\mathbf{F} = \langle xy, y^2
-  \rangle$. Then evaluate $\nabla \cdot \mathbf{F}$ and find where
-  $\nabla \cdot \mathbf{F} > 0$ algebraically. 
+  Look at a vector plot* to figure out where
+  $\nabla \cdot \mathbf{F} > 0$, using the approach of
+  Example~\ref{exam:div}, for the vector field
+  $\mathbf{F} = \langle xy, y^2 \rangle$. Then evaluate
+  $\nabla \cdot \mathbf{F}$ and find where
+  $\nabla \cdot \mathbf{F} > 0$ algebraically.
   \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/vector_plot.ipynb}{\cocalc}
     for drawing a vector plot}
 \end{exercise}
@@ -6212,8 +6378,6 @@ the coordinate directions. The same idea holds for the curl:
   Show that the curl of a conservative vector field is zero. 
 \end{exercise}
 
-\newpage 
-
 \section{Divergence theorem} \label{sec:divtheorem}
 
 \milink{divergence_theorem_idea}{the divergence theorem}
@@ -6265,7 +6429,7 @@ of $\nabla \cdot \mathbf{F}$ there, and sum the results. The
 contribution of each piece is the net flow out of that
 piece*, so when we add the contributions of all the pieces we get the
 net flow out of $D$. This idea is called the \textit{divergence
-  theorem}.  \sidenote{The contribution of each piece is
+  theorem}.  \sidenote{* The contribution of each piece is
   the divergence somewhere in the piece times its volume, and the
   divergence equals flow per unit volume, so the product is the net
   flow out of the piece}[-1cm]
@@ -6277,9 +6441,9 @@ net flow out of $D$. This idea is called the \textit{divergence
   piecewise smooth surface $S = \partial D$, then 
   \[
     \overbrace{\iiint_D \nabla \cdot \mathbf{F} \,
-      dV}^{\text{pointwise net flow density
+      \d V}^{\text{pointwise net flow density
         integrated over $D$}} = \overbrace{\iint_{\partial D}
-    \mathbf{F} \cdot \, d\mathbf{S}}^{\text{total flow through
+    \mathbf{F} \cdot \, {\d}\mathbf{A}}^{\text{total flow through
       $\partial D$}}. 
   \]
 \end{theo}
@@ -6290,24 +6454,24 @@ net flow out of $D$. This idea is called the \textit{divergence
 \end{example}
 
 \begin{solution}
-\begin{minipage}{0.65\textwidth}
+\begin{minipage}{0.7\textwidth}
     The divergence of $\mathbf{F}$ is $2x + 4z$, so the divergence theorem
     asserts that
     \[
-    \iiint_D (2x + 4z) \, dV = \iint_{\partial D} \langle x^2, 3z^2,
-    2z^2+y^2 \rangle \cdot d\mathbf{A}. 
+    \iiint_D (2x + 4z) \, {\d}V = \iint_{\partial D} \langle x^2, 3z^2,
+    2z^2+y^2 \rangle \cdot \d\mathbf{A}. 
   \]
   The left-hand side equals
   \[
-    \int_0^1     \int_0^1     \int_0^1 (2x + 4z)  \, dx \, dy \, dz =
+    \int_0^1     \int_0^1     \int_0^1 (2x + 4z)  \, \d x \, \d y \, {\d}z =
     3. 
   \]
     To evaluate the right-hand side directly, we split the boundary of
   the cube into its six square faces. For the
   top face, we get 
 \end{minipage}
-\begin{minipage}{0.34\textwidth}
-  \begin{asy}[width=5cm]
+\begin{minipage}{0.29\textwidth}
+  \begin{asy}[width=4.5cm]
     import multitools;
     currentprojection=perspective(5,2.5,2);
     currentlight.background = softyellow; 
@@ -6333,14 +6497,14 @@ net flow out of $D$. This idea is called the \textit{divergence
 \end{minipage}
   
   \[
-    \iint_{\text{top face}} \mathbf{F} \cdot d\mathbf{A} =
-    \iint_{\text{top face}} \langle x^2, 3z^2, 2z^2 + y^2 \rangle \cdot \langle 0, 0, 1 \rangle dA =
-    \int_{0}^1\int_0^1 (2+y^2) \, dx \, dy = \frac{7}{3}, 
+    \iint_{\text{top face}} \mathbf{F} \cdot \d\mathbf{A} =
+    \iint_{\text{top face}} \langle x^2, 3z^2, 2z^2 + y^2 \rangle \cdot \langle 0, 0, 1 \rangle \d A =
+    \int_{0}^1\int_0^1 (2+y^2) \, \d x \, \d y = \frac{7}{3}, 
   \]
   where we've substituted $1$ for $z$ since $z=1$ for every point in
   the top face. Likewise, the integral over the top face is
   \[
-    -\int_{0}^1\int_0^1 (0+y^2) \, dx \, dy = -\frac{1}{3}, 
+    -\int_{0}^1\int_0^1 (0+y^2) \, \d x \, \d y = -\frac{1}{3}, 
   \]
   where the negative sign comes from the fact that the
   outward-pointing normal on the bottom face is
@@ -6348,13 +6512,13 @@ net flow out of $D$. This idea is called the \textit{divergence
   
   Similarly, the integral over the $x=1$ face is
   \[
-    \int_{0}^1\int_0^1 1 \, dy \, dz = 1, 
+    \int_{0}^1\int_0^1 1 \, \d y \, {\d}z = 1, 
   \]
   while the $x=0$ face contributes 0. The $y=1$ face yields 
   \[
-    \int_{0}^1\int_0^1 3z^2 \, dx \, dz = 1, 
+    \int_{0}^1\int_0^1 3z^2 \, \d x \, {\d}z = 1, 
   \]
-  and the $y=0$ face gives $-\int_0^1 \int_0^1 3z^2 \, dx \, dz =
+  and the $y=0$ face gives $-\int_0^1 \int_0^1 3z^2 \, \d x \, {\d}z =
   -1$. Indeed,
   \[
     3 \stackrel{\checkmark}{=} \frac{7}{3} +\left(- \frac{1}{3}\right) + 1 + 0 + 1 + (-1). 
@@ -6473,18 +6637,18 @@ surface $S$, in which case the conclusion of Green's theorem can be
 written as
 \[
   \iint_S \nabla \times \mathbf{F} \cdot
-  d\mathbf{A} =
+  \d\mathbf{A} =
   \int_{\partial S} \mathbf{F} \cdot
-  d\mathbf{r}. 
+  \d\mathbf{r}. 
 \]
 The argument for Green's theorem now applies even if $S$ doesn't lie
 in a plane, because Theorem~\ref{th:curl} tells us that
-$\nabla \times \mathbf{F} \cdot d\mathbf{A}$ measures the circulation
-around a small patch $dA$ of the surface $S$. As we discussed for
+$\nabla \times \mathbf{F} \cdot \d\mathbf{A}$ measures the circulation
+around a small patch $\d A$ of the surface $S$. As we discussed for
 Green's theorem, if you divide a surface into many small patches and
 sum the circulations around all of them, you get the circulation
 around the boundary of the surface.  This generalization of Green's
-theorem is known as \textit{Stokes' theorem}.* \sidenote{If you
+theorem is known as \textit{Stokes' theorem}.* \sidenote{* If you
   take a differential geometry course, you will learn a far more
   general result of the same name which implies Green's theorem and
   the divergence theorem as special cases}
@@ -6494,10 +6658,10 @@ theorem is known as \textit{Stokes' theorem}.* \sidenote{If you
   partial derivatives and $S$ is a surface in $\R^3$, then
   \[
     \overbrace{\iint_S \nabla \times \mathbf{F} \cdot
-      d\mathbf{A}}^{\text{pointwise circulation density integrated
+      \d\mathbf{A}}^{\text{pointwise circulation density integrated
         over $S$}} =
     \overbrace{\int_{\partial S} \mathbf{F} \cdot
-      d\mathbf{r}}^{\text{circulation around $\partial S$}}. 
+      \d\mathbf{r}}^{\text{circulation around $\partial S$}}. 
   \]
 \end{theo}
 
@@ -6511,42 +6675,42 @@ theorem is known as \textit{Stokes' theorem}.* \sidenote{If you
   Stokes' theorem tells us that the flow of $\nabla \times \mathbf{F}$
   through $S$ is equal to the line integral of $\mathbf{F}$ around
   $\partial S$. We can see from the figure that $\partial S$ consists
-  four line segments, so we calculate $\int \mathbf{F} \, d\mathbf{r}$
+  four line segments, so we calculate $\int \mathbf{F} \cdot {\d}\mathbf{r}$
   along each one and sum the results. Integrating from $(0,0,0)$ to
   $(1,0,0)$, we get
   \[
-    \int_0^1\mathbf{F}(x,0,0) \cdot \langle 1, 0, 0 \rangle  \, dx =
+    \int_0^1\mathbf{F}(x,0,0) \cdot \langle 1, 0, 0 \rangle  \, \d x =
     0. 
   \]
   From $(1,0,0)$ to $(1,1,0)$, we get
   \[
-    \int_0^1\mathbf{F}(1,y,0) \cdot \langle 0, 1, 0 \rangle  \, dy =
+    \int_0^1\mathbf{F}(1,y,0) \cdot \langle 0, 1, 0 \rangle  \, \d y =
     e. 
   \]
   From $(1,1,0)$ to $(0,1,0)$ we get
   \[
-    \int_0^1\mathbf{F}(x,1,0) \cdot \langle -1, 0, 0 \rangle  \, dx = 0. 
+    \int_0^1\mathbf{F}(x,1,0) \cdot \langle -1, 0, 0 \rangle  \, \d x = 0. 
   \]
   And finally from $(0,1,0)$ back to the origin we get
   \[
-    \int_0^1\mathbf{F}(0,y,0) \cdot \langle 0, -1, 0 \rangle  \, dy = -1. 
+    \int_0^1\mathbf{F}(0,y,0) \cdot \langle 0, -1, 0 \rangle  \, \d y = -1. 
   \]
   So altogether the circulation of $\mathbf{F}$ around the boundary of
   $S$ is $\boxed{e-1}$. 
 \end{solution}
 
 Example~\ref{exam:stokes} shows that a surface can be deformed without
-changing the the flow of $\nabla \times \mathbf{F}$ through it, as
+changing the  flow of $\nabla \times \mathbf{F}$ through it, as
 long as it is deformed in such a way that its boundary is preserved: 
 
 \begin{obs}{}{}
   In the context of Stokes' theorem, if $S_1$ and $S_2$ are surfaces
   whose boundaries are the same, then
   \[
-    \iint_{S_1} (\nabla \times \mathbf{F}) \cdot d\mathbf{A} =
+    \iint_{S_1} (\nabla \times \mathbf{F}) \cdot \d\mathbf{A} =
   \iint_{S_2}
   (\nabla \times \mathbf{F})
-  \cdot d\mathbf{A}. 
+  \cdot \d\mathbf{A}. 
 \]
 \end{obs}
 
@@ -6554,13 +6718,13 @@ long as it is deformed in such a way that its boundary is preserved:
   Suppose that $S$ is the surface consisting of the points on the
   sphere $x^2 + y^2 + z^2 = 1$ which are not inside the sphere
   $x^2 + y^2 + (z+1)^2 = 1$. Find $\iint_{S} \nabla \times \mathbf{F}
-  \cdot d\mathbf{A}$, where $\mathbf{F} = \langle yz, x, e^{xyz}
+  \cdot \d\mathbf{A}$, where $\mathbf{F} = \langle yz, x, e^{xyz}
   \rangle$. 
 \end{exercise}
 
 \begin{exercise}{}{}
   Suppose $\mathbf{F} = \langle xy, y, xz \rangle$. Find
-  $\iint_S \nabla \times \mathbf{F} \cdot d\mathbf{A}$ where $S$ is the portion
+  $\iint_S \nabla \times \mathbf{F} \cdot \d\mathbf{A}$ where $S$ is the portion
   of the unit sphere $x^2 + y^2 + z^2 = 1$ in the first octant.
 \end{exercise}
 
@@ -6582,7 +6746,7 @@ this document are available at github.com/sswatson.
 
 \chapter{Appendix} 
 
-\section{Sets and functions} 
+\section{Sets and functions}  \label{a:setsandfunctions}
 
 A \textbf{set} is a collection of elements. These elements can be numbers, points, shapes, vectors, other sets, whatever. For example, 
 \[
@@ -6653,7 +6817,11 @@ that satisfies $f(a) = b$ is called the \textbf{inverse} of $f$.
 
 If $f: A \to B$ and $A' \subset A$, then the \textbf{restriction} of
 $f$ to $A$ is the function $\left. f \right|_{A'} : A' \to B$ defined
-by $\left. f \right|_{A'}(x) = f(x)$ for all $x \in A'$. 
+by $\left. f \right|_{A'}(x) = f(x)$ for all $x \in A'$.
+
+If $f: A \to B$ and $g:B \to C$, then the function $g\circ f$ which
+maps $x \in A$ to $g(f(x))\in C$ is called the \textbf{composition} of
+$g$ and $f$. 
 
 If the rule defining a function is sufficiently simple, we can
 describe the function using \textbf{anonymous function notation}. For
@@ -6772,7 +6940,7 @@ recover everything else you need.
     
   \end{enumerate}
 \end{tcolorbox}
-From these identities, we can derive many others. For example,
+From the above identities, we can derive many others. For example,
    setting $\alpha = \beta$ in the cosine sum-angle formula, we get 
    \[
    \cos 2 \alpha = \cos^2 \alpha - \sin^2 \alpha. 
@@ -6823,7 +6991,7 @@ From these identities, we can derive many others. For example,
     in this way, we are looking only at the \textit{domain} of the
     function. 
 
-  \item \textbf{Grid lines}. For a function $T$ from $\R^2 to \R^2$, we can
+  \item \textbf{Grid lines}. For a function $T$ from $\R^2$ to $\R^2$, we can
     understand $T$ as a transformation which moves points in the plane
     to other points in the plane, and we can visualize this geometric
     action by drawing the images of various grid lines under $T$. This
@@ -7371,9 +7539,9 @@ representation.
       $
         \left\{
           \begin{array}{r@{\:}c@{\:}l}
-            dA &=& r \, dr \, d\theta \\
-            dV &=& r \, dr \, d\theta \, dz \\
-            dV &=& \rho^2 \sin \phi \, d\rho \, d\phi\, d\theta
+            \d A &=& r \, {\d}r \, \d\theta \\
+            \d V &=& r \, {\d}r \, \d\theta \, {\d}z \\
+            \d V &=& \rho^2 \sin \phi \, {\d}\rho \, {\d}\phi\, \d\theta
           \end{array}
         \right.
       $
@@ -7387,7 +7555,7 @@ representation.
       \usebox{\rconstantfig} & \usebox{\thetaconstantfig}  & \usebox{\zconstantfig}  \\ \hline
       \usebox{\rhoconstantfig} & \usebox{\thetaconstantfig}  & \usebox{\phiconstantfig}  \\ \hline
     \end{tabular}
-    \caption{``Coordinate $=$ constant'' surfaces for each coordinate
+    \caption{Level surfaces for each coordinate
       in the rectangular, cylindrical, and spherical
       systems. \label{table:coordinateslices}}
   \end{table}
@@ -7454,7 +7622,7 @@ Throughout the text, some computations are performed using Sage*. They
 are indicated with the CoCalc icon
 \href{http://cocalc.com}{\cocalc} which can be clicked to
 open a page at cocalc.com showing the result as well as the
-code used to generate it. \sidenote{Actually, some of these linked
+code used to generate it. \sidenote{* Actually, some of these linked
 code snippets are in \href{http://julialang.org}{Julia}, which is a
 newer language more suited to numerical work}[-5mm]
 
@@ -7464,6 +7632,120 @@ available) book
     Undergraduates}} by Gregory Bard.
 
 \newpage
+
+\section{Wait, is the gradient normal or
+  tangent?} \label{sec:gradienta}
+
+\begin{wrapfigure}[28]{R}[1cm]{7cm}
+  \begin{asy}
+    import graph3;
+    size(7cm);
+    real h = 3;
+    currentprojection = perspective(10,3,4); 
+    draw(O--1.2*h*X,Arrow3());
+    draw(O--1.2*h*Y,Arrow3());
+    draw(O--0.8*h*Z,Arrow3());
+    triple f(pair p) {
+      real th = p.x;
+      real ph = p.y; 
+      return sqrt(3)*(cos(th)*sin(ph), sin(th)*sin(ph), cos(ph)); 
+    }
+    draw(surface(f, (0,0), (2*pi, pi),20,Spline), LightSeaGreen+opacity(0.5), MidnightBlue);
+    label("$g(x,y,z) = x^2 + y^2 + z^2 = 3$",(2.3,1.7,-0.8),MidnightBlue); 
+    real eps = 1.2;  
+    draw(Label("$\nabla g(1,1,1)$",Relative(1),align=NE),(1,1,1)--(1,1,1)+eps*(1,1,1),MidnightBlue, Arrow3());
+    real t = 0.08;
+    triple sideways = sqrt(3/2)*t*eps*(0,-1,1); 
+    draw((1,1,1)+sideways--(1,1,1)+sideways+t*eps*(1,1,1)--(1,1,1)+t*eps*(1,1,1)); 
+    dot((1,1,1),linewidth(2.0));
+    real eps = 0.05; 
+
+    for(int i=1;i<=3;++i){
+      draw((i,0,0)--(i,0,-eps));
+      draw((0,i,0)--(0,i,-eps));
+      if (i < 2) draw((0,0,i)--(0,-eps,i)); 
+    }
+  \end{asy}
+  \caption{The gradient of a function at a point is orthogonal to the level
+    set of that function through that point} \label{fig:gradg} 
+
+  \begin{asy}
+    import graph3;
+    size(7cm);
+    real h = 3;
+    currentprojection = perspective(10,3,4); 
+    draw(O--1.2*h*X,Arrow3());
+    draw(O--1.2*h*Y,Arrow3());
+    draw(O--0.8*h*Z,Arrow3());
+    triple f(pair p) {
+      real th = p.x;
+      real ph = p.y; 
+      return sqrt(3)*(cos(th)*sin(ph), sin(th)*sin(ph), cos(ph)); 
+    }
+    draw(surface(f, (0,0), (2*pi, pi/2),20,Spline), LightSeaGreen+opacity(0.5), MidnightBlue);
+    label("$f(x,y) = \sqrt{3 - x^2 - y^2}$",(2.3,1.7,-0.2),MidnightBlue); 
+    real eps = 1.2;  
+    draw(Label("$\left.\bigg \langle\partial_x f, \partial_y f, |\nabla f|^2 \bigg\rangle \right|_{(1,1)}$",Relative(0.5),align=ENE),(1,1,1)--(1,1,1)+(-1,-1,2),MidnightBlue, Arrow3());
+    dot((1,1,1),linewidth(2.0));
+    draw(Label("$\nabla f$",align=1.2*SSW),(1,1,0)--(0,0,0),Arrow3());
+    draw((1,1,1)--(1,1,0),dashed);
+    draw((0,0,3)--(0,0,0),dashed); 
+    real eps = 0.05;
+    for(int i=1;i<=3;++i){
+      draw((i,0,0)--(i,0,-eps));
+      draw((0,i,0)--(0,i,-eps));
+      if (i < 2) draw((0,0,i)--(0,-eps,i)); 
+    }
+    draw(circle((0,0,0),sqrt(3),normal=Z),MidnightBlue);
+  \end{asy}
+  \caption{The gradient of a function specifies the direction of
+    maximum increase, which corresponds to moving along its graph in
+    the steepest direction} \label{fig:gradf}
+\end{wrapfigure}
+
+You might have a couple different images come to
+mind when you think about gradients, one with a vector which is
+tangent to a surface, and the other with a vector normal to a
+surface. So is the gradient normal or tangent? Both*! To specify the
+picture, we have to specify \textit{what function} we're
+taking the gradient of, and \textit{what surface} our vector is tangent or
+normal to. 
+\sidenote{* Sort of: the tangent vector is only closely related to the gradient}[-5mm]
+
+The most important idea is that the gradient of a function at a point
+specifies its direction of maximum increase. This has two
+implications:
+
+(1) (Figure~\ref{fig:gradg}) If we look at the gradient of a function
+$g$ from $\R^3$ to $\R^1$, then the gradient of $g$ is orthogonal to
+the \textbf{level surface} of $g$ at each point $(x_0,y_0,z_0)$.
+
+(2) (Figure~\ref{fig:gradf}) If we look at the gradient of a function
+$f$ from $\R^2$ to $\R^1$, then the gradient of $f$ at $(x_0,y_0)$
+tells us the direction \textit{in the $x$-$y$ plane} in which we
+should move so that the point $(x,y,f(x,y))$ on the \textbf{graph} of
+$f$ moves in the direction of maximum $z$ increase.* \sidenote{* If the
+  graph of $f$ corresponds to a hilly landscape, the gradient at each
+ point only specifies the cardinal direction of maximum increase. The
+ hiker moving in this direction naturally moves tangent to the hill,
+ because gravity keeps them pinned to graph}
+
+In the second case, if we want a vector which is tangent to the graph
+of $f$ we need to include the third component (since the gradient only
+has two). This component should be chosen so that the vector is
+contained within the plane tangent to the graph at that point, which
+means we should substitute into the tangent plane equation
+\[
+  z - z_0 = (\partial_x f)(x_0,y_0)(x-x_0) +  (\partial_y
+  f)(x_0,y_0)(y-y_0). 
+\]
+Substituting $x-x_0 = (\partial_x f)(x_0,y_0)$ and $y-y_0 =
+(\partial_y f)(x_0,y_0)$, we find that the third component should be
+the squared gradient of $f$ at $(x_0,y_0)$. 
+
+
+
+\newpage 
 
 \section{The central idea of integral calculus} \label{sec:centralidea}
 
@@ -7582,7 +7864,7 @@ Contrast Exercise~\ref{exer:cautionarytale} with
 Figure~\ref{fig:relerror}, which illustrates approximating the area
 under the graph of $f$ with the area under $f_n$. In this case the
 relative error of the approximation for each slice decreases to
-zero. In other words, quotient of the the green area and the red+green
+zero. In other words, quotient of the green area and the red+green
 area converges to 1 as the number of slices converges to infinity. By
 Exercise~\ref{exer:relerror} below, this implies that the relative
 error of the approximating sum converges to zero as the number of
@@ -7613,68 +7895,69 @@ Exercise~\ref{exer:intrelerror} we focus on each point $x_0$ one at a
 time. Also, what if $f$ isn't assumed to be positive, and the area
 under the curve over a particular short interval happens to be zero?
 
-Despite these shortcomings, the relative error perspective can help
-bring into focus our ``split it into many tiny
+Despite these shortcomings, the relative error perspective can clarify
+what's going on when we do our ``split it into many tiny
 pieces'' derivations throughout the course. 
 
 \newpage 
 
-\section{Additional Exercises} \label{sec:addexer}
+\section{Additional exercises} \label{sec:addexer}
 
-\subsection*{Section \ref{sec:ndimspace}}
+\asubsection{sec:ndimspace}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find a formula for the distance from the point $(x,y,z)$ to the
   $z$-axis. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find a formula for the distance from the point $(x,y,z)$ to the
   plane $x = -1$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find an equation whose solution set is the set of points whose distance to $(-3,2,5)$
   is equal to 4. What is the radius of the intersection of this sphere with the $yz$-plane?
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   A rope of length $12\pi$ units is partially wrapped around a tree of radius 12 units, as shown in the figure below. The part of the rope not touching the tree is pulled tight. Find the coordinates of the end of the rope, labeled $E$. 
   \begin{center}
     \includegraphics{exercisefigures/ropetree}
   \end{center}
-\end{exercise}
+\end{aexercise}
 
 \newpage 
 
-\subsection*{Section \ref{sec:RntoRn}}
+\asubsection{sec:RntoRn}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Find linear transformations with the following geometric
 descriptions. 
 
 (a) reflect across the $x$-axis
 
-(b) reverse the direction of the vector and double its length
+(b) rotate 180 degrees and double the distance from the origin
 
-(c) halve the length of the vector (while preserving the direction)
+(c) halve the distance from the origin while preserving the angle
+between $(x,y)$, the origin, and the positive $x$-axis
 
-(d) rotate a vector 90 degrees counterclockwise
+(d) rotate 90 degrees counterclockwise
 
-(e) project a vector in $\mathbb{R}^3$ onto the $xy$-plane
-\end{exercise}
+(e) project a point in $\mathbb{R}^3$ onto the $xy$-plane
+\end{aexercise}
 
-\subsection*{Section \ref{sec:det}}
+\asubsection{sec:det}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   A $2\times 2$ matrix is said to be \textit{symmetric} if its top
   right and lower left entries are equal. The \textit{diagonal}
   entries are the top left and lower right entries. Show that the
   diagonal entries of a $2\times 2$
   symmetric matrix with positive determinant must have the same sign. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find all values of $\lambda$ for which 
 \[
 \det \left[
@@ -7686,13 +7969,13 @@ descriptions.
 \right]
 = 0. 
 \]
-\end{exercise}
+\end{aexercise}
 
 \newpage 
 
-\subsection*{Section \ref{sec:vectors}}
+\asubsection{sec:vectors}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in the figure below. 
 
 \begin{center}
@@ -7702,9 +7985,9 @@ Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in the figure b
 (i) Find scalars $a$ and $b$ such that $\mathbf{w} = a\mathbf{u} + b\mathbf{v}$. You may assume that both $a$ and $b$ are integer multiples of $0.5$. Express your answer as an ordered pair $(a,b)$, written in the box. 
 
 (ii) Find scalars $a$ and $b$ such that $\mathbf{w} - \mathbf{u} + \mathbf{v} = a\mathbf{u} + b\mathbf{v}$. You may assume that both $a$ and $b$ are integer multiples of $0.5$. Express your answer as an ordered pair $(a,b)$, written in the box. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   \begin{minipage}[t]{0.58\textwidth}
     The point $M$ is the midpoint of $P$ and $Q$. Express $\mathbf{c}$
     in terms of $\mathbf{a}$ and $\mathbf{b}$, and express $\mathbf{d}$
@@ -7713,9 +7996,9 @@ Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in the figure b
   \begin{minipage}[t]{0.4\textwidth}
     \raisebox{\dimexpr -\height + 1.5ex\relax}{\includegraphics[width=5cm]{exercisefigures/midpoint}}
   \end{minipage}
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that all three coordinate planes are outfitted with a mirror
   surface, and that laser beam is directed from a point in the first
   octant toward the origin. Suppose that the beam is slightly
@@ -7728,26 +8011,26 @@ Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in the figure b
   light beam hits a reflective plane, its reflection angle is the same
   as its incident angle, and the plane containing the incoming and
   outgoing beams meets the reflective plane at a 90-degree angle. 
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:dot}}
+\asubsection{sec:dot}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use dot products to find a vector which is orthogonal to both
   $\langle 1, -2, 4 \rangle$ and $\langle -3, 1, 1 \rangle$. Hint:
   represent your vector as $\langle a, b, c \rangle$ and solve for
   $a$, $b$, and $c$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Suppose that a force $\mathbf{F}=(1,-2)$ is acting on an object moving
 parallel to the vector $(4,1)$. Decompose $\mathbf{F}$ into a sum of
 vectors $\mathbf{F}_1$ and $\mathbf{F}_2$, where $\mathbf{F}_1$ points
 along the direction of motion and $\mathbf{F}_2$ is perpendicular to
 the direction of motion.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{$\star$ (1975 USAMO)}{}
+\begin{aexercise}%{$\star$ (1975 USAMO)}{}
   Let $A$, $B$, $C$, and $D$ be four points in $\mathbb{R}^3$. Use vectors to show that 
 \[
 AB^2 +BC^2 + CD^2 + DA^2 \geq AC^2 + BD^2. 
@@ -7755,26 +8038,26 @@ AB^2 +BC^2 + CD^2 + DA^2 \geq AC^2 + BD^2.
 (This generalizes the fact that the sum of the squares of the sides of
 a quadrilateral is at least the sum of the squares of its diagonals.)
 Make a statement about when equality holds.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:cross}}
+\asubsection{sec:cross}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Consider a triangle $T$ with vertices $A=(1,0)$, $B=(0,1)$, and $C$ on the line $y=-x$. Use a cross product to find the area of $T$, and show that it does not depend on the location of $C$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Is the cross-product associative? Is the dot product associative?
   Prove or give a counterexample for each.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that the four vectors $\vec{a}$, $\vec{b}$, $\vec{c}$, and
   $\vec{d}$ in $\R^3$ are coplanar. Show that \\
   $(\vec{a}\times\vec{b})\times(\vec{c}\times\vec{d})=\vec{0}$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   The volume of a parallelepiped is the product of the area of its
   base and its height. Consider the parallelepiped spanned by
   $\mathbf{a}$, $\mathbf{b}$, and $\mathbf{c}$. You may suppose for
@@ -7793,20 +8076,20 @@ Make a statement about when equality holds.
 
   (c) Put together parts (a) and (b) to derive the triple scalar
   product formula for the volume of a parallelepiped.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that $\ell_1(t)=t\mathbf{a}+\mathbf{b}_1$ and $\ell_2(t)=t\mathbf{a}+\mathbf{b}_2$ are parallel lines in $\mathbb{R}^2$ or $\R^3$. Show that the distance $D$ between them is given by 
 \[
 D = \frac{|\mathbf{a}\times(\mathbf{b}_2-\mathbf{b_1})|}{|\mathbf{a}|}. 
 \]
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the point $P$ on the line $(3-t,2+2t,-4t)$ which is closest to the point $Q=(3,7,1)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}[enhanced,breakable]{$\star$}{}
+\begin{aexercise}[enhanced, breakable]%{$\star$}{}
   It is possible to prove the vector triple product formula
   \[
     \mathbf{a}\times(\mathbf{b}\times\mathbf{c}) =
@@ -7847,16 +8130,16 @@ D = \frac{|\mathbf{a}\times(\mathbf{b}_2-\mathbf{b_1})|}{|\mathbf{a}|}.
   (g) To find $\mu$, dot both sides of \eqref{comp} with
   $\mathbf{b}\times \mathbf{n},$ where
   $\mathbf{n}\colonequals \mathbf{b}\times\mathbf{c}$.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:lines_and_planes}}
+\asubsection{sec:lines_and_planes}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find an equation for the plane containing the points $(3, -1, 2),
   (2, 0, 5)$, and $(1, -2, 4)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find an equation for the plane that contains the lines
 \[
 \left\{
@@ -7877,39 +8160,37 @@ and
 \end{array}
 \right.
 \]
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $O=(0,0,0)$ be the origin in $\R^3$. If the vector
   $\overrightarrow{OP}$ has length 3, what is the greatest possible
   distance from $P$ to the line
   $\ell = \{-1-t,1+2t,t) \,:\, t\in \R$\}?
-\end{exercise}
+\end{aexercise}
 
-\newpage 
+\asubsection{sec:motion_in_space}
 
-\subsection*{Section \ref{sec:motion_in_space}}
-
-\begin{exercise}{}{}
+\begin{aexercise}
 A chickadee starts at the point $(2,-4,1)$ and flies in the direction of the vector $\left(\frac{3}{\sqrt{10}},0,\frac{1}{\sqrt{10}}\right)$ at a rate of $\sqrt{10}$ units per second. A hummingbird starts at the point $(8,20,7)$ and flies in the direction of the vector $\left(\frac{1}{\sqrt{5}},-\frac{2}{\sqrt{5}},0\right)$ at a rate of $3\sqrt{5}$ units per second.
 
 (a) Do the paths of the chickadee and the hummingbird intersect? 
 
 (b) Do the hummingbird and the chickadee collide?
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that a particle is revolving clockwise around the point
   $(4,2)$ at a rate of 3 revolutions per second. Write parametric
   equations describing the location of the particle at time $t$,
   assuming that it starts at the point $(6,2)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Sketch the image of the path $\vec{x}(t)=(\cos t, e^t)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Derive an integral formula for the arc length of a differentiable
   path $\mathbf{r}(t)$ where $t$ ranges from $a$ to $b$.
 
@@ -7917,65 +8198,65 @@ A chickadee starts at the point $(2,-4,1)$ and flies in the direction of the vec
   $\mathbf{r}(t)$ to $\mathbf{r}(t+\Delta t)$. Divide the curve into
   many such segments and approximate its length as the sum of the
   length of those segments. Then let $\Delta t \to 0$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Calculate the total length of the curve represented by the
   parametric equation $\mathbf{r}(t) = \langle a\cos^3t, a\sin^3 t \rangle$,
   where $a$ is a positive constant.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 All the figures below were made by graphing $\{(x(t),y(t))\,:\,0\leq t \leq 2\pi\}$ for simple expressions $(x(t),y(t))$. For each graph, find a curve whose image looks (at least roughly) like the figure shown.
 
 \begin{center}
   \includegraphics{exercisefigures/parametric}   \includegraphics{exercisefigures/parametric2}   \includegraphics{exercisefigures/parametric3} 
 \end{center}
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:quadric_surfaces}}
+\asubsection{sec:quadric_surfaces}
 
-\begin{exercise}{}{} Prove that the projection onto the
+\begin{aexercise} Prove that the projection onto the
 $xy$-plane of the intersection of the plane $x+y+z = 1$ and the ellipsoid
 $x^2 + 4y^2 + 4z^2 = 4$ is an ellipse.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
-FInd an equation for the set of points whose distance to the plane $z
+\begin{aexercise}
+Find an equation for the set of points whose distance to the plane $z
 = -1$ and to the point $(0,0,1)$ are equal. What kind of shape is this surface?
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Show that if the point $(a,b,c)$ lies on the hyperbolic
 paraboloid $z = y^2 - x^2$, then the line with parametric equation
 $(a+t,b+t,c + 2(b-a)t)$ lies on the hyperbolic paraboloid. (Thus, even
 though the paraboloid is curvy, it contains lots of lines!)
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:coordinates}}
+\asubsection{sec:coordinates}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Write inequalities describing the unit sphere in cylindrical
   coordinates.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Consider a sphere of radius 10 centered at the origin. Suppose that
   the portion of the sphere above the plane $z=8$ is
   removed. Furthermore, a sphere of radius $2$ is removed from the
   center of the solid. Write inequalities in spherical coordinates to
   describe the resulting shape.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:limits}}
+\asubsection{sec:limits}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Evaluate 
-  $\lim_{(x,y,z)\to(0,0,0)}\frac{2xy^2+xy}{x^2+y^2}$, or explain why
+  $\displaystyle{\lim_{(x,y)\to(0,0)}\frac{2xy^2+xy}{x^2+y^2}}$, or explain why
   the limit fails to exist.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Define $f(x) = (x^2 - 4)/(x-2)$ when $x\neq 2$ and $f(2) =
   c_1$. Determine the value of the constant $c_1$ for which $f$ is
   continuous. Do the same for
@@ -7987,59 +8268,59 @@ though the paraboloid is curvy, it contains lots of lines!)
       \end{array} 
     \right.
   \]
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that $f,g,$ and $h$ are real-valued functions on $\R^n$, and
   suppose that $f(\mathbf{x}) = g(\mathbf{x})h(\mathbf{x})$. Prove that if $g$
   is bounded and $\lim_{\mathbf{x}\to \mathbf{0}}h(\mathbf{x}) = 0$, then
   $\lim_{\mathbf{x}\to \mathbf{0}}f(\mathbf{x}) = 0$.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:partial}}
+\asubsection{sec:partial}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find $\pd{f}{x}$, $\pd{f}{y}$, and $\pd{f}{z}$ for
   $f(x,y,z) = \frac{1}{xy} + \log(xyz) + e^x\sin(y z) $.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the partial derivatives of
   \[
     F(a,b) = \int_a^b \sqrt{t^3+1}\,dt
   \]
   with respect to $a$ and with respect to $b$.
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose $f:\R^2 \to \R$. Is it possible for $\pd{f}{x}$ and
   $\pd{f}{y}$ to exist at $(0,0)$ while $f$ is not differentiable at
   $(0,0)$?  Prove that it isn't possible, or provide an example to
   show that it is possible.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:linapprox}}
+\asubsection{sec:linapprox}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Verify the linear approximation
   \[
     \frac{2x+3}{4y+1} \approx 3 + 2x - 12y
   \]
   at $(x,y) = (0,0)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the linear approximation of the function
   $f(x,y) = 1-xy\cos(\pi y)$ at $(1,1)$ and use it to approximate
   $f(1.02,0.97)$.
-\end{exercise}
+\end{aexercise}
 
 
 
-\subsection*{Section \ref{sec:optim}}
+\asubsection{sec:optim}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   For functions of one variable, it is impossible for a continuous
   function to have two local maxima and no local minimum: between
   every two peaks there must be a trough. Show, however, that the
@@ -8048,10 +8329,10 @@ though the paraboloid is curvy, it contains lots of lines!)
     f(x,y) = -(x^2-1)^2-(x^2y-x-1)^2
   \]
   has only two critical points and has a local maximum at each (!!). 
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}{}{}
+\begin{aexercise}
   The Hessian of a twice-differentiable function $f:\R^2 \to \R$ is
   defined by
   \[
@@ -8071,16 +8352,16 @@ though the paraboloid is curvy, it contains lots of lines!)
 
   Verify that the second derivative test gives the correct results for
   the functions $x^2+y^2$, $-x^2-y^2$, and $x^2 - y^2$ at the origin. 
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:dd_and_grad}}
+\asubsection{sec:dd_and_grad}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the equation for the plane tangent to $z=x^2-6x+y^3$ at
   $(x,y) = (4,3)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Suppose that the temperature in a room $[0,5]^3$ is given as a
   function of position by $T(x,y,z) = 50 + x^2 + (y-3)^2 + 2z$. You
   are a bug starting at position $(3,2,2)$, and you are cold. You
@@ -8090,15 +8371,15 @@ though the paraboloid is curvy, it contains lots of lines!)
   (a) What vector describes the direction in which you initially move?
 
   (b) Do you first hit the ceiling, the floor, or a wall?
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Show that the sum of the $x$-, $y$- and $z$-intercepts of any
   tangent plane to the surface
   $\sqrt{x} + \sqrt{y} + \sqrt{z} = \sqrt{c}$ is a constant.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   The second directional derivative of $f(x,y)$ in the direction
   $\mathbf{u}$ is defined to be
   \[
@@ -8106,90 +8387,90 @@ though the paraboloid is curvy, it contains lots of lines!)
   \]
   Find $D_\mathbf{u}^2 f(x,y)$ if $f(x,y) = x^3 + 5x^2y + y^3$ and
   $\mathbf{u} = \frac{1}{5}\langle 3,4\rangle$.
-\end{exercise}
+\end{aexercise}
 
 
 
-\subsection*{Section \ref{sec:chainrule}}
+\asubsection{sec:chainrule}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $f(x,y)=e^{3x+y}$, and suppose that $x=s^2+t^2$ and $y=2+t$. Find $\partial f/\partial s$ and $\partial f/\partial t$ by substitution and by means of the chain rule. Verify that the results are the same for the two methods. 
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use the chain rule to find $\partial z/\partial s$, $\partial
   z/\partial t$, and $\partial z/\partial u$ when $s=4, t = 2, u=1$, given 
   \[
     z = x^4 + x^2y, \quad x = s + 2t - u, \quad y = stu^2.
   \]
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   A conical ice sculpture melts in such a way that its height decreases at a rate of 0.001 meters per second and its radius decreases at a rate of 0.002 meters per second. At what rate is the volume of the sculpture decreasing when its height reaches 3 meters, assuming that its radius is 2 meters at that time? Express your answer in terms of $\pi$ and  in units of cubic meters per second. 
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:lagrange}}
+\asubsection{sec:lagrange}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Some of the level curves of a function $f: \R^2 \to \R$ are
   shown. Find the minimum and maximum values of $f(x,y)$ subject to
   the constraint that $(x,y)$ lies on the red curve.
   \begin{center}
     \includegraphics{exercisefigures/lagrange_exercise} 
   \end{center}
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Minimize the function $f(x,y) = (x-y)^2$ subject to the constraint
   $xy = 1$ without using Lagrange multipliers. Verify that the method
   of Lagrange multipliers gives the same result.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Verify the hypotheses of the extreme value theorem and find the
   absolute maximum and minimum values of $f(x,y) = x^2+y^2-2x$ on the
   closed triangle $D$ with vertices $(2,0)$, $(0,2)$, and $(4,0)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use Lagrange multipliers to find the maximum and minimum values of
   $f(x,y) = x^2 + y^2$ subject to $xy = 1$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use Lagrange multipliers to find the maximum and minimum values of
   $x^2 + y^2 + z^2$ subject to the constraint $x + y + z =
   12$. Confirm your answer by solving the same problem using vector
   methods.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use Lagrange multipliers to show that the rectangle with maximum
   area that has a given perimeter $p$ is a square.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:double}}
+\asubsection{sec:double}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Evaluate
-  $\displaystyle{\int_{0}^{1}\!\int_{0}^{y^2} x^2 y \,dx\,dy}$ and
+  $\displaystyle{\int_{0}^{1}\!\int_{0}^{y^2} x^2 y \,\d x\,\d y}$ and
   sketch the region of integration in $\R^2$ indicated by the limits
   of integration.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
-  Evaluate $\displaystyle{\int_{0}^\pi \!\int_{y}^{\pi}\frac{\sin x}{x} \,dx\,dy}$.
-\end{exercise}
+\begin{aexercise}
+  Evaluate $\displaystyle{\int_{0}^\pi \!\int_{y}^{\pi}\frac{\sin x}{x} \,\d x\,\d y}$.
+\end{aexercise}
 
-\begin{exercise}{$\star$}{}
-  Evaluate $\displaystyle{\int_{-\infty}^{\infty} e^{-x^2}\,dx}$. (Hints: write down
+\begin{aexercise}%{$\star$}{}
+  Evaluate $\displaystyle{\int_{-\infty}^{\infty} e^{-x^2}\,\d x}$. (Hints: write down
   the product of this integral with itself, the second time using $y$
   as the dummy variable. Rewrite this as an area integral and switch
   to polar coordinates.)
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{($\star$)}{}
+\begin{aexercise}%{($\star$)}{}
   Define a function $f(x,y)$ on $[0,1] \times [0,2]$ by
   \[
     f(x,y) = \left\{ \begin{array}{cl}
@@ -8200,22 +8481,22 @@ though the paraboloid is curvy, it contains lots of lines!)
                    \right.
   \]
   Show that the iterated Riemann integral
-  $\int_0^1\int_0^2 f(x,y)\,dy\,dx$ exists, and find
+  $\int_0^1\int_0^2 f(x,y)\,\d y\,\d x$ exists, and find
   its value. Show that the iterated Riemann integral
-  $\int_0^2\int_0^1 f(x,y)\,dx\,dy$ does not exist.
-\end{exercise}
+  $\int_0^2\int_0^1 f(x,y)\,\d x\,\d y$ does not exist.
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   For $(x,y) \neq (0,0)$, we define
   \[
     f(x,y) = \frac{xy(x^2-y^2)}{(x^2+y^2)^3}.
   \]
   Calculate the iterated integrals of $f$ over $[0,2]\times[0,1]$.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:triple}}
+\asubsection{sec:triple}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Explain why the integral of the function
   $f(x,y,z) = \frac{1}{x+y+z+1}$ over the cube
   $[0,1] \times [0,1] \times [0,1]$ is equal to
@@ -8240,164 +8521,164 @@ S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
   of code to assign a different value to $n$) by multiples of 5 to
   \textbf{find the least value of $n$} such that $n$ is a multiple of
   5 and $S_n$ differs from $I$ by less than 0.01.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the region $E$ in $\R^3$ for which
   \[
-    \iiint_E (1-x^2-2y^2-3z^2) \, dV
+    \iiint_E (1-x^2-2y^2-3z^2) \, {\d}V
   \]
   is as large as possible. (Hint: this problem is not as difficult as
   it may seem.)
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}{}{}
-  Sketch the solid whose volume is given by the integral $\int_0^1
-  \int_0^{1-x}\int_0^{2-2z}\,dy\,dz\,dx$.
-\end{exercise}
+\begin{aexercise}
+  Sketch the solid whose volume is given by the integral $\displaystyle{\int_0^1
+  \int_0^{1-x}\int_0^{2-2z}\,\d y\,dz\,\d x}$.
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Integrate $f(x,y,z) = 1-z^2$ over the tetrahedron $W$ with vertices
   at the origin, $(1,0,0)$, $(0,2,0)$, and $(0,0,3)$.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:polar_int}}
+\asubsection{sec:polar_int}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the volume of the solid that is bounded by the paraboloid
   $z = 9 - x^2 - y^2$, the $xy$-plane, and the cylinder
   $x^2 + y^2 = 4$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Express as a triple integral the volume of the wedge in the first
   octant that is cut from the cylinder $y^2+z^2 = 1$ by the planes
   $y=x$ and $x=1$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Sketch the solid whose volume is given by the integral
-  $\int_{-\pi/2}^{\pi/2} \int_0^2 \int_0^{r^2} \, r\,dz\,dr\,d\theta$,
+  $\int_{-\pi/2}^{\pi/2} \int_0^2 \int_0^{r^2} \, r\,\d z\,\d r\,\d\theta$,
   and evaluate the integral.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Evaluate
   $\int_0^1 \int_0^{\sqrt{1-x^2}}
-  \int_{\sqrt{x^2+y^2}}^{\sqrt{2-x^2-y^2}} \, xy \, dz \, dy \, dx$ by
+  \int_{\sqrt{x^2+y^2}}^{\sqrt{2-x^2-y^2}} \, xy \, {\d}z \, \d y \, \d x$ by
   changing to spherical coordinates.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the mass of a ball $B$ given by $x^2+y^2+z^2 \leq a^2$ if the
   density at any point is proportional to its distance from the
   $z$-axis. (Hint: use cylindrical coordinates.)
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the volume of the region $W$ that represents the intersection
   of the solid cylinder $x^2+y^2 \leq 1$ and the solid ellipsoid
   $2(x^2+y^2)+z^2\leq 10.$
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Use polar coordinates to combine the sum 
 \[
-\int_{1/\sqrt{2}}^1\int_{\sqrt{1-x^2}}^x xy \, dy \, dx + 
-\int_{1}^{\sqrt{2}} \int_0^x xy \,dy \,dx + 
-\int_{\sqrt{2}}^2 \int_0^{\sqrt{4-x^2}} xy \,dy \, dx
+\int_{1/\sqrt{2}}^1\int_{\sqrt{1-x^2}}^x xy \, \d y \, \d x + 
+\int_{1}^{\sqrt{2}} \int_0^x xy \,\d y \,\d x + 
+\int_{\sqrt{2}}^2 \int_0^{\sqrt{4-x^2}} xy \,\d y \, \d x
 \]
 into one double integral. Then evaluate the double integral.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the average distance from a point in a ball of radius $a$ to
   the center. Recall that the average value, denoted $\overline{f}$,
   of a function $f$ over a region $R$ is given by
   \[
-    \overline{f} = \frac{\iiint_R f \, dV}{\iiint_R 1 \, dV}.
+    \overline{f} = \frac{\iiint_R f \, {\d}V}{\iiint_R 1 \, {\d}V}.
   \]
-\end{exercise}
+\end{aexercise}
 
 
-\subsection*{Section \ref{sec:changeofvariables}}
+\asubsection{sec:changeofvariables}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $D$ be a parallelogram with vertices $(0,0)$, $(1,0)$, $(1,1)$,
-  and $(2,1)$. Calculate $\iint_D 1\,dA$ in two ways:
+  and $(2,1)$. Calculate $\iint_D 1\,\d A$ in two ways:
 
-  (a) Find $\iint_D 1\,dA$ without using calculus.
+  (a) Find $\iint_D 1\,\d A$ without using calculus.
 
-  (b) Find $\iint_D 1\,dA$ using the change of variables $u = 2x - 2y$
+  (b) Find $\iint_D 1\,\d A$ using the change of variables $u = 2x - 2y$
   and $v=2y$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Find
-$\iint_R \cos \left(\frac{y-x}{y+x}\right) \, dA$, where $R$ is the
+$\iint_R \cos \left(\frac{y-x}{y+x}\right) \, {\d}A$, where $R$ is the
 trapezoidal region with vertices $(1,0)$, $(2,0)$, $(0,2)$, and
 $(0,1)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
-  Evaluate the integral $\iint_R e^{(x+y)/(x-y)} \, dA$, where $R$ is
+\begin{aexercise}
+  Evaluate the integral $\iint_R e^{(x+y)/(x-y)} \, {\d}A$, where $R$ is
   the trapezoidal region with vertices $(1,0), (2,0)$, $(0,-2)$, and
   $(0,-1)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
-  Find $\iint_R y^2 \, dA$, where $R$ is the region bounded by the
+\begin{aexercise}
+  Find $\iint_R y^2 \, {\d}A$, where $R$ is the region bounded by the
   curves $xy = 1$, $xy = 2$, $xy^2 = 1$, and $xy^2 = 2$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
-  Find $\iint_R e^{x+y} \, dA$ where $R$ is given by the inequality
+\begin{aexercise}
+  Find $\iint_R e^{x+y} \, {\d}A$ where $R$ is given by the inequality
   $|x| + |y| \leq 1$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Evaluate the integral
   $\displaystyle{\int_{0}^{2}\!\int_{x/2}^{x/2+1} x^5 (2y -
-    x)e^{(2y-x)^2} \,dy\,dx}$ by making the substitution $u = x$ and
+    x)e^{(2y-x)^2} \,\d y\,\d x}$ by making the substitution $u = x$ and
   $v=2y-x$.
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:vector_fields}}
+\asubsection{sec:vector_fields}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Sketch the vector field $\mathbf{F} =\langle xy, x\rangle$ over
   $[-1,1]^2$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   A velocity field $\mathbf{v}$ showing air flow around an airfoil is
   illustrated below. Sketch a continuous path $C$ along which
-  $\int_C \mathbf{v} \cdot d\mathbf{r}$ is as large as possible. 
+  $\int_C \mathbf{v} \cdot \d\mathbf{r}$ is as large as possible. 
   \begin{center}
     \includegraphics[width=5cm]{exercisefigures/airfoil}
   \end{center}
 \textit{\tiny Figure credit: Crowsnest at English Wikipedia, CC BY-SA 3.0, \url{https://commons.wikimedia.org/w/index.php?curid=6509566}}
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Denote by $-C$ the reversal of a path $C$. Show that 
   \[
-  \int_{-C} \mathbf{F} \cdot d\mathbf{r} = -\int_{C}\mathbf{F}
-  \cdot d\mathbf{r}. 
+  \int_{-C} \mathbf{F} \cdot \d\mathbf{r} = -\int_{C}\mathbf{F}
+  \cdot \d\mathbf{r}. 
   \]
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:line_integrals}}
+\asubsection{sec:line_integrals}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   A thin wire is bent into the shape of a semicircle $x^2 + y^2 = 4$,
   $x \geq 0$. If the linear density of the wire at $(x,y)$ is given by
   $x+y+2$, find the mass of the wire. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $\vec{F}:\R^3 \to \R^3$ be the vector field given by
   $\vec{F}(x,y,z)=ay^2\vec{i}+2y(x+z)\vec{j}+(by^2 +z^2)\vec{k}$.
 
@@ -8410,12 +8691,12 @@ $(0,1)$.
   (c) Find an equation describing a surface $S$ with the property that
   for every smooth oriented curve $C$ lying on $S$,
   \[
-    \int_C \vec{F}\cdot d\vec{s} = 0,
+    \int_C \vec{F}\cdot d\vec{r} = 0,
   \]
   for these values.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   The vector field $\mathbf{F}$ plotted
 below is not conservative. Pick two points $a$ and $b$ and sketch two
 paths from $a$ to $b$ along which the line integrals of $\mathbf{F}$
@@ -8425,9 +8706,9 @@ different.
 \begin{center}
   \includegraphics[width=8cm]{exercisefigures/vecfield} 
 \end{center}
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   According to Coulomb's law, the force between a particle of charge
   $q_1$ at the origin and a particle of charge $q_2$ at the point
   $\vec{r} = (x,y,z)\in \R^3$ is given by
@@ -8450,32 +8731,32 @@ different.
     \qquad 0\leq t \leq 1?
   \]
   Express your answer in terms of $q_1$, $q_2$, and $\varepsilon_0$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $C$ be a level set of the function $f(x,y)$. Show that
   $\int_C \nabla f\cdot d\vec{s} = 0$.
-\end{exercise}
+\end{aexercise}
 
 
 
-\subsection*{Section \ref{sec:greens}}
+\asubsection{sec:greens}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the area of the rectangle $D=[0,a]\times[0,b]$ using Green's
   theorem.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Use Green's theorem to prove the \textit{shoelace
   formula}, which says that the area of a polygon with vertices
 $(x_1,y_1),\ldots,(x_n,y_n)$ listed in counterclockwise order has area
 given by one-half times
 $x_1y_2 + x_2 y_3 + \cdots + x_{n-1}y_n + x_n y_1 - (x_2 y_1 + x_3 y_2
 + \cdots + x_{n}y_{n-1}+ x_1 y_n)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}[enhanced,breakable]{}{}
+\begin{aexercise}[enhanced,breakable]
 Consider the polygon $P$ whose vertices are listed below, in counterclockwise order. Describe a simple algorithm for approximating the area of $P$. 
 $$ \tiny
 \begin{array}{cc}
@@ -8563,9 +8844,9 @@ $$ \tiny
  0.997206 & -0.0000804643
 \end{array}
 $$
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}[enhanced,breakable]{}{}
+\begin{aexercise}[enhanced,breakable]
   A planimeter is a device used to calculate the area of a
   two-dimensional region. In this problem, we explore the mathematics
   behind how the planimeter works. (Thanks to Wikipedia for the
@@ -8591,17 +8872,16 @@ $$
 
   Use Green's theorem to explain why the final reading on the
   measuring wheel is equal to the area of the surface $S$.
-\end{exercise}
+\end{aexercise}
 
+\asubsection{sec:surf}
 
-\subsection*{Section \ref{sec:surf}}
-
-\begin{exercise}{}{}
+\begin{aexercise}
   Calculate $\int_{\partial D}xy\,dS$, where $D=[0,1]^3$.
-\end{exercise}
+\end{aexercise}
 
 
-\begin{exercise}[enhanced,breakable]{}{}
+\begin{aexercise}[enhanced,breakable]
   Consider the surface
   $S=\left\{(x,y,z)\in \R^3\,:\,x>0\text{ and }r = 1\text{ and
     }-\sqrt{\frac{\pi^2}{4}-\theta^2}\leq z\leq
@@ -8617,58 +8897,58 @@ $$
 \begin{center}
   \includegraphics{exercisefigures/label}
 \end{center}
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:divcurl}}
+\asubsection{sec:divcurl}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the divergence and curl of $\vec{F} = (2x^2, xe^z, -4y)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Let $f(x,y) = \log(x^2 + y^2)$ for
   $(x,y)\in \R^2 \setminus \{(0,0)\}$. Show that
   $\nabla \cdot (\nabla f) = 0$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Find the flow of the vector field $\vec{F} = x^2\vec{i} + xy\vec{j}$ across the surface 
 \[
 z = 1-x^2-y^2, \quad z \geq 0. 
 \]
-\end{exercise}
+\end{aexercise}
 
-\subsection*{Section \ref{sec:divtheorem}}
+\asubsection{sec:divtheorem}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Verify the divergence theorem for the cube bounded by the planes
   $x=0$, $x=1$, $y=0$, $y=1$, $z=0$, $z=1$ and the vector field
   $(3x,xy,2xz)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Confirm that the divergence theorem holds in the case $\mathbf{F} =
   \langle y, z, x \rangle$ and $D = \{(x,y,z) \,: \, x^2 + y^2 + z^2
   \leq 16\}$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Use the divergence theorem to calculate the flow of $\mathbf{F} =
   \langle x^4, -x^3 z^2, 4xy^2 z \rangle$ through the boundary of the
   region where $x^2 + y^2 \leq 1$ and $0 \leq z
   \leq x + 2$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Show that the volume of a three-dimensional region $D$ with
   piecewise smooth boundary is equal to 
   \[
-  \iint_{\partial D} \mathbf{F} \cdot \, d\mathbf{A},
+  \iint_{\partial D} \mathbf{F} \cdot \, {\d}\mathbf{A},
   \]
   where $\mathbf{F} =\langle x, y, z \rangle$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   \begin{minipage}[t]{0.7\linewidth}
     Use the divergence theorem to calculate the flux of the vector
     field $(x^2 \sin y, x \cos y, -xz \sin y)$ across the ``rounded
@@ -8680,33 +8960,32 @@ z = 1-x^2-y^2, \quad z \geq 0.
         \relax}{\includegraphics[width=4cm]{exercisefigures/roundedcube}}
     \end{center}
   \end{minipage}
-\end{exercise}
+\end{aexercise}
 
+\asubsection{sec:stokes}
 
-\subsection*{Section \ref{sec:stokes}}
+\begin{aexercise}
+   Use Stokes' theorem to evaluate $\int_C\mathbf{F} \cdot \d\mathbf{r}$, where $C$ is the triangle with vertices $(1,0,0)$, $(0,1,0)$, and $(0,0,1)$, oriented counterclockwise when viewed from above, and $\mathbf{F} = (x+y^2,y+z^2,z+x^2)$. 
+\end{aexercise}
 
-\begin{exercise}{}{}
-   Use Stokes' theorem to evaluate $\int_C\mathbf{F} \cdot d\mathbf{r}$, where $C$ is the triangle with vertices $(1,0,0)$, $(0,1,0)$, and $(0,0,1)$, oriented counterclockwise when viewed from above, and $\mathbf{F} = (x+y^2,y+z^2,z+x^2)$. 
-\end{exercise}
-
-\begin{exercise}{}{}
+\begin{aexercise}
   Verify Stokes' theorem for a closed sphere with the vector field
 $\mathbf{F} = (-y^3,x,z)$. 
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
   Find the work done on a particle by a force $\mathbf{F}=\langle
   xyz−e^x, −xyz, x^2yz+sin z \rangle$ on a particle that moves along the line segments from $(0, 0, 0)$, then to $(1, 1, 1)$, then to $(0, 0, 2)$, then back to $(0, 0, 0)$.
-\end{exercise}
+\end{aexercise}
 
-\begin{exercise}{}{}
+\begin{aexercise}
 Show that if $C$ is a simple smooth curve contained in the plane
 $x+y+z = 1$, then the line integral
-\[\int_C \langle z, 2x, 3z \rangle \cdot d\mathbf{r}\]
+\[\int_C \langle z, 2x, 3z \rangle \cdot \d\mathbf{r}\]
 depends only on the area of the region enclosed by $C$. This means
 that if $C_1$ and $C_2$ are any two such curves enclosing the same area,
 then the integrals around $C_1$ and $C_2$ are equal. 
-\end{exercise}
+\end{aexercise} 
 
 
 \end{document}

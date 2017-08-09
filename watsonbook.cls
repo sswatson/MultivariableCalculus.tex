@@ -64,6 +64,7 @@
 \providecommand{\C}{}
 \renewcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\d}{\mathrm{d}}
 
 %----TCOLORBOX SETUP-----------------------------
 
@@ -76,8 +77,8 @@
 \numberwithin{equation}{section}
 
 \newtcbtheorem[number within=section]{theo}{Theorem}{
-  colback=softred,
-  colframe=red!35!black,
+  colback=Purple!5,
+  colframe=Purple!50!black, %red!35!black,
   fonttitle=\bfseries}{th}
 \newtcbtheorem[number within=section]{obs}{Observation}{
   colback=Turquoise!8!white,
@@ -88,6 +89,15 @@
   colframe=SeaGreen,
   fonttitle=\bfseries,
   parbox=false}{exer}
+\newcounter{aexercise}
+\setcounter{aexercise}{0}
+\newtcolorbox{aexercise}[1][]{
+  title=Exercise~\thesubsection.\theaexercise, 
+  colback=softseagreen,
+  colframe=SeaGreen,
+  fonttitle=\bfseries,
+  code=\stepcounter{aexercise},
+  parbox=false, #1}
 \newtcbtheorem[number within=section]{example}{Example}{
   enhanced,
   colback=softblue,
@@ -188,3 +198,11 @@
 
 \DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
 \DeclareFixedFont{\subtitlefont}{T1}{ppl}{b}{it}{12pt}
+
+%----- APPENDIX SUBSECTION ---------------------
+
+\newcommand{\asubsection}[1]{
+\subsection*{Section \ref{#1}}
+\renewcommand{\thesubsection}{A.\ref{#1}}
+\setcounter{aexercise}{0}
+}
