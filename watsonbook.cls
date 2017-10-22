@@ -3,9 +3,12 @@
 
 \LoadClassWithOptions{report}
 
+\RequirePackage[svgnames]{xcolor} 
 \RequirePackage{hyperref}
 \RequirePackage{url}
-\RequirePackage[margin=1in,marginpar=0.5in]{geometry} 
+\RequirePackage[margin=1in,
+                marginpar=0.5in,
+                marginparsep=2.6mm]{geometry} 
 \RequirePackage{mathpazo_modified}
 \RequirePackage{calc} 
 \RequirePackage{amsmath}
@@ -21,7 +24,7 @@
 \RequirePackage{asymptote}
 \RequirePackage{xparse}
 \RequirePackage[skins,theorems,breakable,raster]{tcolorbox}
-\RequirePackage{enumitem} 
+\RequirePackage[shortlabels]{enumitem} 
 \RequirePackage{marginnote}
 \RequirePackage{tocloft}
 \RequirePackage[explicit,calcwidth]{titlesec}
@@ -58,6 +61,7 @@
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\Real}{Re}
 \DeclareMathOperator{\Imag}{Im}
+\DeclareMathOperator{\e}{e}
 \newcommand\pd[2]{\frac{\partial #1}{\partial #2}}
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\R}{\mathbb{R}}
@@ -103,6 +107,9 @@
   colback=softblue,
   colframe=MidnightBlue,
   fonttitle=\bfseries}{exam}
+\newtcbtheorem[number within=section]{defn}{Definition}{colback=Purple!5,
+  colframe=Purple,
+  fonttitle=\bfseries}{defn}
 \newtcolorbox{solution}[1][title=Solution]{
   enhanced,
   breakable,
@@ -111,9 +118,14 @@
   colframe=Orange!75!black,
   fonttitle=\bfseries,
   #1}
-\newtcbtheorem{defn}{Definition}{colback=Purple!5,
-  colframe=Purple,
-  fonttitle=\bfseries}{defn}
+\newtcolorbox{pf}[1][title=Proof]{
+  enhanced,
+  breakable,
+  parbox=false, 
+  colback=softyellow,
+  colframe=Orange!75!black,
+  fonttitle=\bfseries,
+  #1}
 
 \newcommand*\chapterlabel{}
 \titleformat{\chapter}
@@ -141,7 +153,7 @@
   {1em}{#1}
   [{\titleline*[l]{\color{MidnightBlue}\titlerule[2pt]}}]
 \titleformat{\subsection}
-  {\addtolength{\titlewidth}{2pc}\normalfont\large\sffamily}
+  {\addtolength{\titlewidth}{2pc}\bfseries\scshape}
   {\colorbox{MidnightBlue}{\parbox{2cm}{\strut\color{white}\hfill\thesubsection}}}
   {1em}{#1}
   [{\titleline*[l]{\color{MidnightBlue}\titlerule[2pt]}}]
@@ -160,19 +172,9 @@
 \newcommand\subitm{(\alph{subitm})\quad\stepcounter{subitm}}
 \newcommand{\pairofprobs}[2]{\makebox[0.5\textwidth][l]{\subitm #1}\subitm #2}
 
-\let\oldmarginpar\marginpar
-% renew the \marginpar command to draw 
-% a node; it has a default setting which 
-% can be overwritten
-\renewcommand{\marginpar}[3][rectangle,text width = 1.75cm,draw,fill=blue!25,rounded corners]{%
-        \oldmarginpar{%
-          \hphantom{a} \vspace{#2}
-        \scriptsize \tikz \node at (0,-1) [#1]{#3};
-      }%
-        }
 \newlength{\marginvoffset} 
-\DeclareDocumentCommand{\sidenote}{O{rectangle,text width =
-    17.5mm,draw,fill=softblue,rounded corners} m O{0pt}}{
+\DeclareDocumentCommand{\sidenote}{O{rectangle,thick,black,text width =
+       17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{
        \setlength{\marginvoffset}{#3 - 12pt} 
         \marginnote[{%
           \makebox[0pt][r]{
@@ -192,9 +194,11 @@
 %----- SPACING CUSTOMIZATIONS -----------------
 
 \parindent = 0.0 in
-\parskip = 0.2 in 
+\parskip = 0.2 in
+\reversemarginpar % Set margin notes in left margin 
+\setlength{\wrapoverhang}{\marginparwidth} % wrapfigure spillover
 
-%----- SECTION HEADING CUSTOMIZATION -----------
+%----- TITLE FONT CUSTOMIZATION ---------------
 
 \DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
 \DeclareFixedFont{\subtitlefont}{T1}{ppl}{b}{it}{12pt}

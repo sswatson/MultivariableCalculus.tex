@@ -1,63 +1,22 @@
-\documentclass[svgnames]{watsonbook}
+\documentclass{watsonbook}
 
 \input{header.tex}
 
 \begin{document} 
 
-\begin{titlepage} 
-  \pagecolor{softblue}
-  {\titlefont \color{MidnightBlue} MULTIVARIABLE CALCULUS} 
-  
-  \vspace*{5mm} 
-  { \hspace*{9cm} \subtitlefont for MIT Interphase students} \par
-  \null\vfill
-  \vspace*{1cm}
-  \noindent
-  \hfill
-  \begin{minipage}{0.35\linewidth}
-    \begin{flushright}
-      \printauthor
-    \end{flushright}
-  \end{minipage}
-  % 
-  \begin{minipage}{0.02\linewidth}
-    \rule{1pt}{125pt}
-  \end{minipage}
-  \titlepagedecoration
-\end{titlepage}
-
+\input{titlepage.tex}
 
 \chapter*{Preface} 
 
 \pagecolor{white} 
 
-This text was written to accompany the multivariable calculus course
-taught during the Office of Minority Education's six-week summer
-\textit{Interphase} program at the Massachusetts Institute of
-Technology. Students participating in this program have the
-opportunity to take a full-semester version of multivariable calculus
-in the fall semester. 
+This text was originally written to accompany the multivariable
+calculus course taught during the Office of Minority Education's
+six-week summer \textit{Interphase} program at the Massachusetts
+Institute of Technology. From September 2017 to December 2017, it will
+be adapted for use in \textit{Honors Calculus} (Math 350) at Brown
+University. 
 
-For this reason, the material presented here is substantially
-streamlined compared to a typical multivariable calculus
-course. Rather than thoroughly covering the first half of the standard
-curriculum and leaving students with an abrupt drop-off in content
-knowledge midway through the fall, I have carved out a selection of
-topics which approximately spans the standard curriculum but which 
-nevertheless includes the most important ideas and is self-contained.
-
-Another casualty of the abbreviated schedule is mathematical rigor. I
-emphasize concept visualization and physical intuition, and I include
-proofs only when they are sufficiently illuminating to be worth the
-effort. I fully embrace the physicist's perspective that one should
-derive formulas by reasoning about small positive quantities like
-$\Delta x$, trusting that one may replace sums with integrals and
-$\Delta x$ with $\d x$ to obtain correct results. Turning these
-heuristics into proofs is left to later courses (although the matter
-is discussed further in Appendix~\ref{sec:centralidea}). While there
-are advantages to maintaining a higher standard of rigor, my top
-priority is for students to gain problem-solving facility with the
-methods covered in the course.
 
 SW \\
 2017
@@ -77,7 +36,8 @@ sources for more exercises, discussion, or examples:
   section. Some of these are original, and others are
   modified from exercises in 
   Stewart's \textit{Multivariable Calculus} or Colley's \textit{Vector
-    Calculus} 
+    Calculus}. I will be expanding these appendices as the semester
+  goes on. 
 \item The community calculus textbook, available at
   \texttt{communitycalculus.org}. This is an open source textbook available (for
   free) online, and it has \textit{a lot} of exercises 
@@ -88,9 +48,6 @@ sources for more exercises, discussion, or examples:
 \item MathInsight (\texttt{mathinsight.org}) has webpages for many
   multivariable topics with nice exposition and some beautiful applets for exploring the
   ideas developed in this course
-\item My Math 0200 webpage, with homework sets, practice tests, and
-  solutions: \\
-  \href{http://www.math.brown.edu/~sswatson/math0200.html}{\url{http://www.math.brown.edu/~sswatson/math0200.html}}
 \item A standard multivariable calculus textbook, such as Stewart
   or Edwards and Penney
 \item 3blue1brown, a math video creator with an excellent series on
@@ -116,7 +73,7 @@ Reader
 references in this text are hyperlinked, which means for example that you can click on
 Theorem~\ref{th:green} to navigate directly to Green's theorem. 
 
-Please do not hesitate to contact me via email (sswatson@mit.edu)
+Please do not hesitate to contact me via email (\url{sswatson@brown.edu})
 about any mistakes you find in these notes, no matter how
 minor. Enjoy!
 
@@ -135,7 +92,9 @@ send a letter to Creative Commons, 543 Howard Street, 5th Floor, San
 Francisco, California, 94105, USA. If you distribute this work or a
 derivative, include the history of the document.
 
-These notes are an original work of the author. 
+These notes are an original work of the author.
+
+Last updated: \today 
 }
 
 \vspace{5cm}
@@ -151,11 +110,7 @@ These notes are an original work of the author.
 
 \section{\textit{n}-dimensional space} \label{sec:ndimspace} 
 
-\reversemarginpar
-
-\setlength{\wrapoverhang}{\marginparwidth}
-
-\begin{wrapfigure}[20]{R}{5cm}
+\begin{wrapfigure}[24]{R}{5cm}
 \begin{asy} 
 size(5cm);
 defaultpen(fontsize(8));
@@ -230,7 +185,7 @@ two lines which meet at a right angle. These two lines are called the
 $x$-axis and the $y$-axis.
 
 The set $\R^3$ of ordered triples of real numbers $(x,y,z)$ can be
-visualized as a point in space, since a point in space can be
+visualized as (3D) space, since a point in space can be
 specified by three real numbers: its signed distances from three
 planes which meet one another at right angles. These planes are called
 the $xy$-plane, the $yz$-plane, and the $xz$-plane, and their lines of
@@ -252,6 +207,26 @@ is called the \textbf{dimension} of $\R^n$.
   for two \\ points in $\R^3$. 
 \end{exercise}
 
+The \textbf{graph} of an equation in $\R^n$ is the set of all points
+in $\R^n$ whose coordinates satisfy the equation. For example, the
+graph of the equation $x + y = 1$ in $\R^2$ is a line. The graph of
+$x^2 + y^2 = 1$ in $\R^3$ is a \textit{cylinder}, since a point
+$(x,y,z)$ satisfies the equation if and only if it is directly above
+or below a point on the unit circle in the $xy$-plane. Note that the
+dimension of the Euclidean space under consideration must be
+specified, since the equation need not involve all the variables.
+
+\begin{exercise}{}{equation_graphs}
+  \begin{enumerate}[(a), leftmargin = 12pt, itemsep = 4pt]
+  \item Describe graph of the equation $x(x-1)(x+1) = 0$ in
+  $\R^1$. 
+  \item Interpret $x(x-1)(x+1) = 0$ as an equation in $\R^2$ and
+  describe its graph. 
+  \item Interpret $x(x-1)(x+1) = 0$ as an equation in $\R^3$ and
+    describe its graph.
+  \end{enumerate}
+\end{exercise}
+
 \section{Functions from $\R^n$ to $\R^n$} \label{sec:RntoRn}
 
 \subsection{Visualizing functions}
@@ -262,8 +237,10 @@ can draw the \textit{graph}* of such a function in $1 + 1 = 2$
 dimensions, by associating the horizontal axis with input values and
 the vertical axis with output values. For example, see
 Figure~\ref{fig:squaring} for a graph of the squaring
-function. \sidenote{* A point $(x,y)$ is on the graph of $f$ if and
-  only if $f(x) = y$.}[-1cm]
+function. \sidenote{* The graph of a function $f$ from $\R^1$ to
+  $\R^1$ is defined to be the graph of the \textit{equation} $y = f(x)$. In
+  other words, $(x,y)$ is on the graph if and only if the equation
+  $y=f(x)$ is satisfied.}[-1cm]
 
 A function from $\R^2$ to $\R^1$ can be visualized in $2 + 1 = 3$
 dimensions by using the $xy$-plane for the input values and the
@@ -315,7 +292,7 @@ label("$f(x,y) = e^{-x^2-y^2}$",(1.3*Z),align=N);
 \end{minipage}
 \end{figure} 
 
-\begin{wrapfigure}[12]{R}{10cm} 
+\begin{wrapfigure}[15]{R}{10cm} 
 \begin{asy} 
 size(10cm);
 defaultpen(fontsize(8));
@@ -362,6 +339,113 @@ transformations and can be visualized in the same way, but for now we
 will focus on transformations from $\R^2$ to
 $\R^2$.
 
+A \textbf{level set} of a function is the set of all values in the
+function's domain which are mapped to a particular value in the
+codomain. For example, the level sets of the function
+$f(x,y) = x^2 + y^2$ are concentric circles, as shown in
+Figure~\ref{fig:levelsets2}. The level sets of
+$f(x,y,z) = x^2 + y^2 - z^2$ are surfaces, as shown in
+Figure~\ref{fig:levelsets3}. Level sets are often called level curves
+or level surfaces, as appropriate. A picture showing the level sets
+corresponding to several equally spaced codomain values is called a
+\textbf{contour plot}. 
+
+A function from $\R^2$ to $\R^1$ can be visualized using its graph or
+a contour plot, whereas the graph of a function from $\R^3$ to $\R^1$
+can't be visualized. Thus contour plotting provides an important
+visualization tool for functions of three variables.
+
+Contour plots have some shortcomings: unless the output value
+corresponding to each level set is identified by some sort of labeling
+or coloring scheme, information about the values of the function is
+missing from the picture. In other words, while graphing a function
+combines input and output into a single figure, level sets are drawn
+in the function's \textit{domain} only*. \sidenote{* This means that
+  Figure~\ref{fig:levelsets2} is a bit of a lie: the level sets should
+  be points in $\R^2$ rather than points in the $xy$-plane in
+  $\R^3$. However, it is common practice to make such implicit use of
+  the natural association $(x,y) \leftrightarrow (x,y,0)$ between
+  $\R^2$ and the $xy$-plane. }[-4cm]
+
+\begin{figure}
+  \begin{minipage}{0.49\textwidth}
+    \begin{center}
+      \begin{asy} 
+        size(0,5cm);
+        import graph3;
+        settings.outformat="pdf";
+        currentprojection=perspective(4,2,1.3); 
+        triple f(pair z) {return (z.x*cos(z.y),z.x*sin(z.y),z.x^2);}
+        draw(surface(f,(0,0),(1,2*pi),Spline),
+        LightSeaGreen+opacity(0.4),MidnightBlue);
+        real t = 1;
+        real h = 0.2;
+        draw(surface((-t,-t,h)--(-t,t,h)--(t,t,h)--(t,-t,h)--cycle),opacity(0.2));
+        draw(circle((0,0,h),sqrt(h),normal=Z));
+        draw(circle((0,0,0),sqrt(h),normal=Z),MidnightBlue); 
+        real h = 0.5;
+        draw(surface((-t,-t,h)--(-t,t,h)--(t,t,h)--(t,-t,h)--cycle),opacity(0.2));
+        draw(circle((0,0,h),sqrt(h),normal=Z));
+        draw(circle((0,0,0),sqrt(h),normal=Z),MidnightBlue); 
+        real h = 0.8;
+        draw(surface((-t,-t,h)--(-t,t,h)--(t,t,h)--(t,-t,h)--cycle),opacity(0.2));
+        draw(circle((0,0,h),sqrt(h),normal=Z));
+        draw(circle((0,0,0),sqrt(h),normal=Z),MidnightBlue); 
+        draw(O--1.4*X,Arrow3());
+        draw(O--1.4*Y,Arrow3());
+        draw(O--1.3*Z,Arrow3());
+        label("$x$",(1.5*X),align=W);
+        label("$y$",(1.5*Y),align=E);
+        draw((0.55,0.95,-0.05)--(0.55,0.85,0),MidnightBlue,EndArrow3(3));
+        label("level curves of $f$",(0.65,1.05,-0.1),MidnightBlue); 
+        label("$f(x,y) = x^2 + y^2$",(1.3*Z),align=N);
+      \end{asy}
+    \end{center}
+    \captionof{figure}{The level
+      sets of $f(x,y) = x^2 + y^2$ are concentric circles in
+      $\R^2$. They are the projections onto the $xy$-plane of
+      intersections of the graph of $f$ with ``$z=\mathrm{constant}$''
+      planes, as shown.} \label{fig:levelsets2}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+    \begin{center}
+      \begin{asy}
+        size(0,5cm); 
+        import smoothcontour3;
+        import palette; 
+        
+        real f(real x, real y, real z, real k) {
+          return x^2 + y^2 - z^2 + k ;
+        }
+        
+        pen[] colors = Gradient(5 ... new pen[] {LightSeaGreen, MidnightBlue});
+        int ctr = 0;
+        
+        for(real k=-1; k <= 1; k += 0.5) {
+          draw(implicitsurface(
+          new real (real x, real y, real z) {return f(x,y,z,k);},
+          (-3,-3,-2), (3,3,2)
+          ),
+          surfacepen = material(opacity=0.5,
+          diffusepen=colors[ctr]+opacity(0.2),
+          emissivepen=0.2*white+opacity(0.2)));
+          ctr += 1; 
+        }
+        label("$f(x,y,z) = x^2 + y^2 - z^2$",(0,0,3.5));
+        label("level surfaces of $f$",(2,1.7,-2.5), MidnightBlue);
+        
+        draw(O--3*X,Arrow3());
+        draw(O--3*Y,Arrow3());
+        draw(O--3*Z,Arrow3()); 
+      \end{asy}
+    \end{center}
+    \captionof{figure}{The level sets of $f(x,y,z) = x^2 + y^2 -
+      z^2$ are surfaces in $\R^3$. The graph of $f$ can't be
+      visualized, but the level surfaces contain some geometric
+      information about $f$. } \label{fig:levelsets3}
+  \end{minipage}
+\end{figure}
+
 \subsection{Linear transformations}
 
 \sidenote{\href{https://www.youtube.com/watch?v=kYB8IZa5AuE}{\tbob}
@@ -378,37 +462,223 @@ approximate more complex transformations. Thus, as you did before you
 learned single-variable calculus, we will begin by learning about
 linear functions. 
 
-So what \textit{is} a linear function from $\R^2$ to $\R^2$? 
-Functions of the form 
-$f(x) = mx + b$, where $m$ and $b$ are constants, are often called
-linear. However, we will take a slightly different view by requiring
-$b = 0$, so only functions of the form $f(x) = mx$ are considered
-linear. Our definition of linearity in higher dimensions will work
-similarly: only terms of the form ``constant times variable'' are
-allowed. 
+So what \textit{is} a linear function from $\R^2$ to $\R^2$?
+Functions of the form $f(x) = mx + b$, where $m$ and $b$ are
+constants, are often called linear. However, we will take a slightly
+different view by requiring $b = 0$, so that only functions of the
+form $f(x) = mx$ are considered linear.* Our definition of linearity
+in higher dimensions will work similarly: only terms of the form
+``constant times variable'' are allowed. \sidenote{* Actually, this
+  view is ubiquitious in mathematics, because the essence
+  of linearity is the pair of properties $f(x + y) = f(x) + f(y)$ and
+  $f(ax) = af(x)$, and we only get these if we insist $b=0$.}[-2cm]
 
 \begin{defn}{Linearity}{def:linear2}
   A function $f$ from $\R^2$ to $\R^2$ is \textbf{linear} if there exist*
-  $a,b,c,d \in \R$ so that 
+  $a,b,c,d \in \R$ so that \sidenote{* This notation means that $a,b,c,d$ are in the set of real numbers.}
   \[
     f(x,y) = (ax + by , cx + dy). 
   \]
 \end{defn}
-\sidenote{* This notation means that $a,b,c,d$ are in the set of real numbers.}[-1cm]
+
 
 \begin{figure}[h!]
-\input transformations.tex
+\begin{center} 
+\begin{asy} 
+size(7cm);
+settings.outformat="pdf";
+usepackage("mathpazo_modified");
+import graph;
+import x11colors;
+real f(real x){
+  return x*x;
+}
+int n = 4;
+draw((-n-1,0)--(n+1,0),Arrows(4));
+draw((0,-n-1)--(0,n+1),Arrows(4));
+picture sidepic;
+size(sidepic,5cm);
+add(sidepic,currentpicture);
+for(int i=-n;i<=n; ++i){
+  draw((i,-n)--(i,n),MidnightBlue+opacity(0.5));
+  draw((-n,i)--(n,i),MidnightBlue+opacity(0.5));
+}
+pair f(real s, real t){
+  return (2*s,t);
+}
+typedef pair fun(real);
+fun F(real t) {
+  return new pair(real s) {return f(s,t);};
+}
+fun G(real s) {
+  return new pair(real t) {return f(s,t);};
+}
+for(int i=-n;i<=n;++i){
+  draw(sidepic,graph(F(i),-n,n),MidnightBlue+opacity(0.5));
+  draw(sidepic,graph(G(i),-n,n),MidnightBlue+opacity(0.5));
+}
+string s = graphic("mybutterfly.eps","width=12mm");
+pair butterflycenter = (2,2);
+transform t = (0,0,2,0,0,1); 
+label(sidepic,t*s,t*butterflycenter); 
+add(shift((15,0))*sidepic);
+label("$f(x,y) = (2x,y)$",(5,7));
+draw((3,5)..(6,5.5)..(9,5),Arrow(4));
+label(s,butterflycenter); 
+\end{asy} 
+\hspace{1cm} 
+\begin{asy} 
+size(7cm);
+settings.outformat="pdf";
+usepackage("mathpazo_modified");
+import graph;
+import x11colors;
+real f(real x){
+  return x*x;
+}
+int n = 4;
+draw((-n-1,0)--(n+1,0),Arrows(4));
+draw((0,-n-1)--(0,n+1),Arrows(4));
+picture sidepic;
+size(sidepic,5cm);
+add(sidepic,currentpicture);
+for(int i=-n;i<=n; ++i){
+  draw((i,-n)--(i,n),MidnightBlue+opacity(0.5));
+  draw((-n,i)--(n,i),MidnightBlue+opacity(0.5));
+}
+pair f(real s, real t){
+  return (s+t,t);
+}
+typedef pair fun(real);
+fun F(real t) {
+  return new pair(real s) {return f(s,t);};
+}
+fun G(real s) {
+  return new pair(real t) {return f(s,t);};
+}
+for(int i=-n;i<=n;++i){
+  draw(sidepic,graph(F(i),-n,n),MidnightBlue+opacity(0.5));
+  draw(sidepic,graph(G(i),-n,n),MidnightBlue+opacity(0.5));
+}
+draw((5,5)..(8,5.5)..(11,5),Arrow(4));
+string s = graphic("mybutterfly.eps","width=12mm");
+pair butterflycenter = (2,2);
+transform t = (0,0,1,1,0,1); 
+label(sidepic,t*s,t*butterflycenter); 
+add(shift((15,0))*sidepic);
+label("$f(x,y) = (x+y,y)$",(7,7));
+label(s,butterflycenter); 
+\end{asy} 
+\end{center}
+
+\begin{center} 
+\begin{asy} 
+size(7cm);
+settings.outformat="pdf";
+usepackage("mathpazo_modified");
+import graph;
+import x11colors;
+real f(real x){
+  return x*x;
+}
+int n = 4;
+draw((-n-1,0)--(n+1,0),Arrows(4));
+draw((0,-n-1)--(0,n+1),Arrows(4));
+picture sidepic;
+size(sidepic,5cm);
+add(sidepic,currentpicture);
+for(int i=-n;i<=n; ++i){
+  draw((i,-n)--(i,n),MidnightBlue+opacity(0.5));
+  draw((-n,i)--(n,i),MidnightBlue+opacity(0.5));
+}
+pair f(real s, real t){
+  return (s+t,s-t);
+}
+typedef pair fun(real);
+fun F(real t) {
+  return new pair(real s) {return f(s,t);};
+}
+fun G(real s) {
+  return new pair(real t) {return f(s,t);};
+}
+for(int i=-n;i<=n;++i){
+  draw(sidepic,graph(F(i),-n,n),MidnightBlue+opacity(0.5));
+  draw(sidepic,graph(G(i),-n,n),MidnightBlue+opacity(0.5));
+}
+string s = graphic("mybutterfly.eps","width=12mm");
+transform t = (0,0,1,1,1,-1);
+pair butterflycenter = (2,2); 
+label(sidepic,t*s,t*butterflycenter); 
+add(shift((15,0))*sidepic);
+label("$f(x,y) = (x+y,x-y)$",(5,7));
+draw((3,5)..(6,5.5)..(9,5),Arrow(4));
+label(s,butterflycenter); 
+\end{asy}  
+\hspace{1cm} 
+\begin{asy} 
+size(7cm);
+settings.outformat="pdf";
+usepackage("mathpazo_modified");
+import graph;
+import x11colors;
+real f(real x){
+  return x*x;
+}
+int n = 4;
+draw((-n-1,0)--(n+1,0),Arrows(4));
+draw((0,-n-1)--(0,n+1),Arrows(4));
+picture sidepic;
+size(sidepic,5cm);
+add(sidepic,currentpicture);
+for(int i=-n;i<=n; ++i){
+  draw((i,-n)--(i,n),MidnightBlue+opacity(0.5));
+  draw((-n,i)--(n,i),MidnightBlue+opacity(0.5));
+}
+pair f(real s, real t){
+  return (2/3*s-t/3,1/3*s-t/6);
+}
+typedef pair fun(real);
+fun F(real t) {
+  return new pair(real s) {return f(s,t);};
+}
+fun G(real s) {
+  return new pair(real t) {return f(s,t);};
+}
+for(int i=-n;i<=n;++i){
+  draw(sidepic,graph(F(i),-n,n),MidnightBlue+opacity(0.5));
+  draw(sidepic,graph(G(i),-n,n),MidnightBlue+opacity(0.5));
+}
+add(shift((15,0))*sidepic);
+label("$f(x,y) = (\frac{2}{3}x-\frac{1}{3}y,\frac{1}{3}x-\frac{1}{6}y)$",(7,7));
+draw((5,5)..(8,5.5)..(11,5),Arrow(4));
+string s = graphic("mybutterfly.eps","width=12mm");
+transform t = (0,0,2/3,-1/3,1/3,-1/6+0.05);
+pair butterflycenter = (2,2); 
+label(sidepic,t*s,t*butterflycenter); 
+add(shift((15,0))*sidepic);
+label("$f(x,y) = (\frac{2}{3}x-\frac{1}{3}y,\frac{1}{3}x-\frac{1}{6}y)$",(7,7));
+draw((5,5)..(8,5.5)..(11,5),Arrow(4));
+label(s,butterflycenter); 
+\end{asy} 
+\end{center}
 \caption{Four linear transformations from $\R^2$ to $\R^2$ \label{fig:four_trans}}
 \end{figure}
 
-Figure~\ref{fig:four_trans} shows four examples* of linear
-transformations from $\R^2$ to $\R^2$. These pictures might lead us to
-conjecture that linear transformations map equally spaced lines to
-equally spaced lines, where coincident lines count as equally spaced
+Figure~\ref{fig:four_trans} shows four examples of linear
+transformations from $\R^2$ to $\R^2$. The transformations in
+Figure~\ref{fig:four_trans} \textit{scale}, \textit{shear},
+\textit{rotate/scale}, and \textit{project}, respectively. Not shown
+is a \textit{reflection}, such as $f(x,y) = (x,-y)$. This list is
+complete in the sense that every linear transformation from $\R^2$ to
+$\R^2$ can be written as a composition of these basic types.
+
+We might guess, based on Figure~\ref{fig:four_trans}, linear
+transformations map equally spaced lines to equally spaced lines,
+where coincident lines count as equally spaced with a spacing of zero
 (as in the last example). This is almost accurate: sometimes equally
 spaced lines can map to equally spaced \textit{points}
-(Exercise~\ref{exer:espoints}). \sidenote{* These transformations \textit{scale}, \textit{shear}, \textit{rotate/scale}, and
-  \textit{project}, respectively.}[-1cm]
+(Exercise~\ref{exer:espoints}). The following theorem gives a
+geometric characterization of linearity. 
 
 \begin{theo}{}{equalspacing}
   A function from $\R^2$ to $\R^2$ is linear if and only if it maps
@@ -419,10 +689,10 @@ spaced lines can map to equally spaced \textit{points}
 \end{theo}
 
 \begin{exercise}{}{}
-  Use Theorem~\ref{th:equalspacing} to explain why if $f : \R^2 \to
-  \R^2$ rotates every point counterclockwise about the origin by $30^\circ$, there
-  necessarily exist exist $a,b,c,d\in\R$ such that $f(x,y) = (ax+ by,
-  cx+ dy)$ for all $(x,y) \in\R^2$. 
+  Use Theorem~\ref{th:equalspacing} to show that if
+  $f : \R^2 \to \R^2$ rotates every point counterclockwise about the
+  origin by $30^\circ$, there necessarily exist $a,b,c,d\in\R$ such
+  that $f(x,y) = (ax+ by, cx+ dy)$ for all $(x,y) \in\R^2$.
 \end{exercise}
 
 \begin{exercise}{}{espoints}
@@ -445,7 +715,7 @@ function is the \textit{factor by which lengths are transformed}, and
 the sign of the slope tells us whether the function reverses the real
 number line.
 
-What is the corresponding idea for transformations from $\R^2$ to
+So, what's the corresponding idea for transformations from $\R^2$ to
 $\R^2$? Can we look at a linear transformation and conveniently
 calculate the factor by which that transformation multiplies
 \textit{areas}? Yes!
@@ -681,6 +951,28 @@ This formula is \textit{still} not easy to memorize, so let's break it down: eac
   \]
 \end{exercise}
 
+\begin{exercise}{}{transpose}
+  The \textbf{transpose} $A^T$ of a matrix $A$ is obtained by swapping rows and
+  columns. In other words,
+  \[
+    \left[
+      \begin{array}{ccc} a & b & c
+        \\ d & e & f
+        \\ g & h &i
+      \end{array}\right]^T
+    =
+    \left[\begin{array}{ccc}
+            a &
+                d & g\\ b & e & h \\ c & f & i \end{array}\right]. 
+  \]
+  Show  that $\det A = \det A^T$. 
+\end{exercise}
+
+\begin{exercise}{}{singular}
+  Show that if two rows of a $3 \times 3$ matrix $A$ are the same,
+  then $\det A = 0$. 
+\end{exercise}
+        
 
 \chapter{Vectors}
 
@@ -785,25 +1077,25 @@ draw((0,0)--0.93*(2,1),DarkOrange+linewidth(1.25));
 
 We typically assign names for vectors which are lowercase boldface
 letters, like $\vec{u}$ or $\vec{v}$.  Looking at 
-Figure~\ref{fig:scalarmultiply}, we make the following observation
+Figure~\ref{fig:scalarmultiply}, we make the following observation. 
 
 \begin{obs}{Parallel vectors}{vecparallel} \bang{-5mm}
   Two vectors $\vec{u}$ and $\vec{v}$ have the
 same direction if $\vec{u} = c \, \vec{v}$ for some scalar $c$. 
 \end{obs}
 
-The following exercise shows that vector operations satisfy one of the
-properties suggested by the notation.* They satisfy several others,
-such as commutativity
+Vector operations satisfy several properties suggested by the
+notation,* such as commutativity
 ($\vec{u} + \vec{v} = \vec{v} + \vec{u}$), associativity
-($(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} +
-\vec{w})$), and so on. The basic strategy for proving all these
-property-verification exercises is the same: write out what each side
-of the equations in terms of components, and then simplify until you
-can see that both sides are equal. 
-\sidenote{* That is, we use the same notation as we use for multiplication/addition
-  of real numbers because these operations satisfy many of the same
-  properties.}[-12mm]
+($(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$), the
+distributive property of scalar multiplication across vector addition
+(Exercise~\ref{exer:vector_distribution}) and so on. The basic strategy
+for proving all these property-verification exercises is the same:
+write out what each side of the equation means in terms of components, and
+then simplify until you can see that both sides are equal. \sidenote{*
+  That is, we use the same notation as we use for
+  multiplication/addition of real numbers because these operations
+  satisfy many of the same properties.}[-12mm]
 
 \begin{exercise}{}{vector_distribution}
   Show that scalar multiplication distributes across vector
@@ -815,11 +1107,28 @@ can see that both sides are equal.
   \] 
 \end{exercise}
 
+\begin{exercise}{}{vector_distribution_2}
+  Show that scalar multiplication distributes across scalar 
+  addition. In other words, show that for all $c\in \R$ and vectors
+  $\vec{u}$ and $\vec{v}$ in $\R^n$, we have 
+  \[
+    (c+d)\vec{u}  = c \vec{u} + d \vec{u}. 
+  \] 
+\end{exercise}
+
 \begin{exercise}{}{vector_subtraction}
   Choose two vectors $\vec{u}$ and $\vec{v}$ with small integer
-  coordinates and verify that $\vec{u}$, $\vec{v}$, and $\vec{u}
+  coordinates and draw a figure to show how $\vec{u}$, $\vec{v}$, and $\vec{u}
   - \vec{v}$
   fit together to form a triangle. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  Suppose that $\mathbf{u}$ and $\mathbf{v}$ are vectors in $\R^2$ or
+  $\R^3$, and suppose that $\mathbf{w} = c \mathbf{u} + d \mathbf{v}$,
+  where $c$ and $d$ are both in $[0,1]$. If the tail of $\mathbf{w}$
+  is at the origin, then what is the set of possible locations for the
+  head of $\mathbf{w}$?
 \end{exercise}
 
 The following example shows how vector ideas can be applied to geometry
@@ -832,7 +1141,7 @@ problems.
 \end{example}
 
 \begin{solution} 
-\begin{minipage}{11cm}
+\begin{minipage}{12.5cm}
   Define $\vec{u}$ and $\vec{v}$ be two vectors with a common
   tail at one vertex $O$ of the triangle and heads at the other two
   vertices $A$ and $B$ as shown. Then the vectors from $O$ to the
@@ -848,18 +1157,18 @@ problems.
   direction as the vector from $A$ to $B$ (by
   Observation~\ref{obs:vecparallel}) and is half as long.
 \end{minipage} \quad 
-\begin{minipage}{5cm}
-\begin{asy} 
-size(5cm);
+\begin{minipage}{3.2cm}
+  \begin{asy}
+size(3cm);
 label("$O$",(0,0),align=W);
 label("$A$",(2,1),align=E);
 label("$B$",(1,3),align=N);
 draw((0,0)--(2,1)--(1,3)--cycle);
-draw((0,0)--(2,1),Arrow());
-draw((0,0)--(1,3),Arrow());
+draw((0,0)--(2,1),SeaGreen,Arrow());
+draw((0,0)--(1,3),MidnightBlue,Arrow());
 draw((1,1/2)--(1/2,3/2),Arrow());
-label("$\mathbf{u}$",(1,1/2),align=SE);
-label("$\mathbf{v}$",(1/2,3/2),align=WNW);
+label("$\mathbf{u}$",(1,1/2),align=SE,SeaGreen);
+label("$\mathbf{v}$",(1/2,3/2),align=WNW,MidnightBlue);
 \end{asy}
 \end{minipage}
 \end{solution}
@@ -867,6 +1176,14 @@ label("$\mathbf{v}$",(1/2,3/2),align=WNW);
 \begin{exercise}{}{}
   Use vectors to show that the diagonals of a parallelogram bisect one
   another. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  A median of a triangle is a line segment from a vertex of the
+  triangle to the midpoint of the opposite side. Use vectors to show
+  that for any triangle, there is a point on all three medians. (Hint:
+  This point will split each median into two segments, one of which is
+  twice as long as the other.)
 \end{exercise}
 
 \section{The dot product} \label{sec:dot} 
@@ -899,7 +1216,8 @@ $|\vec{u}|$ the length of $\vec{u}$.
   \vec{u} = |\vec{u}|^2$.
 \end{exercise}
 
-Now we establish the relationship between the dot product and angle. 
+Now we establish the relationship between the dot product and angle.
+\enlargethispage{5mm} 
 
 \begin{example}{}{}
   Use the law of cosines to show that $\vec{u} \cdot \vec{v} =
@@ -908,7 +1226,7 @@ Now we establish the relationship between the dot product and angle.
 \end{example}
 
 \begin{solution} 
-  \begin{minipage}{11cm}
+  \begin{minipage}{12.5cm}
     We apply the law of cosines to the triangle with sides
     $\vec{u}$, $\vec{v}$, and $\vec{u} - \vec{v}$. We get 
     \[
@@ -926,9 +1244,9 @@ Now we establish the relationship between the dot product and angle.
     Subtracting these equations yields $\vec{u} \cdot \vec{v} =
   |\vec{u}| |\vec{v}| \cos\theta$. 
   \end{minipage} \quad 
-\begin{minipage}{5cm}
-\begin{asy} 
-size(5cm);
+\begin{minipage}{3.2cm}
+  \begin{asy}
+size(3cm);
 real ep = 0.2;
 draw((0,0)--(2,1)--(1,3)--cycle);
 draw((0,0)--(2,1),Arrow());
@@ -952,8 +1270,9 @@ meet at a right angle.
   only if $\vec{u} \cdot \vec{v} = 0$. 
 \end{obs}
 
-The following example shows how handy the relation $\vec{u} \cdot \vec{v} =
-  |\vec{u}| |\vec{v}| \cos\theta$ can be. 
+The following example shows how we can use the relation
+$\vec{u} \cdot \vec{v} = |\vec{u}| |\vec{v}| \cos\theta$ to find an
+angle when information about coordinates is available. 
   
   \begin{example}{}{}
     Find the angle between the diagonal of a cube and a diagonal of one
@@ -993,36 +1312,63 @@ The following example shows how handy the relation $\vec{u} \cdot \vec{v} =
   $\mathbf{u} \cdot \mathbf{v} = 0$ for these two vectors. 
 \end{exercise}
 
-We conclude this section by pointing out that one can begin with the
-geometric formula
-$\mathbf{u} \cdot \mathbf{v} = |\mathbf{u}| |\mathbf{v}| \cos\theta$
+We conclude this section by addressing the out-of-nowhere step where
+we defined the formula for the dot product. It isn't as myseterious as
+it seems. We could have begun with the geometric formula
+$\vec{u} \cdot \vec{v} = |\vec{u}| |\vec{v}| \cos\theta$
 as the \textit{definition} of the dot product, derive the distributive
-property of the dot product across vector addition, and then obtain
-the formula for the dot product in the following simple manner: define
-$\mathbf{i} = \langle1,0,0\rangle$,
-$\mathbf{j} = \langle0,1,0\rangle$, and
-$\mathbf{k} = \langle0,0,1\rangle$. Then a vector
-$\mathbf{u} = \langle u_1, u_2, u_3\rangle$ can be written as
+property of the dot product across vector addition using geometry, and
+then obtain the formula for the dot product in the following simple
+manner: define $\vec{i} = \langle1,0,0\rangle$,
+$\vec{j} = \langle0,1,0\rangle$, and
+$\vec{k} = \langle0,0,1\rangle$. Then a vector
+$\vec{u} = \langle u_1, u_2, u_3\rangle$ can be written as
 \[
-\mathbf{u} = u_1 \mathbf{i} + u_2 \mathbf{j} + u_3 \mathbf{k},
+\vec{u} = u_1 \vec{i} + u_2 \vec{j} + u_3 \vec{k},
 \]
-and similarly for $\mathbf{v}$. Then 
+and similarly for $\vec{v}$. Then 
 \begin{align*}
-  \mathbf{u} \cdot \mathbf{v} &= (u_1 \mathbf{i} + u_2 \mathbf{j} + u_3
-  \mathbf{k})(v_1 \mathbf{i} + v_2 \mathbf{j} + v_3 \mathbf{k})  \\
-  &= u_1 v_1 \mathbf{i} \cdot \mathbf{i} + u_1 v_2 \mathbf{i} \cdot
-    \mathbf{j}  + u_1 v_3 \mathbf{i} \cdot \mathbf{k}  + \\ 
-  &\hspace{5mm}  u_2 v_1 \mathbf{j} \cdot \mathbf{i} + u_2 v_2 \mathbf{j} \cdot
-    \mathbf{j}  + u_2 v_3 \mathbf{j} \cdot \mathbf{k}  + \\ 
-  &\hspace{5mm}  u_3 v_1 \mathbf{k} \cdot \mathbf{i} + u_3 v_2 \mathbf{k} \cdot
-    \mathbf{j}  + u_3 v_3 \mathbf{k} \cdot \mathbf{k},
+  \vec{u} \cdot \vec{v} &= (u_1 \vec{i} + u_2 \vec{j} + u_3
+  \vec{k})(v_1 \vec{i} + v_2 \vec{j} + v_3 \vec{k})  \\
+  &= u_1 v_1 \vec{i} \cdot \vec{i} + u_1 v_2 \vec{i} \cdot
+    \vec{j}  + u_1 v_3 \vec{i} \cdot \vec{k}  + \\ 
+  &\hspace{5mm}  u_2 v_1 \vec{j} \cdot \vec{i} + u_2 v_2 \vec{j} \cdot
+    \vec{j}  + u_2 v_3 \vec{j} \cdot \vec{k}  + \\ 
+  &\hspace{5mm}  u_3 v_1 \vec{k} \cdot \vec{i} + u_3 v_2 \vec{k} \cdot
+    \vec{j}  + u_3 v_3 \vec{k} \cdot \vec{k},
 \end{align*}
 by the distributive property. This looks like a mess, but since
-$\mathbf{i}$,  $\mathbf{j}$, and  $\mathbf{k}$ are 
+$\vec{i}$,  $\vec{j}$, and  $\vec{k}$ are 
 perpendicular, six of these nine terms are zero. Furthermore, since
-$\mathbf{i}\cdot \mathbf{i} = 1$ and similarly for $\mathbf{j}$ and
-$\mathbf{k}$, we end up with $  \mathbf{u} \cdot \mathbf{v}  = u_1 v_1
-+ u_2 v_2 + u_3 v_3$, as desired. 
+$\vec{i}\cdot \vec{i} = 1$ and similarly for $\vec{j}$ and
+$\vec{k}$, we end up with $  \vec{u} \cdot \vec{v}  = u_1 v_1
++ u_2 v_2 + u_3 v_3$, as desired.
+
+\begin{exercise}{}{}
+  Show that the vectors
+  $\mathbf{u} = \langle \cos \theta, \sin \theta \rangle$ and
+  $\mathbf{v} = \langle -\sin \theta, \cos \theta \rangle$ are unit
+  vectors (meaning that the length of each is 1). Show that $\vec{u}$
+  and $\vec{v}$ are orthogonal.
+\end{exercise}
+
+\begin{exercise}{Orthogonal Projection}{proj}
+  Suppose vectors $\vec{u}$ and $\vec{v}$ are given. If
+  $\vec{v} = \vec{v}_1 + \vec{v_2}$, where $\vec{v}_1$ and
+  $\vec{v}_2$ are perpendicular and $\vec{v}_1$ is parallel to
+  $\vec{u}$, then $\vec{v}_1$ is called the \textit{orthogonal
+    projection} of $\vec{v}$ onto $\vec{u}$.
+
+  (a) Draw a figure in $\R^2$ illustrating the relationship between
+  $\vec{u}$, $\vec{v}$, $\vec{v}_1$, and $\vec{v}_2$. Note that the
+  length of $\mathbf{u}$ doesn't play a role---consider drawing it
+  longer than $\vec{v}_1$ for aesthetic reasons.
+
+  (b) Use right-triangle trigonomery to find a formula for the length
+  of $\mathbf{v}_1$ in terms of the angle $\theta$ between $\vec{u}$
+  and $\vec{v}$, and then use dot products to find a formula for
+  $\vec{v}_1$ in terms of $\vec{u}$ and $\vec{v}$. 
+\end{exercise}
 
 \section{The cross product} \label{sec:cross} 
 
@@ -1096,7 +1442,8 @@ vector is orthogonal to \textit{both} of the first two.
 \end{example}
 
 \begin{solution}
-  We compute 
+  We compute $\mathbf{u} \cdot (\mathbf{u} \times \vec{v})$ as
+  follows: 
   \begin{align*}
    \langle u_2v_3 - u_3 v_2, 
     - (u_1 v_3 - u_3 v_1), 
@@ -1107,7 +1454,20 @@ vector is orthogonal to \textit{both} of the first two.
   This implies that $\mathbf{u} \times \mathbf{v}$ is orthogonal to
   $\mathbf{u}$. Swapping out $\mathbf{u}$ for $\mathbf{v}$, we see
   that $\mathbf{u} \times \mathbf{v}$ is orthogonal to
-  $\mathbf{v}$ too. 
+  $\mathbf{v}$ too.
+
+  Alternatively, we could note that
+  \[
+    \mathbf{u} \cdot (\mathbf{u} \times \vec{v}) =
+    \left|
+      \begin{array}{ccc}
+        u_1 & u_2 & u_3 \\        u_1 & u_2 & u_3 \\
+                                                      v_1 & v_2 & v_3 \\
+      \end{array}
+    \right|
+  \]
+  and conclude that this determinant equals zero using
+  Exercise~\ref{exer:singular}. 
 \end{solution}
 
 \begin{lrbox}{\asybox} 
@@ -1159,7 +1519,13 @@ $\mathbf{u} \times \mathbf{v}$.
   Find the volume of the parallelepiped spanned by
   $\langle 3,4,1 \rangle$,  $\langle -2,4,0 \rangle$, and 
   $\langle -5,5,2 \rangle$. (Hint: first find the area of the base,
-  then figure out how to use a   dot product to multiply by the height.)
+  then figure out how to use dot products to find the height.) 
+\end{exercise}
+
+\begin{exercise}{Cross product distributive property}{}
+  Show that $\vec{u} \times (\vec{v} + \vec{w}) = \vec{u}\times
+  \vec{v} + \vec{u} \times \vec{w}$, if $\vec{u}, \vec{v}$, and
+  $\vec{w}$ are vectors. 
 \end{exercise}
 
 \chapter{Three-dimensional Geometry}
@@ -1392,7 +1758,25 @@ the problem gives us (a schematic diagram suffices; there is no need
 to make it particularly precise), (ii) use right triangle trigonometry to
 express the desired distance terms of vectors we have, (iii) use
 vector formulas to calculate the desired quantity using a dot or cross
-product. 
+product.
+
+A second important operation is finding points of intersection. 
+
+\begin{example}{}{}
+  Find the point where the line $\langle 3 + t, -2t , 3 \rangle$
+  intersects the plane $x + y + z = 7$. 
+\end{example}
+
+\begin{solution}
+  A point is on the intersection of two graphs if and only if it's on
+  both graphs. Therefore, we're looking for a point $(x,y,z)$ that
+  satisfies $x + y + z = 7$ and has the property that there exists
+  $t\in \R$ such that $x = 3 + t, y = -2t,$ and $z=3$. Thus we have
+  four equations and four unknowns ($x,y,z,t$), and we can substitute
+  the last three equations into the first to find that $6-t = 7$,
+  which implies $t = -1$. Therefore, the point of intersection is
+  $(2,2,3)$.
+\end{solution}
 
 \begin{exercise}{}{}
   Find the equation of the plane passing through the points $(1,0,0)$,
@@ -1412,7 +1796,14 @@ product.
   both lines. 
 \end{exercise}
 
-\section{Motion in space} \label{sec:motion_in_space} 
+\begin{exercise}{}{}
+  Describe parametrically the intersection of the planes $2x + z = 3$
+  and $x + y - 2z = 4$.
+\end{exercise}
+
+\section{Vector-valued functions} \label{sec:motion_in_space}
+
+\subsection{Paths in space}
 
 Consider a particle moving along the number line in such a way that
 its position at time $t$ is given by $r(t)$. Then the velocity of the
@@ -1430,11 +1821,12 @@ call $\mathbf{r}$ a \textit{path}*. \sidenote{* The derivative of a
   each component. }[-3cm] \sidenote{* For a function from $\R^1$ to
   $\R^2$ or $\R^3$ to count as a path, we require that each of its
   components be continuous. For example, $\mathbf{r}(t) = (e^t, t^2 \sin
-  t)$ is a path. }
+  t)$ is a path.}
 
 
-\begin{example}{}{can}
-  Consider a bug which crawls counterclockwise around a cylinder of radius 1 from
+\begin{example}[breakable]{}{can}
+  Consider a bug which crawls counterclockwise around a cylinder of
+  radius 1 meter from
   $(1,0,0)$ to $(1,0,1)$ as shown: 
   \begin{center}
     \begin{asy}
@@ -1486,19 +1878,31 @@ call $\mathbf{r}$ a \textit{path}*. \sidenote{* The derivative of a
   \]
   So all together we have
   \[
-    \mathbf{r}(t) =  \left( \cos 2\pi t, \sin 2\pi t
-      , t \right),
+    \boxed{\mathbf{r}(t) =  \left\langle \cos 2\pi t, \sin 2\pi t
+      , t \right\rangle,} 
   \]
   which means that
   \[
-    \mathbf{v}(t) = \left( -2\pi \sin 2\pi t, 2\pi\cos 2\pi t
-      , 1 \right). 
+    \boxed{\mathbf{v}(t) = \left\langle -2\pi \sin 2\pi t, 2\pi\cos 2\pi t
+      , 1 \right\rangle.}
   \]
 \end{solution}
 
-Similarly, the acceleration $\mathbf{a}(t)$ of a particle whose
-position at time $t$ is given by $\mathbf{r}(t)$ is defined to be
-$\mathbf{v}'(t) = \mathbf{r}''(t)$. 
+\begin{exercise}{}{}
+  Find the time $t \geq 0$ when a particle whose location at time $t$
+  is $\mathbf{r}(t) = \langle t^3 - t^2, t\rangle$ is at its slowest.
+\end{exercise}
+
+\begin{exercise}{}{}
+  The acceleration $\mathbf{a}(t)$ of a particle whose position at
+  time $t$ is given by $\mathbf{r}(t)$ is defined to be
+  $\mathbf{v}'(t) = \mathbf{r}''(t)$.  Suppose that the acceleration
+  $\mathbf{a}(t)$ of a particle is given by
+  $\mathbf{a}(t) = \langle 2t, t^2 \rangle$. If
+  $\mathbf{r}(0) = \mathbf{0}$ and
+  $\mathbf{v}(0) = \langle 1, 2 \rangle$, then find a formula for
+  $\mathbf{r}(t)$.
+\end{exercise}
 
 \begin{exercise}{}{}
   An astronaut is using a rope to move in space in such a way that his
@@ -1507,6 +1911,382 @@ $\mathbf{v}'(t) = \mathbf{r}''(t)$.
     - \frac{4}{t^2+1}\right) \mathbf{k}$. The coordinates of the space
   station doorway are $(5,4,9)$. When should the astronaut let go of the
   rope so as to drift into the doorway? 
+\end{exercise}
+
+Given a curve in $\R^n$, a path $\mathbf{r}$ that traces it out is
+called a parametric equation for the curve. \enlargethispage{1cm} 
+
+\begin{example}{}{}
+  \begin{minipage}[t]{0.74\textwidth}
+    Find a parametric equation describing the intersection of the sphere
+    \[x^2 + y^2 + z^2 = 1\]
+    and the plane \[y + z = 1.\]
+  \end{minipage} \quad 
+  \begin{minipage}[t]{0.23\textwidth}
+    \begin{lrbox}{\asybox}
+      \begin{asy}
+        size(3cm); 
+        import graph3;
+        
+        real h = 1.5; 
+        triple[] axes = new triple[] {X, Y, Z};
+        for(int i=0; i<axes.length; ++i){
+          draw(O--h*axes[i],Arrow3());
+        }
+        
+        currentlight.background = softblue; 
+        currentprojection = perspective(4,2,2); 
+        
+        draw(unitsphere,material(diffusepen=SeaGreen,specularpen=0.2*white,emissivepen=0.35*white)); 
+        draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
+        (-0.2,-0.2),(1.2,1.2)),
+        MidnightBlue+opacity(0.5),MidnightBlue); 
+        
+        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+          1/2 - 1/2*sin(t), 
+          1/2+1/2*sin(t));},0,2*pi)); 
+      \end{asy}
+    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+  \end{minipage}
+\end{example}
+
+\begin{solution}
+  \begin{minipage}{0.64\textwidth}  \parskip = 0.2 in 
+    The main idea is to reduce the 3D problem to a 2D problem by finding
+    a shadow of the curve that we can parameterize. Looking at the
+    figure, it appears that the shadow of this curve in the $xz$
+    plane is an ellipse. If we substitute $y = 1-z$ into
+    $x^2 + y^2 + z^2 = 1$, we see that every point on the curve indeed
+    satisfies* $x^2 + 2z^2 - 2z = 0$. \sidenote{* This equation
+      describes an elliptical \textit{cylinder}, because it is the set of all
+      points whose shadow in the $xz$-plane is in the red ellipse
+      shown in the figure}
+
+    Completing the square to get this equation in standard form, we get
+    \[
+      2x^2 + 4\left(z - \tfrac{1}{2}\right)^2  = 1. 
+    \]
+  \end{minipage} \quad 
+  \begin{minipage}{0.32\textwidth}
+    \begin{lrbox}{\asybox}
+      \begin{asy}
+        size(5cm); 
+        import graph3; 
+        currentlight.background = softyellow;
+        defaultpen(fontsize(6)); 
+        
+        real h = 1.5; 
+        triple[] axes = new triple[] {X, Y, Z};
+        for(int i=0; i<axes.length; ++i){
+          draw(O--h*axes[i],Arrow3());
+        }
+        
+        currentprojection = perspective(4,1.6,2); 
+        
+        draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
+        (-1.0,-0.2),(1.2,1.2)),
+        MidnightBlue+opacity(0.5),MidnightBlue); 
+        
+        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+          1/2 - 1/2*sin(t), 
+          1/2+1/2*sin(t));},0,2*pi),MidnightBlue+linewidth(0.7));
+        
+        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+          0, 
+          1/2+1/2*sin(t));},0,2*pi),DarkRed+linewidth(0.7));
+        draw(surface(new triple(pair p) {
+          real y = p.x, t = p.y; 
+          return (1/sqrt(2)*cos(t),
+          y, 
+          1/2+1/2*sin(t));},
+        (-1,0),(1.15,2*pi),Spline),opacity(0.4)+red,red); 
+        
+        label("$y + z = 1$",h*Z,MidnightBlue,align=2*E);
+        label("$x^2 + 2z^2 - 2z = 0$",0.3*h*X-0.2*Y,DarkRed,align=W); 
+      \end{asy}
+    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+  \end{minipage}
+  
+  The intersection of this surface with the $xz$-plane is an ellipse
+  which can be parameterized as
+  \[
+    \left(\tfrac{1}{\sqrt{2}}\cos t, \tfrac{1}{2} + \tfrac{1}{2}\sin t\right),
+  \]
+  where $t$ ranges over $[0,2\pi]$. Using the equation $y = 1- z$, we
+  see that the point on the curve whose shadow is
+  $\left(\tfrac{1}{\sqrt{2}}\cos t, 0, \tfrac{1}{2} + \tfrac{1}{2}\sin t\right)$
+  is
+  $\left(\tfrac{1}{\sqrt{2}}\cos t, \tfrac{1}{2} - \tfrac{1}{2} \sin t,
+    \tfrac{1}{2} + \tfrac{1}{2}\sin t\right)$. As $t$ ranges
+  from $0$ to $2\pi$, this point goes all the way around the cylinder,
+  so this formula indeed parameterizes the curve.
+\end{solution}
+
+\begin{exercise}{}{}
+  The intersection of the cylinder of unit radius centered along the
+  $x$-axis and the cylinder of unit radius centered along the $y$-axis
+  consists of four curves connecting the points $(0,0,1)$ and
+  $(0,0,-1)$. Choose one of them and parametrize it. 
+\end{exercise}
+
+\begin{example}{}{}
+    Consider a wheel of unit radius centered at $(0,1)$ in a coordinate
+    plane. At time $t=0$, the wheel begins rolling (without slipping)
+    along the $x$-axis to the right at a rate of one unit per
+    second. Find the location $\mathbf{r}(t)$ of the point on the wheel
+    which was originally located at the origin.
+    \begin{center}
+      \begin{asy}
+        size(8cm); 
+        import graph;
+
+        real a = 4*pi+0.6;
+        real b = 2.5;
+        draw((0,0)--(0,b),Arrow(3));
+        draw((0,0)--(a,0),Arrow(3)); 
+        
+        draw(graph(new pair(real t) {return (t-sin(t), 1-cos(t));}, 0, 4*pi+1.0, Spline),gray,Arrow(2));
+        
+        real[] times = new real[] {0.0, 2.6, 5.4,8.2, 10.5};
+        real[] thetavals = new real[] {0,1/7,2/7,3/7,4/7,5/7,6/7};
+        
+        for(int i=0; i < times.length; ++i) {
+          real t = times[i]; 
+          for(int j = 0; j < thetavals.length; ++j) {
+            draw((t,1)--(t,1)+expi(-t+2*pi*thetavals[j]),linewidth(1.3)+
+            (j+4)/(thetavals.length+2)*orange); 
+          }
+          draw(circle((t,1),1),linewidth(1.5)+SeaGreen);
+          dot((t-sin(t),1-cos(t)),MidnightBlue);
+          dot((t,1)); 
+        }
+      \end{asy}
+    \end{center}
+\end{example}
+
+\begin{solution}
+  Because the wheel is moving at a unit rate of speed, the location of
+  its center at time $t$ is $(t,1)$. After $t$ seconds, the wheel has
+  rotated $t$ units along its perimeter, which corresponds to rotating
+  $t$ radians. Therefore, the angle of the point on the wheel
+  originally at the origin starts at $\tfrac{3\pi}{2}$ and advances in
+  the clockwise direction at a rate of one radian per second. Thus the
+  vector from the wheel's center to the desired point is
+  $\langle \cos\left(\tfrac{3\pi}{2}-t\right),
+  \sin\left(\tfrac{3\pi}{2}-t\right)\rangle$, which simplifies to
+  $\langle -\sin t, - \cos t \rangle$. So the location of the
+  desired point is the sum of the point $(t,1)$ and the vector
+  $\langle -\sin t, - \cos t \rangle$:
+  \[
+    \boxed{\mathbf{r}(t) = (t - \sin t, 1- \cos t). }
+  \]
+\end{solution}
+
+\subsection{Arclength} \label{subsec:arclength} 
+
+\begin{example}{}{bugspeed}
+  Find the speed of the bug in Example~\ref{exam:can}. 
+\end{example}
+
+\begin{solution}
+  \begin{minipage}{0.7\textwidth} \parskip = 0.2 in 
+  Since the speed of the bug is constant and the whole journey takes a
+  second, the speed in meters per second is equal to the length of the
+  bug's path divided by 1 second.
+
+  Consider any time $t \in [0,1)$, and a very small time $\Delta
+  t$. Over the interval $[t,t+\Delta t]$, the bug's speed is
+  approximately $|\mathbf{v}(t)|$, so the distance it moves is
+  approximately equal to $|\mathbf{v}(t)|\Delta t$. Fixing a large
+  integer $n$ and splitting up the interval $[0,1]$ into $n$ intervals
+  of width $\Delta t = 1/n$, total distance is approximately
+\end{minipage}
+\begin{minipage}{0.29\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy} 
+      import graph3; 
+      size(4cm);
+      
+      currentprojection=perspective(5.7,3.1,3.26); 
+      currentlight.background = softyellow;
+      
+      draw(O--1.4*X,Arrow3());
+      draw(O--1.4*Y,Arrow3());
+      draw(O--1.2*Z,Arrow3());
+      
+      triple f(real t){
+        return (cos(2*pi*t), sin(2*pi*t), t);
+      }
+      
+      path3 g = graph(f,0,1);
+      
+      draw(g,DarkRed+linewidth(0.5)); 
+      
+      int n = 7;
+      pen segmentpen = MidnightBlue; 
+      for(int i = 0; i <= n; ++i) {
+        if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
+        dot(f(i/n),segmentpen); 
+      }
+      
+      int n = 20;
+      pen segmentpen = SeaGreen+linewidth(0.62); 
+      for(int i = 0; i <= n; ++i) {
+        if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
+        dot(f(i/n),segmentpen+linewidth(1.7)); 
+      }
+      
+      label("$n = 7$", (0.0,-0.5,0.4),MidnightBlue);
+      label("$n = 20$",(0.0,-0.45,0.15),SeaGreen); 
+    \end{asy}
+  \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+\end{minipage}
+  \[
+    \overbrace{|\mathbf{v}(0)|\Delta t}^{\text{over }[0,\Delta t]}+
+    \overbrace{|\mathbf{v}(\Delta t)|\Delta t}^{\text{over }[\Delta t,2\Delta t]} +
+    \overbrace{|\mathbf{v}(2\Delta t)|\Delta t}^{\text{over }[2\Delta
+      t,3\Delta t]}  + \cdots + 
+    \overbrace{|\mathbf{v}(1-\Delta t)|\Delta t}^{\text{over
+      }[1-\Delta t,1]}. 
+  \]
+  This expression is a Riemann sum approximating the integral
+  $\int_0^1 |\mathbf{v}(t)| \, \d t$, so as $\Delta t \to 0$, it
+  converges to 
+  \[
+    \int_0^1 |\mathbf{v}(t)| \, \d t = \int_0^1 \sqrt{4\pi^2\sin^2
+      2\pi t + 4\pi^2 \cos^2 2 \pi t + 1} \, \d t =
+    \boxed{\sqrt{4\pi^2 + 1}}. 
+  \]
+  Although we arrived at this answer using approximations that we
+  weren't so careful about, this is indeed is the same result we
+  would've gotten if we'd cut a slit in the cylinder and unrolled it
+  to find that the bug's path is equal in length to the hypotenuse of
+  a rectangle with side lengths 1 (the height of the cylinder) and
+  $2\pi$ (the circumference of the cylinder).
+\end{solution}
+
+The method developed in Example~\ref{exam:bugspeed} leads to the
+following definition. A function from an interval to $\R$ is
+\textbf{piecewise differentiable} if its domain can be subdivided into
+finitely many intervals such that the function is differentiable on
+each of them. A function from an interval to $\R^n$ is defined to be
+piecewise differentiable if all of its components are.
+
+\begin{defn}{Arclength}{arclength} 
+  The \textbf{arclength} of a piecewise differentiable path
+  $\mathbf{r}:[a,b] \to \R^n$ is defined to be
+  \[
+    \int_a^b |\mathbf{r}'(t)| \, \d t, 
+  \]
+  assuming this integral exists.
+\end{defn}
+
+One important property of this definition is that it should not depend
+on the rate at which the curve is traced out.* In other words, suppose
+person A draws a curve with a consistent pace, while person B rushes
+through the first part of the curve and slows down towards the end. As
+long as the curves they draw are the same, the lengths should be the
+same. Let's try an example.* \sidenote{* A property of a path which
+  depends only on the curve it traces out is called
+  \textbf{parameterization independent}}[-3cm] \sidenote{* See
+  Appendix~\ref{sec:arclengthappendix} for an explanation of why this
+  is true in general.}
+
+\begin{example}{Parameterization independence}{}
+  Use the arclength formula to find the length of the portion of the
+  unit circle in the first quadrant in two ways: using $\mathbf{r}_1(t)
+  = (\cos t, \sin t)$, and using $\mathbf{r}_2(t) = (t,\sqrt{1-t^2})$. 
+\end{example}
+
+\begin{solution}
+  For $\mathbf{r}_1$, we have 
+  \[
+    \int_0^{\pi/2} \sqrt{\sin^2 t + \cos^2 t} \, \d t = \boxed{\frac{\pi}{2}}, 
+  \]
+  and for $\mathbf{r}_2$, we have
+  \[
+    \int_0^1 \sqrt{1^2 + \left(\frac{-2t}{2\sqrt{1-t^2}}\right)^2}\, \d
+    t =  \int_0^1 \frac{1}{\sqrt{1-t^2}} \, \d t = \arcsin(1) -
+    \arcsin(0) = \boxed{\frac{\pi}{2}}, 
+  \]
+  where we performed the last integral by recalling that the
+  derivative of the inverse sine function is
+  $\frac{1}{\sqrt{1-t^2}}$. 
+\end{solution}
+
+\begin{exercise}{}{}
+  Sketch the path
+  $\mathbf{r}(t) = \langle e^{-t} \cos t, e^{-t} \sin t \rangle$. Show
+  that the length of this path over the interval $[0,a]$ converges as
+  $a\to\infty$. What does this say about the length of the path over
+  the interval $[0,\infty)$?
+  % source: colley
+\end{exercise}
+
+\subsection{Curvature} 
+
+The curvature of a path at a point on the path is a measure of how
+curvy the path is at that point. For example, the path shaped like the
+letter ``\textsf{U}'' has a small curvature (zero, in fact) near its
+endpoints and a larger curvature at points along the bend.
+
+One natural way to distinguish points on a path where the path has
+large curvature from points where the path's curvature is small is to
+ascertain \textit{how rapidly the direction of the velocity vector
+  changes, per unit of arclength}. This leads to the following
+definition.
+
+\begin{defn}[breakable]{Curvature}{curvature}
+  \begin{enumerate}[(i),leftmargin=12pt,topsep=-6pt,itemsep=4pt]
+    \item The \textbf{unit tangent vector} of a differentiable path $\mathbf{r}:[a,b]
+  \to \R^n$ is defined to be
+  \[
+    \mathbf{T}(t) = \frac{\mathbf{r}'(t)}{|\mathbf{r}'(t)|}. 
+  \]
+  \item The \textbf{arclength function} $s(t)$ is defined to be the length
+  of $\mathbf{r}$ over the interval $[a,t]$.
+  \item The \textbf{curvature} $\kappa(t)$ of $\mathbf{r}$ at time $t$ is
+  defined by
+  \[
+    \mathbf{\kappa}(t) = \frac{|\d\mathbf{T}/\d t|}{\d s/\d t}. 
+  \]
+\end{enumerate}
+\end{defn}
+
+\begin{example}{}{}
+  Find the curvature of a circle of radius $a$. 
+\end{example}
+
+\begin{solution}
+  We parameterize the circle as $(a \cos t, a \sin t)$ over $[0,2\pi]$,
+  and we determine that
+  \[
+    \mathbf{T} = \frac{\langle -a \sin t, a \cos t\rangle }{|\langle
+      -a \sin t, a \cos t\rangle|} = \langle -\sin t, \cos t \rangle. 
+  \]
+  The arclength function is* $s(t) = \displaystyle{\int_0^t |\langle -a \sin t, a \cos
+  t\rangle| \, \d\tau} = at$. \sidenote{* We'll use $\tau$ as the
+    variable of integration, since we're already using $t$ as a limit
+    of integration.}
+
+  Therefore, the curvature is $\displaystyle{\kappa(t) = \frac{|\langle -\cos t, -\sin t
+  \rangle|}{|\d(at)/\d t|} = \boxed{\frac{1}{a}}}$.
+
+This formula makes sense, because a very large circle looks quite flat
+(consider standing on the equator as opposed to standing on a
+latitude line a few feet from the North Pole).
+\end{solution}
+
+\begin{exercise}{}{}
+  Suppose that $\mathbf{r}$ is a differentiable path and that
+  $\mathbf{T}$ is its unit tangent vector. Use the fact that the
+  length of $\mathbf{T}(t)$ is constant to show that $\mathbf{T}(t)$ is
+  always orthogonal to $\mathbf{T}'(t)$.
+\end{exercise}
+
+\begin{exercise}{}{}
+  Find the curvature at each point on the graph of the function
+  $f:(0,\pi) \to \R$ defined by  $f(x) = \ln (\sin x)$. 
 \end{exercise}
 
 \section{Quadric surfaces} \label{sec:quadric_surfaces} 
@@ -1592,13 +2372,16 @@ you move away from the $xy$-plane. This graph is called a
 \end{exercise}
 
 \begin{exercise}{}{}
+  \begin{minipage}[t]{0.6\textwidth} 
   Show that the graph of $z = y^2 - x^2$ looks like the figure
-  below. This is called a hyperbolic paraboloid.
-  \begin{center}
+  shown. This is called a hyperbolic paraboloid.
+\end{minipage}
+\begin{minipage}[t]{0.38\textwidth}
+  \begin{lrbox}{\asybox} 
     \begin{asy}
-      import graph3;
+      import graph3; 
       currentlight.background = softgreen; 
-      size(6cm);
+      size(5.5cm);
       draw(O--2*X,Arrow3());
       draw(O--2*Y,Arrow3());
       draw(O--1.5*Z,Arrow3());
@@ -1608,9 +2391,10 @@ you move away from the $xy$-plane. This graph is called a
       surface s=surface(f,(-1,-1),(1,1),20,Spline);
       
       draw(s, material(diffusepen=0.4*LightSeaGreen+0.6*black+opacity(0.5),
-                                emissivepen=0.4*LightSeaGreen+0.6*black+opacity(0.5)),black+opacity(0.3));
+      emissivepen=0.4*LightSeaGreen+0.6*black+opacity(0.5)),black+opacity(0.3));
     \end{asy}
-  \end{center}
+  \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+\end{minipage}
 \end{exercise}
 
 
@@ -1633,7 +2417,7 @@ horizontal axis and the vector from the
 origin to the point. The values $r$ and $\theta$ are called the radial
 and angular 
 polar coordinates of the point, respectively.* \sidenote{* Properly speaking,
-  coordinates are \textit{functions on the plane}. For example, 
+  a coordinate is a \textit{function }. For example, 
   $r = r(x,y) = \sqrt{x^2 + y^2}$}
 
 \begin{exercise}{}{}
@@ -1662,7 +2446,8 @@ Then we can describe a point by its \textbf{cylindrical coordinates}
 $(r,\theta, z)$ rather than its rectangular coordinates, and therefore
 we can describe a solid in $\R^3$ by giving inequalities in the
 variables $r, \theta,$ and $z$ which are all satisfied for a point if
-and only if that point's cylindrical coordinates satisfy them. 
+and only if that point's cylindrical coordinates satisfy
+them. 
 
 \begin{example}{}{}
   Graph* the system of cylindrical coordinate inequalities $r \leq 4$,
@@ -1672,7 +2457,7 @@ and only if that point's cylindrical coordinates satisfy them.
     Appendix~\ref{sec:polarref}) is helpful for graphing inequalities}
 \end{example}
 
-\begin{solution}
+\begin{solution}[title=Solution, breakable]
   \begin{minipage}[t]{0.7\textwidth} \parskip = 0.2 in 
   The problem is asking us to find the points whose
     cylindrical coordinates satisfy all of the given
@@ -1680,19 +2465,16 @@ and only if that point's cylindrical coordinates satisfy them.
     the $z$ axis, has polar angle between 0 and $\pi/3$, and is
     between 0 and 2 units from the $z$-axis (and above it). The set of
     such points is shown to the right.
-
-    This region is one-sixth of a cylinder whose volume is
-    $\pi r^2 h = 2\pi$, so its volume is $\boxed{\frac{\pi}{3}}$.
   \end{minipage}
   \begin{minipage}[t]{0.29\textwidth}
     \begin{lrbox}{\asybox}
     \begin{asy}
-      import graph3;
+      import graph3; 
       currentlight.background=softyellow; 
-      size(4cm);
+      size(3.0cm);
       draw(O--1.2*X,Arrow3());
       draw(O--Y,Arrow3());
-      draw(O--1.5*Z,Arrow3());
+      draw(O--1.3*Z,Arrow3());
       
       currentprojection = perspective(2,5,2); 
       
@@ -1722,6 +2504,8 @@ and only if that point's cylindrical coordinates satisfy them.
     \end{asy}
   \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
 \end{minipage}
+    This region is one-sixth of a cylinder whose volume is
+    $\pi r^2 h = 2\pi$, so its volume is $\boxed{\frac{\pi}{3}}$.
 \end{solution}
 
 \begin{exercise}{}{}
@@ -1751,7 +2535,7 @@ and $\phi$ do not play symmetric roles* \sidenote{* This is because
   $\phi$ measures the angle required to rotate a vector freely so as
   to align with the positive $z$-axis, while $\theta$ measures the
   angle needed to rotate the vector \textit{about the $z$-axis} to get
-  to the positive half of the $xz$-\textit{plane}. }
+  to the positive half of the $xz$-\textit{plane}. }[-4cm]
 
 \begin{example}{}{spherical}
   Graph the system of inequalities $\tfrac{1}{2} < \rho \leq 1$, \: $0
@@ -2106,7 +2890,7 @@ the existence of a limit: \sidenote{* Indeed, these values are
   $\mathbf{r}_2(0) = (a,b)$. If $\lim_{t \to 0}f(\mathbf{r}_1(t))$ and
   $\lim_{t \to 0}f(\mathbf{r}_1(t))$ exist and are unequal, then
   $\displaystyle{\lim_{(x,y) \to (a,b)} f(x,y)}$ does not exist. 
-\end{exercise}
+\end{exercise} \bang{-1.5cm}
 
 Now, suppose we know that the limits of $f(x,y)$ along every line
 passing through the origin exist, and that they are all equal to some
@@ -2115,7 +2899,7 @@ this imply that $\lim_{(x,y) \to (0,0)}f(x,y) = L$? It seems like
 perhaps it should, since we've accounted for every possible angle of
 approach. Remarkably, this turns out not to be the case:
 
-\begin{example}{}{}
+\begin{example}{}{parab_nolimit}
   Show that $\lim_{(x,y) \to (0,0)}\frac{-x^2 y }{x^4 + y^2}$ does not
   exist, even though the limits along every line through the origin
   exist and are equal. 
@@ -2219,7 +3003,7 @@ domain $D$. The following theorem gives us some tools for establishing
 continuity. 
 
 \begin{theo}{Continuous functions}{continuity_builders}
-  \begin{enumerate} 
+  \begin{enumerate}[leftmargin = 12pt]
     \item If $f  \!:\! \R^n \to \R$ is continuous and $g: \R \to \R$
     is continuous, then* $g\circ f :\R^n \to \R$ is
     continuous. \sidenote{$g\circ f$ denotes the \textit{composition} of
@@ -2341,14 +3125,15 @@ We conclude this section with one more tool for showing that a limit
                           \text{ and} \\
     (\partial_y f)(a,b) &= \lim_{h \to 0}\frac{f(a,b+h) - f(a,b)}{h}. 
   \end{align*}
-  Calculating partial derivatives is easy because \textit{you already
-    know how to do it}. Since one of the two variables is being held
-  constant, we are effectively taking a derivative with respect to a
-  single-variable function.
+  Calculating partial derivatives of elementary functions \textit{isn't
+  actually a new skill}: since one of the two
+  variables is being held constant, we are effectively taking a
+  derivative of a single-variable function.
 
   \begin{example}{}{}
-    Find the partial derivatives of $f(x,y) = e^x \sin (xy)$ at $(x,y)
-    = (1,0)$. 
+    Find the partial derivatives* $f_x$ and $f_y$ of
+    $f(x,y) = e^x \sin (xy)$ at $(x,y) = (1,0)$. \sidenote{* $f_x$ is
+      an alternate notation for $\partial_x f$, and similarly for $y$}
   \end{example}
 
   \begin{solution}
@@ -2404,7 +3189,7 @@ We conclude this section with one more tool for showing that a limit
   \end{example}
 
   \begin{solution}
-      \begin{minipage}[b]{0.7\textwidth}
+      \begin{minipage}[b]{0.7\textwidth} \parskip = 8pt 
         If we increase $x$ a little while holding $y$ constant, then
         $f$ decreases. Therefore, $(\partial_x f)(1,1) < 0$. If we
         increase $y$ a little while holding $x$ constant, then $f$
@@ -2639,12 +3424,12 @@ variables.
   Example~\ref{exam:pinchder} isn't even continuous at the origin! We
   haven't said yet what it is required for a function of two variables to be
   considered differentiable, but whatever the definition, we surely cannot allow
-  functions which aren't continuous. 
+  functions which aren't continuous to be deemed differentiable. 
 
   This shouldn't be surprising: the partial derivatives only look at
   the behavior of the function along two lonely slices. A good
   definition of differentiability at $(a,b)$ should account for how the
-  function behaves in every direction around $(a,b)$.
+  function behaves all around $(a,b)$.
 
   Another perspective on differentiability in the single-variable
   context is that \textit{differentiable functions are the ones which
@@ -2761,11 +3546,11 @@ variables.
 
   Graphically, Definition~\ref{defn:diff} says that a function is
   differentiable at $(a,b)$ if we can draw a plane which is tangent*
-  to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* This
-    is a little bit of a lie, because to be true strictly speaking it
-    would require that we define what it means to be \textit{tangent}
-    in terms of Definition~\ref{defn:diff}, which would be
-    circular. So take this as intuition only.}
+  to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* To
+    interpret this statement as a theorem, we would need to first say
+    what it means for the plane to be \textit{tangent} on some basis
+    other than Definition~\ref{defn:diff} (to avoid circular
+    reasoning). So take this as intuition only.}
 
   In Theorem~\ref{th:diff_linear}, the coefficients of the
   approximating function $L$ are the value of the function $f$ at $a$
@@ -2784,7 +3569,7 @@ variables.
         f)(a,b)(x-a) + (\partial_y
         f)(a,b)(y-b)\right]}^{L(x,y)}}{\sqrt{(x-a)^2 + (y-b)^2}} = 0.
     \]
-  \end{theo}
+  \end{theo} \bang{-2cm} 
 
   Let's see how this theorem can be used numerically. 
 
@@ -2795,7 +3580,7 @@ variables.
 
   \begin{solution}
     Noticing that $(0.99,0.98)$ is very close to $(1,1)$, we
-    differentiate $f(x,y)$ with respect and with respect to $y$ and
+    differentiate $f(x,y)$ with respect to $x$ and with respect to $y$ and
     find that* \sidenote{* The bar notation means ``substitute''}
     \begin{align*}
       (\partial_x f)(1,1) &= \left.\left(
@@ -2811,6 +3596,177 @@ variables.
     (-\frac{1}{50}) = 0.49$. \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/substitute.ipynb}{\cocalc} \, The actual value is
       $0.490197\ldots$ } 
   \end{solution}
+
+  \section{Taylor's theorem} \label{sec:taylor}
+
+  \begin{figure}[h!]
+    \begin{minipage}[b]{0.32\textwidth}
+      \centering
+      \begin{asy}
+        import graph;
+        size(0,3.5cm);
+        defaultpen(fontsize(8));
+        
+        arrowbar arr = Arrows(3); 
+        
+        draw((-5,0)--(5,0),Gray,arr);
+        draw((0,-5)--(0,5),Gray,arr);
+        real eps = 0.2;
+        for(int i=1; i<5; ++i){
+          draw((i,-eps)--(i,eps),Gray);
+          draw((-i,-eps)--(-i,eps),Gray);
+          draw((-eps,i)--(eps,i),Gray);
+          draw((-eps,-i)--(eps,-i),Gray); 
+        }
+        
+        real h = 5; 
+        
+        draw(Label("$P_0$",Relative(0.9),align=N),graph(new real(real t) {return 1;},-h,h),Orange,arr);
+        draw(Label("$P_1$",Relative(0.9),align=SE),graph(new real(real t) {return 1+t;},-h,h),MidnightBlue,arr);
+        draw(Label("$P_2$",Relative(0.9),align=E),graph(new real(real t) {return 1+t+t^2/2;},-0.8*h,h/2),DarkRed,arr);
+        
+        draw(Label("$\exp$",Relative(0.98),align=WNW),graph(new real(real t) {return exp(t);},-0.8*h,h/3),SeaGreen,arr);
+      \end{asy}
+      \captionof{figure}{The first few Taylor polynomials for the exponential
+        function $\exp(x) = e^x$} \label{fig:taylor}
+    \end{minipage}
+    \begin{minipage}[b]{0.32\textwidth}
+      \centering
+      \begin{asy}
+        size(0,3.5cm); 
+        import graph3;
+        
+        currentprojection=perspective(4,-2,2.3); 
+        
+        draw(surface(new triple(pair p) {
+          real x = p.x;
+          real y = p.y; 
+          real t = 20; 
+          return (x,y,1/3*(exp(-t*(x-0.2)^2-t*(y-0.5)^2)+2*exp(-t*(x+0.2)^2-t*(y+0.2)^2)));
+        },
+        (-1,-1),(1,1),Spline),
+        LightSeaGreen+opacity(0.8),MidnightBlue); 
+        
+        draw(surface(new triple(pair p) {
+          real x = p.x*cos(p.y);
+          real y = p.x*sin(p.y); 
+          real t = 20; 
+          return (x, y,
+          0.135606863578229 +
+          -1.06870794998383*x + 
+          -1.05659773100232*y 
+          );
+        },
+        (0,0),(0.35,2*pi),Spline),
+        MidnightBlue+opacity(0.4));
+        
+        label("$f(x,y)$",(0,0.8,0.7),0.8*SeaGreen);
+        label("$P_1(x,y)$",(-0.5,-0.6,0.8),MidnightBlue); 
+        dot((0,0,0.135606863578229),linewidth(1.5)); 
+        draw(O--X,Arrow3()); draw(O--Y,Arrow3()); draw(O--Z,Arrow3()); 
+      \end{asy}
+      \caption{The linear Taylor polynomial of a function $f$ centered at the origin }
+    \end{minipage}
+    \begin{minipage}[b]{0.34\textwidth}
+      \centering 
+      \begin{asy}
+        size(0,4.4cm); 
+        import graph3;
+        
+        currentprojection=perspective(4,-2,2.3); 
+        
+        draw(surface(new triple(pair p) {
+          real x = p.x;
+          real y = p.y; 
+          real t = 20; 
+          return (x,y,1/3*(exp(-t*(x-0.2)^2-t*(y-0.5)^2)+2*exp(-t*(x+0.2)^2-t*(y+0.2)^2)));
+        },
+        (-1,-1),(1,1),Spline),
+        LightSeaGreen+opacity(0.8),MidnightBlue); 
+        
+        draw(surface(new triple(pair p) {
+          real x = p.x*cos(p.y);
+          real y = p.x*sin(p.y); 
+          real t = 20; 
+          return (x, y,
+          0.135606863578229 +
+          -1.06870794998383*x + 
+          -1.05659773100232*y +
+          1/2 * 3.25456472587749 * x^2 +
+          8.77572102085867 * x * y + 
+          1/2 * 3.59365085735958 * y^2
+          ); 
+        },
+        (0,0),(0.35,2*pi),Spline),
+        DarkRed+opacity(0.6));
+        
+        label("$f(x,y)$",(0,0.8,0.7),0.8*SeaGreen);
+        label("$P_2(x,y)$",(-0.5,-0.6,0.8),DarkRed); 
+        dot((0,0,0.135606863578229),linewidth(1.5)); 
+        draw(O--X,Arrow3()); draw(O--Y,Arrow3()); draw(O--Z,Arrow3()); 
+      \end{asy}
+      \caption{The quadratic Taylor polynomial of a function $f$ centered at the origin }
+    \end{minipage}
+  \end{figure}
+  Let us briefly recall the Taylor* series story for functions of a
+  single variable. The \textbf{$k$th order Taylor polynomial} of an
+  $n$-times-differentiable function $f:\R \to \R$ centered at a point
+  $a\in \R$ is defined to be \sidenote{* A Taylor polynomial centered
+    at the origin is called a \textit{Maclaurin} polynomial.}
+  \[
+    P_k(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots +
+    \frac{f^{(k)}(a)}{k!}(x-a)^k. 
+  \]
+  The terms on the right-hand side are motivated by the idea that as
+  many derivatives of $P_k$ as possible should match those of $f$ at
+  the point $a$. Then $P_k$ is an excellent approximation of $f$ for
+  values of $x$ near $a$:
+
+  \begin{theo}{Taylor's theorem, functions of a single variable}{taylor1}
+    If $I$ is an interval in $\R$ and $f: I \to \R$ is differentiable $k$ times, then
+    \[
+      \lim_{x\to a}\frac{f(x) - P_k(x)}{(x-a)^k} = 0. 
+    \]
+  \end{theo}
+  
+  The idea in higher dimensions is entirely analogous: given a
+  function $f: \R^n \to \R$, we define the $k$th order Taylor
+  polynomial of $f$ at a point $\mathbf{a} \in \R^n$ to be the
+  polynomial all of whose \textit{mixed} partial derivatives of order
+  $k$ and lower match those of $f$ at $\mathbf{a}$. For simplicity, we
+  state the theorem for $\R^2$-valued functions. 
+
+  \begin{theo}{Taylor's theorem, functions of multiple variables}{taylor1}
+    If $U$ is a open set* in $\R^2$ and $f: U \to \R$ is differentiable $n$ times, then
+    we define \sidenote{* An open set is one that contains a small ball
+      around each of its points---in other words, a set that contains
+      none of the points on its boundary}
+    \begin{align*}
+      P_k(x,y) &= f(a,b) + (\partial_x f)(a,b)(x-a) +
+      (\partial_y f)(a,b)(y-b) \\ &+ \frac{1}{2!0!}(\partial_x^2 f)(a,b)(x-a)^2 +
+                                    \frac{1}{1!1!}(\partial_x\partial_y f)(a,b)(x-a)(y-a) +  \frac{1}{0!2!}(\partial_y^2
+      f)(a,b)(y-a)^2 + \cdots, 
+    \end{align*}
+    where we continue until we have all terms of the form
+    $\frac{1}{i!j!}(\partial_x^i\partial_y^j f)(a,b)(x-a)^i(y-b)^j$ where
+    $i+j \leq k$. Then
+    \[
+      \lim_{(x,y) \to (a,b)}\frac{f(x,y) -
+        P_k(x,y)}{|\langle x, y \rangle - \langle a,b \rangle|^k} = 0, 
+    \]
+  \end{theo}
+
+  \begin{exercise}{}{}
+    How many terms of degree $k$ appear in $P_k(x,y)$? Write out all
+    the terms of degree 3, and show that all the third-order partial
+    derivatives of $f$ and $P_3$ match at $(a,b)$.
+  \end{exercise}
+
+  \begin{exercise}{}{}
+    Find the Taylor polynomials $P_1$ and $P_2$ for the function
+    $\frac{1}{x^2 + y^2 + 1}$ from $\R^2$ to $\R$ centered at
+    $(0,0)$. 
+  \end{exercise}
   
   \section{Multivariable optimization} \label{sec:optim} 
 
@@ -2825,13 +3781,16 @@ variables.
   \end{example}
 
   \begin{solution}
-    \begin{minipage}[b]{0.7\textwidth}
-      Since $f$ is continuous over the closed and bounded interval
-      $[0,3]$, we know by the extreme value theorem that it has a
-      maximum and a minimum value over $[0,3]$. Furthermore, these
-      extrema must be realized at either a \textit{critical point}, at
-      which $f$ is either not differentiable or has derivative zero, or
-      else at an endpoint of the interval.
+    \begin{minipage}[b]{0.7\textwidth} \parskip = 3pt Since $f$ is
+      continuous over the closed and bounded interval $[0,3]$, we know
+      by the extreme value theorem* that it has a maximum and a
+      minimum value over $[0,3]$. Furthermore, these extrema must be
+      realized at either a \textit{critical point}, at which $f$ is
+      either not differentiable or has derivative zero, or else at an
+      endpoint of the interval. \sidenote{* The extreme value theorem
+        for single-variable functions says that a continuous function
+        from a closed interval $[a,b]$ achieves a max and a
+        min}[-18mm]
       
       We check that $f$ is not differentiable at $1$ or $3$ (see the
       graph). Also, we can solve $f'(x) = 0$ to find that $f$ has a
@@ -2871,34 +3830,57 @@ function
   \[
     f(x,y) = -x^2 - y^2 + x + \frac{2}{3} y + \frac{23}{36}, 
   \]
-  shown in Example~\ref{exam:optim2d}. We can see that any extremum must
-  occur either (i) at a point somewhere on the boundary of the square,
-  or (ii) a point inside the square where the tangent plane is
-  parallel to the $xy$-plane (or where the function is not
-  differentiable).
+  shown in Example~\ref{exam:optim2d}. As in the single-variable case,
+  $f$ does indeed have a maximum value and a minimum value; due to the
+  following multivariable generalization of the extreme value
+  theorem. 
 
-  This observation gives us a strategy for finding the extrema of
-  a function $f:D \to \R$, where $D \subset \R^2$: (i) set both
-  partial derivatives of $f$ equal to 0 and solve to find critical
-  points inside $D$ (also include any points where $f$ is not
-  differentiable), and (ii) find the extreme values of $f$ on*
-  $\partial D$. \sidenote{* The notation $\partial D$ means ``the
-    boundary of $D$'', which is the set of points $p \in \R^2$ such that
-    any small disk centered at $p$ includes points in $D$ and points
-    not in $D$.}[-2cm]
+  \begin{theo}{Extreme value theorem}{evt} \parskip = 8pt 
+    Suppose that $D \subset \R^n$. We say that $D$ is \textbf{closed}
+    if it contains all of its boundary points. We say that $D$ is
+    \textbf{bounded} if it is contained in a ball of radius $R$ for
+    some $R<\infty$.
+
+    If $D$ is closed and bounded and if $f:D \to \R$ is a continuous
+    function, then $f$ achieves a maximum value and a minimum value on
+    $D$. In other words, there exists $\vec{a} \in D$ such that
+    $f(\vec{a}) \geq f(\vec{b})$ for all $\vec{b} \in D$. 
+  \end{theo}
+
+  Furthermore, if $f$ is differentiable at a point $\vec{a}$ on the
+  inside of $D$ and $(\partial_x f)(\vec{a}) >0$ or
+  $(\partial_x f)(\vec{a}) <0$, then $f$ cannot have a maximum or
+  minimum value at $\vec{a}$ since we can increase the function's
+  output value by slightly adjusting the first coordinate of
+  $\vec{a}$ in one direction, and we can decrease it by adjusting
+  it in the opposite direction. So $\partial_x f = 0$ at any value
+  where $f$ has an extremum, and similarly $\partial _y f$. 
+
+  \begin{theo}{Critical points}{} \parskip = 2pt
+    If $f:D \to \R$ achieves its maximum or minimum value at
+    $\vec{a} \in D$, then
+    \begin{enumerate}[(i),itemsep=4pt]
+    \item $(\partial_x f)(\vec{a})= (\partial_yf)(\vec{a}) =
+      0$, or 
+    \item $f$ is not differentiable at $\vec{a}$, or
+    \item $\vec{a}$ is on the boundary of $D$. 
+    \end{enumerate}
+  \end{theo}
   
-  We can see that this is considerably more complicated that the
-  single-variable optimization: we have to solve a system of equations
-  to find interior critical points, and we have to find any boundary critical
-  points as well. If $D$ is a rectangle, for example, then finding
-  the extrema of $f$ on the boundary of $D$ boils down to doing four
-  single-variable optimization problems (one for each side of the
-  square). Let's see how this works out for the function shown above.
+  These theorems give rise to a strategy for finding the extrema of a
+  function $f:D \to \R$, where $D \subset \R^2$: (i) set both partial
+  derivatives of $f$ equal to 0 and solve to find critical points
+  inside $D$ (also include any points where $f$ is not
+  differentiable), and (ii) find the extreme values of $f$ on*
+  $\partial D$. Let's do an example. \sidenote{* The notation
+    $\partial D$ means ``the boundary of $D$'', which is the set of
+    points $p \in \R^2$ such that any small disk centered at $p$
+    includes points in $D$ and points not in $D$.}[-2cm]
 
   \begin{example}{}{optim2d}
     \begin{minipage}[t]{0.6\textwidth}
       Find the extreme values of the function
-      $f(x,y) = -x^2 - y^2 + x + \frac{2}{3} y + \frac{23}{36}$ over
+      \[f(x,y) = -x^2 - y^2 + x + \frac{2}{3} y + \frac{23}{36}\] over
       the square $[0,1]^2$.
     \end{minipage}
     \begin{minipage}[t]{0.39\textwidth}
@@ -2969,77 +3951,237 @@ function
     Find the maximum value of $f(x,y) = 10x^2y-x$ over the closed
     triangle with vertices $(0,0)$, $(1,0)$, and $(0,1)$.
   \end{exercise}
-  
+
+  \section{Second derivative test} \label{sec:second_test}
+
+  Recall from single-variable calculus that the second derivative of a
+  twice-differentiable function can---if it is nonzero---be used to
+  ascertain whether a function has a local minimum* or a local maximum
+  at a given critical point. This is because the convexity of a
+  twice-differentiable function indicates whether the graph of the
+  function is shaped like \includegraphics{figures/smallup} or
+  \includegraphics{figures/smalldown}. \sidenote{* A function $f$ has
+    a local minimum at a point $\mathbf{a}$ if there is a small
+    neighborhood of $\mathbf{a}$ throughout which the function's
+    values are no smaller than $f(\mathbf{a})$}[-1cm]
+
+  The situation in higher dimensions is more subtle. The archetypal
+  examples are 
+  \begin{enumerate}[(a),topsep=-6pt,itemsep=4pt]
+  \item $x^2 + y^2$, which has a bowl-shaped
+    graph like \raisebox{-3pt}{\includegraphics{figures/smallbowl}}, and so a local minimum at the origin, 
+  \item $-x^2 - y^2$, which has an umbrella-shaped
+    graph like \raisebox{-3pt}{\includegraphics{figures/smallumbrella}}, and so a local maximum at the origin, and 
+  \item $x^2 - y^2$, which has a saddle-shaped graph like
+    \raisebox{-3pt}{\includegraphics{figures/smallsaddle}}, and so neither a local min nor
+    a local max at the origin.
+  \end{enumerate}
+
+  The following theorem gives us a direct way to distinguish these
+  cases.
+
+  \newcommand\secondderivativetest{
+    Suppose that $U$ is an open set in $\R^2$ and $f:U \to \R$ is a
+    twice-differentiable function with a critical point at $(a,b)$. We
+    define
+    $D = (\partial_{x}^2f \, \partial_{y}^2f-[\partial_x\partial_y
+    f]^2)(a,b)$. Then* \sidenote{* When $D=0$, this theorem doesn't tell us
+    anything}
+    \begin{enumerate}[(a),itemsep=4pt]
+    \item if $D > 0$ and $(\partial_x^2 f)(a,b) > 0$, then $f$ has a
+      local minimum at $(a,b)$, 
+    \item if $D > 0$ and $(\partial_x^2 f)(a,b) < 0$, then $f$ has a
+      local maximum at $(a,b)$, 
+    \item if $D < 0$, then $f$ has a saddle point at $(a,b)$.
+    \end{enumerate}
+  }
+
+  \begin{theo}{Second derivative test}{second_test}
+    \secondderivativetest 
+  \end{theo} 
+
+  A proof of the second derivative test is given in
+  Appendix~\ref{sec:proof_sdt}.
+
+    \begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.32\textwidth}
+      \begin{asy}
+        size(0,3.5cm); 
+        import graph3;
+        
+        draw(surface(new triple(pair p) {return (p.x*cos(p.y),p.x*sin(p.y),p.x^2);},
+        (0,0),(1,2*pi),Spline),
+        LightSeaGreen+opacity(0.5),MidnightBlue); 
+        
+        draw(O--X,Arrow3());
+        draw(O--Y,Arrow3());
+        draw(O--1.1*Z,Arrow3()); 
+        
+        void drawslice(real theta) {
+          draw(graph(new triple(real t) {return (t*cos(theta),t*sin(theta),t^2);}, -1,1), MidnightBlue);
+        }
+        
+        int n = 5; 
+        for(real x = 0; x <= 2*pi; x += pi/n) {
+          drawslice(x);
+        }
+      \end{asy}
+      \captionof{figure}{If every vertical slice of the graph of $f$
+        (passing through the origin) is convex, then $f$ has a local minimum at
+        the origin}
+    \end{minipage}
+    \begin{minipage}{0.32\textwidth}
+      \begin{asy}
+        size(0,3.5cm); 
+        import graph3;
+        
+        draw(surface(new triple(pair p) {return (p.x*cos(p.y),p.x*sin(p.y),1-p.x^2);},
+        (0,0),(1,2*pi),Spline),
+        LightSeaGreen+opacity(0.5),MidnightBlue); 
+        
+        draw(O--X,Arrow3());
+        draw(O--Y,Arrow3());
+        draw(O--1.1*Z,Arrow3()); 
+        
+        void drawslice(real theta) {
+          draw(graph(new triple(real t) {return (t*cos(theta),t*sin(theta),1-t^2);}, -1,1), MidnightBlue);
+        }
+        
+        int n = 5; 
+        for(real x = 0; x <= 2*pi; x += pi/n) {
+          drawslice(x);
+        }
+      \end{asy}
+      \captionof{figure}{If every slice is concave, then $f$ has local
+        maximum}
+    \end{minipage}
+    \begin{minipage}{0.32\textwidth}
+      \begin{asy}
+        size(0,3.5cm); 
+        import graph3;
+        
+        currentprojection=perspective(4,4,2.5); 
+        
+        draw(surface(new real(pair p) {return
+          p.x^2 - p.y^2;},
+        (-1,-1),(1,1),Spline),
+        LightSeaGreen+opacity(0.8),MidnightBlue); 
+        
+        draw(O--X,Arrow3());
+        draw(O--Y,Arrow3());
+        draw(O--Z,Arrow3()); 
+        
+        void drawslice(real theta) {
+          draw(graph(new triple(real t) {return (t*cos(theta),t*sin(theta),t^2*cos(2*theta));}, -1,1), MidnightBlue);
+        }
+        
+        int n = 2; 
+        for(real x = 0; x <= 2*pi; x += pi/n) {
+          drawslice(x);
+        }
+      \end{asy}
+      \captionof{figure}{If there are both concave and convex slices,
+        then $f$ has a saddle point}
+    \end{minipage}
+  \end{figure}
+
+  \begin{example}{}{}
+    Find the critical points of the function
+    $f(x,y) = \left(2 x^{2} + 3 y^{2}\right) e^{- x^{2} - y^{2}}$
+    defined on $\R^2$, and classify each critical point as a local
+    minimum, a local maximum, or a saddle point.
+  \end{example}
+
+  \begin{solution}
+    We have
+    \begin{align*}
+      \partial_x f &= 2 x \left(- 2 x^{2} - 3 y^{2} + 2\right) e^{-
+      x^{2} - y^{2}}, \text{ and }\\
+    \partial_y f &= 2 y \left(- 2 x^{2} - 3 y^{2} + 3\right) e^{-
+      x^{2} - y^{2}}.
+    \end{align*}
+    To find the critical points of $f$, we look for all pairs $(x,y)$
+    for which both of these expressions are equal to zero. We see that
+    $x=0$ implies $\partial_x f = 0$. In that case, we have
+    $\partial_y f = 0$ if and only if $y \in \{-1,0,1\}$. Similarly,
+    if $y = 0$ then $\partial_y f = 0$, and in that case we have
+    $\partial_x f = 0$ only if $x \in \{-1,0,1\}$. If neither $x$ nor
+    $y$ is zero, then we may divide the two equations by $x$ and $y$,
+    respectively, and we arrive at a contradiction, since the
+    resulting left-hand sides are unequal and therefore cannot both be
+    equal to zero. Therefore, we have found all the critical points.
+
+    To apply the second derivative test, we work out that*
+    \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/Second_derivative_test.ipynb}{\cocalc}
+      Definitely want to use some computational assistance here}
+    \begin{align*}
+      D = \partial_x^2 f \partial_y^2 f - (\partial_x\partial_{y} f)^2 =
+      \bigg(- 32 x^{6} - 128 x^{4} y^{2} &+ 128 x^{4} - 168 x^{2} y^{4}
+        + 328 x^{2} y^{2} - 136 x^{2} - 72 y^{6} \\ &+ 228 y^{4} - 156
+        y^{2} + 24\bigg) e^{-2x^2 - 2y^2}. 
+    \end{align*}
+
+    \begin{minipage}[t]{0.59\textwidth}
+    Then we check the sign of $D$ at each critical point: 
+    \[ \renewcommand{\arraystretch}{2.0}
+      \begin{array}{c|ccccc}
+        (x,y) & (0,0) & (1,0) & (-1,0) & (0,1) & (0,-1) \\ \hline
+        De^{2x^2+2y^2} & 24 & -16 & -16 & 24 & 24
+      \end{array}
+    \]
+    We see that the points $(1,0)$ and $(-1,0)$ are saddle points of
+    $f$, while $f$ has a local extremum at the origin and at the
+    points $(0,0)$, $(0,1)$ and $(0,-1)$. To classify these extrema, we check
+    that $\partial_{x}^2 f$ at these points is equal to $4$, $-2/e$,
+    and $-2/e$, respectively. Thus $f$ has a local minimum at the
+    origin and a local maximum at $(0,1)$ and $(0,-1)$.
+  \end{minipage}
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{lrbox}{\asybox}
+      \begin{asy}
+        size(0,38mm);
+        import graph3;
+        currentlight.background=softyellow; 
+        settings.outformat="pdf";
+        real f(pair z) {return (2*z.x^2+3*z.y^2)*exp(-z.x^2-z.y^2);}
+        draw(surface(f,(-2,-2),(2,2),nx=32,Spline),
+        LightSeaGreen+opacity(0.8),MidnightBlue);
+        draw(Label("$x$",Relative(1),align=W),O--2.2*X,Arrow3());
+        draw(Label("$y$",Relative(1),align=E),O--2.2*Y,Arrow3());
+        draw(Label("$f(x,y) = (2x^2+3y^2)e^{-x^2-y^2}$",Relative(1),align=N),
+        O--1.8*Z,Arrow3());
+      \end{asy}
+    \end{lrbox}
+    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+    \captionof{figure}{The graph of $f$} \label{fig:cowboy} 
+  \end{minipage}
+
+  These classifications accord with the graph of $f$, shown in
+  Figure~\ref{fig:cowboy}.
+\end{solution}
+
+\begin{exercise}{}{}
+  Find all the critical points of $f(x,y) = x(x+y)(y+y^2)$ and apply
+  the second derivative test to classify as many as possible as a
+  local minimum, a local maximum, or a saddle point.
+\end{exercise}
+
+\begin{exercise}{}{}
+  Use the examples $x^4 + y^4$ and $-x^4-y^4$, which have a critical
+  point at the origin, to show that the second derivative test must
+  be inconclusive when $D=0$. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  Show that in parts (a) and (b)  of the second derivative test, we
+  have $(\partial_x^2 f)(a,b) > 0$ if and only if $(\partial_y^2
+  f)(a,b) > 0$. 
+\end{exercise}
+
   \section{Directional derivative and gradient} \label{sec:dd_and_grad} 
-
+    
   \milink{directional_derivative_gradient_introduction}{directional derivatives and the gradient}
-
-  \begin{wrapfigure}[7]{R}[1cm]{7cm} 
-    \begin{asy}[width=7cm]
-      import graph3;
-
-      draw(O--2.2*X,Arrow3());
-      draw(O--2.2*Y,Arrow3());
-      draw(O--1.1*Z,Arrow3());
-      
-      currentprojection = perspective(5,2,2);
-  
-      real theta = pi/4; 
-      
-      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-        real x = p.x, y = p.y; 
-        return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
-      }
-      
-      real mx = -0.805541521045397;
-      real my = 0.236292179506650;  
-
-      real L(pair p) {return f((1,1)) + mx*(p.x - 1) + my*(p.y - 1);}
-      
-      triple g(real x) {return (x,1,f((x,1)));}
-      triple h(real y) {return (1,y,f((1,y)));}
-
-      label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-      
-      surface s = surface(f,(0,0),(2,2),20,Spline);
-      draw(s,LightSeaGreen+opacity(0.2),MidnightBlue);
-
-      real w = 0.5; 
-      surface t = surface(L,(1-w,1-w),(1+w,1+w));
-      dot((1,1,f((1,1))),MidnightBlue);
-      real eps = 0.3;
-      draw(circle(c=(1,1,0),r=eps,normal=Z),0.8*white+dashed); 
-      pair u = (2/sqrt(5),1/sqrt(5));
-      triple j(real t) {return (1 + u.x*t, 1+u.y*t, f((1+u.x*t, 1+u.y*t)));}
-      draw(graph(j,-1,1.12,100),MidnightBlue); 
-      
-      draw((1,1,f((1,1))) -- (1+eps*u.x,1+eps*u.y, f((1+eps*u.x,1+eps*u.y))),
-      MidnightBlue+linewidth(1.0),Arrow3(6));
-
-      draw((1,0,0)--(1,2,0),gray);
-      draw((0,1,0)--(2,1,0),gray);
-      draw("$(a,b) + h\mathbf{u}$",(1,1,0)--(1,1,0) + (0.95*eps*u.x,0.95*eps*u.y,0),gray+fontsize(8),Arrow3(4),align=10*SW);
-      draw((1.65,0.95,0)--(1.02+eps*u.x,0.98+eps*u.y,0),gray,Arrow3(2)); 
-      dot((1+eps*u.x,1+eps*u.y,0), gray+linewidth(1.5)); 
-      draw((1,1,f((1,1))) --
-      (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) --
-      (1+eps*u.x,1+eps*u.y,f((1+eps*u.x,1+eps*u.y))),0.2*white,align=2*SE);
-      
-      draw((1,1.2,0.15)--(1+eps*u.x,1+eps*u.y+0.01,0.04+0.5*(eps*mx*u.x + eps*my*u.y) + f((1,1))),gray,Arrow3(2));
-      
-      triple A = (1,1,0);
-      triple uu = 1.12*(u.x,u.y,0);
-      triple zz = 0.5 * Z; 
-      
-      draw(surface(A-uu -- A+uu -- A+uu+zz -- A-uu+zz--cycle),opacity(0.2)+MidnightBlue); 
-      
-      label("$f((a,b) + h \mathbf{u}) - f(a,b)$",(1,1.2,0.1),black+fontsize(8), align=NE);
-      
-      dot("$(a,b)$", (1,1,0), gray+fontsize(8)+linewidth(1.5), align=10*WSW);
-      draw((1.27,0.8,0)--(1.02,0.98,0),gray,Arrow3(2)); 
-    \end{asy}
-    \caption{The derivative of $f$ in the direction $\mathbf{u}$ \label{fig:dirder}}
-  \end{wrapfigure}
   
   The two partial derivatives of a function $f: \R^2 \to \R$ tell us
   how $f$ changes when $(x,y)$ is wiggled a bit, but only in the four
@@ -3058,99 +4200,205 @@ function
     \]  
   \end{defn}
 
-  In other words, move $(x,y)$ a small distance $h$ in the
-  $\mathbf{u}$ direction, measure how much $f$ changed, and then
-  divide $h$.
+  \begin{minipage}[t]{0.6\textwidth} \parskip = 0.2 in
+    In other words, move $(x,y)$ a small distance $h$ in the
+    $\mathbf{u}$ direction, measure how much $f$ changed, and then
+    divide $h$.
 
-  If the partial derivatives of $f$ exist and are continuous around
-  $(a,b)$, then we can work out the derivative in the
-  $\mathbf{u} = \langle u_2, u_2 \rangle$ direction in terms of the
-  partial derivatives at $(a,b)$ by breaking down a $\mathbf{u}$-step
-  into a $\langle u_1, 0\rangle$ step and a $\langle 0, u_2\rangle$
-  step: the value of $f$ changes by approximately
-  $u_1h (\partial_xf)(a,b)$ as we change the input value from $(a,b)$
-  to $(a+u_1h, b)$, and then by $u_2h (\partial_yf)(a+u_1h,b)$ as we
-  move from $(a+u_1h, b)$ to $(a+u_1h, b + u_2 h)$. But
-  $(\partial_yf)(a+u_1h,b)$ is approximately
-  $(\partial_yf)(a,b)$ for small $h$, since $\partial_y f$ is
-  continuous around $(a,b)$. This leads to the following theorem.
-
+    If $f$ is differentiable at $(a,b)$, then it is well-approximated
+    by a linear function $L(x,y) = c_0 + c_2(x-a) + c_2(y-b)$ around
+    $(a,b)$. This linear function has the property that its slope in
+    the $\mathbf{u}$ direction can be worked out by separating the
+    $h\mathbf{u}$-step into a $\langle hu_1, 0 \rangle$ step followed
+    by a $\langle 0, hu_2 \rangle$ step. The value of $L$ changes by
+    $hc_1u_1$ over the $\langle hu_1, 0 \rangle$ step and by
+    $hc_2u_2$ over the $\langle 0, hu_2 \rangle$ step. Altogether, the
+    change of $L$ is equal to $(c_1u_1 + c_2u_2 )h$. This
+    leads to the following theorem.
+  \end{minipage}
+  \begin{minipage}[t]{0.39\textwidth}
+    \centering 
+    \begin{lrbox}{\asybox}
+      \begin{asy}[width=7cm]
+        import graph3;
+        
+        draw(O--2.2*X,Arrow3());
+        draw(O--2.2*Y,Arrow3());
+        draw(O--1.1*Z,Arrow3());
+        
+        currentprojection = perspective(5,2,2);
+        
+        real theta = pi/4; 
+        
+        real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+          real x = p.x, y = p.y; 
+          return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
+        }
+        
+        real mx = -0.805541521045397;
+        real my = 0.236292179506650;  
+        
+        real L(pair p) {return f((1,1)) + mx*(p.x - 1) + my*(p.y - 1);}
+        
+        triple g(real x) {return (x,1,f((x,1)));}
+        triple h(real y) {return (1,y,f((1,y)));}
+        
+        label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+        
+        surface s = surface(f,(0,0),(2,2),20,Spline);
+        draw(s,LightSeaGreen+opacity(0.2),MidnightBlue);
+        
+        real w = 0.5; 
+        surface t = surface(L,(1-w,1-w),(1+w,1+w));
+        dot((1,1,f((1,1))),MidnightBlue);
+        real eps = 0.3;
+        draw(circle(c=(1,1,0),r=eps,normal=Z),0.8*white+dashed); 
+        pair u = (2/sqrt(5),1/sqrt(5));
+        triple j(real t) {return (1 + u.x*t, 1+u.y*t, f((1+u.x*t, 1+u.y*t)));}
+        draw(graph(j,-1,1.12,100),MidnightBlue); 
+        
+        draw((1,1,f((1,1))) -- (1+eps*u.x,1+eps*u.y, f((1+eps*u.x,1+eps*u.y))),
+        MidnightBlue+linewidth(1.0),Arrow3(6));
+        
+        draw((1,0,0)--(1,2,0),gray);
+        draw((0,1,0)--(2,1,0),gray);
+        draw("$(a,b) + h\mathbf{u}$",(1,1,0)--(1,1,0) + (0.95*eps*u.x,0.95*eps*u.y,0),gray+fontsize(8),Arrow3(4),align=10*SW);
+        draw((1.65,0.95,0)--(1.02+eps*u.x,0.98+eps*u.y,0),gray,Arrow3(2)); 
+        dot((1+eps*u.x,1+eps*u.y,0), gray+linewidth(1.5)); 
+        draw((1,1,f((1,1))) --
+        (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) --
+        (1+eps*u.x,1+eps*u.y,f((1+eps*u.x,1+eps*u.y))),0.2*white,align=2*SE);
+        
+        draw((1,1.2,0.15)--(1+eps*u.x,1+eps*u.y+0.01,0.04+0.5*(eps*mx*u.x + eps*my*u.y) + f((1,1))),gray,Arrow3(2));
+        
+        triple A = (1,1,0);
+        triple uu = 1.12*(u.x,u.y,0);
+        triple zz = 0.5 * Z; 
+        
+        draw(surface(A-uu -- A+uu -- A+uu+zz -- A-uu+zz--cycle),opacity(0.2)+MidnightBlue); 
+        
+        label("$f((a,b) + h \mathbf{u}) - f(a,b)$",(1,1.2,0.1),black+fontsize(8), align=NE);
+        
+        dot("$(a,b)$", (1,1,0), gray+fontsize(8)+linewidth(1.5), align=10*WSW);
+        draw((1.27,0.8,0)--(1.02,0.98,0),gray,Arrow3(2)); 
+      \end{asy}
+    \end{lrbox}
+    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+    \captionof{figure}{The derivative of $f$ in the direction
+        $\mathbf{u}$ \label{fig:dirder}}
+    \end{minipage}
+    
   \begin{theo}{Directional derivative formula}{dirder}
-    If $f$ is differentiable at $(a,b)$ and $ \mathbf{u}  \in \R^2$, then
+    If $f:\R^2 \to \R$ is differentiable at $(a,b)$ and $ \mathbf{u}  \in \R^2$, then
     \[
       D_{\mathbf{u}} f(a,b) = (\partial_xf)(a,b)u_1 +
       (\partial_yf)(a,b)u_2 =  (\nabla f)(a,b) \cdot \mathbf{u}, 
     \]
-    where $\nabla f = \langle \partial_x f, \partial_y f \rangle$. 
+    where $(\nabla f)(a,b)= \langle (\partial_x f)(a,b), (\partial_y f)(a,b) \rangle$. 
   \end{theo}
 
-  The quantity $\nabla f$ introduced in Theorem~\ref{th:dirder}---the
-  vector partial derivatives of $f$---is called the \textbf{gradient}
-  of $f$. Observe that the directional derivative of $f$ in the
-  $\mathbf{u}$ direction is equal to
+  The quantity $(\nabla f)(a,b)$ introduced in
+  Theorem~\ref{th:dirder}---the vector of partial derivatives of $f$
+  at $(a,b)$---is called the \textbf{gradient} of $f$ at
+  $(a,b)$. Observe that the directional derivative of $f$ at $(a,b)$
+  in the $\mathbf{u}$ direction is equal to
   $\nabla f \cdot \mathbf{u} = |\nabla f| \cos \theta$, where $\theta$
   is the angle between $\nabla f$ and $\mathbf{u}$. Since $\cos\theta$
   is maximized when $\theta = 0$, we see that \textbf{the gradient of
     $f$ at $(a,b)$ is $f$'s direction of maximum increase at
     $(a,b)$}. Furthermore, the direction opposite to the gradient is
   the direction of maximum decrease, and $f$ has zero derivative in
-  any direction orthogonal to the gradient.
+  any direction orthogonal to the gradient. \bang{-10mm}
+
+  The function from $\R^2$ to $\R^2$ which maps $(a,b)$ to $(\nabla
+  f)(a,b)$ is called the gradient of $f$ and is denoted $\nabla
+  f$. Thus the \textit{gradient  of $f$ at a point} is a vector, while
+  the \textit{gradient of $f$} is a vector-valued function defined on
+  $\R^2$. 
 
   \begin{example}{}{}
-    Some of the level curves of a function $f(x,y)$ are shown. Sketch
-    the direction of the gradient at the marked point.
-    \begin{center}
-      \begin{asy}[width=6cm]
-      defaultpen(fontsize(10));
-      import contour; 
-            
-      draw((0,0)--(2,0),Arrow());
-      draw((0,0)--(0,2),Arrow());
+    Find $(\nabla f)(3,4)$, where $f(x,y) = x^2 + xy + y^2$. Find all
+    possible values of $D_{\mathbf{u}}f(3,4)$, where $\mathbf{u}$ is
+    any unit vector. 
+  \end{example}
 
-      real f(real x, real y) {return (x-1)^2-(y-1)^2;}
-      int n=10;
-      real[] c=new real[n];
-      for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
-      
-      srand(123); 
-      
-      pen[] p=sequence(new pen(int i) {
-        return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
-      },c.length);
-      
-      Label[] Labels=sequence(new Label(int i) {
-        return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
-        UnFill(1bp));
-      },c.length);
-      
-      guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
-      
-      draw(Labels,g,p);
-      
-      pair z = arcpoint(g[7][0],0.6); 
-      dot(z, MidnightBlue+linewidth(4.0));
-    \end{asy}
-  \end{center}
-\end{example}
+  \begin{solution}
+    We have $(\partial_xf)(x,y)= 2x + y$ and $(\partial_y f)(x,y) = 2y
+    + x$, so
+    \[
+      \nabla f = \langle 2x + y, 2y + x \rangle. 
+    \]
+    Therefore, the gradient evaluated at $(3,4)$ is equal to
+    $\boxed{\langle 10,11\rangle}$.
+
+    Since  $D_{\mathbf{u}}f(3,4) = \langle 10,11\rangle \cdot
+    \mathbf{u} = \sqrt{221}\cos\theta$, where $\theta$ is the angle
+    between $\langle 10,11\rangle$ and $\mathbf{u}$. We see that as
+    $\mathbf{u}$ ranges over the unit circle, the directional
+    derivative of $\mathbf{f}$ in the $\mathbf{u}$ direction ranges
+    over $\boxed{[-\sqrt{221}, \sqrt{221}]}$.  
+  \end{solution}
+
+  \begin{example}{}{}
+    \begin{minipage}[t]{0.6\textwidth} 
+      Some of the level curves of a function $g(x,y)$ are shown. Sketch
+      the direction of the gradient at the marked point.
+    \end{minipage}
+    \begin{minipage}[t]{0.4\textwidth} 
+      \begin{center}
+        \begin{lrbox}{\asybox}
+          \begin{asy}[width=4.5cm]
+            defaultpen(fontsize(10));
+            import contour; 
+            
+            draw((0,0)--(2,0),Arrow());
+            draw((0,0)--(0,2),Arrow());
+            
+            real f(real x, real y) {return (x-1)^2-(y-1)^2;}
+            int n=10;
+            real[] c=new real[n];
+            for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
+            
+            srand(123); 
+            
+            pen[] p=sequence(new pen(int i) {
+              return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
+            },c.length);
+            
+            Label[] Labels=sequence(new Label(int i) {
+              return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
+              UnFill(1bp));
+            },c.length);
+            
+            guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
+            
+            draw(Labels,g,p);
+            
+            pair z = arcpoint(g[7][0],0.6); 
+            dot(z, MidnightBlue+linewidth(4.0));
+          \end{asy}
+        \end{lrbox}
+        \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+      \end{center}
+    \end{minipage}
+  \end{example} 
 
 \begin{solution}
-  \begin{minipage}[t]{0.7\textwidth}
-    The key idea here is that a function neither increases or
-    decreases along its level curve. Therefore, $f$ has zero
+  \begin{minipage}[t]{0.8\textwidth}
+    The key idea is that a function neither increases or
+    decreases along its level curve. Therefore, $g$ has zero
     directional derivative in the direction of any line tangent the
     level curve passing through a given point. This means that the
-    \textbf{gradient of $f$ is orthogonal to $f$'s level curve} at
+    \textbf{gradient of $g$ is orthogonal to $g$'s level curve} at
     any given point. So the gradient looks like the figure shown
-    (zoomed in).
+    (zoomed in). \bang{-5.5mm}
   \end{minipage}
-  \begin{minipage}[t]{0.29\textwidth}
+  \begin{minipage}[t]{0.19\textwidth}
     \begin{lrbox}{\asybox}
-    \begin{asy}[width=4cm]
+    \begin{asy}[width=25mm]
       defaultpen(fontsize(10));
       import contour; 
-      
-      size(0,8cm);
-      
+   
       draw((0,0)--(2,0),Arrow());
       draw((0,0)--(0,2),Arrow());
 
@@ -3182,49 +4430,54 @@ function
       draw(z--z+eps*gradf(z), MidnightBlue+linewidth(1.0), Arrow(3));
       
       eps *= 3; 
-      clip(box(z-(eps,eps),z+(eps,eps)));
+      clip(box(z-(1.3*eps,eps),z+(1.3*eps,eps)));
     \end{asy}
   \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
 \end{minipage}
 \end{solution}
 
-The gradient of a function from $\R^3$ to $\R$ is also defined to
-  be the vector of partial derivatives*: 
-  $\nabla f = \langle \partial_x f, \partial_y f, \partial_z f
-  \rangle$. \sidenote{* More precisely, the gradient at each point is
-  the vector of partial derivatives of $f$ at that point. Thus the
-  gradient is actually a function from $\R^3$ to $\R^3$.} The formula
-$D_{\mathbf{u}} f = \nabla f \cdot \mathbf{u}$ holds for
-differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$. 
+The gradient of a function from $\R^3$ to $\R$ is likewise defined to
+be the vector of its partial derivatives:
+$\nabla f = \langle \partial_x f, \partial_y f, \partial_z f
+\rangle$. The formula $D_{\mathbf{u}} f = \nabla f \cdot \mathbf{u}$
+holds for all differentiable functions $f:\R^3 \to \R$ and
+$\mathbf{u} \in \R^3$. 
 
-  \begin{example}{}{}
-    Find the equation of a plane tangent to the ellipsoid $x^2 + y^2 +
-    2z^2  = 4$ at the point $(1,1,1)$. 
-  \end{example}
+\begin{example}{}{}
+  Find the equation of a plane tangent to the ellipsoid $x^2 + y^2 +
+  2z^2  = 4$ at the point $(1,1,1)$. 
+\end{example}
 
-  \begin{solution}
-    The ellipsoid is a level set of the function $f(x,y,z) = x^2 +
-    y^2 + 2z^2$. Since the gradient of a function at a point is orthogonal to
-    the level set of the function at that point, it follows that the
-    vector 
-    \[
-      (\nabla f)(1,1,1) = \left.\langle 2x, 2y, 4z \rangle\right|_{(x,y,z) =
-        (1,1,1)} = \langle 2, 2, 4 \rangle
-    \]
-    is orthogonal to the desired plane.  So a point $(x,y,z)$ is on the plane
-    if and only if the vector from $(1,1,1)$ to $(x,y,z)$ is
-    orthogonal to $\langle 2, 2, 4 \rangle$. Thus the equation of the
-    plane is
-    \[
-      \langle 2, 2, 4 \rangle \cdot \langle x - 1, y - 1, z - 1
-      \rangle = 0 \implies \boxed{x + y + 2z = 4}. 
-    \]
-  \end{solution}
+\begin{solution}
+  The ellipsoid is a level set of the function
+  $g(x,y,z) = x^2 + y^2 + 2z^2$. The direction vectors $\mathbf{u}$
+  contained in the plane of tangency at $(1,1,1)$ are characterized
+  by the fact that $g$ is unchanging in the in the $\mathbf{u}$
+  direction at $(1,1,1)$. Since
+  $D_{\mathbf{u}}g = \nabla g \cdot \mathbf{u}$, this means that*
+  $\mathbf{u}$ is orthogonal to $\nabla g$. So we calculate
+  \sidenote{* All together: \textbf{the gradient of a function at
+      a point is orthogonal to the function's level set through that point}}
+  \[
+    (\nabla g)(1,1,1) = \left.\langle 2x, 2y, 4z \rangle\right|_{(x,y,z) =
+      (1,1,1)} = \langle 2, 2, 4 \rangle, 
+  \]
+  and see that the desired plane is orthogonal to $\langle 2, 2, 4
+  \rangle$ and passes through $(1,1,1)$. So the equation of the
+  plane is 
+  \[
+    \langle 2, 2, 4 \rangle \cdot \langle x - 1, y - 1, z - 1
+    \rangle = 0 \implies \boxed{x + y + 2z = 4}. 
+  \]
+\end{solution}
 
-  \begin{exercise}{}{}
-    Show that if $f$ is a differentiable function with a local maximum
-    at some point $p$ inside its domain, then $(D_{\mathbf{u}}f)(p) =
-    0$ for any vector $\mathbf{u}$. 
+  \begin{exercise}{}{} \parskip = 4pt 
+    (a) Confirm that the gradient of $x^2 + y^2$ is orthogonal to the level
+    curves of $x^2 + y^2$ at each point.
+
+    (b) Confirm that the gradient of
+    $x^2 + y^2 + z^2 $ is orthogonal to the level surfaces of
+    $x^2 + y^2 + z^2$ at each point.
   \end{exercise}
 
   \section{The multivariable chain rule} \label{sec:chainrule} 
@@ -3236,17 +4489,19 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   can note that $g(t)$ changes by approximately $hg'(t)$, and that
   change in the input to $f$ induces a change of
   \[
-    \left(
+    f(g(t+h)) - f(g(t)) \approx \left(
       \overbrace{hg'(t)}^{\text{change in input to $f$}} 
     \right) \left( 
     \overbrace{f'(g(t))}^{\text{sensitivity of
         $f$ to change in input}}
     \right) 
   \]
-  in the value of $f(g(t))$.
+  in the value of $f(g(t))$. Thus $\tfrac{\d}{\d t} f(g(t)) =
+  g'(t)f'(g(t))$. 
 
-  The simplest multivariable generalization of this idea is make a
-  function from $\R$ to $\R$ by composing function from $\R$ to $\R^2$
+  The simplest multivariable generalization of this idea is to define a
+  function from $\R$ to $\R$ by composing a function $\mathbf{r}: \R
+  \to \R^2$
   with a function $f: \R^2 \to \R$. Let's look at an example.
 
   \begin{example}{}{chainrule}
@@ -3270,7 +4525,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \end{solution}
 
   The multivariable chain rule gives as an alternative approach which
-  takes advantage of partial derivatives. Let's write
+  describes the relationship between $(f\circ \mathbf{r})'(t)$ and the
+  derivatives of $f$ and $\mathbf{r}$. Let's write
   $\mathbf{r}(t) = \langle r_1(t), r_2(t) \rangle$.  When we change
   $t$ by $h$, the value of $f(\mathbf{r}(t))$ changes as follows: 
   \[
@@ -3282,8 +4538,9 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   The change of $hr_1'(t)$ in the first argument induces a change of
   $hr_1'(t) (\partial_xf)(\mathbf{r}(t))$ in the value of $f$, while
   the change of $hr_2'(t)$ in the second argument induces a change of
-  $hr_2'(t) (\partial_yf)(\mathbf{r}(t))$. Dividing by $h$ and taking
-  $h \to 0$ gives the following theorem. 
+  $hr_2'(t) (\partial_yf)(\mathbf{r}(t))$. By linear approximation,
+  the overall change is the sum of these two changes. Dividing by $h$
+  and taking $h \to 0$ then gives the following theorem.
   
   \begin{theo}{Multivariable chain rule}{chainrule}
     If $f : \R^2 \to \R$ and $\mathbf{r} = \langle r_1,  r_2\rangle :
@@ -3291,12 +4548,13 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     are differentiable, then
     \begin{equation} \label{eq:chainrule} 
       (f\circ \mathbf{r})'(t) = (\partial_x f)(\mathbf{r}(t))r_1'(t) +
-      (\partial_y f)(\mathbf{r}(t))r_2'(t). 
+      (\partial_y f)(\mathbf{r}(t))r_2'(t) = (\nabla f)(\mathbf{r}(t))
+      \cdot \mathbf{r}'(t). 
     \end{equation}
   \end{theo}
 
-  You can write \eqref{eq:chainrule} using the more suggestive
-  notation
+  The chain rule \eqref{eq:chainrule} can be written with the more suggestive
+  notation* \sidenote{* $\frac{\partial f}{\partial x}$ means $\partial_x f$}[3mm]
   \[
     \frac{\d f}{\d t} = \frac{\partial f}{\partial x}\frac{\d x}{\d t} +
     \frac{\partial f}{\partial y}\frac{\d y}{\d t}, 
@@ -3304,18 +4562,19 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   where $x$ and $y$ represent $r_1$ and $r_2$. Although this formula
   is more memorable, it does involve some abuse of notation: the
   symbols $x$ and $y$ are being used* as independent variables (in the
-  partial derivative expressions) and as function names (in $\d x/\d t$
-  and $\d y/\d t$). Also, on the left-hand side $f$ looks like it's being
-  treated as a function of a single variable; actually
-  $f\circ \mathbf{r}$ is the single-variable function that one has in mind here.
-  \sidenote{* using the same symbol to mean different things
-    (relying on context to distinguish) is called
-    \textit{overloading}}[-1cm]
+  partial derivative expressions) and as function names (in
+  $\d x/\d t$ and $\d y/\d t$). Also, on the left-hand side $f$ is
+  being treated as a function of a single variable; actually this
+  instance of $f$
+  is shorthand for the single-variable function $f\circ \mathbf{r}$.
+  \sidenote{* using the same symbol to mean different things (relying
+    on context to distinguish) is called \textit{overloading} the
+    symbol}[-1cm]
 
   \begin{exercise}{}{}
     Verify that applying the multivariable chain rule to
-    Example~\ref{exam:chainrule} gives the same result we found by calculating that
-    derivative directly. 
+    Example~\ref{exam:chainrule} gives the same result we found by
+    calculating that derivative directly.
   \end{exercise}
 
   \begin{exercise}{}{}
@@ -3384,8 +4643,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   $\left(\tfrac{1}{2}, \tfrac{1}{2}\right)$.
 
   We could actually take a similar approach to this problem. We can
-  parametrize* the boundary of the disk as \sidenote{* To
-    \textit{parametrize} a curve means to find a path which traces it
+  parameterize* the boundary of the disk as \sidenote{* To
+    \textit{parameterize} a curve means to find a path which traces it
     out}
   \[
     \mathbf{r}(t) = \left\langle \tfrac{1}{2} + \tfrac{1}{2} \cos t,
@@ -3397,21 +4656,9 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   optimized over $[0,2\pi]$ using the standard single-variable technique (as in
   Example~\ref{exam:optim1d}).\sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/minimize_on_circle.ipynb}{\cocalc}
     The minimum is $0.\overline{5}$} 
-  
-  However, this approach is limited because it requires a
-  parametrization of the boundary of $D$, which is not always
-  convenient. Suppose that $\partial D$ is specified as a level set of
-  some function $g: \R^2 \to \R$. For example, the
-  circle in Figure~\ref{fig:lagrange} is a level set $\left\{(x,y) \, :
-  g(x,y) = \tfrac{1}{2}\right\}$ of the function
-  \[
-    g(x,y) = \left(x-\tfrac{1}{2}\right)^2 + \left(y-\tfrac{1}{2}\right)^2. 
-  \]
-  Let's derive an approach to finding the extreme values on the
-  boundary which begins with the functions $f$ (the \textit{objective}
-  function) and $g$ (the \textit{constraint} function).
 
-  \begin{wrapfigure}[18]{R}[1cm]{6cm}
+
+    \begin{wrapfigure}[18]{R}[1cm]{6cm}
     \begin{asy}[width=6cm]
       import graph3;
       defaultpen(fontsize(8)); 
@@ -3475,17 +4722,31 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
       
       draw(f(t)--f(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2),MidnightBlue,Arrow3(5));
 
-      draw("$\nabla f(p)$",p(f(t))--p(f(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2)),Arrow3(4),align=2*SSW);
+      draw("$\nabla f(\mathbf{p})$",p(f(t))--p(f(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2)),Arrow3(4),align=2*SSW);
       
       real t = 1.5707963256474227; 
       dot(g(t));
       dot(p(g(t)));
       draw(g(t)--g(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2),MidnightBlue,Arrow3(5));
       draw("$\nabla
-      f(q)$",p(g(t))--p(g(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2)),Arrow3(4),align=3*SE);
+      f(\mathbf{q})$",p(g(t))--p(g(t)+eps*(fx(t),fy(t),fx(t)^2+fy(t)^2)),Arrow3(4),align=3*SE);
     \end{asy}
-    \caption{$q$ is a boundary critical point and $p$ is not \label{fig:lagrange2}}
+    \caption{$\mathbf{q}$ is a boundary critical point and $\mathbf{p}$ is not \label{fig:lagrange2}}
   \end{wrapfigure}
+  
+  However, this approach is limited because it requires a
+  parameterization of the boundary of $D$, which is not always
+  convenient. Suppose that $\partial D$ is specified as a level set of
+  some function $g: \R^2 \to \R$. For example, the
+  circle in Figure~\ref{fig:lagrange} is a level set $\left\{(x,y) \, :
+  g(x,y) = \tfrac{1}{2}\right\}$ of the function
+  \[
+    g(x,y) = \left(x-\tfrac{1}{2}\right)^2 + \left(y-\tfrac{1}{2}\right)^2. 
+  \]
+  Let's derive an approach to finding the extreme values on the
+  boundary which begins with the functions $f$ (the \textit{objective}
+  function) and $g$ (the \textit{constraint} function).
+
   
   Imagine a bug moving around on the edge of the graph in
   Figure~\ref{fig:lagrange}. How can it tell that it is \textit{not}
@@ -3507,13 +4768,13 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   on $\partial D$, we can restrict our attention to the points where
   $\partial f$ is orthogonal to $\partial D$.
 
-  We can simplify this idea further: recall that the gradient of $g$ at
-  each point is orthogonal to the level set of $g$ passing through
-  that point. It follows that if $\partial D$ is a level set of $g$ 
-  and $p \in \partial D$ is a point where $f$ has an extreme value, then
-  $\nabla g$ and $\nabla f$ are both orthogonal to $\partial
+  We can simplify this idea further: recall that the gradient of $g$
+  at each point is orthogonal to the level set of $g$ passing through
+  that point. It follows that if $\partial D$ is a level set of $g$
+  and $p \in \partial D$ is a point where $f$ has an extreme value,
+  then $\nabla g$ and $\nabla f$ are both orthogonal to $\partial
   D$. This means that they are parallel! By
-  Observation~\ref{obs:vecparallel}, this means that there exist a scalar
+  Observation~\ref{obs:vecparallel}, then, there exists a scalar
   $\lambda$ such that $\nabla f = \lambda \nabla g$.
 
   \begin{theo}{Method of Lagrange multipliers}{lagrange}
@@ -3570,7 +4831,7 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
     already found all the boundary critical points.
 
     Finally, we evaluate $f$ at the interior critical point and the
-    two boundary critical points:
+    two boundary critical points: \vspace{-12pt}
     \begin{center}
       \begin{tabular}{M{1.2cm}|M{1.2cm}M{1.2cm}M{2cm}N}
         $(x,y)$ & $\left(\frac{1}{2}, 0\right)$  & $\left(\frac{1}{2},
@@ -3624,10 +4885,24 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \end{solution}
 
   \begin{exercise}{}{}
+    Find the set of all critical points of
+    $f(x,y,z) = 3 - x^2 -2y^2 - z^2$ subject to the constraint
+    $2x + y + z = 2$.
+  \end{exercise}
+
+  \begin{exercise}{}{}
     Find the points on the ellipse $\left(\frac{x - 1}{2}\right)^2 +
     (y-2)^2 = 1$ which are nearest and farthest from the origin. Hint:
     for the objective function, use \textit{squared} distance rather
     than distance. 
+  \end{exercise}
+
+  \begin{exercise}{}{}
+    Find the maximum value of $f(x,y) = y$ for any point $(x,y)$ on
+    the curve $y^2 - 4x^3 + 4x^4 = 0$ in two ways: (i) using Lagrange
+    multipliers, and (ii) writing the upper half of the given curve as
+    the graph of a function and maximizing that function using
+    standard single-variable techniques. 
   \end{exercise}
   
   \chapter{Multivariable Integration}
@@ -4091,8 +5366,8 @@ differentiable $f:\R^3 \to \R$ and $\mathbf{u} \in \R^3$.
   \end{minipage}
 \end{solution}
 
-  Let's summarize what we figured out in
-  Example~\ref{exam:integraltriangle}. 
+  Let's summarize what we figured out in 
+  Example~\ref{exam:integraltriangle}. \enlargethispage{2mm} 
   \begin{theo}{Iterated integrals for two-variable functions}{iterated}
     \begin{minipage}{0.7\textwidth}
       Suppose that
@@ -4264,7 +5539,7 @@ Let's do a three-dimensional example.
 
 \begin{example}{}{}
   Consider a cubical block occupying $D = [1,2]^3$ whose density at each
-  point is $\rho(x,y) = x^2 + y^2 + z^2$ kilograms per cubic meter.*
+  point is $\delta(x,y,z) = x^2 + y^2 + z^2$ kilograms per cubic meter.*
   Find the mass of the block. 
 \end{example}
 
@@ -4273,17 +5548,17 @@ Let's do a three-dimensional example.
   We cut the cube into $n^3$ small cubes, where $n$ is a large
     integer. The mass one of these cubes with bottom, back* corner
     $(x,y,z)$ is approximately equal to the product of its volume
-    $\tfrac{1}{n^3}$ and the approximate density $\rho(x,y,z)$
+    $\tfrac{1}{n^3}$ and the approximate density $\delta(x,y,z)$
     throughout the small cube. So the approximate volume is
     \sidenote{* Any corner, or indeed any point in the cube, would
       give the same result---we choose the bottom, back corner (the
       point nearest the origin) for concreteness}[-1cm]
     \[
-      \sum_{\text{all cubes}} \rho\left(x,y,z\right) \frac{1}{n^3}. 
+      \sum_{\text{all cubes}} \delta\left(x,y,z\right) \frac{1}{n^3}. 
     \]
     Intuitively, this sum should converge to a limit as $n\to\infty$,
     and if so, then we should define the limiting value to be the
-    integral of $\rho$ over $D$. Let's state this idea for any
+    integral of $\delta$ over $D$. Let's state this idea for any
     continuous function $f:\R^3 \to \R$: we define the integral of $f$ over $D$
     by 
     \[
@@ -4694,7 +5969,8 @@ rectangular integration:
   values of $r$ for any point on the ray of angle $\theta$ and in the
   region of integration
 \item Include the area differential* $\d A = r \, {\d}r \, \d\theta$
-\item Substitute $x = r \cos\theta$ and $y=r\sin \theta$ into $f$, so
+\item Substitute $x = r \cos\theta$ and $y=r\sin \theta$ into the
+  expression for $f$, so
   that your integrand varies appropriately as $r$ and $\theta$ vary 
   \sidenote{* Don't forget the extra factor of $r$ in the polar area
     differential!}[-1cm]
@@ -4862,142 +6138,142 @@ of that appendix is the spherical coordinate volume differential $\d V =
   \begin{minipage}[t]{0.5\textwidth}
     \begin{center}
       \begin{lrbox}{\asybox}
-      \begin{asy}
-        import graph3;
-        size(5cm);
-
-        currentlight.background = softyellow; 
-
-        picture myaxes(real h){
-          picture result; 
-          draw(result,O--h*X,Arrow3());
-          draw(result,O--h*Y,Arrow3());
-          draw(result,O--h*Z,Arrow3());
-          return result;
-        }
-        
-        material surfacemat = material(opacity=0.4,diffusepen=0.5*black+0.5*LightSeaGreen,
-                                                                             emissivepen=0.5*black+0.5*LightSeaGreen); 
-        pen surfacepen = LightSeaGreen+opacity(0.4); 
-        pen wirepen = MidnightBlue;
-        
-        triple xyz(real rho, real theta, real phi){
-          return rho*(cos(theta)*sin(phi), sin(theta)*sin(phi), cos(phi)); 
-        }
-        
-        int n = 20;
-        real phi = pi/4;
-        real eps = 2*pi/n; 
-        
-        void drawpatch(picture pic=currentpicture,
-        real r1, real r2,
-        real theta1, real theta2,
-        real phi1, real phi2, bool opaque = false){ 
-          real[] rvals = {r1, r2};
-          real[] thvals = {theta1, theta2};
-          real[] phvals = {phi1, phi2}; 
-          for(int i=0; i<rvals.length; ++i){
-            real r = rvals[i]; 
-            draw(pic,surface(new triple(pair p){return xyz(r,p.x,p.y);},
-            (thvals[0],phvals[0]),
-            (thvals[1],phvals[1]),
-            10,
-            Spline), opaque ? surfacemat : surfacepen, nullpen);
-          } 
-          for(int i=0; i<thvals.length; ++i){
-            real th = thvals[i]; 
-            draw(pic,surface(new triple(pair p){return xyz(p.x,th,p.y);},
-            (rvals[0], phvals[0]),
-            (rvals[1], phvals[1]),
-            10,
-            Spline), opaque ? surfacemat : surfacepen, nullpen);
+        \begin{asy}
+          import graph3;
+          size(5cm);
+          
+          currentlight.background = softyellow; 
+          
+          picture myaxes(real h){
+            picture result; 
+            draw(result,O--h*X,Arrow3());
+            draw(result,O--h*Y,Arrow3());
+            draw(result,O--h*Z,Arrow3());
+            return result;
           }
           
-          for(int i=0; i<phvals.length; ++i){
-            real ph = phvals[i]; 
-            draw(pic,surface(new triple(pair p){return xyz(p.x,p.y,ph);},
-            (rvals[0], thvals[0]),
-            (rvals[1], thvals[1]),
-            10,
-            Spline), opaque ? surfacemat : surfacepen, nullpen);
+          material surfacemat = material(opacity=0.4,diffusepen=0.5*black+0.5*LightSeaGreen,
+          emissivepen=0.5*black+0.5*LightSeaGreen); 
+          pen surfacepen = LightSeaGreen+opacity(0.4); 
+          pen wirepen = MidnightBlue;
+          
+          triple xyz(real rho, real theta, real phi){
+            return rho*(cos(theta)*sin(phi), sin(theta)*sin(phi), cos(phi)); 
           }
           
-          for(int i=0; i<thvals.length; ++i){
-            for(int j=0; j<phvals.length; ++j){
-              real th = thvals[i];
-              real ph = phvals[j];
-              draw(pic,graph(new triple(real t){return xyz(t,th,ph);},
-              rvals[0],
-              rvals[1],
+          int n = 20;
+          real phi = pi/4;
+          real eps = 2*pi/n; 
+          
+          void drawpatch(picture pic=currentpicture,
+          real r1, real r2,
+          real theta1, real theta2,
+          real phi1, real phi2, bool opaque = false){ 
+            real[] rvals = {r1, r2};
+            real[] thvals = {theta1, theta2};
+            real[] phvals = {phi1, phi2}; 
+            for(int i=0; i<rvals.length; ++i){
+              real r = rvals[i]; 
+              draw(pic,surface(new triple(pair p){return xyz(r,p.x,p.y);},
+              (thvals[0],phvals[0]),
+              (thvals[1],phvals[1]),
               10,
-              Spline), wirepen);
+              Spline), opaque ? surfacemat : surfacepen, nullpen);
+            } 
+            for(int i=0; i<thvals.length; ++i){
+              real th = thvals[i]; 
+              draw(pic,surface(new triple(pair p){return xyz(p.x,th,p.y);},
+              (rvals[0], phvals[0]),
+              (rvals[1], phvals[1]),
+              10,
+              Spline), opaque ? surfacemat : surfacepen, nullpen);
+            }
+            
+            for(int i=0; i<phvals.length; ++i){
+              real ph = phvals[i]; 
+              draw(pic,surface(new triple(pair p){return xyz(p.x,p.y,ph);},
+              (rvals[0], thvals[0]),
+              (rvals[1], thvals[1]),
+              10,
+              Spline), opaque ? surfacemat : surfacepen, nullpen);
+            }
+            
+            for(int i=0; i<thvals.length; ++i){
+              for(int j=0; j<phvals.length; ++j){
+                real th = thvals[i];
+                real ph = phvals[j];
+                draw(pic,graph(new triple(real t){return xyz(t,th,ph);},
+                rvals[0],
+                rvals[1],
+                10,
+                Spline), wirepen);
+              }
+            }
+            for(int i=0; i<rvals.length; ++i){
+              for(int j=0; j<phvals.length; ++j){
+                real r = rvals[i];
+                real ph = phvals[j];
+                draw(pic,graph(new triple(real t){return xyz(r,t,ph);},
+                thvals[0],
+                thvals[1],
+                10,
+                Spline), wirepen);
+              }
+            }
+            for(int i=0; i<thvals.length; ++i){
+              for(int j=0; j<rvals.length; ++j){
+                real th = thvals[i];
+                real r = rvals[j];
+                draw(pic,graph(new triple(real t){return xyz(r,th,t);},
+                phvals[0],
+                phvals[1],
+                10,
+                Spline), wirepen);
+              }
             }
           }
-          for(int i=0; i<rvals.length; ++i){
-            for(int j=0; j<phvals.length; ++j){
-              real r = rvals[i];
-              real ph = phvals[j];
-              draw(pic,graph(new triple(real t){return xyz(r,t,ph);},
-              thvals[0],
-              thvals[1],
-              10,
-              Spline), wirepen);
-            }
-          }
-          for(int i=0; i<thvals.length; ++i){
-            for(int j=0; j<rvals.length; ++j){
-              real th = thvals[i];
-              real r = rvals[j];
-              draw(pic,graph(new triple(real t){return xyz(r,th,t);},
-              phvals[0],
-              phvals[1],
-              10,
-              Spline), wirepen);
-            }
-          }
-        }
-        
-        real r1 = 0.8, r2 = 1;
-        real theta1 = pi/4, theta2 = pi/4 + eps;
-        real phi1 = theta1, phi2 = theta2; 
-        
-        add(myaxes(1.25));
-        currentprojection = perspective(5,0.4,0.3);
-        
-        drawpatch(r1, r2, theta1, theta2, theta1, theta2);
-        
-        triple M = 0.5*(xyz(r1,theta2,phi2)+xyz(r2,theta2,phi2)); 
-        label("$\Delta \rho$", M,align=2*SE); 
-        draw(M - 0.07*Z + 0.07*Y -- M,Arrow3(4.5));
-        
-        triple M = xyz(r2,theta2,0.5*phi1+0.5*phi2);
-        label("$\rho \, \Delta \phi$", M,align=2.5*NE);
-        draw(M + 0.06*(Y+Z) -- M, Arrow3(4.5)); 
-        
-        triple M = 0.5*(xyz(r2,theta1,phi1)+xyz(r2,theta2,phi1));
-        label("$\rho \, \sin \phi  \, \Delta \theta$", M, align=5*N); 
-        draw(M + 0.11*Z -- M, Arrow3(4.5)); 
-        
-        draw(circle((0,0,r2*cos(phi1)),r2*sin(phi1),normal=Z),dashed+gray);
-        draw(xyz(r2,theta1,phi1)--(0,0,r2*cos(phi1))--xyz(r2,theta2,phi1));
-        triple A = (0,0,r2*cos(phi1)); 
-        triple B = xyz(r2,theta1,phi1);
-        triple C = 0.7*A + 0.3*B;
-        triple D = 0.3*A + 0.7*B; 
-        triple h = -0.1*Z;
-        draw(surface(yscale(-0.8)*"$\rho \sin \phi$",surface(C--D--D+h--C+h--cycle),0,0,0)); 
-        
-        draw(xyz(r1,theta2,phi1)--O--xyz(r1,theta2,phi2),dashed+gray);
-        draw(xyz(r1,theta1,phi1)--O--xyz(r1,theta1,phi2),dashed+gray);  
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{center}
+          
+          real r1 = 0.8, r2 = 1;
+          real theta1 = pi/4, theta2 = pi/4 + eps;
+          real phi1 = theta1, phi2 = theta2; 
+          
+          add(myaxes(1.25));
+          currentprojection = perspective(5,0.4,0.3);
+          
+          drawpatch(r1, r2, theta1, theta2, theta1, theta2);
+          
+          triple M = 0.5*(xyz(r1,theta2,phi2)+xyz(r2,theta2,phi2)); 
+          label("$\Delta \rho$", M,align=2*SE); 
+          draw(M - 0.07*Z + 0.07*Y -- M,Arrow3(4.5));
+          
+          triple M = xyz(r2,theta2,0.5*phi1+0.5*phi2);
+          label("$\rho \, \Delta \phi$", M,align=2.5*NE);
+          draw(M + 0.06*(Y+Z) -- M, Arrow3(4.5)); 
+          
+          triple M = 0.5*(xyz(r2,theta1,phi1)+xyz(r2,theta2,phi1));
+          label("$\rho \, \sin \phi  \, \Delta \theta$", M, align=5*N); 
+          draw(M + 0.11*Z -- M, Arrow3(4.5)); 
+          
+          draw(circle((0,0,r2*cos(phi1)),r2*sin(phi1),normal=Z),dashed+gray);
+          draw(xyz(r2,theta1,phi1)--(0,0,r2*cos(phi1))--xyz(r2,theta2,phi1));
+          triple A = (0,0,r2*cos(phi1)); 
+          triple B = xyz(r2,theta1,phi1);
+          triple C = 0.7*A + 0.3*B;
+          triple D = 0.3*A + 0.7*B; 
+          triple h = -0.1*Z;
+          draw(surface(yscale(-0.8)*"$\rho \sin \phi$",surface(C--D--D+h--C+h--cycle),0,0,0)); 
+          
+          draw(xyz(r1,theta2,phi1)--O--xyz(r1,theta2,phi2),dashed+gray);
+          draw(xyz(r1,theta1,phi1)--O--xyz(r1,theta1,phi2),dashed+gray);  
+        \end{asy}
+      \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+    \end{center}
   \end{minipage}
 \end{solution}
 
 \begin{example}{}{spherical-mass}
   Consider a solid whose density at each point $(x,y,z)$ is
-  $\rho(x,y,z) = \frac{1}{x^2 + y^2 + z^2}$ and which occupies the region
+  $\delta(x,y,z) = \frac{1}{x^2 + y^2 + z^2}$ and which occupies the region
   enclosed by the cone $z = \sqrt{x^2+y^2}$ and the plane $z = 1$.
   Find the mass of the solid. 
 \end{example}
@@ -5092,7 +6368,7 @@ to $\frac{1}{\rho^2}$, since $\rho^2 = x^2 + y^2 + z^2$. So we get
   using cylindrical coordinates. 
 \end{exercise}
 
-\section{Change of variables} \label{sec:changeofvariables}
+\section{Integration in custom coordinates} \label{sec:changeofvariables}
 
 \milink{double_integral_change_variables_introduction}{change of variables}
 
@@ -5262,8 +6538,6 @@ integrating with respect to a custom-designed coordinate system.
     \]
   \end{theo}
 
-  
-
   \begin{exercise}{}{}
     Use the change of variables $x = u^2 - v^2$, $y = 2uv$ to evaluate the
 integral $\iint_R y \,\d A$, where $R$ is the region above by the $x$-axis
@@ -5276,8 +6550,541 @@ bounded by the parabolas $y^2 = 4-4x$ and $y^2 = 4+4x$.
   the unit circle.
 \end{exercise}
 
+\section{Applications of integration} \label{sec:applications}
 
-  \newpage 
+\subsection{Average value}
+
+The most basic example of averaging is summing a list of numbers and dividing by the number of entries in the list. Expressed in terms of functions, we can say that if $f:\{1,2,\ldots,n\} \rightarrow \R$, then the average of $f$ is defined to be 
+\begin{equation} \label{eq:avg} 
+  \mathrm{average}(f) = \frac{f(1) + f(2) + \cdots + f(n)}{n}. 
+\end{equation}
+Now suppose that the domain of $f$ is a region $R\subset \R^n$. The most natural way to adapt \eqref{eq:avg} to this setting is to replace the sum in the numerator with an integral, and replace the ``size'' of the domain $n$ in the denominator with the volume of $R$. We will state the definition for a function defined on a region in $\R^3$: 
+
+\begin{defn}{Average value over a solid}{avg}
+  If $R\subset \R^3$ is a region and $f: R \to \R$, then the \textbf{average value} of $f$ is
+  \[
+      \mathrm{average}(f) = \frac{\displaystyle{\iiint_R f \, dV}}{\displaystyle{\iiint_R 1 \, dV}}. 
+  \]
+\end{defn}
+
+Let's explain the connection between Definition~\ref{defn:avg} and \eqref{eq:avg} more carefully: intuitively, the average value of a continously varying function $f:R\to \R$ should be very close to the result of overlaying $R$ with a fine grid, evaluating the function at all the corners of the cells of that grid, and averaging the results. By \eqref{eq:avg}, this latter average is equal to the quotient* of (1) the sum of all the function's values at the grid points and (2) the number of grid points. If we multiply numerator and denominator of this quotient by the volume of a single small grid cell, then the numerator becomes a Riemann sum approximating $\iiint_R f \, dV$, and the denominator becomes a Riemann sum approximating the volume $\iiint_R 1 \, dV$ of $R$. Therefore, the limit of this quotient as the mesh of the grid tends to zero is equal to the formula given in Definition~\ref{defn:avg}. \sidenote{* We're sticking with verbal descriptions of the quantities involved here to avoid the somewhat unwieldy notation associated with Riemann sums. }[-2cm]
+
+\begin{exercise}{}{} \parskip = 4pt 
+  (a) Find the average squared distance from the origin to a point in the unit sphere.
+
+  (b) Find the average distance from the origin to a point in the unit sphere.
+
+  (c) Is the square of the average distance equal to the average of the squared distance? 
+\end{exercise}
+
+If we want some of the numbers being averaged to count more than others, we can replace \eqref{eq:avg} with a \textbf{weighted average}. If $f:\{1,2,\ldots,n\} \rightarrow \R$ and $w:\{1,2,\ldots,n\} \rightarrow \R$, then the $w$-weighted average of $f$ is defined to be 
+\begin{equation} \label{eq:wavg} 
+  \mathrm{average}_w(f) = \frac{f(1)w(1) + f(2)w(2) + \cdots + f(n)w(n)}{w(1)+w(2) \cdots + w(n)}. 
+\end{equation}
+For example, if your scores on 3 exams are $f(1)=90, f(2)=90$, $f(3)=100$ with weights $w(1)=30$, $w(2)=30$, $w(3)=40$, then your weighted average is $\tfrac{90\cdot 30 + 90\cdot 30 + 100 \cdot 100}{30+30+40} = 94$. We can adapt \eqref{eq:wavg} as above: 
+
+\begin{defn}{Weighted average over a solid}{wavg}
+  If $R\subset \R^3$ is a region, and that $f : R \to \R$ and $w : R \to [0,\infty)$ are functions. Then the \textbf{$w$-weighted average} of $f$ is
+  \[
+      \mathrm{average}_w(f) = \frac{\displaystyle{\iiint_R f w\, dV}}{\displaystyle{\iiint_R w \, dV}}. 
+  \]
+\end{defn}
+
+\begin{exercise}{}{}
+  Define $w : [0,1]^3 \to \R$ via $w(x,y,z) = x+y+z$. (a) Find the $w$-weighted average of the constant function $f(x,y,z) = 1$ on $[0,1]^3$. (b) Find the $w$-weighted average of $f(x,y,z) = x$ on $[0,1]^3$. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  Identify the changes to the paragraph following Definition~\ref{defn:avg} necessary to obtain the corresponding explanation of Definition~\ref{defn:wavg}. 
+\end{exercise}
+
+\subsection{Center of mass}
+
+The center of mass of a physical rod is the point along the length of the rod where it balances. The center of mass of a rod with constant mass density is the point halfway between the rod's ends. But what if the rod has a varying mass density? 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=12cm]{figures/centerofmass}
+  \caption{A rod with mass density indicated by color}
+  \label{fig:rod} 
+\end{figure}
+
+Clearly the rod in Figure~\ref{fig:rod} will tip to the right if we support it in the middle. To find its center of mass, recall from physics that the rod is balanced if the \textit{torque} applied by gravity on the two sides is equal. If the rod is situated along the interval $[a,b]$, has density $\delta:[a,b] \to \R$, and is supported at the point $x_0$, then the clockwise torque is equal to
+\[
+  \int_{x_0}^b \overbrace{(x-x_0)}^{\text{length of moment arm}} \quad \underbrace{\overbrace{\delta(x)}^{\text{density of small piece }[x,\, x+\d x]} \quad  \overbrace{\d x}^{\text{length of small piece}}}_{\text{mass of small piece}}. 
+\]
+Similarly, the counterclockwise torque is
+\[
+  \int_{a}^{x_0} (x_0-x)\delta(x) \, \d x. 
+\]
+Setting these two integrals equal and collecting terms we get 
+\[
+  0 = \int_{x_0}^{b} (x-x_0)\delta(x) \, \d x + \int_{a}^{x_0} (x-x_0)\delta(x) \, \d x =
+  \int_{a}^{b} (x-x_0)\delta(x) \, \d x. 
+\]
+Now we can distribute the $\delta(x)$ factor, apply linearity of the integral, and solve for $x_0$ to find
+\[
+  x_0 = \frac{\displaystyle{\int_a^b x \delta(x) \, \d x}}{\displaystyle{\int_a^b \delta(x) \, \d x}}. 
+\]
+In other words, the location of the center of mass is equal to \textbf{the density-weighted average value of the coordinate function $\mathbf{x}$}.
+
+We can apply the same idea (one axis at a time) to a \textbf{lamina}, which is a plate* occupying a region $L\subset \R^2$ and having mass density $\sigma:L \to [0,\infty)$. Or to a solid in $\R^3$ with mass density $\delta$. The coordinates of the center of mass are equal to the density-weighted averages of the corresponding coordinate functions: \sidenote{* By slight abuse of notation, we may use $L$ to refer to either the lamina or the region in $\R^2$ that it occupies}
+
+\begin{defn}{Center of mass}{COM}
+  The {center of mass} of a lamina $L$ with mass density $\sigma:L \to [0,\infty)$ is
+  \[
+    \left(
+      \frac{\displaystyle{\iint_L x \, \sigma(x,y) \, \d x \, \d y}}
+      {\displaystyle{\iint_L \sigma(x,y) \, \d x \, \d y}},
+      \frac{\displaystyle{\iint_L y \, \sigma(x,y) \, \d x \, \d y}}
+      {\displaystyle{\iint_L \sigma(x,y) \, \d x \, \d y}}
+    \right). 
+  \]
+    The center of mass of a solid occupying a region $R$ with mass density $\delta:R \to [0,\infty)$ is
+  \[
+    \left(
+      \frac{\displaystyle{\iiint_R x \, \delta(x,y,z) \, \d x \, \d y \, \d z}}
+      {\displaystyle{\iiint_R \delta(x,y,z) \, \d x \, \d y \, \d z}},
+      \frac{\displaystyle{\iiint_R y \, \delta(x,y,z) \, \d x \, \d y \, \d z}}
+      {\displaystyle{\iiint_R \delta(x,y,z) \, \d x \, \d y \, \d z}},
+      \frac{\displaystyle{\iiint_R z \, \delta(x,y,z) \, \d x \, \d y \, \d z}}
+      {\displaystyle{\iiint_R \delta(x,y,z) \, \d x \, \d y \, \d z}}
+    \right). 
+  \]
+\end{defn}
+
+\begin{example}{}{}
+  Find the center of mass of the triangle $T$ with vertices $(0,0)$, $(1,0)$, and $(0,1)$. Assume constant density*. \sidenote{* Convention dictates that leaving the density function unstated should be taken to imply constant density}
+\end{example}
+
+\begin{solution}
+  If the density is $k$, then by Definition~\ref{defn:COM}, the $x$-coordinate of the center of mass is
+  \[
+    \frac{\iint_T kx \, \d x \, \d y}{\iint_T k \, \d x \, \d y}  =\frac{k/6}{k/2} = \frac{1}{3}. 
+  \]
+  By symmetry, the $y$-coordinate of the center of mass is also $\tfrac{1}{3}$. Therefore, the center of mass of the lamina is $\boxed{\left(\tfrac{1}{3}, \tfrac{1}{3}\right)}$. 
+\end{solution}
+
+\begin{exercise}{}{}
+  Find the center of mass of a tetrahedron with vertices $\mathbf{0}$, $\mathbf{i}$, $\mathbf{j}$, and $\mathbf{k}$. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  Show that the $\rho$-value of the center of a mass of an origin-centered sphere is \textbf{not} equal to the average $\rho$ value of a point in the sphere. 
+\end{exercise}
+
+\subsection{Moments of inertia}
+
+
+Newton's second law says that
+\begin{equation} \label{eq:newton2nd} 
+  \mathbf{F} = m \mathbf{a},
+\end{equation}
+where $\mathbf{F}$, $m$, and $\mathbf{a}$ are the net force acting upon a particle, its mass, and its resulting acceleration, respectively. The rotational analogue of Newton's second law says that, for any line $\ell$ in space, 
+\begin{equation} \label{eq:newton2nd_rot} 
+  {\bm \tau} = I {\bm \alpha}, 
+\end{equation}
+\begin{minipage}[t]{0.7\textwidth}
+  where $\tau$ is the torque about $\ell$ being applied to the
+  particle, $I$ is the particle's \textbf{moment of inertia} about
+  $\ell$, and ${\bm \alpha}$ is the angular acceleration of the
+  particle about $\ell$. Thus the moment of inertia is the rotational
+  analogue of mass.
+  
+  Let's derive \eqref{eq:newton2nd_rot} from \eqref{eq:newton2nd} as context for providing mathematical definitions for the quantities in \eqref{eq:newton2nd_rot}. Denote by $\mathbf{r}$ the vector from the nearest point on $\ell$ to the location of the particle. Then crossing $\mathbf{r}$ with both sides of \eqref{eq:newton2nd}, we find that
+\[
+  \mathbf{r} \times \mathbf{F} = m \mathbf{r} \times \mathbf{a}. 
+\]
+We define the torque about $\ell$ to be ${\bm \tau} \colonequals
+\mathbf{r} \times \mathbf{F}$. Letting $r = |\mathbf{r}|$ be the
+distance from $\ell$ to the particle, we define the angular
+acceleration of the particle about $\ell$ to be ${\bm \alpha} =
+\frac{\mathbf{r}}{r} \times \frac{\mathbf{a}}{r}$. Then we obtain
+\eqref{eq:newton2nd_rot} with $I = mr^2$.
+\end{minipage}
+\begin{minipage}[t]{0.29\textwidth}
+  \begin{center}
+    \begin{lrbox}{\asybox}
+      \begin{asy}
+size(5cm); 
+import graph3;
+usepackage("bm");
+real h = 10;
+currentprojection=perspective(43,23,23); 
+draw(Label("$\ell$",Relative(0.8),align=E),(0,0,2)--(0,0,h),gray);
+draw(Label("${\bm \tau}$",Relative(0.8),align=E),(0,0,5)--(0,0,6.5),SeaGreen+linewidth(0.8),Arrow3());
+triple P = (3,4,5);
+dot(P);
+draw(Label("$\mathbf{r}$",Relative(0.5)),(0,0,5)--P,DarkRed,Arrow3()); 
+draw(Label("$\mathbf{a}$"),P--P+(-1,1,0),MidnightBlue,Arrow3()); 
+       \end{asy}
+     \end{lrbox}
+     \raisebox{\dimexpr -\height + 1.5 ex\relax}{\usebox{\asybox}}
+
+    \vspace{-8mm} 
+    
+    \captionof{figure}{The vectors ${\bm \tau}, \mathbf{F}$, and
+      $\mathbf{\mathbf{r}}$} \label{fig:MOI}
+  \end{center}
+\end{minipage}
+
+\begin{exercise}{Angular acceleration}{}
+  Suppose that $\mathbf{r}(t)$ describes the location in $\R^2$ of a particle at time $t$ and, $\mathbf{a}(t) = \mathbf{r}''(t)$ as usual. Define $\theta(t)$ to be the angle between the positive $x$-axis and $\mathbf{r}$. Explain why $\left|\frac{\mathbf{r(t)}}{r} \times \frac{\mathbf{a(t)}}{r}\right|$ is indeed equal to $\theta''(t)$. 
+\end{exercise}
+
+Moment of inertia, like mass, is additive. That is, the moment of inertia of an ensemble of particles about a line $\ell$ is equal to the sum of the moments of inertia about $\ell$ of the particles. Therefore, the moment of inertia of a solid with continously varying mass density may be approximated by subdividing the solid into small pieces and approximating the moment of inertia of each piece as its mass times the squared distance from some point in the small piece to $\ell$. Summing the results and taking the size of the pieces to zero leads to the following formula:
+\begin{defn}{Moment of inertia}{MOI}
+  The moment of inertia about a line $\ell$ of a solid occupying a region $R$ and having density $\delta: \R \to [0,\infty)$ is 
+  \[
+    I = \iiint_{R} r(x,y,z)^2 \, \delta(x,y,z) \, \d x \, \d y\, \d z, 
+  \]
+  where $r(x,y,z)$ is the distance from $(x,y,z)$ to $\ell$. 
+\end{defn}
+
+\begin{example}{}{}
+  Find the moment of inertia of the unit-density, unit sphere about the $z$-axis. 
+\end{example}
+
+\begin{solution}
+  The distance from the $z$-axis to $(x,y,z)$ is $r = \rho \sin \phi$. Therefore, the moment of inertia is
+  \[
+    \int_{0}^{2\pi}\int_0^\pi \int_0^1 \overbrace{(\rho \sin \phi)^2}^{r^2} \,
+    \overbrace{\vphantom{\rho^2} 1}^{\delta}\overbrace{\rho^2 \sin \phi \, \d\rho \, \d\phi \, \d\theta}^{\d V} = \left(\frac{1}{5}\right) \left(\frac{4}{3}\right) \left(2\pi\right) = \boxed{\frac{8\pi}{15}}. 
+  \]
+\end{solution}
+
+\begin{exercise}{}{}
+  Find the moment of inertia about the $z$-axis of the cylinder described by the inequalities $(x-1)^2 + y^2 \leq 1$ and $0 \leq z \leq 1$. Repeat with the unit cube $[0,1]^3$. Which is harder to rotate about the $z$-axis? 
+\end{exercise}
+
+\begin{exercise}{Parallel axis theorem}{pat}
+  Suppose that $I_k$ is the moment of inertia of a solid of mass $M$ around a line $\ell_k$, for $k\in \{1,2\}$. Show that if $\ell_1$ passes through the solid's center of mass and $\ell_1$ and $\ell_2$ are parallel, then
+  \[
+    I_2 = I_1 + md^2,
+  \]
+  where $d$ is the distance between the lines $\ell_1$ and $\ell_2$. 
+\end{exercise}
+
+\subsection{Probability}
+
+A dart thrown at a dartboard $D\subset \R^2$ strikes a \textit{random}
+point $P$ in $D$. We model this state of affairs by describing a
+\textbf{probability density function}* $f:D \to [0,\infty)$ with the
+property that the probability that $P$ lies in any region $A$ given by
+integrating $f$ over $A$. \sidenote{* or pdf, for short}
+
+\begin{example}{}{triple20}
+  \begin{minipage}[t]{0.65\textwidth} \parskip = 10 pt Suppose that
+    the probability density function for the random point where your
+    dart hits the dartboard* $D=\R^2$ is given by \sidenote{* This
+      function is positive everywhere in $\R^2$, so the ``dartboard''
+      includes the disk shown as well as the (infinite) wall it is
+      mounted on---this realistic insofar as one can indeed hit
+      the wall with a dart throw}
+  \[
+    f(x,y) = \frac{1}{\pi} \e^{-x^2 - y^2}, 
+  \]
+  where the origin is situated at the dartboard's bull's eye, and
+  where $x$ and $y$ are measured in inches. Find the probability of
+  scoring triple 20 on your next throw. 
+
+  Note: the triple 20 region is the smaller of the two thin red strips in the sector labeled ``20''. The inner and outer radii of this thin strip are 3.85 inches and 4.2 inches, respectively. 
+\end{minipage} \hfill
+\begin{minipage}[t]{0.32\textwidth }
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+size(5cm);
+int[] labels = {6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8,
+		16, 7, 19, 3, 17, 2, 15, 10}; 
+
+real rbull = 0.25,
+rbullouter = 1.25/2,
+rtripleinner = 3.85,
+rtripleouter = 4.2,
+rdoubleinner = 6.7 - 0.35,
+rdoubleouter = 6.7, 
+r = 17.75/2;
+pair O = (0,0); 
+
+fill(circle(O,r)); // black background disk
+
+for(int i=0; i< labels.length; ++i){ // number labels
+  label(string(labels[i]),(rdoubleouter+r)/2*dir(i*360/20),white+fontsize(10));
+}
+
+// coloring sectors tan, red, and green 
+for(int i=0; i<20; ++i){
+  real width = 360/20; 
+  real theta = width*i + 1/2*width;
+  if (i % 2 == 1) {
+    fill(rbullouter*dir(theta)--arc(O,rtripleinner,theta,theta+width)--
+	 arc(O,rbullouter,theta+width,theta)--cycle,Tan);
+    fill(rtripleouter*dir(theta)--arc(O,rdoubleinner,theta,theta+width)--
+	 arc(O,rtripleouter,theta+width,theta)--cycle,Tan);
+    fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
+	 arc(O,rtripleinner,theta+width,theta)--cycle,Green);
+    fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
+	 arc(O,rdoubleinner,theta+width,theta)--cycle,Green);
+  }
+  else {
+    fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
+	 arc(O,rtripleinner,theta+width,theta)--cycle,Red);
+    fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
+	 arc(O,rdoubleinner,theta+width,theta)--cycle,Red);
+  }
+}
+
+// bullseyes
+
+fill(circle(O,rbullouter),Green);
+fill(circle(O,rbull),Red); 
+
+// white lines separating regions
+draw(circle(O,rdoubleouter),white);
+draw(circle(O,rdoubleinner),white);
+draw(circle(O,rtripleouter),white);
+draw(circle(O,rtripleinner),white);
+draw(circle(O,rbull),white);
+draw(circle(O,rbullouter),white);
+for(int i=0; i<20; ++i){
+  real theta = 360/20*i + 1/2*(360/20); 
+  draw(rbullouter*dir(theta)--rdoubleouter*dir(theta),white);
+}
+\end{asy}
+\end{lrbox}
+\raisebox{\dimexpr -\height + 1.5 ex \relax}{\usebox{\asybox}}
+\end{minipage}
+\end{example}
+
+\newcommand{\ri}{r_{\mathrm{i}}} \newcommand{\ro}{r_{\mathrm{o}}}
+\begin{solution} 
+  The region in question is described most easily in polar coordinates: it is the set of points whose polar coordinates $(r,\theta)$ satisfy $\ri \leq r \leq \ro$ and* $81^\circ \leq \theta \leq 99^\circ$, where $\ri  = 3.85$ and $\ro  = 4.2$. \sidenote{* Note that the width of each sector is $360^\circ/20 = 18^\circ$, so the angles of the rays bounding the sector labeled 20 are $90^\circ \pm \tfrac{18^\circ}{2}$}
+
+  Therefore, we can obtain the probability of hitting the triple 20 by expressing the density function in polar coordinates and integrating  
+  \[
+    \int_{9\pi/20}^{11\pi/20}   \int_{\ri}^{\ro} \frac{1}{{\pi}}\e^{-r^2} r \, \d r \, \d\theta  = \left(\frac{\pi}{10}\right) \left(\frac{1}{{\pi}}\right) \left(-\tfrac{1}{2}\e^{-\ro^2}-\left(-\tfrac{1}{2}\e^{-\ri^2}\right)\right). 
+  \]
+  Substituting the given values of $\ro$ and $\ri$ yields a probability of approximately $\boxed{1.717\times10^{-8}}$ of scoring 60 on a single throw.
+\end{solution}
+
+The integral of a probability density function over its whole domain must be equal to 1, since that is the probability that the random point $P$ is \textit{somewhere} in $D$: 
+
+\begin{exercise}{}{}
+  Verify that $f(x,y) = \frac{1}{\pi} e^{-x^2 - y^2}$ defined on $\R^2$ is a valid probability density function (that is, integrating it over its domain yields the value 1). 
+\end{exercise}
+
+\begin{exercise}{}{pdfover1}
+  Suppose that $f$ is a probability density function for a random point $P$ in a domain $D\subset \R^2$. Is it possible that there exists a point $(x,y) \in D$ such that $f(x,y) = 100$? Explain why or why not. (Hint: is it possible for a solid whose total mass is 1 kilogram to have a density of 100 kilograms per cubic centimeter at a particular point in the solid?)
+\end{exercise}
+
+\begin{minipage}[t]{0.55\textwidth} \parskip = 12pt 
+  The analogy between probability density and mass density suggested
+  in Exercise~\ref{exer:pdfover1} is a broadly useful conceptual tool:
+  you can image probability as some kind of abstract dust lying around
+  on $D$, and regions which contain more of it are more likely to
+  include $P$. To figure out exactly how much is in a given region, we
+  integrate over that region. 
+
+  \begin{exercise}{}{}
+    Explain why the answer found in Example~\ref{exam:triple20} was
+    unrealistically low for a typical dart thrower. If you were
+    actually good enough that the pdf given in that problem describes
+    your accuracy well, where should you consider aiming? (Note: the green
+    bullseye is worth 25 points and the red bullseye is worth 50
+    points.)
+  \end{exercise}
+\end{minipage} \hfill
+\begin{minipage}[t]{0.4\textwidth}
+  \begin{center} 
+    \begin{lrbox}{\asybox}
+      \begin{asy}
+size(8cm);
+import graph3; 
+int[] labels = {6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8,
+		16, 7, 19, 3, 17, 2, 15, 10}; 
+
+real rbull = 0.25,
+rbullouter = 1.25/2,
+rtripleinner = 3.85,
+rtripleouter = 4.2,
+rdoubleinner = 6.7 - 0.35,
+rdoubleouter = 6.7, 
+router = 17.75/2;
+
+real eps = 0.01;
+
+currentprojection = perspective(40,20,17); 
+
+draw(surface(circle(O,router,normal=Z))); // black background disk
+
+for(int i=0; i< min(100,labels.length); ++i){ // number labels
+  triple center = (rdoubleouter+router)/2*dir(90,i*360/20);
+  real w = 0.5; 
+  path3 letterbox = shift(center)*scale(labels[i] < 10 ? 1/2 : 1,1,1)*rotate(90,Z)*((-w,w,0)--(-w,-w,0)--(w,-w,0)--(w,w,0)--cycle);
+  draw(surface(string(labels[i]),surface(letterbox),0,0,1e-3),white); 
+}
+
+// coloring sectors tan, red, and green 
+for(int i=0; i<20; ++i){
+  real width = 360/20; 
+  real th = width*i + 1/2*width;
+  if (i % 2 == 1) {
+    draw(shift((0,0,eps))*surface(rbullouter*dir(90,th) -- arc(O,rtripleinner,90,th,90,th+width)--
+				  arc(O,rbullouter,  90,th+width,90,th,direction=true)--cycle),Tan);
+    draw(shift((0,0,eps))*surface(rtripleouter*dir(90,th)--arc(O,rdoubleinner,90,th,90,th+width)--
+    				  arc(O,rtripleouter,90,th+width,90,th,direction=true)--cycle),Tan);
+    draw(shift((0,0,eps))*surface(rtripleinner*dir(90,th)--arc(O,rtripleouter,90,th,90,th+width)--
+				  arc(O,rtripleinner,90,th+width,90,th,direction=true)--cycle),Green);
+    draw(shift((0,0,eps))*surface(rdoubleinner*dir(90,th)--arc(O,rdoubleouter,90,th,90,th+width)--
+				  arc(O,rdoubleinner,90,th+width,90,th,direction=true)--cycle),Green); 
+  }
+  else {
+    draw(shift((0,0,eps))*surface(rtripleinner*dir(90,th)--arc(O,rtripleouter,90,th,90,th+width)--
+				   arc(O,rtripleinner,90,th+width,90,th,direction=true)--cycle),Red);
+    draw(shift((0,0,eps))*surface(rdoubleinner*dir(90,th)--arc(O,rdoubleouter,90,th,90,th+width)--
+				   arc(O,rdoubleinner,90,th+width,90,th,direction=true)--cycle),Red);
+  }
+}
+
+
+
+
+// bullseyes
+
+draw(surface(circle((0,0,eps),rbullouter,normal=Z)),Green);
+draw(surface(circle((0,0,2*eps),rbull,normal=Z)),Red);
+
+triple O = (0,0,eps); 
+
+// white lines separating regions
+draw(circle(O,rdoubleouter,normal=Z),white);
+draw(circle(O,rdoubleinner,normal=Z),white);
+draw(circle(O,rtripleouter,normal=Z),white);
+draw(circle(O,rtripleinner,normal=Z),white);
+draw(circle(O,rbull,normal=Z),white);
+draw(circle(O,rbullouter,normal=Z),white);
+for(int i=0; i<20; ++i){
+  real th = 360/20*i + 1/2*(360/20); 
+  draw(rbullouter*dir(90,th)--rdoubleouter*dir(90,th),white);
+}
+
+real h = 0.02; 
+
+draw(surface(new triple(pair p){
+      real r = p.x, th = p.y; 
+      return (r^2*cos(th),r^2*sin(th),h+20*exp(-r^4)/pi); 
+    },
+    (0,0),
+    (sqrt(router),2*pi),
+    20, 10, Spline
+    ),opacity(0.5)+LightSeaGreen, MidnightBlue) ;
+
+draw(Label("$f(x,y)$",align=2*E,Relative(1)),(0,0,h)--(0,0,8+h),MidnightBlue,Arrow3());
+draw(Label("$y$",Relative(1)),(0,0,h)--(0,10,h),MidnightBlue,Arrow3());
+draw(Label("$x$",align=SE,Relative(1)),(0,0,h)--(10.5,0,h),MidnightBlue,Arrow3());
+      \end{asy}
+    \end{lrbox} \usebox{\asybox} 
+
+\captionof{figure}{The pdf $\tfrac{1}{\pi}e^{-x^2-y^2}$} \label{fig:pdfgraph}
+  \end{center}
+\end{minipage}
+
+Given a function $g:D \to \R$, the value of $g(P)$ depends on the
+value of $P$ and is therefore random. We call $g(P)$ a \textbf{random
+  variable} and define its \textbf{expected value} to be the
+probability-weighted integral of $g$.
+
+\begin{example}{}{avgdist}
+  Find the average distance from the origin to a point $P$ selected
+  uniformly at random from the triangle $T$ with vertices at $(0,0)$, $(1,0)$,
+  and $(1,-1)$. 
+\end{example}
+
+\begin{solution}
+  The word ``uniform'' means that $P$'s pdf is a constant function. To
+  determine the value of this constant, we use the fact that the pdf
+  integrates to 1. If $f(x,y) = k$ for all $(x,y) \in T$, then
+  \[
+    \iint_T k \, \d A = k\, \mathrm{area}(T) = k, 
+  \]
+  so in fact $k = 1$ in this case. We are calculating the expected
+  value of $g(P)$, where $g(x,y) = \sqrt{x^2 + y^2}$. So the expected
+  value of $g(P)$ is given by $\iint_T g \, \d A$. Because the
+  integrand is conveniently expressed in polar coordinates, we
+  represent $T$ in polar coordinates as the set of points where
+  $\theta$ is between $-\pi/4$ and $\pi/4$ and where $r$ is between 0
+  and $\sec \theta$. Then we have
+  \[
+    \iint_T g \, \d A = \int_{-\pi/4}^{\pi/4} \int_0^{\sec \theta} r
+    \, r \, \d r\, \d\theta = \frac{1}{3} \int_{-\pi/4}^{\pi/4} \sec^3
+    \theta \, \d\theta. 
+  \]
+  We can use integration by parts to work out
+  $\int \sec^3 \theta \, \d \theta = \frac{1}{2}\left(\sec \theta \tan
+    \theta + \ln|\sec\theta + \tan \theta|\right)$.
+  Substitution yields an expected value of
+  \[
+    \boxed{\frac{1}{6}\left(2\sqrt{2} +
+      \ln\left(\frac{\sqrt{2}+1}{\sqrt{2}-1}\right)\right) \approx
+    0.765.}
+  \]
+\end{solution}
+
+\begin{example}{}{}
+  Explain why the answer to Example~\ref{exam:avgdist} is also the
+  average distance from the origin to a point selecting uniformly at
+  random from the unit square $[0,1]^3$. 
+\end{example}
+
+\begin{example}{}{} \parskip = 8pt
+  Find the expected value of the latitude of a point chosen uniformly
+  at random from the upper half of the earth (the part above the plane
+  passing through the equator).
+
+  Model earth as a sphere, with $\phi = 0$ being the plane
+  passing through the equator. 
+\end{example}
+
+\begin{solution}
+  The answer doesn't change if we change the radius of the sphere, so
+  we might as well choose unit radius. The pdf is some constant $k$,
+  and the probability of the randomly selected point lying somewhere
+  in the upper half ball $H$ is
+  \[
+    \int_H k \, \d V = k\, \mathrm{vol}(H) = \frac{2\pi k}{3}. 
+  \]
+  Since the pdf must integrate to 1, we have $k =
+  \tfrac{3}{2\pi}$.
+
+  Now the function on $H$ that we want to calculate the expected value
+  of is the coordinate function $\phi$. So we have
+  \[
+    \int_H k\phi \, \d V = \frac{3}{2\pi} \int_0^{2\pi} \int
+    _0^{\pi/2}\int_{0}^{1} \phi \rho^2 \sin \phi \, \d \rho \, \d \phi
+    \, \d \theta = 1, 
+  \]
+  where we've used the integration-by-parts side-problem $\displaystyle{\int_0^{\pi/2} \phi
+  \sin \phi \, \d \phi = 1}$. Therefore, the expected value of the
+latitude is $\boxed{1 \text{ radian}}$.  
+\end{solution}
+
+\begin{exercise}{}{}
+  Find the expected value of $g(P)$ where $g(x,y) = xy$ and $P$ is a
+  random point in $[0,1]^3$ whose pdf is given by $f(x,y) = xy(1-x)(1-y)$. 
+\end{exercise}
+
+\begin{exercise}{}{}
+  Suppose that $X$ and $Y$ represent your score and your friend's
+  score on an upcoming exam. If the pair of scores $P = (X,Y)$ has pdf
+  given by
+  $f(x,y) = \frac{363}{310}- \frac{30}{31} \left(x - y - \frac{1}{10}\right)^{2} 
+  $ on $[0,1]^2$, then what is the probability that
+  your friend scores higher than you on the exam?*
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/testscorepdf.ipynb}{\cocalc}
+ help with calculating this integral}
+\end{exercise}
+
+\newpage 
 
 \chapter{Vector Calculus} 
 
@@ -5426,7 +7233,7 @@ $\mathbf{r}(t)$ is differentiable.* \sidenote{* The curve could
   alternatively by \textit{piecewise} differentiable, meaning that the
   curve is non-differentiable at only finitely many points}[-1cm]
 
-Suppose we have a path $C$ parametrized as $\mathbf{r}(t)$ where $t$
+Suppose we have a path $C$ parameterized as $\mathbf{r}(t)$ where $t$
 ranges from $a$ to $b$. Over the time interval $[t,t+\Delta t]$, the
 particle is displaced by* the vector $\mathbf{r}'(t) \, \Delta t$, and
 the force it feels over that time is* to $\mathbf{F}(\mathbf{r}(t))$.
@@ -5453,7 +7260,7 @@ expression. We call an integral of the form $\int_C \mathbf{F} \cdot
 \end{example}
 
 \begin{solution}
-  Let's parametrize the parabola using the $x$ coordinate as the
+  Let's parameterize the parabola using the $x$ coordinate as the
   parameter:
   \[
     \mathbf{r}(t) = \langle t, t^2 \rangle. 
@@ -5466,16 +7273,16 @@ expression. We call an integral of the form $\int_C \mathbf{F} \cdot
   \]
 \end{solution}
 
-The following theorem states that the choice of parametrization of a
+The following theorem states that the choice of parameterization of a
 curve doesn't matter when computing a line integral. This makes sense
 physically, since the formula $W = Fd$ does not involve time, and our
 derivation of the line integral formula was based on $W=Fd$. The role
-of the parametrization was merely to provide a convenient way to split
+of the parameterization was merely to provide a convenient way to split
 up the path into short pieces. Exercise~\ref{exer:IOP} below gives an
 example.
 
-\begin{theo}{Independence of parametrization}{IOP}
-  If $C$ is a curve parametrized by $\mathbf{r}_1$ over $[a,b]$ and
+\begin{theo}{Independence of parameterization}{IOP}
+  If $C$ is a curve parameterized by $\mathbf{r}_1$ over $[a,b]$ and
   also by $\mathbf{r}_2$ over $[c,d]$, then
   \[
     \int_a^b\mathbf{F}(\mathbf{r}_1(t))  \cdot \,
@@ -5484,16 +7291,16 @@ example.
     \mathbf{r}'_2(t) \, {\d}t. 
   \]
   In other words, $\int_C \mathbf{F} \cdot \d\mathbf{r}$ depends only
-  on the curve $C$, not the choice of parametrization. 
+  on the curve $C$, not the choice of parameterization. 
 \end{theo}
 
 \begin{exercise}{}{IOP} \parskip = 6 pt
   (i) Compute the line integral of
   $\mathbf{F} = \langle x^2,-xy\rangle$ over the portion of the unit
-  circle in the first quadrant, using the parametrization
+  circle in the first quadrant, using the parameterization
   $\mathbf{r}(t) = \langle \sin t, \cos t \rangle$. 
 
-  (ii) Perform the same line integral using the parametrization
+  (ii) Perform the same line integral using the parameterization
   $\mathbf{r}(t) = \langle t, \sqrt{1-t^2} \rangle$.
 \end{exercise}
 
@@ -5603,7 +7410,7 @@ function from $\R^n$ to $\R^1$. For example, $\mathbf{F}(x,y,z) =
 Such vector fields are called \textbf{conservative}. 
 
 If we calculate the line integral of $\nabla f$ along a curve $C$
-parametrized by $\mathbf{r}(t) = \langle r_1(t), r_2(t), r_3(t) \rangle$,
+parameterized by $\mathbf{r}(t) = \langle r_1(t), r_2(t), r_3(t) \rangle$,
 then the contribution from the portion of the curve from
 $\mathbf{r}(t)$ to $\mathbf{r}(t+\Delta t)$ is*
 \sidenote{* approximately, with an error that vanishes a  $\Delta t
@@ -5633,7 +7440,7 @@ the beginning to the end of the path.
 \end{example}
 
 \begin{solution}
-  Finding a parametrization for $C$ seems computationally messy.
+  Finding a parameterization for $C$ seems computationally messy.
   However, if $\mathbf{F}$ is conservative, then we can use
   Theorem~\ref{th:fund_theorem}. Integrating $2  x y^{3} z$ with
   respect to $x$, we see that if $\mathbf{F} = \nabla f$ for some
@@ -5731,7 +7538,7 @@ area integrals over the region it encloses. \sidenote{* Invented
 \end{example}
 
 \begin{solution}
-  We parametrize the unit disk trigonometrically as $(\cos t, \sin
+  We parameterize the unit disk trigonometrically as $(\cos t, \sin
   t)$, and we calculate the line integral
   \[
     \int_0^{2\pi} \langle 0, \cos t \rangle \cdot \langle -\sin t, \cos
@@ -5931,8 +7738,8 @@ which is planar---see Exercise~\ref{exer:xyz}).
 \begin{exercise}{$\star$ (Surface integral formula)}{surfformula}
   If $D$ is a planar domain and $\mathbf{r}:D \to \R^3$ is a function
   mapping $D$ bijectively onto a surface $S$ in $\R^3$ (in other words,
-  $\mathbf{r}$ is a \textit{parametrization}* of $S$), then
-  \milink{parametrized_surface_introduction}{surface parametrization}
+  $\mathbf{r}$ is a \textit{parameterization}* of $S$), then
+  \milink{parameterized_surface_introduction}{surface parameterization}
   \begin{equation} \label{eq:surfformula} 
     \iint_S f \, {\d}A = \iint_D f(\mathbf{r}(u,v)) |\partial_u
     \mathbf{r} \times \partial_v \mathbf{r}| \, {\d}A. 
@@ -5949,7 +7756,7 @@ which is planar---see Exercise~\ref{exer:xyz}).
       \rangle, 
     \]
     where $(\theta,\phi)$ ranges over $[0,2\pi] \times
-    [0,\tfrac{\pi}{2}]$, is a parametrization of the upper unit
+    [0,\tfrac{\pi}{2}]$, is a parameterization of the upper unit
     hemisphere. 
 \end{exercise}
 
@@ -6159,7 +7966,6 @@ the net flow density through the small box.
   \begin{minipage}[t]{0.48\textwidth}
     \begin{lrbox}{\asybox}
       \begin{asy}[width=7cm]
-        int foobar; 
         import graph;
         picture vectorfieldmid(path vector(pair), pair a, pair b,
         int nx=nmesh, int ny=nx, bool truesize=false,
@@ -6844,7 +8650,7 @@ unit cube in $\R^3$.
 
 \newpage
 
-\section{Trig review}
+\section{Trig review} \label{sec:trigreview} 
 
 This appendix provides a streamlined presentation of
 trig which is intended to provide enough starting off points to
@@ -7076,9 +8882,9 @@ representation.
     defaultpen(fontsize(5));
     import graph3;
     triple f(real t){return (t*cos(20*t), t*sin(20*t), t);}
-    draw(O--2*X,Arrow3());
-    draw(O--2*Y,Arrow3());
-    draw(O--1.6*Z,Arrow3());
+    draw(O--2*X,Arrow3(4));
+    draw(O--2*Y,Arrow3(4));
+    draw(O--1.6*Z,Arrow3(4));
     draw(graph(f,-1.2,1.2,100,Spline),MidnightBlue,Arrows3());
     label("$\mathbf{r}(t) = (t\cos(20t),t\sin(20t), t)$",(0,0,1.8),align=N,MidnightBlue);  
     label("trace",(0,0,-2.0));
@@ -7091,14 +8897,14 @@ representation.
 \begin{lrbox}{\asyboxfour}
   \begin{asy}
     defaultpen(fontsize(5));
-    size(4cm);
+    size(37mm);
     import graph3;
     real f(pair z) {return exp(-z.x^2-z.y^2);}
     draw(surface(f,(0,0),(1.7,1.7),nx=32,Spline),
     LightSeaGreen+opacity(0.8),MidnightBlue);
-    draw(O--2.2*X,Arrow3());
-    draw(O--2.2*Y,Arrow3());
-    draw(O--1.3*Z,Arrow3());
+    draw(O--2.2*X,Arrow3(4));
+    draw(O--2.2*Y,Arrow3(4));
+    draw(O--1.3*Z,Arrow3(4));
     label("$x$",(2.2*X),align=W);
     label("$y$",(2.2*Y),align=E);
     label("$f(x,y) = e^{-x^2-y^2}$",(1.3*Z),align=N);
@@ -7148,14 +8954,14 @@ representation.
 \begin{lrbox}{\asyboxsix}
   \begin{asy}
     defaultpen(fontsize(5));
-    size(4cm);
+    size(37mm);
     import graph3;
     triple f(pair z) {return (z.y,sin(7*z.x),z.x);}
     draw(surface(f,(0,0),(1.7,1.7),Spline),
     LightSeaGreen+opacity(0.8),MidnightBlue);
-    draw(O--2.2*X,Arrow3());
-    draw(O--2.2*Y,Arrow3());
-    draw(O--1.6*Z,Arrow3());
+    draw(O--2.2*X,Arrow3(4));
+    draw(O--2.2*Y,Arrow3(4));
+    draw(O--1.6*Z,Arrow3(4));
     label("$x$",(2.2*X),align=W);
     label("$y$",(2.2*Y),align=E);
     label("$\mathbf{r}(s,t) = (t,\sin(7s),s)$",(1.8*Z+Y),align=N);
@@ -7277,12 +9083,599 @@ representation.
     Find $\displaystyle{\sum_{k=1}^5\frac{1}{k(k+1)}}$. 
   \end{exercise}
 
+  \begin{exercise}{}{}
+    Express $\tfrac{1}{1} + \tfrac{3}{4} + \tfrac{5}{9} +
+    \tfrac{7}{16} + \tfrac{9}{25} + \cdots$ using summation
+    notation. Hint: your upper limit of integration will be $\infty$. 
+  \end{exercise}
   
   \begin{exercise}{}{}
     Find $\displaystyle{\sum_{k=1}^5\sum_{j=1}^k j }$. 
   \end{exercise}
   
   \newpage
+
+  \section{A rigorous formulation of arclength}
+  \label{sec:arclengthappendix}
+
+  In Section~\ref{subsec:arclength}, we defined arclength only for
+  piecewise differentiable paths. In this appendix, we provide a more
+  natural and general definition which also resolves the question of
+  parametrization independence. Recall that a \textbf{path} in $\R^n$
+  is a continuous function from some interval $[a,b]$ to $\R^n$. We
+  distinguish a path from its \textbf{trajectory}, which is the set of
+  points that the path passes through.* \sidenote{* To appreciate the
+    difference, note that the path contains information about how
+    quickly the trajectory is traced out, while knowing the trajectory
+    only tells us which points were passed through}
+
+  Consider an arbitrary path $\mathbf{r}:[a,b] \to \R^3$. Consider any finite sequence
+  $S$ of points $P_1, P_2, \ldots, P_n$ in order along the path, and
+  connect them with line segments. The length of this path of line
+  segments is
+  \[
+    |\overrightarrow{P_0P_1}| +
+    |\overrightarrow{P_1P_2}| + \cdots +
+    |\overrightarrow{P_{n-1}P_n}|, 
+  \]
+  and we will call this quantity $\ell(S)$.
+
+  \begin{exercise}{}{intuition} \parskip = 6pt 
+    Although we haven't defined the length of $\mathbf{r}$ yet, explain
+    intuitively why $\ell(S)$ \textit{should} be less than the length of
+    $\mathbf{r}$.
+
+    Also, explain qualitatively how one might choose the points in $S$
+    so as to make $\ell(S)$ very close to the length of $\mathbf{r}$
+    (again assuming an intuitive notion of the length of $\mathbf{r}$).
+  \end{exercise}
+
+  Motivated by Exercise~\ref{exer:intuition}, we make the following
+  definition.  
+
+  \begin{defn}{Arclength, for a general path}{arclengthforreal}
+    \parskip = 0.1 in 
+    The \textbf{length} of a path is defined to be the smallest real
+    number which is greater than or equal to $\ell(S)$ for every
+    finite sequence $S$ of points along the path.
+
+    If no such number exists, then we define the length of the path to be
+    $+\infty$. 
+  \end{defn}
+  
+  Since $S$ is just a sequence of points along the path, the set of
+  sequences under consideration in
+  Definition~\ref{defn:arclengthforreal} are the same regardless of the
+  parametrization.
+
+  \begin{theo}{Parametrization Independence}{}
+    If $\mathbf{r}_1$ and $\mathbf{r}_2$ are two paths which visit the
+    same points in the same order*, then their lengths are the
+    same. \sidenote{* Rigorously, this means that there exists an
+      increasing, continuous function $\sigma$ from the domain of
+      $\vec{r}_1$ to the domain of $\mathbf{r}_2$ such that
+      $\vec{r}_1 = \vec{r}_2 \circ \sigma$}[-2cm]
+  \end{theo}
+
+  The following theorem shows that the formula given in
+  Section~\ref{subsec:arclength} indeed agrees with
+  Definition~\ref{defn:arclengthforreal}.* For simplicity, we assume
+  that $\mathbf{r}'(t)$ exists for all $t$ and that $\mathbf{r}'$ is
+  continuous on $[a,b]$---in other words, that $\mathbf{r}$ is
+  \textit{continuously differentiable}.  \sidenote{* Although we took
+    it as a definition in Section~\ref{subsec:arclength}, the formula in
+    Definition~\ref{defn:arclength} must be treated as a
+    \textit{theorem} in the present context, since we should not have
+    two different definitions for the same term}[-5mm]
+  
+  \begin{theo}{}{}
+    Suppose $\mathbf{r}:[a,b] \to \R^3$ is continuously
+    differentiable. Then the length of $\mathbf{r}$ is equal to
+    $\displaystyle{\int_a^b |\mathbf{r}'(t)| \, \d t}$.
+  \end{theo}
+
+  \begin{pf}[title=Proof (idea)]
+    Recall from single-variable calculus that
+    $\displaystyle{\int_a^b |\mathbf{r}'(t)| \, \d t}$ is defined to be a limit of
+    Riemann sums of the form
+    \begin{equation} \label{eq:riemannsum}
+      |\mathbf{r}'(s_1)|(t_1-t_0) + |\mathbf{r}'(s_2)|(t_2-t_1) + \cdots + |\mathbf{r}'(s_n)|(t_n-t_{n-1})
+    \end{equation}
+    where (i) $a = t_0 < t_1 < \ldots < t_n = b$ is a partition and
+    (ii) $s_k$ is any number in the interval $[t_{k-1},t_k]$, for each
+    $k$ from 1 to $n$. The limit is taken as the \textit{mesh}
+    $\{t_0, \ldots, t_n\}$ (that is, the largest gap between
+    consecutive numbers in the partition) tends to zero. 
+
+    The main idea of the proof is to show that the segment path
+    lengths $\ell(S)$ in Definition~\ref{defn:arclengthforreal} and
+    the Riemann sums \eqref{eq:riemannsum} are very close. Roughly
+    speaking, the reason is that $|\mathbf{r}'(s_1)|(t_1-t_0)$ is very
+    close to $|\mathbf{r}(t_1) - \mathbf{r}(t_0)|$ (and similarly for
+    the other terms) by the \textbf{mean value theorem}.
+
+    For each $k$ from 1 to $n$, we let $t_k$ be the time when the path
+    visits $P_k$. Define $x$ and $y$ to be the components of
+    $\mathbf{r}$; then the mean-value theorem implies that there is
+    some value $s_k$ between $t_{k-1}$ and $t_k$ such that 
+    \[
+      x(t_k) - x(t_{k-1}) = x'(s_k)(t_{k}-t_{k-1})
+    \]
+    Similarly, there are values $\tilde{s}_k$ and $\hat{s}_k$ between $t_{k-1}$ and
+    $t_k$ such that
+    \begin{align*}
+      y(t_k) - y(t_{k-1}) &= y'(\tilde{s}_k)(t_{k}-t_{k-1})\\
+      z(t_k) - z(t_{k-1}) &= z'(\hat{s}_k)(t_{k}-t_{k-1}). 
+    \end{align*}
+    Squaring these three equations, summing them, and taking the
+    square root of both sides, we get
+    \[
+      |\mathbf{r}(t_k) - \mathbf{r}(t_{k-1})| = \sqrt{x'(s_k)^2 +
+        y'(\tilde{s}_k)^2 + z'(\hat{s}_k)^2}\bigg(t_k-t_{k-1}\bigg)
+    \]
+    The expression
+    $\sqrt{x'(s_k)^2 + y'(\tilde{s}_k)^2 + z'(\hat{s}_k)^2}$ on the
+    right-hand side can be made as close as desired to
+    $\sqrt{x'(s_k)^2 + y'({s}_k)^2 + z'({s}_k)^2}$ for all partitions
+    with suitably small mesh. Thus for any $\epsilon > 0$, we have
+    \begin{align} \label{eq:ineq}
+       \left(\sqrt{x'(s_k)^2 +
+         y'({s}_k)^2 + z'({s}_k)^2} - \epsilon\right)
+      \bigg(t_k-t_{k-1}\bigg)  
+      &\leq
+        |\mathbf{r}(t_k) - \mathbf{r}(t_{k-1})| \\ \nonumber
+      &\leq \left(\sqrt{x'(s_k)^2 +
+         y'({s}_k)^2 + z'({s}_k)^2} + \epsilon\right) \bigg(t_k-t_{k-1}\bigg)
+    \end{align}
+    for sufficiently fine-mesh partitions. 
+    
+    By definition of the Riemann integral, the quantity
+    $\int_a^b |\mathbf{r}'(t)| \, \d t + \epsilon$ exceeds the Riemann
+    sum \eqref{eq:riemannsum} for all partitions with sufficiently
+    small mesh. Summing \eqref{eq:ineq} over $k$, we see that
+    $\int_a^b |\mathbf{r}'(t)| \, \d t + \epsilon$ is greater than or
+    equal to $\ell(S)$ for all sufficiently granular $S$, and thus* for
+    all $S$. By Definition~\ref{defn:arclengthforreal}, this means that the
+    length of $\mathbf{r}$ is no greater than
+    $\int_a^b |\mathbf{r}'(t)| \, \d t + \epsilon$. Since $\epsilon$
+   is arbitrary, this means that \sidenote{* Why are lengths for
+     coarse-mesh partitions less than those for fine-mesh partitions?}
+    \[
+      \text{length of } \mathbf{r} \leq \int_a^b |\mathbf{r}'(t)| \, \d
+      t. 
+    \]
+    Similarly, \eqref{eq:ineq} tells us that for all $\epsilon > 0$,
+    there is a sequence $S$ of points on the path such that $\ell(S)$
+    exceeds $\int_a^b |\mathbf{r}'(t)| \, \d t - \epsilon$. Thus
+    \[
+      \text{length of } \mathbf{r} \geq \int_a^b |\mathbf{r}'(t)| \, \d
+      t. 
+    \]
+    These two inequalities imply the theorem. 
+  \end{pf}
+
+  Definition~\ref{defn:arclengthforreal}, unlike
+  Definition~\ref{defn:arclength}, applies to \textit{fractal} curves:
+
+  \begin{exercise}{The Koch snowflake}{snowflake}
+    The Koch snowflake is a fractal, meaning that it continues to look
+    wiggly no matter how far you zoom in on it:
+
+    \begin{center} 
+      \includegraphics[width=4cm]{figures/koch7.pdf}
+    \end{center}
+    
+    It is created by starting with an equilateral triangle with
+    side length 1 and by repeating the following process: (1) Divide
+    each line segment in the figure into three equal-length
+    pieces. (2) For each line segment from Step 1, draw an equilateral
+    triangle whose base is the middle segment from Step 1. (3) For
+    each triangle you draw in Step 2, erase its base.
+
+    The result of the $n$th iteration of this procedure is shown below
+    for $n=0,1,2,3$. The Koch snowflake is defined to be the set of
+    all points which are eventually drawn and then never erased as
+    this procedure is repeated for all $n=0,1,2,\ldots$.
+    
+    \begin{center} 
+      \includegraphics[width=2.85cm]{figures/koch0.pdf} \:
+      \includegraphics[width=3.8cm]{figures/koch1.pdf} \:
+      \includegraphics[width=3.8cm]{figures/koch2.pdf} \:
+      \includegraphics[width=3.8cm]{figures/koch3.pdf}
+    \end{center}
+    
+    Find the length of the Koch snowflake. 
+  \end{exercise}
+
+  \newpage
+
+  \section{Limits: a different perspective}
+\label{sec:limitsappendix}
+
+In this appendix, we will develop the idea of a limit rigorously and
+without the use of $\epsilon$-$\delta$ formalism.  We begin with the
+notion of limit at 0 for a \textit{monotone} function from* $(0,1)$ to
+$\R$. We say that a function is \textbf{bounded below} if its range is
+a subset of $[a,\infty)$ for some $a \in \R$, and we say that it is
+\textbf{bounded above} if its range is a subset of $(-\infty,b]$ for
+some $b \in \R$. \sidenote{* The upper bound of the interval $(0,1)$
+  is immaterial here, since we will be interested in the limit at 0}
+
+\begin{defn}{Limit of a monotone function on $(0,1)$}{limmon} \parskip = 6 pt 
+  Suppose that $f:(0,1) \to \R$ is bounded below and has the property
+  that $f(r)$ decreases as $r$ decreases --- in other words,
+  we have $f(r) \leq f(s)$ for all $0 \leq r \leq s \leq 1$. Then we define
+  $L$ to be the greatest real number such that $L \leq f(r)$ for all
+  $r\in (0,1)$. 
+
+  Similarly, if $f$ is bounded above and has the property that $f(r)$
+  increases as $r$ decreases, then we define $L$ to be the least real
+  number such that $L \geq f(r)$ for all $r \in (0,1)$.
+
+  In either case, we say that $r\to0$ of $f(r)$ exists and is equal to
+  $L$, that is,  $\displaystyle{\lim_{r\to 0} f(r) = L}$. 
+\end{defn}
+
+\begin{example}{}{}
+  \begin{minipage}[t]{0.75\textwidth} \parskip = 12pt 
+    (a) Find the limit as $r \to 0$ of the function $f(r) = 1 + r^2$ defined
+    on $(0,1)$.
+
+    (b) Find the limit as $r \to 0$ of the function $g(r) = \cos r$ defined
+    on $(0,1)$.
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \begin{lrbox}{\asybox} 
+      \begin{asy}
+       size(3cm);
+       import graph;
+       defaultpen(fontsize(8)); 
+       real f(real r) { return 1 + r^2; }
+       real g(real r) {return cos(r);} 
+       draw(Label("$f(r)$",Relative(0.7),align=1.5*WNW),graph(f,0,1),MidnightBlue);
+       draw(Label("$g(r)$",Relative(0.7),align=NE),graph(g,0,1),DarkRed);
+       draw((1,0)--(0,0)--(0,2),Arrows(3));
+       label("$r$",(1,0),align=N);
+       draw(Label("1",Relative(1),align=W),(0,1)--(-0.05,1));
+\end{asy}
+\end{lrbox}
+\raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+\end{minipage}
+\end{example}
+
+\begin{solution}
+  (a) Since $f(r)$ decreases as $r$ decreases and $f$ is bounded below,
+  Definition~\ref{defn:limmon} says that the desired limit exists and
+  is equal to the greatest lower bound of the range of $f$. Since the
+  range of $f$ is the interval $(1,2)$, we see that the greatest lower
+  bound is $\boxed{1}$.
+
+  (b) Similarly, since $g(r)$ increases as $r$ decreases and is
+  bounded above, Definition~\ref{defn:limmon} says that the desired
+  limit exists and is equal to the least upper bound of the range of
+  $f$. We can see from the geometric definition of cosine (see
+  Section~\ref{sec:trigreview}) that $1$ is an upper bound for the
+  range of $\cos$ and that no smaller number is an upper
+  bound. Therefore, the limit is equal to $\boxed{1}$.
+\end{solution}
+
+Definition~\ref{defn:limmon} has many restrictions: it only applies to
+monotone, single-variable functions, and it is fundamentally
+one-sided*. Nevertheless, we can bootstrap our way from
+Definition~\ref{defn:limmon} to the most general case: \sidenote{*
+  This means that only values of $r$ to the right of zero are
+  considered. Often the notation $\lim_{r\to 0^+}$ is used to
+  communication the exclusion of values to the left, but this notation is
+  not necessary here since the domain of $f$ includes no negative
+  values}[-5cm]
+
+\begin{defn}{Limit of a function of function of multiple
+    variables}{limit_full_general} \parskip = 6pt Let $n \geq 1$. Suppose that
+  $D \subset \R^n$, that $\mathbf{a} \in D$, and that $f:D \to
+  \R$ is a function. For each $r \in (0,1)$, we consider the \textbf{punctured ball}
+  $B^\star(\mathbf{a},r) = \{\mathbf{x} \in \R^n \,: \, 0 <
+  \left|\mathbf{x} - \mathbf{a}\right| < r \}$ of radius $r$ centered
+  at $\mathbf{a}$.
+
+  We define* $m(r)$ and $M(r)$ so that $[m(r),M(r)]$ is the smallest
+  interval which contains the image of $B^\star(\mathbf{a},r) \cap D$ under
+  $f$. Then the limit of $f(\mathbf{x})$ as
+  $\mathbf{x} \to \mathbf{a}$ exists if and only if $m(r)$ and $M(r)$
+  converge to a common value $L$ as $r \to 0$. In that case, we say
+  $\displaystyle{\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = L}$. \sidenote{*
+    Roughly speaking, $m(r)$ and $M(r)$ tell us how small and how large
+    $f(\mathbf{x})$ can be for $\mathbf{x}$ within $r$ of
+    $\mathbf{a}$. }
+\end{defn}
+
+Let's see how this definition works in the context of some basic
+examples. 
+
+\begin{example}{}{}
+  Show that the limit of $\cos (1/x)$ does not exist as $x\to0$. 
+\end{example}
+
+\begin{solution}
+  For any $r>0$, the function $\cos(1/x)$ has a maximum value of $1$
+  and a minimum value of $-1$ in the punctured interval
+  $B^\star(0,r)$, because $\cos(1/x) = 1$ whenever $x = \tfrac{1}{\pi
+    k}$ for some even integer $k$, and $\cos(1/x) = -1$ whenever $x=
+  \tfrac{1}{\pi k}$ for some odd integer $k$.
+  
+  Therefore, $M$ is the constant function $1$ and $m$
+  is the constant function $-1$. These functions converge to different
+  values, so the limit does not exist. 
+\end{solution}
+
+\begin{example}{}{}
+  Use Definition~\ref{defn:limit_full_general} to show directly that*
+  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
+    3}$.
+  \sidenote{* See Figure~\ref{fig:limitshrink} for a graph }
+\end{example}
+
+\begin{solution}
+  Writing $f(x,y) \colonequals 3 + x^2 - y^2$ in terms of polar coordinates as
+  $3 + r^2(\cos^2 \theta - \sin^2 \theta) = 3 +r^2 \cos2\theta$, we
+  see that the least and greatest values of $f(x,y)$ for
+  $(x,y) \in B^\star((0,0),r)$ are $m(r) = 3-r^2$ and
+  $M(r) = 3 + r^2$, respectively. These values converge as $r\to 0$ to a common
+  value of $3$, by Definition~\ref{defn:limmon}. Therefore,
+  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
+    3}$. 
+\end{solution}
+
+\begin{example}{}{}
+  Show that* $f(x,y) = -\frac{xy}{x^2 + y^2}$ does not have a limit as
+  $(x,y) \to (0,0)$. \sidenote{* See Figure~\ref{fig:limitshrink2} for
+    a graph}
+\end{example}
+
+\begin{solution}
+  Expressing the value of the function in polar coordinates, we find
+  that
+  $f(x,y) =\frac{ r^2 \sin \theta \cos \theta}{r^2(\cos^2 \theta + \sin^2
+  \theta)} = \tfrac{1}{2} \sin 2\theta$. Therefore, we have $m(r) =
+-\tfrac{1}{2}$ and $M(r) = \tfrac{1}{2}$ for all values of $r$. Since
+these functions converge to the unequal values $-\tfrac{1}{2}$ and
+$\tfrac{1}{2}$, we see that the limit does not exist. 
+\end{solution}
+
+\begin{center} 
+\begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+import graph3;
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 0.5; 
+size(45mm);
+real eps = 0.58;
+real eps2 = 0.04; 
+draw(Label("$m(r)=-\frac{1}{2}$",Relative(1),align=E),(0,eps,-1/2)--(0,eps+eps2,-1/2),fontsize(6));
+draw(Label("$M(r) =
+\frac{1}{2}$",Relative(1),align=E),(0,eps,1/2)--(0,eps+eps2,1/2),fontsize(6));
+draw((0,eps+eps2/2,-1/2) -- (0,eps+eps2/2,1/2)); 
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--1.2*X,Arrow3());
+draw(O--1.15*Y,Arrow3());
+draw(-1.1*Z--1.1*Z,Arrows3());
+real theta = pi/4; 
+real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+  return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+}
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+}
+label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+\end{asy}
+\end{minipage}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+import graph3;
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 1/2^4; 
+size(45mm);
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--1.2*X,Arrow3());
+draw(O--1.15*Y,Arrow3());
+draw(-1.1*Z--1.1*Z,Arrows3());
+real theta = pi/4; 
+real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+  return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+}
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+}
+label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+\end{asy}
+\end{minipage}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+import graph3;
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 1/2^6; 
+size(45mm);
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--1.2*X,Arrow3());
+draw(O--1.15*Y,Arrow3());
+draw(-1.1*Z--1.1*Z,Arrows3());
+real theta = pi/4; 
+real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+  return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+}
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+}
+label("$\displaystyle{f(x,y) =
+-\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E);
+draw(Label("$\frac{1}{2}$",Relative(1),align=E),1/2*Z--1/2*Z+0.05*Y);
+draw(Label("$-\frac{1}{2}$",Relative(1),align=E),-1/2*Z-- -1/2*Z+0.05*Y); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+\end{asy}
+\end{minipage}
+\captionof{figure}{The image under $f$ of the ball of radius $r$ is
+  $\left[-\tfrac{1}{2},\tfrac{1}{2}\right]$ no matter how small $r$
+  is. Therefore, the limit does not exist.} \label{fig:limitshrink}
+\end{center}
+
+
+\begin{center} 
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+\begin{asy}
+import graph3;
+size(45mm);
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 0.75;
+real eps = 0.82;
+real eps2 = 0.04; 
+draw(Label("$m(r)=3-r^2$",Relative(1),align=E),(0,eps,3-rad^2)--(0,eps+eps2,3-rad^2),fontsize(6));
+draw(Label("$M(r)=3+r^2$",Relative(1),align=E),(0,eps,3+rad^2)--(0,eps+eps2,3+rad^2),fontsize(6));
+draw(Label("$r$",Relative(0.5),align=S),(0,0,0)--(rad*cos(60*pi/180),rad*sin(60*pi/180),0)); 
+draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--4*X,Arrow3());
+draw(O--4*Y,Arrow3());
+draw(O--4*Z,Arrow3());
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+}
+label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+\end{asy}
+\end{minipage}
+\begin{minipage}{0.32\textwidth}  
+    \centering
+\begin{asy}
+import graph3;
+size(45mm);
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 4/2^4;
+real eps = 0.32;
+real eps2 = 0.04; 
+draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
+draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
+draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--4*X,Arrow3());
+draw(O--4*Y,Arrow3());
+draw(O--4*Z,Arrow3());
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+}
+label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+\end{asy}
+\end{minipage}
+\begin{minipage}{0.32\textwidth}  
+    \centering
+\begin{asy}
+import graph3;
+size(45mm);
+defaultpen(fontsize(7));
+material surfacemat = material(diffusepen=LightSeaGreen,
+			       emissivepen=0.2*LightSeaGreen);
+currentprojection = perspective(10,4,4);
+int n = 10;
+real rad = 4/2^5;
+real eps = rad*1.2;
+real eps2 = 0.04; 
+draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
+draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
+draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+draw(O--4*X,Arrow3());
+draw(O--4*Y,Arrow3());
+draw(O--4*Z,Arrow3());
+triple g(pair p) {
+  real r = p.x;
+  real theta = p.y;
+  return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+}
+label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+draw(s,surfacemat);
+label("3",3*Z,align=2*W); 
+\end{asy}
+\end{minipage}
+\captionof{figure}{The image under $f$ of the ball of radius $r$ is
+  is the interval $[3-r^2, 3+r^2]$, which shrinks down around 3 as $r
+  \to 0$. Therefore, the limit exists and equals 3.  
+} \label{fig:limitshrink2}
+\end{center}
+
+\begin{exercise}{}{}
+  Use Definition~\ref{defn:limit_full_general} to show that
+  $f(x,y) = \sin\left(\tfrac{1}{x^2 + y^2}\right)$ does not have a
+  limit as $(x,y) \to (0,0)$.
+\end{exercise}
+
+\begin{exercise}{}{}
+  Show that Definitions~\ref{defn:limit_full_general} and
+  \ref{defn:limit} are equivalent.
+\end{exercise}
+
+\begin{exercise}{}{}
+  In this problem, we will see how to discover the nonexistence of the
+  limit in Example~\ref{exam:parab_nolimit} without needing the hint
+  to look at parabolic paths through the origin.
+
+  Find $M(r)$ and $m(r)$ for the function $f(x,y) = -x^2y/(x^4 + y^2)$
+  by showing that
+  $f(s\cos \theta, s\sin \theta) = \frac{s \sin^{2}{\theta}
+    \cos{\theta}}{s^{2} \sin^{4}{\theta} + \cos^{2}{\theta}}$. Then
+  use single-variable calculus to find the maximum and minimum value
+  of this expression as $s$ ranges over $[0,r]$, for each fixed value
+  of $\theta$. Finally, find the minimum of those minima as
+  $\theta$ ranges over $[0,2\pi]$, and similarly for the maxima. 
+\end{exercise}
+
+% using SymPy
+% @vars r θ
+% f = -x^2*y/(x^4+y^2)
+% g = simplify(f(r*cos(θ),r*sin(θ)))
+% solve(diff(g,r),r)
+
+\newpage 
 
   \section{Polar, cylindrical, and spherical coordinate reference}
   \label{sec:polarref}
@@ -7560,6 +9953,120 @@ representation.
       systems. \label{table:coordinateslices}}
   \end{table}
 
+  \newpage
+
+  \section{Proof of the second derivative test} \label{sec:proof_sdt}
+
+  In this section we prove Theorem~\ref{th:second_test}, which we
+  restate here for the reader's convenience.
+
+  \begin{theo}{}{}
+    \secondderivativetest
+  \end{theo}
+  
+  \begin{pf}
+    We begin by investigating quadratic polynomials and then leverage
+    Taylor's theorem to apply that knowledge to the much more general
+    class of twice-differentiable functions. It suffices to assume
+    $(a,b) = (0,0)$ and that $f(0,0) = 0$, since $f(x,y)$ has the same
+    local behavior at $(a,b)$ as the function $f(x+a, y+b)-f(a,b)$ has
+    at the origin.
+    
+    Consider the quadratic polynomial 
+    \[
+      p(x,y) = ax^2  + b xy + cy^2 + dx + ey, 
+    \]
+    where $a,b,c,d,e,f$ are real numbers.  Our goal is to determine
+    whether $p$ has a local minimum, a local maximum, or neither, at
+    each of its critical points. The main idea is to slice the graph
+    of $p$ along a line passing through the critical point in the
+    direction of an arbitrary vector $\mathbf{v} \in \R^2$. If $p$ has
+    a local minimum along each of these lines, then it has a local
+    minimum at the critical point.  If $p$ has a local maximum along
+    each of these lines, then it has a local maximum at the critical
+    point. If it has a local minimum in some directions and a local
+    maximum in other directions, then it has neither a local min nor a
+    local max at the critical point.
+    
+    Note that $d=e=0$, since $d$ and $e$ are the first derivatives of
+    $p$ at the origin.  Fix a vector
+    $\mathbf{v} = \langle v_1, v_2 \rangle$, and consider the function
+    from $\R$ to $\R$ that maps $t$ to $p(v_1t, v_2 t)$. The shape of
+    this function's graph is the same shape you get by slicing the
+    graph of $p$ along a vertical plane containing $\mathbf{v}$ and
+    passing through the critical point. We get
+    \begin{equation} \label{eq:ptv}
+      p(t v_1, t v_2) = t^2(av_1^2 + bv_1 v_2 + c v_2^2). 
+    \end{equation}
+    This single-variable function has a local min or max at $t=0$
+    according to whether $av_1^2 + b v_1v_2 + c v_2^2$ is positive or
+    negative. So,
+    \begin{enumerate}[(a),itemsep = 4 pt, topsep = -6pt]
+    \item if $av_1^2 + b v_1v_2 + c v_2^2$ is positive for all
+      $\mathbf{v}$, then $f$ has a local minimum at the origin
+    \item if $av_1^2 + b v_1v_2 + c v_2^2$ is negative for all
+      $\mathbf{v}$, then $f$ has a local maximum at the origin, and
+    \item if $av_1^2 + b v_1v_2 + c v_2^2$ is positive for some vectors
+      $\mathbf{v}$ and negative for others, then $f$ has a saddle point.
+    \end{enumerate}
+    \sidenote{* To be complete, we the case $v_1=0$ must be checked
+      separately} We can determine whether
+    $av_1^2 + b v_1v_2 + c v_2^2$ is always positive, always negative,
+    or neither by assuming* that $v_1 \neq 0$, in which case we can
+    define $m = v_2/v_1$ and rewrite the expression in the form
+    $v_1^2(a + bm + cm^2)$. This expression, viewed as a quadratic
+    function of $m$, is
+    \begin{enumerate}[(a), topsep = -6pt, itemsep = 4pt]
+      \item positive for all $m$ if and only if the the discriminant
+        $b^2 - 4ac$ is negative and $a > 0$,
+      \item negative for all $m$ if and only if the the discriminant
+        $b^2 - 4ac$ is negative, and $a < 0$, and
+      \item positive for some values of $m$ and negative for
+        others if and only if $b^2 - 4ac$ is positive.
+      \end{enumerate}
+     
+      By Taylor's theorem, $f$ can be written as
+      \[
+        f(x,y) = ax^2 + bxy + cy^2 + R(x,y), 
+      \]
+    where $R$ is a function satsifying
+    $\lim_{(x,y) \to (0,0)}\frac{R(x,y)}{|\langle x,y \rangle|^2} =
+    0$, and $a = \tfrac{1}{2}(\partial_x^2f)(0,0)$,
+    $b = (\partial_x\partial_y f)(0,0)$, and
+    $c = \tfrac{1}{2}(\partial_x^2f)(0,0)$. As we just figured out,
+    $ax^2 + bxy + cy^2$ has local min or max or saddle according to
+    signs of $a$ and
+    $b^2 - 4ac = [\partial_x\partial_y f(0,0)]^2 -
+    \partial_x^2f(0,0)\partial_y^2 f(0,0)$. So the proof is done once
+    we can show that the error term can be safely ignored. We will
+    outline how to do this only for the case where
+    $p(x,y) = ax^2 + bxy + cy^2$ has a local minimum at the
+    origin. The basic idea is that value of $p(x,y)$ is increasing
+    quadratically in all directions from its value at the origin, and
+    $R(x,y)$ isn't nearly large enough to cancel this increase. 
+
+    If we write an arbitrary point $(x,y)$ as
+    $(r\cos \theta, r\sin \theta)$, then \eqref{eq:ptv} shows us that
+    \[
+      p(x,y) = (x^2+y^2)(a\cos^2 \theta + b \cos \theta \sin \theta +
+      c \cos^2 \theta). 
+    \]
+    We've assumed we're in the case where
+    $a\cos^2 \theta + b \cos \theta \sin \theta + c \sin^2 \theta$ is
+    positive for all $\theta \in [0,2\pi]$. By the extreme value
+    theorem, this quantity has some positive minimum value which we'll
+    call $\alpha$.  Since
+    $\lim_{(x,y) \to (0,0)}\frac{R(x,y)}{|\langle x,y \rangle|^2}$, we
+    know that $R(x,y) \geq -\tfrac{1}{2}\alpha(x^2+y^2)$ for $(x,y)$
+    sufficiently close the origin. Therefore, for such $(x,y)$, we
+    have
+    \[
+      f(x,y)  \geq \alpha(x^2 + y^2) + R(x,y) \geq
+      \alpha(x^2 + y^2) - \frac{\alpha}{2}(x^2+y^2) > 0.
+    \]
+    Thus $f$ has a local minimum at the origin. 
+  \end{pf}
+
   \newpage 
 
   \section{SageMath} \label{sec:sagemath} 
@@ -7592,7 +10099,7 @@ representation.
   and is ignored by Sage. 
 
 \begin{lstlisting}
-> var('x y') # tell sage that you want to use x and y as symbols
+> var("x y") # tell sage that you want to use x and y as symbols
 > integrate(sqrt(x^2+1),x) + integrate(e^y * sin(y), y)
 -1/2*(cos(y) - sin(y))*e^y + 1/2*sqrt(x^2 + 1)*x + 1/2*arcsinh(x)
 
@@ -7992,7 +10499,7 @@ Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in the figure b
     The point $M$ is the midpoint of $P$ and $Q$. Express $\mathbf{c}$
     in terms of $\mathbf{a}$ and $\mathbf{b}$, and express $\mathbf{d}$
     in terms of $\mathbf{a}$ and $\mathbf{b}$.
-  \end{minipage}
+  \end{minipage} \hspace{6mm}
   \begin{minipage}[t]{0.4\textwidth}
     \raisebox{\dimexpr -\height + 1.5ex\relax}{\includegraphics[width=5cm]{exercisefigures/midpoint}}
   \end{minipage}
