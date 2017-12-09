@@ -1,7 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{watsonbook}[2017/06/16 watsonbook class]
+\ProvidesClass{watsonbook}[2017/06/16 watsonbook Class]
 
 \LoadClassWithOptions{report}
+
+\newif\if@prettycodeoption
+\DeclareOption{prettycode}{\@prettycodeoptiontrue}
+\newif\if@shellescapeoption
+\DeclareOption{shellescape}{\@shellescapeoptiontrue}
+\ProcessOptions
 
 \RequirePackage[svgnames]{xcolor} 
 \RequirePackage{hyperref}
@@ -31,7 +37,8 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[scaled=0.8]{beramono}
 \RequirePackage{listings}
-\RequirePackage{tikz} 
+\RequirePackage{tikz}
+\RequirePackage{etoolbox} 
 
 %----PACKAGE CUSTOMIZATION SETUP---------------------
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} % array
@@ -44,31 +51,68 @@
 \setenumerate{labelsep=3pt,itemsep=0pt,parsep=0pt,topsep=0pt} % enumitem 
 \setitemize{labelsep=3pt,itemsep=0pt,parsep=0pt,topsep=0pt} % enumitem
 \definecolor{shadecolor}{rgb}{0.92,0.92,0.92} % listings
-\lstset{%
-    language         = python,
-    basicstyle       = \ttfamily,
-    keywordstyle     = \bfseries\color{blue},
-    stringstyle      = \color{magenta},
-    commentstyle     = \color{ForestGreen},
-    showstringspaces = false,
-    backgroundcolor  = \color{shadecolor},
-    belowskip        = -3mm
+%--PACKAGE SETUP----------------------------------
+%
+\definecolor{shadecolor}{rgb}{0.92,0.92,0.92} % listings
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive=true,%
+   alsoother={},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+% choose between minted (which uses python's pygments)
+% and lstlisting for the pythonblock and juliablock environments
+\if@prettycodeoption
+  \if@shellescapeoption
+    \RequirePackage[finalizecache]{minted}
+  \else
+    \RequirePackage[frozencache]{minted} 
+  \fi 
+\newminted[juliablock]{julia}{bgcolor=shadecolor}
+\newminted[pythonblock]{python3}{bgcolor=shadecolor}
+\newminted[sageblock]{sage}{bgcolor=shadecolor}
+\AfterEndEnvironment{juliablock}{\vspace{-34pt}}
+\AfterEndEnvironment{pythonblock}{\vspace{-34pt}}
+\AfterEndEnvironment{sageblock}{\vspace{-34pt}}
+\else
+\lstnewenvironment{juliablock}{\lstset{%
+    language         = Julia
+}}{}
+\lstnewenvironment{pythonblock}{\lstset{% listings
+    language         = python
+  }}{}
+\lstnewenvironment{sageblock}{\lstset{% listings
+    language         = python
+  }}{}
+\fi
+\lstset{
+  basicstyle       = \ttfamily,
+  keywordstyle     = \bfseries\color{blue},
+  stringstyle      = \color{magenta},
+  commentstyle     = \color{ForestGreen},
+  showstringspaces = false,
+  backgroundcolor  = \color{shadecolor},
+  belowskip        = 2mm
 }
-
 
 %--- MATH COMMANDS ---------------------------
 \DeclareMathOperator{\arcsec}{arcsec}
 \DeclareMathOperator{\cis}{cis}
 \DeclareMathOperator{\Real}{Re}
 \DeclareMathOperator{\Imag}{Im}
-\DeclareMathOperator{\e}{e}
+\let\e\relax\DeclareMathOperator{\e}{e}
 \newcommand\pd[2]{\frac{\partial #1}{\partial #2}}
 \renewcommand{\vec}[1]{\mathbf{#1}}
 \newcommand{\R}{\mathbb{R}}
-\providecommand{\C}{}
-\renewcommand{\C}{\mathbb{C}}
+\let\C\relax\newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
-\renewcommand{\d}{\mathrm{d}}
+\let\d\relax\newcommand{\d}{\mathrm{d}}
 
 %----TCOLORBOX SETUP-----------------------------
 
@@ -174,12 +218,12 @@
 
 \newlength{\marginvoffset} 
 \DeclareDocumentCommand{\sidenote}{O{rectangle,thick,black,text width =
-       17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{
-       \setlength{\marginvoffset}{#3 - 12pt} 
+       17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{%
+       \setlength{\marginvoffset}{#3 - 12pt}%
         \marginnote[{%
-          \makebox[0pt][r]{
-            \scriptsize \tikz \node at (0,-1) [#1]{#2};
-          }
+          \makebox[0pt][r]{%
+            \scriptsize \tikz \node at (0,-1) [#1]{#2};%
+          }%
           }]{}[\marginvoffset]%
 }
 \newcommand{\bang}[1]{\marginnote{ \Huge \color{DarkRed} !!!}[#1]}
@@ -209,4 +253,49 @@
 \subsection*{Section \ref{#1}}
 \renewcommand{\thesubsection}{A.\ref{#1}}
 \setcounter{aexercise}{0}
+}
+
+
+%----- CUSTOM WRAPFIGURES-----------------------
+
+\newlength{\myparskiplength}
+
+% arguments for insetfiguremanual:
+% width of first box (optional)
+% width of second box (optional)
+% alignment, c, t, or b (optional)
+% text to appear in first box
+% figure to appear in second box
+% text to appear after figure 
+\NewDocumentCommand{\insetfiguremanual}{O{0.7\textwidth}O{0.29\textwidth}O{t}+m+m+m}
+{\begin{minipage}[#3]{#1} \parskip = \myparskiplength
+#4
+\end{minipage} \hfill
+\begin{minipage}[#3]{#2}
+\centering
+\raisebox{\dimexpr -\height + 1.5ex\relax}{#5}
+#6
+\end{minipage}
+}
+
+% arguments for insetfigure
+% text content for first box
+% figure content for second box
+% alignment: c, t, or b (optional) 
+% spacing between two boxes (optional)
+% text to appear after figure (Optional)
+\newsavebox{\insetfiguresavebox}%
+\newlength{\myfigurewidth}%
+\NewDocumentCommand{\insetfigure}{+m+m+O{}O{t}O{16pt}}{%
+  \begin{lrbox}{\insetfiguresavebox}%
+    #2%
+  \end{lrbox}%
+  \setlength{\myfigurewidth}{\wd\insetfiguresavebox}%
+  \insetfiguremanual
+  [\textwidth - \myfigurewidth - #5]
+  [\myfigurewidth]
+  [#4]
+  {#1}
+  {\usebox{\insetfiguresavebox}}
+  {#3}
 }

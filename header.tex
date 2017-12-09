@@ -3,8 +3,12 @@
 \begin{asydef} 
 defaultpen(fontsize(10));
 settings.outformat="pdf";
+usepackage("amsmath");
+usepackage("amssymb"); 
 usepackage("mathpazo_modified");
-texpreamble("\renewcommand{\vec}[1]{\mathbf{#1}}"); 
+texpreamble("\renewcommand{\vec}[1]{\mathbf{#1}}");
+texpreamble("\let\e\relax");
+texpreamble("\DeclareMathOperator{\e}{e}"); 
 import x11colors;
 pen softblue = rgb(0.92,0.95,0.99);
 pen softred = rgb(0.99, 0.92, 0.91);
