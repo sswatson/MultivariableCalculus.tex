@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{watsonbook}[2017/06/16 watsonbook Class]
 
+\PassOptionsToClass{twoside}{report} 
 \LoadClassWithOptions{report}
 
 \newif\if@prettycodeoption
@@ -12,9 +13,12 @@
 \RequirePackage[svgnames]{xcolor} 
 \RequirePackage{hyperref}
 \RequirePackage{url}
-\RequirePackage[margin=1in,
-                marginpar=0.5in,
-                marginparsep=2.6mm]{geometry} 
+\RequirePackage{geometry}
+\geometry{
+  margin=1in,
+  marginpar=0.5in,
+  marginparsep= 2.6mm, 
+  twoside}
 \RequirePackage{mathpazo_modified}
 \RequirePackage{calc} 
 \RequirePackage{amsmath}
@@ -38,7 +42,12 @@
 \RequirePackage[scaled=0.8]{beramono}
 \RequirePackage{listings}
 \RequirePackage{tikz}
-\RequirePackage{etoolbox} 
+\RequirePackage{etoolbox}
+% fix marginnote's interaction with wrapfigure:----
+\RequirePackage{xpatch} 
+\patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
+\patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
+%---------------------------------------
 
 %----PACKAGE CUSTOMIZATION SETUP---------------------
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} % array
@@ -218,13 +227,17 @@
 
 \newlength{\marginvoffset} 
 \DeclareDocumentCommand{\sidenote}{O{rectangle,thick,black,text width =
-       17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{%
-       \setlength{\marginvoffset}{#3 - 12pt}%
-        \marginnote[{%
-          \makebox[0pt][r]{%
-            \scriptsize \tikz \node at (0,-1) [#1]{#2};%
-          }%
-          }]{}[\marginvoffset]%
+    17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{%
+  \setlength{\marginvoffset}{#3 - 12pt}%
+  \marginnote[{%
+    \makebox[0pt][r]{%
+      \scriptsize \tikz \node at (0,-1) [#1]{#2};%
+    }%
+  }]{{%
+      \makebox[0pt][l]{%
+	\scriptsize \tikz \node at (0,-1) [#1]{#2};%
+      }%
+    }}[\marginvoffset]%
 }
 \newcommand{\bang}[1]{\marginnote{ \Huge \color{DarkRed} !!!}[#1]}
 
@@ -239,7 +252,7 @@
 
 \parindent = 0.0 in
 \parskip = 0.2 in
-\reversemarginpar % Set margin notes in left margin 
+% \reversemarginpar % Set margin notes in left margin 
 \setlength{\wrapoverhang}{\marginparwidth} % wrapfigure spillover
 
 %----- TITLE FONT CUSTOMIZATION ---------------
@@ -256,7 +269,7 @@
 }
 
 
-%----- CUSTOM WRAPFIGURES-----------------------
+%----- BY-HAND WRAPFIGURE-TYPE COMMAND-------
 
 \newlength{\myparskiplength}
 
