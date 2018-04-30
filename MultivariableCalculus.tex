@@ -14,7 +14,6 @@
 
 \chapter*{Preface} \thispagestyle{empty} 
 
-
 Textbooks customarily include an abundance of material and leave you
 to figure out what to focus on. While there are compelling reasons to
 present many examples in each section, such an approach can be
@@ -30,20 +29,15 @@ discussion, or examples:
 \item Appendix~\ref{sec:addexer}, which lists additional exercises by
   section. Some of these are original, and others are
   modified from exercises in 
-  Stewart's \textit{Multivariable Calculus} or Colley's \textit{Vector
+  James Stewart's \textit{Multivariable Calculus} or Susan J.\ Colley's \textit{Vector
     Calculus}. 
 \item The community calculus textbook, available at
   \texttt{communitycalculus.org}. This is an open source textbook available (for
   free) online, and it has \textit{a lot} of exercises. 
-\item Frederick Tsz-Ho Fong's multivariable calculus notes for Math 0200 at
-  Brown University, available at
-  \href{http://www.math.brown.edu/~sswatson/pdfs/frederick_multinotes.pdf}{\url{http://www.math.brown.edu/~sswatson/pdfs/frederick\_multinotes.pdf}}. These
-  notes are very nicely written and have quite a few examples. 
 \item MathInsight (\url{mathinsight.org}) has webpages for many
   multivariable topics with nice exposition and some beautiful applets for exploring the
   ideas developed in this course. 
-\item A standard multivariable calculus textbook, such as Stewart
-  or Edwards and Penney. 
+\item A standard multivariable calculus textbook.  
 \item 3blue1brown, a math video creator with an excellent series on
   linear algebra. Unfortunately he hasn't done multivariable calculus
   yet, so these videos will only be available for the vector topics. 
@@ -60,13 +54,12 @@ The following margin note icons in the text are clickable:
 
 \vspace{6pt}
 
-All of the \textbf{3D graphics in this PDF may be interactively manipulated},
-but that feature requires that the PDF be viewed with Adobe's (free) Acrobat
-Reader
+All of the \textbf{3D graphics in this PDF may be interactively
+  manipulated}, but that feature requires that the PDF be viewed with
+Adobe's free Acrobat Reader
 (\href{https://get.adobe.com/reader/}{\url{https://get.adobe.com/reader/}}). The
-references in this text are hyperlinked, which means that you can click on
-Theorem~\ref{th:green} to navigate directly to Green's theorem (for
-example). 
+references in this text are hyperlinked; for example, you can click on
+Theorem~\ref{th:green} to navigate directly to Green's theorem.
 
 Please do not hesitate to contact me via email
 (\url{sswatson@brown.edu}) about any mistakes you find in these notes,
@@ -89,7 +82,7 @@ no matter how minor.
   Francisco, California, 94105, USA. If you distribute this work or a
   derivative, include the history of the document.
 
-  These notes are an original work of the author.
+%  These notes are an original work of the author.
 
   Last updated: \today 
 }
@@ -195,7 +188,7 @@ are called the $x$-axis, the $y$-axis, and the $z$-axis*
   as shown in the figure}[-27mm]).
 
 The set $\R^4$ is defined to be the set of ordered quadruples of real
-numbers, and similarly for $\R^5, \R^6, \ldots$.  
+numbers, and similarly for $\R^5, \R^6,$ and so on.  
 \sidenote{* Since
   we live in three dimensions, spatial visualization of $\R^n$ only
   works for $n \leq 3$. We will use other visualization tools or
@@ -338,7 +331,7 @@ Figure~\ref{fig:gridlines}.\sidenote{* One way this method of
 \end{wrapfigure}
 
 We often refer to a function from $\R^2$ to $\R^2$ as a
-\textit{transformation}, which is just a synonym of \textit{function}
+\textit{transformation}, which is a synonym of \textit{function}
 but is meant to evoke this particular method of
 visualization. Functions from $\R^3$ to $\R^3$ are also called
 transformations and can be visualized in the same way, but for now we
@@ -355,9 +348,9 @@ corresponding to several equally spaced codomain values is called a
 \textbf{contour plot}.
 
 A function from $\R^2$ to $\R^1$ can be visualized using its graph or
-a contour plot, whereas the graph of a function from $\R^3$ to $\R^1$
-can't be visualized. Thus contour plotting provides an important
-visualization tool for functions of three variables.
+using a contour plot, whereas the graph of a function from $\R^3$ to
+$\R^1$ can't be visualized spatially. Thus contour plotting provides
+an important visualization tool for functions of three variables.
 
 Contour plots have some shortcomings: unless the output value
 corresponding to each level set is identified using a labeling or
@@ -464,23 +457,23 @@ the function's \textit{domain} only*. \sidenote{* This means that
 One of the key ideas of differential calculus is to uses
 \textit{linear} functions to approximate functions with curvy
 graphs. This approximation is useful because (i) all differentiable
-functions look increasingly linear as you zoom in, and (ii) linear
-functions are very simple. We will apply the same principle in higher
-dimensions and use linear transformations to approximate non-linear
-ones. Just as you learned about linear functions before learning
-single-variable calculus, we will explore linear transformations
-before discussing how differentiation generalizes to the multivariable
-setting. 
+functions look increasingly linear as you zoom in around a point, and
+(ii) linear functions are very simple. We will apply the same
+principle in higher dimensions and use linear transformations to
+approximate non-linear ones. Just as you learned about linear
+functions before learning single-variable calculus, we will explore
+linear transformations before discussing how differentiation
+generalizes to the multivariable setting.
 
 So what \textit{is} a linear function from $\R^2$ to $\R^2$?
-Functions of the form $f(x) = mx + b$, where $m$ and $b$ are
-constants, are often called linear. However, we will take a slightly
-different view by requiring $b = 0$, so that only functions of the
-form $f(x) = mx$ are considered linear.* Our definition of linearity
-in higher dimensions will work similarly: only terms of the form
-``constant times variable'' are allowed. \sidenote{* Actually, this
-  view is ubiquitous in mathematics, because the essence
-  of linearity is the pair of properties $f(x + y) = f(x) + f(y)$ and
+Single-variable functions of the form $f(x) = mx + b$, where $m$ and
+$b$ are constants, are often called linear. However, we will take a
+slightly different view by requiring $b = 0$, so that only functions
+of the form $f(x) = mx$ are considered linear.* Our definition of
+linearity in higher dimensions is analogous: only terms of the
+form ``constant times variable'' are allowed: \sidenote{* Actually,
+  this view is ubiquitous in mathematics, because the essence of
+  linearity is the pair of properties $f(x + y) = f(x) + f(y)$ and
   $f(ax) = af(x)$, and we only get these if we insist $b=0$}[-2cm]
 
 \begin{defn}{Linearity}{def:linear2}
@@ -840,13 +833,23 @@ have
     $\left[\begin{array}{cc} 2 & 1  \\ 4 & 2 \end{array}\right]$}
 \end{exercise}
 
-The absolute value of the determinant of a linear transformation 
+We define the determinant of a linear transformation 
 \[
   f(x,y,z) = (ax + by + cz, \, dx + ey + fz,\, gx + hy  + iz)
 \]
-is the volume of the three-dimensional shape, called a
-\textit{parallelepiped}, whose vertices are the images under $f$ of the
-vertices of the unit cube $[0,1]^3$:
+to be the product of two quantities:
+\begin{enumerate}[(i),topsep=-6pt]
+  \item the volume of the three-dimensional shape, called a
+    \textit{parallelepiped}, whose vertices are the images under $f$
+    of the vertices of the unit cube $[0,1]^3$
+    (Figure~\ref{fig:3dlinear}).
+  \item a factor of
+    $\pm1$ which is equal to $-1$ if and only if the orientation of a
+    small loop drawn on a face is reversed (see
+    Figure~\ref{fig:3dlinear}), from the point of view of a small
+    person standing on the solid with their head pointing toward the
+    outside.
+\end{enumerate}
 
 \begin{center} 
   \begin{asy} 
@@ -925,11 +928,7 @@ vertices of the unit cube $[0,1]^3$:
   \captionof{figure}{A linear transformation from $\R^3$ to $\R^3$ \label{fig:3dlinear}}
 \end{center} 
 
-The sign of the determinant depends on whether the orientation of a
-small loop drawn on a face is reversed (see
-Figure~\ref{fig:3dlinear}), from the point of view of a small person
-standing on the solid with their head pointing toward the outside. The
-formula for the determinant turns out to be*\sidenote{* The
+The formula for the determinant turns out to be*\sidenote{* The
   \textit{Geometry of Determinants} section of
   \href{http://joshua.smcvt.edu/linearalgebra/book.pdf}{the free
     online book \textit{Linear Algebra}} by Jim Hefferon includes a
@@ -952,9 +951,9 @@ $| \hphantom{a}|$ and write this formula as
   +c \left|\begin{array}{cc} d & e \\  g & h \end{array}\right|. 
 \]
 This formula is \textit{still} not easy to memorize, so let's break it
-down: each term on the right-hand side consists of a factor of $+1$ or
-$-1$ which alternates starting with $+1$, then an entry from the top
-row (going from left to right), then the determinant of the matrix you
+down: each term on the right-hand side includes three factors: (i) a $+1$ or
+$-1$ which alternates starting with $+1$, (ii) an entry from the top
+row (going from left to right), and (iii) the determinant of the matrix you
 get when you remove the row and column of that entry from the original
 matrix. These smaller matrices are called \textit{minors}, and this
 method of calculating the determinant is called \textbf{expansion by
@@ -1526,8 +1525,8 @@ vector is orthogonal to \textit{both} of the first two.
       \end{array}
     \right|
   \]
-  and conclude that this determinant equals zero using
-  Exercise~\ref{exer:singular}. 
+  and conclude using Exercise~\ref{exer:singular} that this
+  determinant equals zero. 
 \end{solution}
 
 \begin{lrbox}{\asybox} 
@@ -1656,8 +1655,8 @@ called a \textit{parameter}, and the form we gave as an answer is
 called \textbf{parametric form}. You can imagine drawing the line by
 starting with $t = 0$, so that your pen begins at $A$, and then
 sweeping $t$ through the values from 0 to 1, changing the location
-of your pen according to the parametric equations \eqref{eq:par}. This
-gives you the portion of the line between $A$ and $B$. Then you can
+of your pen according to the parametric equations \eqref{eq:par}. Your
+pen will sweep out the line segment from $A$ and $B$. Then you can
 let $t$ vary beyond 1 to get the rest of the ray past $B$, and you can
 let $t$ vary over the negative numbers to get the part of the line on
 the other side of $A$.
@@ -5051,7 +5050,7 @@ $n \to \infty$.
 In this section we will work out how to generalize this concept to
 integrate of functions of multiple variables over regions in $\R^2$ or
 $\R^3$.* \sidenote{* See Appendix~\ref{sec:centralidea} for a more
-  in-depth discussion}
+  in-depth discussion of integration} 
 
 \section{Double integration} \label{sec:double}
 
@@ -5547,7 +5546,9 @@ in Theorem~\ref{th:iterated} less formally: \sidenote{* Think of
     region}{evaluating_integrals}
   To set up an iterated integral to evaluate $\iint_D f \, {\d}A$
   (where $f$ is continuous and $D$ is a region such that the
-  intersection of every horizontal line with $D$ is a segment):
+  intersection of every horizontal line with $D$ is a segment):*
+  \sidenote{* You should be prepared for these steps to spawn
+    geometric sub-problems that you might need to solve on the side}[8mm] 
   \begin{enumerate}[leftmargin=12pt, itemsep = 6pt, topsep = 5pt]
   \item Find the least and greatest $y$ values for any point in
     $D$. These are your \textbf{outer limits} of integration. 
@@ -5787,7 +5788,9 @@ Observation~\ref{obs:evaluating_integrals}):
 
 \begin{obs}{Limits of integration over a 3D
     region}{evaluating_3d_integrals}
-  To set up an iterated integral to evaluate $\iiint_D f \, {\d}V$: 
+  To set up an iterated integral to evaluate $\iiint_D f \, {\d}V$
+  (where $f$ is continuous and $D$ is a region which intersects every
+  line parallel to the $x$-axis in an interval): 
   \begin{enumerate}[itemsep=3pt, topsep = 8pt, leftmargin = 12pt]
   \item Find the least and greatest $z$ values for any point in
     $D$. These are your \textbf{outer limits} of integration. 
@@ -5796,11 +5799,11 @@ Observation~\ref{obs:evaluating_integrals}):
     \textit{and on that plane}, expressed in terms of the vertical
     position $z$ of the plane. These are the \textbf{middle limits} of
     integration, and they may depend on $z$.
-  \item For each line of the form `$z=\text{constant and
-    }y=\text{constant}$', find the least and greatest values of $x$ for
-    any point which is in $D$ \textit{and on that line}. These are your
-    \textbf{inner limits} of integration, and they may depend on both
-    $z$ and $y$. 
+  \item For each line of the form
+    `$z=\text{constant and }y=\text{constant}$' which intersects $D$,
+    find the least and greatest values of $x$ for any point which is
+    in $D$ \textit{and on that line}. These are your \textbf{inner
+      limits} of integration, and they may depend on both $z$ and $y$.
   \end{enumerate}
 \end{obs}
 
@@ -7777,18 +7780,18 @@ Is it possible to engineer a simple mechanical device that measures
 the area bounded by whatever curve it traces out on paper? This seems
 surprising, since computing the area would seem to require some
 inspection of the region inside the curve. However, the
-\textit{planimeter}* can calculate area of a region based on the
+\textit{planimeter}* can record the area of a region based on the
 motion of its wheels as its tip traverses the boundary of the
 region. The design of the planimeter takes advantage of the following
 beautiful relationship between line integrals along the boundary of a
-curve and area integrals over the region it encloses. \sidenote{*
+curve and double integrals over the enclosed region. \sidenote{*
   Invented in 1854}[-1cm]
 
 \begin{theo}[left skip = 4.2cm, width = \dimexpr \textwidth -
   4.2cm \relax]{Green's theorem}{green}
   If $\mathbf{F} = \langle M, N\rangle$ is a vector field* on $\R^2$
   with continuous partial derivatives, and if $D$ is a region bounded
-  by a simple, counterclockwise oriented, piecewise smooth curve $C$,
+  by a simple, counterclockwise-oriented, piecewise smooth curve $C$,
   then \sidenote{* $\mathbf{F} = \mathbf{F}(x,y)$ and similarly for
     $M$ and $N$; we will begin using these abbreviations for
     notational convenience; bear in mind that $\mathbf{F}$ always
@@ -7846,10 +7849,16 @@ curve and area integrals over the region it encloses. \sidenote{*
       draw(Label("$2\pi$",Relative(1),align=S),(2*pi,0)--(2*pi,-eps));
     \end{asy}
   \end{center}
-  The integrand for the double integral is $\partial_x N - \partial_y
-  M = 1 - 0 = 1$, so the value of the double integral is the area of
-  the unit disk, which is equal to $\pi$. Thus the conclusion of
-  Green's theorem is satisfied. 
+  The integrand for the double integral is*\sidenote{* Using
+    $\mathbf{F} = \langle
+    0,x \rangle$ gives an integrand of 1 on the right-hand side of
+    Green's theorem, but: (i) $\langle
+    0,x \rangle$ isn't the only vector field with this property, and
+    (ii) Green's theorem is also useful when the integrand is
+    non-constant}
+  $\partial_x N - \partial_y M = 1 - 0 = 1$, so the value of the
+  double integral is the area of the unit disk, which is equal to
+  $\pi$. Thus the conclusion of Green's theorem is satisfied.
 \end{solution}
 
 \begin{tcolorbox}[title = Proving Green's theorem,
@@ -9353,16 +9362,13 @@ sphere, a donut, or a rectangular prism) is zero:
 
 \chapter*{Colophon}
 
-This text was typeset with pdf\TeX, using \texttt{tcolorbox} and a version of the
+This text was typeset with pdf\LaTeX, using \texttt{tcolorbox} and a version of the
 \texttt{mathpazo} package's Palatino fonts which was modified to borrow
 Greek symbols from Utopia and blackboard bold symbols from Computer
-Modern. The cover art is rendered using Ti\textit{k}Z, from code on
-this StackExchange thread:
-
-\texttt{http://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex}
+Modern. The cover art is rendered using Ti\textit{k}Z. 
 
 The figures are all produced in Asymptote and are included using the
-\texttt{asymptote} LaTeX package. All the files necessary to produce
+\texttt{asymptote} \LaTeX package. All the files necessary to produce
 this document are available at \url{github.com/sswatson}.
 
 \appendix
@@ -11674,8 +11680,8 @@ pieces'' derivations throughout the course.
   need to do something more involved, since 
   Sage uses the famously beginner-friendly language Python. This is
   where Sage really shines in comparison to a proprietary tool like
-  Wolfram|Alpha, which is great for one-liners but not so much if you
-  want to do a several-step computation.
+  Wolfram Alpha, which is great for one-liners but is not well-suited
+  to several-step computations. 
 
   Here are some examples of calculations you can do with Sage. You
   have to tell it that you're going to use \texttt{x} as a symbol
@@ -12786,8 +12792,7 @@ S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
 \begin{aexercise}[enhanced, breakable] 
   A planimeter is a device used to calculate the area of a
   two-dimensional region. In this problem, we explore the mathematics
-  behind how the planimeter works. (Thanks to Wikipedia for the
-  picture and the description below).
+  behind how the planimeter works. 
 
   \begin{center}
     \begin{minipage}{5cm}

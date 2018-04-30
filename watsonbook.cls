@@ -4,6 +4,8 @@
 \PassOptionsToClass{twoside}{report} 
 \LoadClassWithOptions{report}
 
+\newif\if@bleedoption
+\DeclareOption{bleed}{\@bleedoptiontrue}
 \newif\if@prettycodeoption
 \DeclareOption{prettycode}{\@prettycodeoptiontrue}
 \newif\if@shellescapeoption
@@ -14,11 +16,22 @@
 \RequirePackage{hyperref}
 \RequirePackage{url}
 \RequirePackage{geometry}
-\geometry{
-  margin=1in,
-  marginpar=0.5in,
-  marginparsep= 2.6mm, 
-  twoside}
+\if@bleedoption
+  \geometry{papersize={8.625in,11.25in},
+    layoutsize={8.875in,11in},
+    bindingoffset=0.375in, 
+    layoutoffset={-0.125in,0.125in},
+    margin=1in,
+    marginpar=0.5in,
+    marginparsep= -6.925mm, % 2.6mm + 0.125 in
+    twoside}
+  \else
+  \geometry{
+    margin=1in,
+    marginpar=0.5in,
+    marginparsep= 2.6mm, 
+    twoside}
+\fi
 \RequirePackage{mathpazo_modified}
 \RequirePackage{calc} 
 \RequirePackage{amsmath}
@@ -45,8 +58,10 @@
 \RequirePackage{etoolbox}
 % fix marginnote's interaction with wrapfigure:----
 \RequirePackage{xpatch} 
+\makeatletter % two replacements!
 \patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
 \patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
+\makeatother
 %---------------------------------------
 
 %----PACKAGE CUSTOMIZATION SETUP---------------------
@@ -257,8 +272,8 @@
 
 %----- TITLE FONT CUSTOMIZATION ---------------
 
-\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
-\DeclareFixedFont{\subtitlefont}{T1}{ppl}{b}{it}{12pt}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{32}
+\DeclareFixedFont{\subtitlefont}{T1}{ppl}{b}{it}{18pt}
 
 %----- APPENDIX SUBSECTION ---------------------
 

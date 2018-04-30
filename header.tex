@@ -3,18 +3,16 @@
 \begin{asydef} 
 defaultpen(fontsize(10));
 settings.outformat="pdf";
-usepackage("amsmath");
-usepackage("amssymb"); 
 usepackage("mathpazo_modified");
 texpreamble("\renewcommand{\vec}[1]{\mathbf{#1}}");
-texpreamble("\let\e\relax");
-texpreamble("\DeclareMathOperator{\e}{e}"); 
+texpreamble("\providecommand{\e}{\mathrm{e}}"); 
 import x11colors;
 pen softblue = rgb(0.92,0.95,0.99);
 pen softred = rgb(0.99, 0.92, 0.91);
 pen softyellow = rgb(0.98, 0.98, 0.9);
 pen softgreen = rgb(0.96, 0.995, 0.98);
 settings.render = 8;
+settings.prc=false; 
 \end{asydef}
 
 \newsavebox{\asybox}
@@ -25,9 +23,11 @@ settings.render = 8;
 \def\printauthor{%                  
   {\large \@author}}              
 \makeatother
-\author{%
-  {\Large \textit{Samuel S.\ Watson}} \\ \vspace{2mm} {sswatson@brown.edu}
-}
+%\author{%
+ % {\Large \textit{Samuel S.\ Watson}} \\ \vspace{2mm} {sswatson@brown.edu}
+ % }
+
+\author{\Large \textit{Samuel S.\ Watson}}
 
 %----- SIDE ICONS ------------------------
 \newcommand{\milink}[3][-7.5mm]{\sidenote{\href{http://mathinsight.org/#2}{\mi} on #3}[#1]}
@@ -35,50 +35,49 @@ settings.render = 8;
 \newcommand\tbob[1][-2pt]{\raisebox{#1}{\includegraphics[width=12pt]{figures/3b1b_new}}}
 \newcommand\mi[1][-2pt]{\raisebox{#1}{\includegraphics[width=12pt]{figures/mathinsight}}}
 
-%This cover art is taken from 
-%http://tex.stackexchange.com/questions/85904/showcase-of-beautiful-title-page-done-in-tex
 
 \definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
 
+\usetikzlibrary{decorations.fractals}
+
 \newcommand\titlepagedecoration{%
-\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+  
+  \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
 
-\coordinate (aux1) at ([yshift=-15pt]current page.north east);
-\coordinate (aux2) at ([yshift=-410pt]current page.north east);
-\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
-\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+\coordinate (aux1) at ([xshift=8pt,yshift=-400pt]current page.north east);
+\coordinate (aux2) at ([xshift=8pt,yshift=-125pt]current page.north east);
+\coordinate (aux3) at ([xshift=50, yshift=-475pt]current page.north east);
+\coordinate (aux4) at ([xshift=-10pt,yshift=300pt]current page.south west);
+\coordinate (aux5) at ([xshift=-10pt,yshift=455pt]current page.south west);
+\coordinate (aux6) at ([xshift=300pt,yshift=-15pt]current page.south
+west);
+\coordinate (aux7) at ([xshift=0pt,yshift=80pt]current page.south west);
 
-\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
-\draw
-  (aux1) -- coordinate (a)
-  ++(225:5) --
-  ++(-45:5.1) coordinate (b);
-\draw[shorten <= -10pt]
-  (aux3) --
-  (a) --
-  (aux1);
-\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
-  (b) --
-  ++(225:2.2) --
-  ++(-45:2.2);
-\end{scope}
-\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
-  (aux4) --
-  ++(225:0.8) --
-  ++(-45:0.8);
-\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
-\draw[shorten <= -10pt]
-  (aux2) --
-  ++(225:3) coordinate[pos=0.45] (c) --
-  ++(-45:3.1);
-\draw
-  (aux2) --
-  (c) --
-  ++(135:2.5) --
-  ++(45:2.5) --
-  ++(-45:2.5) coordinate[pos=0.3] (d);   
-\draw 
-  (d) -- +(45:1);
+\begin{scope}[decoration=Koch snowflake]
+
+\draw[titlepagecolor!20,line width=2pt]
+decorate{decorate{decorate{decorate{(aux3) -- ++(137:7) -- ++(57:7)}}}}; 
+
+\draw[titlepagecolor!30,line width=1.5pt]
+decorate{decorate{decorate{decorate{(aux7) -- ++(40:8) -- ++(-5:8)}}}};
+
+\draw[titlepagecolor!80,line width=1pt,fill = softblue]
+decorate{decorate{decorate{decorate{(aux6) -- ++(80:10) --
+        (aux1)}}}}--
+(current page.south east) -- cycle ;
+
+\draw[titlepagecolor!40,line width=1pt]
+decorate{decorate{decorate{(aux2) -- ++(115:3) -- ++(70:3)}}};
+
+\draw[titlepagecolor!50,line width=1pt]
+decorate{decorate{decorate{decorate{(aux2) -- ++(115:9)}}}};
+
+\draw[titlepagecolor!30,line width=3pt,rounded corners=6pt]
+       (aux5) -- ++(45:2) -- ++(135:2); 
+
+\draw[titlepagecolor!60,line width=4pt,rounded corners=6pt]
+(aux4) -- ++(45:5) -- ++(135:5);
+
 \end{scope}
 \end{tikzpicture}%
 }
