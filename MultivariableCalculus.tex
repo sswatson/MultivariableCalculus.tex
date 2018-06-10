@@ -491,7 +491,7 @@ form ``constant times variable'' are allowed: \sidenote{* Actually,
     \begin{asy} 
       size(7cm);
       settings.outformat="pdf";
-      usepackage("mathpazo_modified");
+      usepackage("giambattista");
       import graph;
       import x11colors;
       real f(real x){
@@ -534,7 +534,7 @@ form ``constant times variable'' are allowed: \sidenote{* Actually,
     \begin{asy} 
       size(7cm);
       settings.outformat="pdf";
-      usepackage("mathpazo_modified");
+      usepackage("giambattista");
       import graph;
       import x11colors;
       real f(real x){
@@ -579,7 +579,7 @@ form ``constant times variable'' are allowed: \sidenote{* Actually,
     \begin{asy} 
       size(7cm);
       settings.outformat="pdf";
-      usepackage("mathpazo_modified");
+      usepackage("giambattista");
       import graph;
       import x11colors;
       real f(real x){
@@ -622,7 +622,7 @@ form ``constant times variable'' are allowed: \sidenote{* Actually,
     \begin{asy} 
       size(7cm);
       settings.outformat="pdf";
-      usepackage("mathpazo_modified");
+      usepackage("giambattista");
       import graph;
       import x11colors;
       real f(real x){
@@ -2319,12 +2319,13 @@ definition.
 \end{defn}
 
 \begin{example}{}{}
-  Find the curvature of a circle of radius $a$. 
+  Find the curvature of a circle of radius $a$ using
+  Definition~\ref{defn:curvature}. 
 \end{example}
 
 \begin{solution}
-  We parameterize the circle as $(a \cos t, a \sin t)$ over $[0,2\pi]$,
-  and we determine that
+  We parameterize the circle as $(a \cos t, a \sin t)$ where $t$
+  ranges over $[0,2\pi]$, and we determine that
   \[
     \mathbf{T} = \frac{\langle -a \sin t, a \cos t\rangle }{|\langle
       -a \sin t, a \cos t\rangle|} = \langle -\sin t, \cos t \rangle. 
@@ -2497,36 +2498,40 @@ Correspondingly, we can coordinatize three-dimensional space by
 replacing either one or two spatial coordinates with an angular
 coordinate. Perhaps the simplest way to do this is leave $z$ the same
 and replace $(x,y)$ with polar coordinates $(r,\theta)$. In other
-words, we define for each point $P$ in $\R^3$:  
+words, we define*\sidenote{* Try coming up with geometric descriptions
+  of the coordinates $r$, $\theta$, and $z$ in 3D space
+  \textit{before} looking at the answer below}[-13mm] for each point
+$P$ in $\R^3$:
 \begin{align*}
   r(P) &= \text{distance from $P$ to the }z\text{-axis} \\
   \theta(P) &= \text{signed angle* of the $P$-containing half-plane
-              with boundary along the $z$-axis} \\ 
+              whose boundary is along the $z$-axis} \\ 
   z(P) &= \text{signed distance from $P$ to the }xy\text{-plane}. 
 \end{align*} \sidenote{* $\ldots$measured counterclockwise with respect to the
-  positive $x$-axis}[-1cm]
-Then we can describe a point by its \textbf{cylindrical coordinates}
-$(r,\theta, z)$ rather than its rectangular coordinates. We may also
-describe a solid in $\R^3$ by giving inequalities in the variables
-$r, \theta,$ and $z$ which are all satisfied for a point if and only
-if that point's cylindrical coordinates satisfy them.
+  positive $x$-axis}[-1cm]Then we can describe a point by its
+\textbf{cylindrical coordinates} $(r,\theta, z)$ rather than its
+rectangular coordinates. We may also describe a solid in $\R^3$
+by giving inequalities in the variables $r, \theta,$ and $z$ such that
+a point with cylindrical coordinates
+$(r,\theta,z)$
+satisfies the inequalities if and only if the point is in the given solid. 
 
 \begin{example}{}{}
   Graph* the system of cylindrical coordinate inequalities $r \leq 4$,
-  $0 \leq \theta \leq \pi/3$, $0 \leq z \leq 2$. Find the volume of
-  the resulting region. \sidenote{* Familiarity with coordinate
-    slices (Table~\ref{table:coordinateslices} in
+  \quad $0 \leq \theta \leq \pi/3$, \quad $0 \leq z \leq 2$. Find the
+  volume of the resulting region. \sidenote{* Familiarity with
+    coordinate slices (Table~\ref{table:coordinateslices} in
     Appendix~\ref{sec:polarref}) is helpful for graphing inequalities}
 \end{example}
 
 \begin{solution}[title=Solution, breakable]
-  \begin{minipage}[t]{0.7\textwidth} \parskip = 0.2 in 
-    The problem is asking us to find the points whose
-    cylindrical coordinates satisfy all of the given
-    inequalities. Such a point is less than or equal to 4 units from
-    the $z$-axis, has polar angle between 0 and $\pi/3$, and is
-    between 0 and 2 units from the $xy$-plane (and above it). The set of
-    such points is shown to the right.
+  \begin{minipage}[t]{0.7\textwidth} \parskip = 0.2 in The problem is
+    asking us to find the points whose cylindrical coordinates satisfy
+    all of the given inequalities. Such a point is less than or equal
+    to 4 units from the $z$-axis, lies between the half-planes
+    $\theta=0$ and $\theta=\pi/3$, and is above the $xy$-plane and
+    less than two units away from it. The set of such points is shown
+    to the right.
   \end{minipage}
   \begin{minipage}[t]{0.29\textwidth}
     \begin{lrbox}{\asybox}
@@ -4035,7 +4040,7 @@ function is shaped like \includegraphics{figures/smallup} or
   neighborhood of $\mathbf{a}$ throughout which the function's
   values are no smaller than $f(\mathbf{a})$}[-1cm]
 
-The situation in higher dimensions is more subtle. The archetypal
+The situation in higher dimensions is more subtle. Archetypal
 examples are 
 \begin{enumerate}[(a),topsep=-6pt,itemsep=4pt]
 \item $x^2 + y^2$, which has a bowl-shaped graph like
@@ -9108,11 +9113,12 @@ known as \textit{Stokes' theorem}.* \sidenote{* If you take a
 
 \begin{solution} 
   Stokes' theorem tells us that the flow of $\nabla \times \mathbf{F}$
-  through $S$ is equal to the line integral of $\mathbf{F}$ around
-  $\partial S$. We can see from the figure that $\partial S$ consists
-  of four line segments, so we calculate
-  $\int \mathbf{F} \cdot {\d}\mathbf{r}$ along each one and sum the
-  results. Integrating from $(0,0,0)$ to $(1,0,0)$, we get
+  upwards through $S$ is equal to the line integral of $\mathbf{F}$
+  around $\partial S$ in the counterclockwise direction (see
+  Figure~\ref{fig:Stokes}). Since $\partial S$ consists of four line
+  segments, we calculate $\int \mathbf{F} \cdot {\d}\mathbf{r}$ along
+  each edge and sum the results. Integrating from $(0,0,0)$ to
+  $(1,0,0)$, we get
   \[
     \int_0^1\mathbf{F}(x,0,0) \cdot \langle 1, 0, 0 \rangle  \, \d x =
     0. 
@@ -9134,9 +9140,10 @@ known as \textit{Stokes' theorem}.* \sidenote{* If you take a
   $S$ is $\boxed{e-1}$. 
 \end{solution}
 
-Theorem~\ref{th:stokes} implies that a surface can be deformed without
-changing the  flow of $\nabla \times \mathbf{F}$ through it, as
-long as it is deformed in such a way that its boundary is preserved: 
+Theorem~\ref{th:stokes} implies that for any vector field
+$\mathbf{F}$, a surface can be deformed without changing the flow of
+$\nabla \times \mathbf{F}$ through it, as long as it is deformed in
+such a way that its boundary is preserved:
 
 \begin{obs}{}{stokes}
   In the context of Stokes' theorem, if $S_1$ and $S_2$ are surfaces
@@ -9365,7 +9372,7 @@ sphere, a donut, or a rectangular prism) is zero:
 This text was typeset with pdf\LaTeX, using \texttt{tcolorbox} and a version of the
 \texttt{mathpazo} package's Palatino fonts which was modified to borrow
 Greek symbols from Utopia and blackboard bold symbols from Computer
-Modern. The cover art is rendered using Ti\textit{k}Z. 
+Modern. The cover art was rendered using Ti\textit{k}Z. 
 
 The figures are all produced in Asymptote and are included using the
 \texttt{asymptote} \LaTeX package. All the files necessary to produce
@@ -11678,8 +11685,8 @@ pieces'' derivations throughout the course.
   your work. You
   can use Sage essentially as a calculator for many tasks. However, it is quite convenient if you
   need to do something more involved, since 
-  Sage uses the famously beginner-friendly language Python. This is
-  where Sage really shines in comparison to a proprietary tool like
+  Sage uses the beginner-friendly language Python. This is
+  where Sage really shines in comparison to a query tool like
   Wolfram Alpha, which is great for one-liners but is not well-suited
   to several-step computations. 
 
@@ -11689,7 +11696,7 @@ pieces'' derivations throughout the course.
   this way using spaces. The text following the hashtag is a comment
   and is ignored by Sage.
 
-\begin{sageblock}
+\begin{pythonblock}[title=]
 > var("x y") # tell sage that you want to use x and y as symbols
 > integrate(sqrt(x^2+1),x) + integrate(e^y * sin(y), y)
 -1/2*(cos(y) - sin(y))*e^y + 1/2*sqrt(x^2 + 1)*x + 1/2*arcsinh(x)
@@ -11714,7 +11721,7 @@ x^x*(log(x) + 1)
 (x^2 + x + 1)*(x - 1),
 (x^2 + 1)*(x + 1)*(x - 1),
 (x^4 + x^3 + x^2 + x + 1)*(x - 1)]
-\end{sageblock}
+\end{pythonblock}
 
   Throughout the text, some computations are performed using Sage.* They
   are indicated with the CoCalc icon

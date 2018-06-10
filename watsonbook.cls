@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{watsonbook}[2017/06/16 watsonbook Class]
+\ProvidesClass{watsonbook}[2017/06/16 watsonbook class]
 
 \PassOptionsToClass{twoside}{report} 
 \LoadClassWithOptions{report}
@@ -11,6 +11,7 @@
 \newif\if@shellescapeoption
 \DeclareOption{shellescape}{\@shellescapeoptiontrue}
 \ProcessOptions
+
 
 \RequirePackage[svgnames]{xcolor} 
 \RequirePackage{hyperref}
@@ -32,7 +33,7 @@
     marginparsep= 2.6mm, 
     twoside}
 \fi
-\RequirePackage{mathpazo_modified}
+\RequirePackage{giambattista}
 \RequirePackage{calc} 
 \RequirePackage{amsmath}
 \RequirePackage{amssymb} 
@@ -46,11 +47,12 @@
 \RequirePackage[labelfont=bf,labelsep=none,justification=RaggedRight]{caption}
 \RequirePackage{asymptote}
 \RequirePackage{xparse}
-\RequirePackage[skins,theorems,breakable,raster]{tcolorbox}
+\RequirePackage[skins,theorems,breakable,raster,listings,xparse]{tcolorbox}
 \RequirePackage[shortlabels]{enumitem} 
 \RequirePackage{marginnote}
 \RequirePackage{tocloft}
 \RequirePackage[explicit,calcwidth]{titlesec}
+
 \RequirePackage[T1]{fontenc}
 \RequirePackage[scaled=0.8]{beramono}
 \RequirePackage{listings}
@@ -58,11 +60,10 @@
 \RequirePackage{etoolbox}
 % fix marginnote's interaction with wrapfigure:----
 \RequirePackage{xpatch} 
-\makeatletter % two replacements!
 \patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
 \patchcmd\@mn@@@marginnote{\hsize\marginparwidth}{\@parboxrestore\hsize=\marginparwidth}{}{\fail}
-\makeatother
-%---------------------------------------
+% ---------------------------------------
+
 
 %----PACKAGE CUSTOMIZATION SETUP---------------------
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} % array
@@ -75,13 +76,14 @@
 \setenumerate{labelsep=3pt,itemsep=0pt,parsep=0pt,topsep=0pt} % enumitem 
 \setitemize{labelsep=3pt,itemsep=0pt,parsep=0pt,topsep=0pt} % enumitem
 \definecolor{shadecolor}{rgb}{0.92,0.92,0.92} % listings
+
 %--PACKAGE SETUP----------------------------------
 %
 \definecolor{shadecolor}{rgb}{0.92,0.92,0.92} % listings
 \lstdefinelanguage{Julia}%
   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
       end,export,false,for,function,immutable,import,importall,if,in,%
-      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      macro,module,otherwise,quote,return,switch,true,try,type,struct,mutable,typealias,%
       using,while},%
    sensitive=true,%
    alsoother={},%
@@ -89,7 +91,8 @@
    morecomment=[n]{\#=}{=\#},%
    morestring=[s]{"}{"},%
    morestring=[m]{'}{'},%
-}[keywords,comments,strings]%
+ }[keywords,comments,strings]%
+\lstdefinelanguage{text}{}%
 % choose between minted (which uses python's pygments)
 % and lstlisting for the pythonblock and juliablock environments
 \if@prettycodeoption
@@ -97,23 +100,66 @@
     \RequirePackage[finalizecache]{minted}
   \else
     \RequirePackage[frozencache]{minted} 
-  \fi 
-\newminted[juliablock]{julia}{bgcolor=shadecolor}
-\newminted[pythonblock]{python3}{bgcolor=shadecolor}
-\newminted[sageblock]{sage}{bgcolor=shadecolor}
-\AfterEndEnvironment{juliablock}{\vspace{-34pt}}
-\AfterEndEnvironment{pythonblock}{\vspace{-34pt}}
-\AfterEndEnvironment{sageblock}{\vspace{-34pt}}
-\else
-\lstnewenvironment{juliablock}{\lstset{%
-    language         = Julia
-}}{}
-\lstnewenvironment{pythonblock}{\lstset{% listings
-    language         = python
-  }}{}
-\lstnewenvironment{sageblock}{\lstset{% listings
-    language         = python
-  }}{}
+  \fi
+  \tcbuselibrary{minted}
+  \newcommand{\NewCodeBlockEnvironment}[6]{
+    \NewTCBListing{#1}{O{}}{
+      title = #2,
+      colback = #3,
+      colframe = #4, 
+      minted language=#5,
+      listing only,
+      boxrule = 1pt,
+      before skip = 8pt, 
+      fonttitle=\small\sc\bfseries,
+      minted options={autogobble}, 
+      fontupper=\small,
+      ##1
+    }
+    \NewTotalTCBox{#6}{ v } {%
+      verbatim,%
+      boxrule=0.25pt,%
+      left=0.25pt,%
+      right=0.25pt,%
+      colback=#3,%
+      colframe=#4}{\mintinline{#5}{##1}%
+    }
+  }
+  \NewCodeBlockEnvironment{juliablock}{Julia}{softred}{red!40!black}{julia}{juliainline}
+  \NewCodeBlockEnvironment{pythonblock}{Python}{softblue}{blue!40!black}{python}{pythoninline}
+  \NewCodeBlockEnvironment{rblock}{R}{softyellow}{yellow!40!black}{r}{rinline}
+  \NewCodeBlockEnvironment{textblock}{Python/Julia/R}{shadecolor}{gray}{text}{textinline}
+\else % --- USE LISTINGS INSTEAD OF MINTED ------------------
+\tcbuselibrary{listingsutf8}
+  \newcommand{\NewCodeBlockEnvironment}[6]{
+    \NewTCBListing{#1}{O{}}{
+      title = #2,
+      colback = #3,
+      colframe = #4, 
+      listing engine=listings,
+      listing only,
+      top = 0pt,
+      bottom = 0pt, 
+      boxrule = 1pt,
+      before skip = 8pt, 
+      fonttitle=\small\sc\bfseries,
+      fontupper=\small,
+      listing options = {language=#5,backgroundcolor=\color{#3}},
+      ##1
+    }
+    \NewTotalTCBox{#6}{ v } {%
+      verbatim,%
+      boxrule=0.25pt,%
+      left=0.25pt,%
+      right=0.25pt,%
+      colback=#3,%
+      colframe=#4}{\lstinline[language=#5]^##1^%
+    }
+  }
+  \NewCodeBlockEnvironment{juliablock}{Julia}{softred}{red!40!black}{Julia}{juliainline}
+  \NewCodeBlockEnvironment{pythonblock}{Python}{softblue}{blue!40!black}{Python}{pythoninline}
+  \NewCodeBlockEnvironment{rblock}{R}{softyellow}{yellow!40!black}{R}{rinline}
+  \NewCodeBlockEnvironment{textblock}{Python/Julia/R}{shadecolor}{gray}{text}{textinline}
 \fi
 \lstset{
   basicstyle       = \ttfamily,
@@ -124,6 +170,8 @@
   backgroundcolor  = \color{shadecolor},
   belowskip        = 2mm
 }
+%-------------------------------------------------
+
 
 %--- MATH COMMANDS ---------------------------
 \DeclareMathOperator{\arcsec}{arcsec}
@@ -240,25 +288,43 @@
 \newcommand\subitm{(\alph{subitm})\quad\stepcounter{subitm}}
 \newcommand{\pairofprobs}[2]{\makebox[0.5\textwidth][l]{\subitm #1}\subitm #2}
 
+%--SIDE NOTES-------------------------------------
 \newlength{\marginvoffset} 
 \DeclareDocumentCommand{\sidenote}{O{rectangle,thick,black,text width =
     17.5mm,draw=MidnightBlue,fill=softblue,rounded corners=0.5mm} m O{0pt}}{%
   \setlength{\marginvoffset}{#3 - 12pt}%
+  \normalmarginpar %
   \marginnote[{%
     \makebox[0pt][r]{%
       \scriptsize \tikz \node at (0,-1) [#1]{#2};%
     }%
   }]{{%
       \makebox[0pt][l]{%
-	\scriptsize \tikz \node at (0,-1) [#1]{#2};%
+        \scriptsize \tikz \node at (0,-1) [#1]{#2};%
       }%
     }}[\marginvoffset]%
 }
-\newcommand{\bang}[1]{\marginnote{ \Huge \color{DarkRed} !!!}[#1]}
 
+
+% example: \authornote{ssw}{green}{Add reference here}
+\DeclareDocumentCommand{\authornote}{m m m O{0pt}}{%
+       \setlength{\marginvoffset}{#4 - 12pt}%
+       \reversemarginpar%
+       \marginnote{%
+          \makebox[0pt][l]{%
+            \scriptsize \tikz \node at (0,-1) [rectangle,thick,black,text width = %
+       17.5mm,draw=#2,rounded corners=0.5mm,fill=#2]{\textcolor{white}{#1: #3}};%
+          }%
+          }[\marginvoffset]%
+	  }
+
+\newcommand{\bang}[1]{\marginnote{ \Huge \color{DarkRed} !!!}[#1]}
+	  
 \newcommand{\datemarker}[1]{\sidenote[rectangle,text width =
   1.75cm,draw,fill=black!25,rounded corners]{\centerline{#1}}}
 
+%-----------------------------------------------
+       
 \usepackage{color}
 \definecolor{dg}{RGB}{2,101,15}
 \definecolor{dr}{RGB}{80,15,40}
