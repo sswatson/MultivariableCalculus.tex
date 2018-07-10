@@ -225,7 +225,7 @@ specified, since the equation need not involve all of the variables.
 \end{exercise}
 
 
-\section{Functions from $\R^n$ to $\R^n$} \label{sec:RntoRn}
+\section{Functions from $\R^n$ to $\R^m$} \label{sec:RntoRn}
 
 \subsection{Visualizing functions}
 
@@ -1131,9 +1131,9 @@ We typically assign names for vectors which are lowercase boldface
 letters, like $\vec{u}$ or $\vec{v}$.  Looking at 
 Figure~\ref{fig:scalarmultiply}, we make the following observation. 
 
-\begin{obs}{Parallel vectors}{vecparallel} \bang{-5mm}
-  Two vectors $\vec{u}$ and $\vec{v}$ have the
-  same direction if $\vec{u} = c \, \vec{v}$ for some scalar $c$. 
+\begin{obs}{Parallel vectors}{vecparallel} \bang{-5mm} Two vectors
+  $\vec{u}$ and $\vec{v}$ are parallel if $\vec{u} = c \, \vec{v}$ for
+  some scalar $c$.
 \end{obs}
 
 Vector operations satisfy several properties suggested by the
@@ -1187,8 +1187,8 @@ The following example shows how vector ideas can be applied to geometry
 problems. 
 
 \begin{example}{}{trianglemidpoint}
-  Use vectors to prove that the line joining the midpoints of two
-  sides of a triangle is parallel to the third side and half its
+  Use vectors to prove that the line segment joining the midpoints of
+  two sides of a triangle is parallel to the third side and half its
   length.
 \end{example}
 
@@ -2147,7 +2147,7 @@ called a parametric equation for the curve. \enlargethispage{1cm}
   \]
 \end{solution}
 
-\subsection{Arclength} \label{subsec:arclength} 
+\subsection{Arclength*} \label{subsec:arclength} 
 
 \begin{example}{}{bugspeed}
   Find the speed of the bug in Example~\ref{exam:can}. 
@@ -2288,7 +2288,7 @@ same. Let's try an example.* \sidenote{* A property of a path which
   % source: colley
 \end{exercise}
 
-\subsection{Curvature} 
+\subsection{Curvature*} 
 
 The curvature of a path at a point on the path is a measure of how
 curvy the path is at that point. For example, the path shaped like the
@@ -2727,205 +2727,307 @@ $\R^1$, where $n \geq 2$. The main objectives will be to extend
 various important notions in single-variable calculus to the
 higher-dimensional setting.
 
-\section{Limits} \label{sec:limits} 
+\section{Limits} \label{sec:limits}
 
-\begin{wrapfigure}[14]{O}{8cm}
-  \begin{asy}[width=8cm]
-    // limit2d
-    defaultpen(fontsize(8)); 
-    import graph;
-    defaultpen(linewidth(1.5));
+Limits are useful for discussing a function's output values
+\textit{near}---but not \textit{at}---a point in its domain. For
+example, if $f:\R \to \R$ maps 0 to 3 and every nonzero number to 7,
+then we would say that the limit of $f(x)$ as $x\to 0$ is equal to 7. 
 
-    draw((0,0)--(2,0),EndArrow(4));
-    draw((0,0)--(0,1.2),EndArrow(4)); 
+We begin with the notion of a limit at 0 for a \textit{monotone}
+function from* \sidenote{* The right endpoint of the interval $(0,1)$
+  is immaterial here, since we will be interested in the limit at 0}[3mm]
+$(0,1)$ to $\R$. We say that $a$ is a \textbf{lower bound} for a
+function $f$ if its range is a subset of $[a,\infty)$. A function is
+\textbf{bounded below} if it has a lower bound. Likewise, $b$ is an
+\textbf{upper bound} of $f$ if the range of $f$ is a subset of $(-\infty,b]$,
+and a function is \textbf{bounded above} if it has an upper
+bound.* \sidenote{* For example, $f(x) = x$ is neither
+bounded above nor below, while $g(x) = e^x$ is bounded below but not
+above, and $h(x) = \sin x$ is bounded above and below (where $f$, $g$,
+and $h$ are from $\R$ to $\R$)}[16mm]
 
-    real f(real t){
-      return exp(-t^2); 
-    }
+\begin{defn}{Limit of a monotone function on $(0,1)$}{limmon} \parskip = 6 pt 
+  Suppose that $f:(0,1) \to \R$ is bounded below and has the property
+  that $f(r)$ decreases as $r$ decreases --- in other words,
+  we have $f(r) \leq f(s)$ for all $0 \leq r \leq s \leq 1$. Then we define
+  $L$ to be the greatest real number such that $L \leq f(r)$ for all
+  $r\in (0,1)$. 
 
-    draw(graph(f,0,2),MidnightBlue);
-    label("$f(x)$",(0.3,1.05),MidnightBlue); 
+  Similarly, if $f$ is bounded above and has the property that $f(r)$
+  increases as $r$ decreases, then we define $L$ to be the least real
+  number such that $L \geq f(r)$ for all $r \in (0,1)$.
 
-    real epsilon = 0.05;
-    real a = sqrt(log(3/2));
-    real delta = 0.045;
-    real L = 2/3; 
-
-    draw((0,L-epsilon)--(2,L-epsilon),linewidth(0.7));
-    draw((0,L+epsilon)--(2,L+epsilon),linewidth(0.7)); 
-    draw((a-delta,0) -- (a-delta,1.2),linewidth(0.7));
-    draw((a+delta,0) -- (a+delta,1.2),linewidth(0.7)); 
-
-    label(rotate(90)*"$a-\delta$",(a-delta,0),align=S);
-    label(rotate(90)*"$a+\delta$",(a+delta,0),align=S); 
-
-    label("$L-\epsilon$",(0,L-epsilon),align=W);
-    label("$L+\epsilon$",(0,L+epsilon),align=W); 
-
-    dot("$(a,L)$",(a,L),linewidth(4.0),align=3*E);
-  \end{asy}
-  \caption{The $\epsilon$-$\delta$ definition of a limit. \label{fig:oneDlimit}}
-\end{wrapfigure}
-Recall that $f(x)$ converges to $L$ as $x\to a$ if $f(x)$ is as close
-to $L$ as desired throughout a sufficiently small neighborhood of
-$a$. More precisely, $f(x)$ converges to $L$ as $x\to a$ if and only
-if for every $\epsilon > 0$, there is $\delta>0$ so that $f(x)$ within
-$\epsilon$ of $L$ for all $x$ satisfying $0 < |x - a| < \delta$ (see
-Figure~\ref{fig:oneDlimit}). \sidenote{* We abbreviate ``$f(x)$
-  converges to $L$ as $x\to a$'' to
-  $\displaystyle{\lim_{x \to a}f(x) = L}$}
-
-It can be helpful to think of this definition as a game against an
-adversary: the adversary chooses a positive real number $\epsilon$
-which can be as small as they like. Then, after seeing the $\epsilon$
-value, you get to choose a number $\delta>0$, as small as you
-like. Finally, the adversary chooses an $x$ value in the interval
-$(a-\delta, a + \delta)$ which is not equal to $a$. If it turns out
-that $|f(x) - L| \geq \epsilon$, then the adversary wins. Otherwise,
-you win. We call this the \textbf{limit game}.
-
-If you have a strategy for winning this game no matter how the
-adversary plays, then the limit of $f(x)$ as $x$ approaches $a$ exists
-and equals $L$. If the adversary has a strategy for winning, then it
-is not true that $\lim_{x \to a} f(x) = L$ (either because the limit
-does not exist or because the limit exists and equals a number other
-than $L$).
-
-\begin{exercise}{}{}
-  Show that $\displaystyle{\lim_{x \to 3}}\dfrac{x^2 - 9}{x - 3} = 6$
-  by explaining the winning strategy in the limit game.
-\end{exercise}
-
-\begin{exercise}{}{}
-  Suppose that $f$ is a function from $\R$ to $\R$ and that
-  $a \in \R$. Show that if $f(x)$ converges to $L$ as $x\to a$ and
-  $f(x)$ converges to $L'$ as $x\to a$, then $L = L'$. This fact is
-  called \textit{uniqueness of limits}.
-\end{exercise}
-
-We reviewed the definition of a limit for a single-variable function
-so we could think about how to generalize the definition for a
-function $f:\R^n \to \R$. For simplicity, let's take $n = 2$. What
-should it mean to say
-$\displaystyle{\lim_{(x,y) \to (a,b)} f(x,y)} = L$? The only aspect of
-the definition that requires revision is the part about $x$ being
-within $\delta$ of $a$. We can use standard Euclidean distance to
-compare $(x,y)$ to $(a,b)$! This leads to the following
-definition.*\sidenote{* Appendix \ref{sec:limitsappendix} contains a
-  rigorous and $(\epsilon,\delta)$-free development of the idea of
-  multivariable limits which may be used as a supplement or a
-  substitute for the limit game material}[-25mm]
-
-\begin{defn}{Limit of a function of two variables}{limit}
-  We say $\lim_{(x,y)\to (a,b)} f(x,y) = L$ if and only if for every
-  $\epsilon > 0$, there is $\delta>0$ so that
-  $|f(x,y) - L| < \epsilon$ for all $(x,y)$ satisfying
-  $0 < \sqrt{(x -a)^2 + (y-b)^2} < \delta$.
+  In either case, we say that the limit as $r\to0$ of $f(r)$ exists
+  and is equal to $L$, that is,
+  $\displaystyle{\lim_{r\to 0} f(r) = L}$.
 \end{defn}
 
-\begin{wrapfigure}[10]{O}{5cm}
-  \begin{asy}[width=5cm]
-    size(8cm); 
-    import graph3;
+\begin{example}{}{}
+  \begin{minipage}[t]{0.75\textwidth} \parskip = 12pt 
+    (a) Find the limit as $r \to 0$ of the function $f(r) = 1 + r^2$ defined
+    on $(0,1)$.
 
-    draw(O--1.2*Z,Arrow3());
-    draw(O--X,Arrow3());
-    draw(O--Y,Arrow3()); 
-    
-    triple f(pair z) {return (z.x*cos(z.y),z.x*sin(z.y),z.x^2);}
-    triple g(pair z) {return (1e-2+1/2 + z.x*cos(z.y),
-      1e-2+1/2 + z.x*sin(z.y),
-      (1/2 + z.x*cos(z.y))^2 +
-      (1/2 + z.x*sin(z.y))^2);}
-
-    real L = 1/2;
-    real eps = 0.16;
-    real x = 1;
-    real y = 0.3; 
-
-    currentprojection = perspective(2,4,1.4); 
-    
-    surface s = surface((-y,x,L-eps)--(x,x,L-eps)--(x,-y,L-eps)--(-y,-y,L-eps)--cycle);
-    surface t = surface((-y,x,L+eps)--(x,x,L+eps)--(x,-y,L+eps)--(-y,-y,L+eps)--cycle); 
-
-    pen planecolor = LightSeaGreen; 
-    
-    draw(s,planecolor+opacity(0.5));
-    draw(surface(xscale(-0.21)*yscale(0.15)*"$L-\epsilon$",s,0.05,0.05,5e-3),gray); 
-    draw(t,planecolor+opacity(0.5));
-    draw(surface(xscale(-0.21)*yscale(0.15)*"$L+\epsilon$",t,0.02,0.02,5e-3),gray); 
-    
-    draw(surface(f,(0,0),(1,pi/2),20),LightSeaGreen+opacity(0.3),black);
-    draw(surface(g,(0,0),(0.1,2*pi),50),green+opacity(0.6)); 
-    draw(surface(circle(c=(1/2,1/2,0),r=0.1,normal=Z)),DarkRed+opacity(0.5));
-    
-    draw(arc((0,0,L+eps),(sqrt(L+eps),0,L+eps),(0,sqrt(L+eps),L+eps)),0.4*planecolor+linewidth(1.1));
-    draw(arc((0,0,L-eps),(sqrt(L-eps),0,L-eps),(0,sqrt(L-eps),L-eps)),0.4*planecolor+linewidth(1.1)); 
-    
-    dot("$B((a,b),\delta)$",(1/2,1/2,0),align=1.5*S);
-    dot((1/2,1/2,1/2));
-
-    draw((1/2,1/2,1/2)--(1/2,1/2,0),dashed); 
-
-    label("$f(x,y)$",(0,0,1.1),align=E); 
-  \end{asy}
-  \caption{The definition of a limit for a two-variable function \label{fig:twoDlimit}}
-\end{wrapfigure}
-
-One way to think about this definition is to consider the
-shadow$^\dagger$ of the disk* $B((a,b),\delta)$ on the graph (see
-Figure~\ref{fig:twoDlimit}). The limit exists and equals $L$ if for
-every $\epsilon$, there exists $\delta$ small enough that this shadow
-lies entirely in the slab $L - \epsilon < z < L +
-\epsilon$. \sidenote{ * $B((a,b),r)$ means the ball of radius $r$
-  centered at $(a,b)$ }[-16mm] \sidenote{$^\dagger$\textit{Shadow}
-  here means the set of points $(x,y,f(x,y))$ where
-  $(x,y) \in B((a,b),\delta)$}[-1mm]
-
-A plane and a line are geometrically different in a way that has major
-implications for thinking about limits: there are only two directions
-from which to approach a point on a line, but there are infinitely
-many ways of approaching a point in the plane. The following example
-illustrates a sort of convergence failure which can occur in the
-higher dimensional case.
-
-\begin{example}{}{pinch}
-  Show that $\displaystyle{\lim_{(x,y) \to
-      (0,0)}\frac{-xy}{x^2+y^2}}$ does not exist.
+    (b) Find the limit as $r \to 0$ of the function $g(r) = \cos r$ defined
+    on $(0,1)$.
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}
+    \begin{lrbox}{\asybox} 
+      \begin{asy}
+        size(3cm);
+        import graph;
+        defaultpen(fontsize(8)); 
+        real f(real r) { return 1 + r^2; }
+        real g(real r) {return cos(r);} 
+        draw(Label("$f(r)$",Relative(0.7),align=1.5*WNW),graph(f,0,1),MidnightBlue);
+        draw(Label("$g(r)$",Relative(0.7),align=NE),graph(g,0,1),DarkRed);
+        draw((1,0)--(0,0)--(0,2),Arrows(3));
+        label("$r$",(1,0),align=N);
+        draw(Label("1",Relative(1),align=W),(0,1)--(-0.05,1));
+        dot((0,1),UnFill);
+        dot((1,2),MidnightBlue,UnFill);
+        dot((1,cos(1)),DarkRed,UnFill);
+      \end{asy}
+    \end{lrbox}
+    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
+  \end{minipage}
 \end{example}
 
 \begin{solution}
-  \begin{minipage}{0.7\textwidth}
-    Let's begin by graphing the function.  It would appear, because of
-    the sharp ``crease'' along the $z$-axis, that the shadow of any
-    small disk around the origin (in the $xy$-plane) includes some
-    points which are well above the origin and some points which are
-    well below. This would imply that the limit does not exist.
+  (a) Since $f(r)$ decreases as $r$ decreases and $f$ is bounded below,
+  Definition~\ref{defn:limmon} says that the desired limit exists and
+  is equal to the greatest lower bound of the range of $f$. Since the
+  range of $f$ is the interval $(1,2)$, we see that the greatest lower
+  bound is $\boxed{1}$.
 
-    The graph suggests that the largest values occur along the line
-    $y=-x$, while the smallest values occur along the line $y = x$. We
-    can investigate this algebraically. If $t$ is a nonzero number, no
-    matter how small, then
-    \[
-      f(t,-t) = \frac{-t(-t)}{t^2 + (-t)^2} = \frac{1}{2}, 
-    \]
-    while
-    \[
-      f(t,t) = \frac{-t(t)}{t^2 + t^2} = -\frac{1}{2}. 
-    \]
-  \end{minipage}
-  \begin{minipage}{0.29\textwidth}
+  (b) Similarly, since $g(r)$ increases as $r$ decreases and is
+  bounded above, Definition~\ref{defn:limmon} says that the desired
+  limit exists and is equal to the least upper bound of the range of
+  $f$. We can see from the geometric definition of cosine (see
+  Section~\ref{sec:trigreview}) that $1$ is an upper bound for the
+  range of $\cos$ and that no smaller number is an upper
+  bound. Therefore, the limit is equal to $\boxed{1}$.
+\end{solution}
+
+Definition~\ref{defn:limmon} has many restrictions: it only applies to
+monotone, single-variable functions, and it is fundamentally
+one-sided.* We will drop all these restrictions in one swoop:
+\sidenote{* This means that only values of $r$ to the right of zero
+  are considered. Often the notation $\lim_{r\to 0^+}$ is used to
+  communicate the exclusion of values to the left, but this notation
+  is not necessary here since the domain of $f$ includes no negative
+  values}[-1cm]
+
+\begin{defn}{Limit of a function of function of multiple
+    variables}{limit_full_general} \parskip = 6pt Let $n \geq
+  1$. Suppose that $D \subset \R^n$, that $\mathbf{a}\in \R^n$ and
+  that $f:D \to \R$ is a function. For each $r \in (0,1)$, we consider
+  the \textbf{punctured ball}
+  $B^\star(\mathbf{a},r) = \{\mathbf{x} \in \R^n \,: \, 0 <
+  \left|\mathbf{x} - \mathbf{a}\right| \leq r \}$ of radius $r$
+  centered at $\mathbf{a}$. Suppose that $B^\star(\mathbf{a},r) \cap
+  D$ is non-empty for all $r > 0$. 
+
+  We define* $m(r)$ and $M(r)$ so that $[m(r),M(r)]$ is the smallest
+  closed interval which contains the image of
+  $B^\star(\mathbf{a},r) \cap D$ under $f$. Then we say that the limit
+  of $f(\mathbf{x})$ as $\mathbf{x} \to \mathbf{a}$ exists if $m(r)$
+  and $M(r)$ converge to a common value $L$ as $r \to 0$. In that
+  case, we say
+  $\displaystyle{\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = L}$;
+  otherwise, we say that the limit does not exist. \sidenote{* Put
+    another way, $m(r)$ is the greatest lower bound and $M(r)$ the
+    least upper bound of the range of $f$ restricted to
+    $B^\star(\mathbf{a},r) \cap D$}[-5mm]
+\end{defn}
+
+Let's begin with a function defined on $\R^1$ whose limit at the
+origin doesn't exist. 
+
+\begin{example}{}{oscill}
+  Show that the limit of $\cos (1/x)$ does not exist as $x\to0$. 
+\end{example}
+
+\begin{solution}
+  For any $r>0$, the function $\cos(1/x)$ has a maximum value of $1$
+  and a minimum value of $-1$ in the punctured interval
+  $B^\star(0,r)$, because $\cos(1/x) = 1$ whenever $x = \tfrac{1}{\pi
+    k}$ for some even integer $k$, and $\cos(1/x) = -1$ whenever $x=
+  \tfrac{1}{\pi k}$ for some odd integer $k$.
+  
+  Therefore, $M$ is the constant function $1$ and $m$
+  is the constant function $-1$. These functions converge to different
+  values, so the limit does not exist. 
+\end{solution}
+
+The limit in Example~\ref{exam:oscill} fails to exist because $f$ is
+\textit{oscillatory} at the origin. Limit existence failures for
+functions of multiple variables can look quite different: 
+
+\begin{example}{}{pinch}
+  Show that* $f(x,y) = -\frac{xy}{x^2 + y^2}$ does not have a limit as
+  $(x,y) \to (0,0)$. \sidenote{* See Figure~\ref{fig:limitnoshrink} for
+    a graph}
+\end{example}
+
+\begin{solution}
+  Let's represent the point $(x,y)$ as* \sidenote{* We use $t$ instead
+    of $r$ since we're already using $r$ as the radius of the
+    punctured ball} $(t \cos \theta, t\sin \theta)$. For all $t > 0$,
+  we have
+  \[
+    f(t\cos\theta, t\sin \theta) = \frac{ t^2 \sin \theta \cos
+      \theta}{t^2(\cos^2 \theta + \sin^2 \theta)} = \tfrac{1}{2} \sin
+    2\theta. 
+  \]
+  Therefore, for any $r > 0$, we have $m(r) = -\tfrac{1}{2}$ and $M(r) =
+  \tfrac{1}{2}$. Since these functions converge to unequal values as
+  $r \to 0$, it follows that the limit does not exist. 
+\end{solution}
+
+\begin{example}{}{}
+  Use Definition~\ref{defn:limit_full_general} to show directly that*
+  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
+    3}$.
+  \sidenote{* See Figure~\ref{fig:limitshrink} for a graph }
+\end{example}
+
+\begin{solution}
+  Writing $f(x,y) \colonequals 3 + x^2 - y^2$ in terms of polar
+  coordinates as
+  $3 + t^2(\cos^2 \theta - \sin^2 \theta) = 3 +t^2 \cos2\theta$, we
+  see that the least and greatest values of $f(x,y)$ for
+  $(x,y) \in B^\star((0,0),r)$ are $m(r) = 3-r^2$ and
+  $M(r) = 3 + r^2$, respectively. These functions converge as $r\to 0$
+  to a common value of $3$, by
+  Definition~\ref{defn:limmon}. Therefore,
+  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
+    3}$.
+\end{solution}
+
+
+\begin{center} 
+
+\begin{center} 
+  \begin{minipage}{0.32\textwidth}  
+    \centering
     \begin{asy}
       import graph3;
-      size(45mm);
+      size(40mm);
       defaultpen(fontsize(7));
       material surfacemat = material(diffusepen=LightSeaGreen,
       emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(5,2,2);
-      currentlight.background = softyellow;
-      draw(O--1.2*X,Arrow3());
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 0.75;
+      real eps = 0.82;
+      real eps2 = 0.04; 
+      draw(Label("$m(r)=3-r^2$",Relative(1),align=E),(0,eps,3-rad^2)--(0,eps+eps2,3-rad^2),fontsize(6));
+      draw(Label("$M(r)=3+r^2$",Relative(1),align=E),(0,eps,3+rad^2)--(0,eps+eps2,3+rad^2),fontsize(6));
+      draw(Label("$r$",Relative(0.5),align=S),(0,0,0)--(rad*cos(60*pi/180),rad*sin(60*pi/180),0)); 
+      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--3X,Arrow3());
+      draw(O--3Y,Arrow3());
+      draw(O--4*Z,Arrow3());
+      triple g(pair p) {
+        real r = p.x;
+        real theta = p.y;
+        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+      }
+      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+      draw(s,surfacemat);
+    \end{asy}
+  \end{minipage}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+      import graph3;
+      size(40mm);
+      defaultpen(fontsize(7));
+      material surfacemat = material(diffusepen=LightSeaGreen,
+      emissivepen=0.2*LightSeaGreen);
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 4/2^4;
+      real eps = 0.32;
+      real eps2 = 0.04; 
+      draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
+      draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
+      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--3X,Arrow3());
+      draw(O--3Y,Arrow3());
+      draw(O--4*Z,Arrow3());
+      triple g(pair p) {
+        real r = p.x;
+        real theta = p.y;
+        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+      }
+      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+      draw(s,surfacemat);
+    \end{asy}
+  \end{minipage}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+      import graph3;
+      size(40mm);
+      defaultpen(fontsize(7));
+      material surfacemat = material(diffusepen=LightSeaGreen,
+      emissivepen=0.2*LightSeaGreen);
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 4/2^5;
+      real eps = rad*1.2;
+      real eps2 = 0.04; 
+      draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
+      draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
+      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--3X,Arrow3());
+      draw(O--3Y,Arrow3());
+      draw(O--4*Z,Arrow3());
+      triple g(pair p) {
+        real r = p.x;
+        real theta = p.y;
+        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
+      }
+      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+      draw(s,surfacemat);
+      label("3",3*Z,align=2*W); 
+    \end{asy}
+  \end{minipage}
+  \captionof{figure}{The image under $f$ of the ball of radius $r$ is
+    the interval $[3-r^2, 3+r^2]$, which shrinks down around 3 as $r
+    \to 0$. So the limit exists and equals 3 
+  } \label{fig:limitshrink}
+\end{center}
+
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+      import graph3;
+      defaultpen(fontsize(7));
+      material surfacemat = material(diffusepen=LightSeaGreen,
+      emissivepen=0.2*LightSeaGreen);
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 0.5; 
+      size(45mm);
+      real eps = 0.58;
+      real eps2 = 0.04; 
+      draw(Label("$m(r)=-\frac{1}{2}$",Relative(1),align=E),(0,eps,-1/2)--(0,eps+eps2,-1/2),fontsize(6));
+      draw(Label("$M(r) =
+      \frac{1}{2}$",Relative(1),align=E),(0,eps,1/2)--(0,eps+eps2,1/2),fontsize(6));
+      draw((0,eps+eps2/2,-1/2) -- (0,eps+eps2/2,1/2)); 
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--1.2X,Arrow3());
       draw(O--1.15*Y,Arrow3());
-      draw(O--1.1*Z,Arrow3());
+      draw(-1.1*Z--1.1*Z,Arrows3());
       real theta = pi/4; 
       real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
         return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
@@ -2936,40 +3038,166 @@ higher dimensional case.
         return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
       }
       label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(1,2*pi),50, Spline); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
       draw(s,surfacemat);
     \end{asy}
   \end{minipage}
-  
-  Therefore, the adversary has a strategy for winning the limit game,
-  no matter what $L$ is. For example, if $L \geq 0$, then the
-  adversary can choose $\epsilon = \tfrac{1}{4}$, and then no matter
-  which $\delta$ you choose, the adversary can select
-  $(x,y) = (\frac{\delta}{10}, \frac{\delta}{10})$. Then
-  $f(x,y) = -\tfrac{1}{2}$, which is not within $\epsilon$ of
-  $L$. Similarly, if $L < 0$, then the adversary can choose
-  $\epsilon = \tfrac{1}{4}$ again and then
-  $(x,y) = (-\frac{\delta}{10}, \frac{\delta}{10})$. Since the
-  adversary has a winning strategy for any value of $L$, the limit
-  does not exist.
-\end{solution}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+      import graph3;
+      defaultpen(fontsize(7));
+      material surfacemat = material(diffusepen=LightSeaGreen,
+      emissivepen=0.2*LightSeaGreen);
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 1/2^4; 
+      size(45mm);
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--1.2X,Arrow3());
+      draw(O--1.15*Y,Arrow3());
+      draw(-1.1*Z--1.1*Z,Arrows3());
+      real theta = pi/4; 
+      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+        return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+      }
+      triple g(pair p) {
+        real r = p.x;
+        real theta = p.y;
+        return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+      }
+      label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+      draw(s,surfacemat);
+    \end{asy}
+  \end{minipage}
+  \begin{minipage}{0.32\textwidth}  
+    \centering
+    \begin{asy}
+      import graph3;
+      defaultpen(fontsize(7));
+      material surfacemat = material(diffusepen=LightSeaGreen,
+      emissivepen=0.2*LightSeaGreen);
+      currentprojection = perspective(10,4,4);
+      int n = 10;
+      real rad = 1/2^6; 
+      size(45mm);
+      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
+      draw(O--1.2X,Arrow3());
+      draw(O--1.15*Y,Arrow3());
+      draw(-1.1*Z--1.1*Z,Arrows3());
+      real theta = pi/4; 
+      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+        return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
+      }
+      triple g(pair p) {
+        real r = p.x;
+        real theta = p.y;
+        return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
+      }
+      label("$\displaystyle{f(x,y) =
+        -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E);
+      draw(Label("$\frac{1}{2}$",Relative(1),align=E),1/2*Z--1/2*Z+0.05*Y);
+      draw(Label("$-\frac{1}{2}$",Relative(1),align=E),-1/2*Z-- -1/2*Z+0.05*Y); 
+      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
+      draw(s,surfacemat);
+    \end{asy}
+  \end{minipage}
+  \captionof{figure}{The image under $f$ of the ball of radius $r$ is
+    $\left[-\tfrac{1}{2},\tfrac{1}{2}\right]$ no matter how small $r$
+    is. So the limit does not exist} \label{fig:limitnoshrink}
+\end{center}
 
-In Example~\ref{exam:pinch}, there are two directions of approach
-along which $f$ has different limits. Along the line $y = x$, the
-values of $f(x,y)$ approach* $-\tfrac{1}{2}$. Along the line $y = -x$,
-$f(x,y)$ converges to $\tfrac{1}{2}$. This is always an obstruction to
-the existence of a limit: \sidenote{* Indeed, these values are
-  all equal to $-\tfrac{1}{2}$}[-5mm]
+\vspace{-12pt} 
 
 \begin{exercise}{}{}
+  Use Definition~\ref{defn:limit_full_general} to show that
+  $f(x,y) = \sin\left(\tfrac{1}{x^2 + y^2}\right)$ does not have a
+  limit as $(x,y) \to (0,0)$.
+\end{exercise}
+
+In Example~\ref{exam:pinch}, there are two directions of approach
+along which $f$ has different limits. Along the ray
+$\theta = \tfrac{\pi}{4}$, the values of $f(x,y)$ approach*
+$-\tfrac{1}{2}$. Along the ray $\theta = - \tfrac{\pi}{4}$, $f(x,y)$
+converges to $\tfrac{1}{2}$. This is always an obstruction to the
+existence of a limit: \sidenote{* Indeed, these values are all equal
+  to $-\tfrac{1}{2}$}[-5mm]
+
+\begin{theo}{}{}
   Suppose that $\mathbf{r}_1$ and $\mathbf{r}_2$ are paths in the
   plane with the property that $\mathbf{r}_1(0) = (a,b)$ and
   $\mathbf{r}_2(0) = (a,b)$. If $\lim_{t \to 0}f(\mathbf{r}_1(t))$ and
   $\lim_{t \to 0}f(\mathbf{r}_2(t))$ exist and are unequal, show that 
   $\displaystyle{\lim_{(x,y) \to (a,b)} f(x,y)}$ does not exist. 
-\end{exercise} \bang{-1.5cm}
+\end{theo} \bang{-1.5cm}
 
-Now, suppose we know that the limits of $f(x,y)$ along every line
+\begin{solution}[title=Proof]
+  Let's define $L_i = \lim_{t \to 0}f(\mathbf{r}_i(t))$ for $i=1$ and
+  $i=2$. Note that $m(r) \leq \min(L_1,L_2)$ for all $r > 0$ since any
+  number larger than $\min(L_1,L_2)$ is not a lower bound for the
+  values of the function on $B^\star((a,b),r)$. Similarly,
+  $M(r) \geq \max(L_1,L_2)$ for all $r > 0$. Therefore,
+  $\lim_{r\to 0} m(r) \leq \min(L_1, L_2)$ while
+  $\lim_{r\to 0} M(r) \geq \max(L_1,L_2)$, so the limit of $f(x,y)$ does not
+  exist as $(x,y) \to (a,b)$.
+
+\end{solution}
+
+With the notion of a multidimensional limit in hand, we can define
+continuity the same as in the one-dimensional case.
+
+\begin{defn}{}{continuity}
+  Suppose $n \geq 2$. A function $f: \R^n \to \R$ is continuous at a
+  point in $\R^n$ if and only if the limit of $f$ exists at that point
+  and equals the value of the function there.
+
+  A function $f: \R^n \to \R$ is said to be continuous if it is
+  continuous at every point in $\R^n$.
+\end{defn}
+
+More generally, a function $f:D \to \R$---where $D \subset \R^n$---is
+said to be continuous if it is continuous at each point in its
+domain $D$. The following theorem gives us some tools for establishing
+continuity. 
+
+\begin{theo}{Continuous functions}{continuity_builders}
+  \begin{enumerate}[leftmargin = 12pt]
+  \item If $f  \!:\! \R^n \to \R$ is continuous and $g: \R \to \R$
+    is continuous, then* $g\circ f :\R^n \to \R$ is
+    continuous. \sidenote{$g\circ f$ denotes the \textit{composition} of
+      $g$ and $f$. See Appendix~\ref{a:setsandfunctions}}
+  \item A sum or product of continuous functions is continuous. 
+  \item The ``coordinate-extracting'' functions $f(x,y,z) = x$, $f(x,y,z) = y$, etc., are
+    continuous.
+  \end{enumerate}
+\end{theo}
+
+\begin{example}{}{}
+  Show that $\displaystyle{\lim_{(x,y,z) \to (0,0,0)}\left(\e^{\sin x} + \frac{xyz}{1 + x^2
+        z^2}\right)} = 1$. 
+\end{example}
+
+\begin{solution}
+  We begin by showing that $\e^{\sin x} + \frac{xyz}{1 + x^2 z^2}$ is
+  continuous.  Note that $\e^{\sin x}$ is a composition of continuous
+  functions: 
+  \[
+    (x,y,z) \mapsto x \mapsto \sin x \mapsto \e^{\sin x}, 
+  \]
+  Therefore, it's continuous by Theorem~\ref{th:continuity_builders}. Similarly,
+  $\frac{xyz}{1 + x^2 z^2}$ is continuous wherever $1 + x^2 z^2 \neq
+  0$, which is everywhere since $(xz)^2 \geq 0$. Finally, the sum of
+  two continuous functions is continuous, so $\e^{\sin x} +
+  \frac{xyz}{1 + x^2 z^2}$ is continuous.
+
+  Since the function above is continuous, its limit at each point is
+  equal to its value at that point. So we substitute $x=y=z=0$ and
+  find that the value of the function at the origin is
+  $\e^0 + \frac{0}{1+0} = 1$.
+\end{solution}
+
+Suppose we know that the limits of $f(x,y)$ along every line
 passing through the origin exist and that they are all equal to some
 common value $L$. Does this imply that
 $\lim_{(x,y) \to (0,0)}f(x,y) = L$? Perhaps it seems that it should,
@@ -3036,10 +3264,11 @@ approach. Remarkably, this turns out not to be the case:
       draw(s,surfacemat);
     \end{asy}
   \end{minipage}
-  Since we're considering each value of $\theta$ individually, the
-  $\cos \theta$ and $\sin \theta$ factors are constants. So we see
-  that the numerator converges to $0$ and the denominator converges to
-  $\sin^2\theta$. Therefore, as long as $\sin \theta \neq 0$, we have
+  If we consider the limit of this expression as $t\to 0$ with
+  $\theta$ fixed, then the $\cos \theta$ and $\sin \theta$ factors are
+  constants. So we see that the numerator converges to $0$ and the
+  denominator converges to $\sin^2\theta$. Therefore, as long as
+  $\sin \theta \neq 0$, we have
   $\lim_{t\to 0}f(t\cos\theta, t \sin \theta) = 0/\sin^2\theta =
   0$. However, if $\sin \theta = 0$, then
   $f(t\cos\theta, t \sin \theta) = 0$ for all $t$, so
@@ -3062,95 +3291,6 @@ approach. Remarkably, this turns out not to be the case:
   other than zero.
 \end{solution}
 
-With the notion of a multidimensional limit in hand, we can define
-continuity the same as in the one-dimensional case.
-
-\begin{defn}{}{continuity}
-  Suppose $n \geq 2$. A function $f: \R^n \to \R$ is continuous at a
-  point in $\R^n$ if and only if the limit of $f$ exists at that point
-  and equals the value of the function there.
-
-  A function $f: \R^n \to \R$ is said to be continuous if it is
-  continuous at every point in $\R^n$.
-\end{defn}
-
-More generally, a function $f:D \to \R$---where $D \subset \R^n$---is
-said to be continuous if it is continuous at each point in its
-domain $D$. The following theorem gives us some tools for establishing
-continuity. 
-
-\begin{theo}{Continuous functions}{continuity_builders}
-  \begin{enumerate}[leftmargin = 12pt]
-  \item If $f  \!:\! \R^n \to \R$ is continuous and $g: \R \to \R$
-    is continuous, then* $g\circ f :\R^n \to \R$ is
-    continuous. \sidenote{$g\circ f$ denotes the \textit{composition} of
-      $g$ and $f$. See Appendix~\ref{a:setsandfunctions}}
-  \item A sum or product of continuous functions is continuous. 
-  \item The ``coordinate-extracting'' functions $f(x,y,z) = x$, $f(x,y,z) = y$, etc., are
-    continuous.
-  \end{enumerate}
-\end{theo}
-
-\begin{example}{}{}
-  Show that $\displaystyle{\lim_{(x,y,z) \to (0,0,0)}\left(\e^{\sin x} + \frac{xyz}{1 + x^2
-        z^2}\right)} = 1$. 
-\end{example}
-
-\begin{solution}
-  We begin by showing that $\e^{\sin x} + \frac{xyz}{1 + x^2 z^2}$ is
-  continuous.  Note that $\e^{\sin x}$ is a composition of continuous
-  functions: 
-  \[
-    (x,y,z) \mapsto x \mapsto \sin x \mapsto \e^{\sin x}, 
-  \]
-  Therefore, it's continuous by Theorem~\ref{th:continuity_builders}. Similarly,
-  $\frac{xyz}{1 + x^2 z^2}$ is continuous wherever $1 + x^2 z^2 \neq
-  0$, which is everywhere since $(xz)^2 \geq 0$. Finally, the sum of
-  two continuous functions is continuous, so $\e^{\sin x} +
-  \frac{xyz}{1 + x^2 z^2}$ is continuous.
-
-  Since the function above is continuous, its limit at each point is
-  equal to its value at that point. So we substitute $x=y=z=0$ and
-  find that the value of the function at the origin is
-  $\e^0 + \frac{0}{1+0} = 1$.
-\end{solution}
-
-We conclude this section with one more tool for showing that a limit
-\textit{does} exist: \textbf{polar coordinates}.
-
-\begin{example}{}{}
-  Show that $\displaystyle{\lim_{(x,y) \to (0,0)}\frac{x^6 y}{x^4 + y^4} = 0}$. 
-\end{example}
-
-\begin{solution}
-  For any point $(x,y)$, let's define $r$ and $\theta$ to be the polar
-  coordinates of that point and calculate
-  \[
-    \frac{x^6 y}{x^4 + y^4} = \frac{(r^6 \cos^6 \theta) (r\sin \theta)}{r^4
-      \cos^4 \theta + r^4\sin^4 \theta} = r^3 \left(\frac{\cos^6\theta \sin
-        \theta}{ \cos^4 \theta + \sin^4\theta}\right). 
-  \]
-  Now note that the expression
-  $\frac{\cos^6\theta \sin \theta}{ \cos^4 \theta + \sin^4\theta}$ is
-  continuous over $[0,2\pi]$ and therefore bounded in absolute value*
-  by some constant $C$. \sidenote{* This means that the expression is
-    never less than $-C$ or greater than $C$}[-8mm]
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/find_local_maximum.ipynb}{\cocalc[-5pt]}
-    Actually, $C = 0.34$ works }[8mm]
-
-  We can use this observation to describe a winning strategy in the
-  limit game. Whatever $\epsilon$ is selected by the adversary, we
-  choose $\delta$ to be $\sqrt[3]{\frac{\epsilon}{C}}$. Then, 
-  no matter which $(x,y)$ pair the adversary selects, the fact that
-  the polar coordinate $r$ of $(x,y)$ has to be less than
-  $\sqrt[3]{\frac{\epsilon}{C}}$ implies that, regardless $(x,y)$'s
-  $\theta$ value, we have 
-  \[
-    |f(x,y)| <  \left(\sqrt[3]{\frac{\epsilon}{C}}\right)^3 C =
-    \epsilon, 
-  \]
-  as desired. 
-\end{solution}
 
 \begin{exercise}{}{}
   Show that $\displaystyle{\lim_{(x,y) \to (0,0)} \frac{x^3 + y^3}{x^2 + y^2}} =
@@ -3160,7 +3300,7 @@ We conclude this section with one more tool for showing that a limit
 \begin{exercise}{}{}
   Consider the function $f$ defined by $f(x,y) = \frac{x-y}{x^3-y}$
   whenever $y \neq x^3$, and $f(x,y) = 1$ when $y = x^3$. Show that
-  $f$ is not continuous at $(1,1)$. Evaluate the limits along along
+  $f$ is not continuous at $(1,1)$. Evaluate the limits along 
   $x=1$ and along $y=1$.
 \end{exercise}
 
@@ -3334,7 +3474,7 @@ derivative of a single-variable function.
   \newsavebox{\asyboxtwo}
   \newsavebox{\asyboxthree}
   \begin{lrbox}{\asybox}
-    \begin{asy}[width=4.5cm]
+    \begin{asy}[width=3.5cm]
       import graph3; 
       picture myaxes;
       draw(myaxes,O--1.2*X,Arrow3());
@@ -3373,7 +3513,7 @@ derivative of a single-variable function.
     \end{asy}
   \end{lrbox}
   \begin{lrbox}{\asyboxtwo}
-    \begin{asy}[width=4.5cm]
+    \begin{asy}[width=3.5cm]
       import graph3; 
       picture myaxes;
       draw(myaxes,O--1.2*X,Arrow3());
@@ -3413,7 +3553,7 @@ derivative of a single-variable function.
   \end{lrbox}
   
   \begin{lrbox}{\asyboxthree}
-    \begin{asy}[width=4.5cm]
+    \begin{asy}[width=3.5cm]
       import graph3; 
       picture myaxes;
       draw(myaxes,O--1.2*X,Arrow3());
@@ -3448,7 +3588,7 @@ derivative of a single-variable function.
       draw((1,1,0)--(1,1,fy((1,1))),gray);  
     \end{asy}
   \end{lrbox}
-  
+  \vspace{-5mm}
   \begin{center}  
     \begin{tabular}{M{0.3\textwidth}M{0.3\textwidth}M{0.3\textwidth}N}
       \usebox{\asyboxthree} & \usebox{\asybox} & \usebox{\asyboxtwo}
@@ -3497,14 +3637,13 @@ variables.
 
 However, recall from Example~\ref{exam:pinch} that the function in
 Example~\ref{exam:pinchder} isn't even continuous at the origin! We
-haven't said yet what is required for a function of two variables to be
-considered differentiable, but whatever the definition, we surely cannot allow
-functions which aren't continuous to be deemed differentiable. 
-
-This shouldn't be surprising: the partial derivatives only look at the
-behavior of the function along two lonely slices. A good definition of
-differentiability at $(a,b)$ should account for how the function
-behaves all around $(a,b)$.
+haven't said yet what is required for a function of two variables to
+be considered differentiable, but whatever the definition, we surely
+cannot allow functions which aren't continuous to be deemed
+differentiable. This shouldn't be surprising: the partial derivatives
+only look at the behavior of the function along two slices. A good
+definition of differentiability at $(a,b)$ should account for how the
+function behaves all around $(a,b)$.
 
 Another perspective on differentiability in the single-variable
 context is that \textit{differentiable functions are the ones which
@@ -3562,7 +3701,11 @@ that $f$ is differentiable everywhere.
   differentiable everywhere.
 \end{solution}
 
-\begin{wrapfigure}[10]{O}{5cm}
+In the denominator we replaced $|x-a|$, whose geometric meaning is
+the distance from $x$ to $a$ on the number line, with the formula
+for the distance from $(x,y)$ to $(a,b)$ in the plane.
+
+\begin{lrbox}{\asybox}
   \begin{asy}[width=5cm]
     import graph3; 
 
@@ -3610,29 +3753,27 @@ that $f$ is differentiable everywhere.
     draw((1,0,0)--(1,2,0),gray);
     draw((0,1,0)--(2,1,0),gray); 
   \end{asy}
-  \caption{A plane tangent to the graph of a function
-    $f$ \label{fig:tangentplane}}
-\end{wrapfigure}
+\end{lrbox}
 
-In the denominator we replaced $|x-a|$, whose geometric meaning is
-the distance from $x$ to $a$ on the number line, with the formula
-for the distance from $(x,y)$ to $(a,b)$ in the plane.
-
-Graphically, Definition~\ref{defn:diff} says that a function is
+\insetfigure{
+  Graphically, Definition~\ref{defn:diff} says that a function is
 differentiable at $(a,b)$ if we can draw a plane which is tangent*
 to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* To
   interpret this statement as a theorem, we would need to first say
   what it means for the plane to be \textit{tangent} on some basis
   other than Definition~\ref{defn:diff} (to avoid circular
-  reasoning). So take this as intuition only}[0pt][-4cm]
+  reasoning). So take this as intuition only}[0cm]
 
-In Theorem~\ref{th:diff_linear}, the coefficients of the
-approximating function $L$ are the value of the function $f$ at $a$
-and the derivative of $f$ at $a$. The coefficients in
-Definition~\ref{defn:diff} are also named quantities: as suggested
-by Figure~\ref{fig:tangentplane}, $c_1$ is the value of the function
-at $(a,b)$ and $c_1$ and $c_2$ are the two partial derivatives at
-$(a,b)$:
+\vspace{12pt} 
+
+In Theorem~\ref{th:diff_linear}, the coefficients of the approximating
+function $L$ are the value of the function $f$ at $a$ and the
+derivative of $f$ at $a$. The coefficients in
+Definition~\ref{defn:diff} are also quantities that we have names for:
+as suggested by Figure~\ref{fig:tangentplane}, $c_1$ is the value of
+the function at $(a,b)$ and $c_1$ and $c_2$ are the two partial
+derivatives at $(a,b)$.}{\usebox{\asybox}}[\captionof{figure}{A plane
+tangent to the graph of a function $f$ \label{fig:tangentplane}}]
 
 \vspace{12pt} 
 
@@ -3671,7 +3812,7 @@ Let's see how this theorem can be used numerically.
     $0.490197\ldots$ } 
 \end{solution}
 
-\section{Taylor's theorem} \label{sec:taylor}
+\section{Taylor's theorem*} \label{sec:taylor}
 
 \begin{figure}[h!]
   \begin{minipage}[b]{0.32\textwidth}
@@ -6682,7 +6823,7 @@ the coordinates $u$ and $v$. \sidenote{* If all the boundary arcs are
   bounded by the parabolas $y^2 = 4-4x$ and $y^2 = 4+4x$. 
 \end{exercise}
 
-\section{Applications of integration} \label{sec:applications}
+\section{Applications of integration*} \label{sec:applications}
 
 \subsection{Average value}
 
@@ -7792,8 +7933,9 @@ beautiful relationship between line integrals along the boundary of a
 curve and double integrals over the enclosed region. \sidenote{*
   Invented in 1854}[-1cm]
 
-\begin{theo}[left skip = 4.2cm, width = \dimexpr \textwidth -
-  4.2cm \relax]{Green's theorem}{green}
+% \begin{theo}[left skip = 4.2cm, width = \dimexpr \textwidth -
+%   4.2cm \relax]{Green's theorem}{green}
+\begin{theo}{Green's theorem}{green}
   If $\mathbf{F} = \langle M, N\rangle$ is a vector field* on $\R^2$
   with continuous partial derivatives, and if $D$ is a region bounded
   by a simple, counterclockwise-oriented, piecewise smooth curve $C$,
@@ -8868,8 +9010,9 @@ $D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
   volume, so the product is the net flow out of the piece}[-1cm]
 
 
-\begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth - 4.25
-  cm \relax]{Divergence theorem}{divergence}
+%\begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth -
+%  4.25cm \relax]{Divergence theorem}{divergence}
+\begin{theo}{Divergence theorem}{divergence} 
   If $\mathbf{F} : \R^3 \to \R^3$ is a vector field with continuous
   partial derivatives and $D$ is a region in $\R^3$ bounded by a
   piecewise smooth surface $S = \partial D$, then 
@@ -9060,7 +9203,7 @@ $D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
     }
     
     real eps = 0.03; 
-    orientedbox(segment2, 0,0,w,h,MidArrow3(DefaultHead2)); 
+    orientedbox(segment2,0,0,w,h,MidArrow3(DefaultHead2)); 
   \end{asy}
   \caption{The circulation of $\mathbf{F}$ (not shown) around each
     patch sums to the circulation around the boundary of the
@@ -9088,8 +9231,9 @@ known as \textit{Stokes' theorem}.* \sidenote{* If you take a
   result of the same name which implies the divergence theorem and
   Theorem~\ref{th:stokes} as special cases}[-4mm]
 
-\begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth - 4.25
-  cm \relax]{Stokes' theorem}{stokes}
+% \begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth - 4.25
+%   cm \relax]{Stokes' theorem}{stokes}
+\begin{theo}{Stokes' theorem}{stokes} 
   If $\mathbf{F} : \R^3 \to \R^3$ is a vector field with continuous
   partial derivatives and $S$ is a surface in $\R^3$, then*
   \sidenote{* The orientation used for the surface integral must be
@@ -10220,6 +10364,8 @@ representation.
   \end{tcolorbox}
 \end{tcbraster}
 
+\vspace{12pt}
+
 \begin{table}[h!]
   \centering
   \begin{tabular}{M{4.2cm}|M{4.2cm}|M{4.2cm}}
@@ -10236,397 +10382,173 @@ representation.
 
 \section{Technical Appendix}
 
-\subsection{Limits: a different perspective}
-\label{sec:limitsappendix}
+\subsection{The conventional definition of a limit}
+\label{sec:limitappendix}
 
-In this appendix, we will develop the idea of a limit rigorously and
-without the use of $\epsilon$-$\delta$ formalism.  We begin with the
-notion of limit at 0 for a \textit{monotone} function from*
-\sidenote{* The upper bound of the interval $(0,1)$ is immaterial
-  here, since we will be interested in the limit at 0} $(0,1)$ to
-$\R$. We say that a function is \textbf{bounded below} if its range is
-a subset of $[a,\infty)$ for some $a \in \R$, and we say that it is
-\textbf{bounded above} if its range is a subset of $(-\infty,b]$ for
-some $b \in \R$. 
+\begin{wrapfigure}[14]{O}{8cm}
+  \begin{asy}[width=8cm]
+    // limit2d
+    defaultpen(fontsize(8)); 
+    import graph;
+    defaultpen(linewidth(1.5));
 
-\begin{defn}{Limit of a monotone function on $(0,1)$}{limmon} \parskip = 6 pt 
-  Suppose that $f:(0,1) \to \R$ is bounded below and has the property
-  that $f(r)$ decreases as $r$ decreases --- in other words,
-  we have $f(r) \leq f(s)$ for all $0 \leq r \leq s \leq 1$. Then we define
-  $L$ to be the greatest real number such that $L \leq f(r)$ for all
-  $r\in (0,1)$. 
+    draw((0,0)--(2,0),EndArrow(4));
+    draw((0,0)--(0,1.2),EndArrow(4)); 
 
-  Similarly, if $f$ is bounded above and has the property that $f(r)$
-  increases as $r$ decreases, then we define $L$ to be the least real
-  number such that $L \geq f(r)$ for all $r \in (0,1)$.
+    real f(real t){
+      return exp(-t^2); 
+    }
 
-  In either case, we say that $r\to0$ of $f(r)$ exists and is equal to
-  $L$, that is,  $\displaystyle{\lim_{r\to 0} f(r) = L}$. 
+    draw(graph(f,0,2),MidnightBlue);
+    label("$f(x)$",(0.3,1.05),MidnightBlue); 
+
+    real epsilon = 0.05;
+    real a = sqrt(log(3/2));
+    real delta = 0.045;
+    real L = 2/3; 
+
+    draw((0,L-epsilon)--(2,L-epsilon),linewidth(0.7));
+    draw((0,L+epsilon)--(2,L+epsilon),linewidth(0.7)); 
+    draw((a-delta,0) -- (a-delta,1.2),linewidth(0.7));
+    draw((a+delta,0) -- (a+delta,1.2),linewidth(0.7)); 
+
+    label(rotate(90)*"$a-\delta$",(a-delta,0),align=S);
+    label(rotate(90)*"$a+\delta$",(a+delta,0),align=S); 
+
+    label("$L-\epsilon$",(0,L-epsilon),align=W);
+    label("$L+\epsilon$",(0,L+epsilon),align=W); 
+
+    dot("$(a,L)$",(a,L),linewidth(4.0),align=3*E);
+  \end{asy}
+  \caption{The $\epsilon$-$\delta$ definition of a limit. \label{fig:oneDlimit}}
+\end{wrapfigure}
+Recall that $f(x)$ converges to $L$ as $x\to a$ if $f(x)$ can be made
+as close to $L$ as desired by restricting $x$ to a sufficiently small
+neighborhood of $a$. More precisely, $f(x)$ converges to $L$ as
+$x\to a$ if and only if for every $\epsilon > 0$, there is $\delta>0$
+so that $f(x)$ within $\epsilon$ of $L$ for all $x$ satisfying
+$0 < |x - a| < \delta$ (see Figure~\ref{fig:oneDlimit}). \sidenote{*
+  We abbreviate ``$f(x)$ converges to $L$ as $x\to a$'' to
+  $\displaystyle{\lim_{x \to a}f(x) = L}$}
+
+It can be helpful to think of this definition as a game against an
+adversary: the adversary chooses a positive real number $\epsilon$
+which can be as small as they like. Then, after seeing the $\epsilon$
+value, you get to choose a number $\delta>0$, as small as you
+like. Finally, the adversary chooses an $x$ value in the interval
+$(a-\delta, a + \delta)$ which is not equal to $a$. If it turns out
+that $|f(x) - L| \geq \epsilon$, then the adversary wins. Otherwise,
+you win. We call this the \textbf{limit game}.
+
+If you have a strategy for winning this game no matter how the
+adversary plays, then the limit of $f(x)$ as $x$ approaches $a$ exists
+and equals $L$. If the adversary has a strategy for winning, then it
+is not true that $\lim_{x \to a} f(x) = L$ (either because the limit
+does not exist or because the limit exists and equals a number other
+than $L$).
+
+\begin{exercise}{}{}
+  Show that $\displaystyle{\lim_{x \to 3}}\dfrac{x^2 - 9}{x - 3} = 6$
+  by explaining the winning strategy in the limit game.
+\end{exercise}
+
+\begin{exercise}{}{}
+  Suppose that $f$ is a function from $\R$ to $\R$ and that
+  $a \in \R$. Show that if $f(x)$ converges to $L$ as $x\to a$ and
+  $f(x)$ converges to $L'$ as $x\to a$, then $L = L'$. This fact is
+  called \textit{uniqueness of limits}.
+\end{exercise}
+
+We reviewed the definition of a limit for a single-variable function
+so we could think about how to generalize the definition for a
+function $f:\R^n \to \R$. For simplicity, let's take $n = 2$. What
+should it mean to say
+$\displaystyle{\lim_{(x,y) \to (a,b)} f(x,y)} = L$? The only aspect of
+the definition that requires revision is the part about $x$ being
+within $\delta$ of $a$, and we can use standard Euclidean distance to
+compare $(x,y)$ to $(a,b)$. This leads to the following
+definition.
+
+\begin{defn}{Limit of a function of two variables}{limit}
+  We say $\lim_{(x,y)\to (a,b)} f(x,y) = L$ if and only if for every
+  $\epsilon > 0$, there is $\delta>0$ so that
+  $|f(x,y) - L| < \epsilon$ for all $(x,y)$ satisfying
+  $0 < \sqrt{(x -a)^2 + (y-b)^2} < \delta$.
 \end{defn}
 
-\begin{example}{}{}
-  \begin{minipage}[t]{0.75\textwidth} \parskip = 12pt 
-    (a) Find the limit as $r \to 0$ of the function $f(r) = 1 + r^2$ defined
-    on $(0,1)$.
+\newpage 
 
-    (b) Find the limit as $r \to 0$ of the function $g(r) = \cos r$ defined
-    on $(0,1)$.
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}
-    \begin{lrbox}{\asybox} 
-      \begin{asy}
-        size(3cm);
-        import graph;
-        defaultpen(fontsize(8)); 
-        real f(real r) { return 1 + r^2; }
-        real g(real r) {return cos(r);} 
-        draw(Label("$f(r)$",Relative(0.7),align=1.5*WNW),graph(f,0,1),MidnightBlue);
-        draw(Label("$g(r)$",Relative(0.7),align=NE),graph(g,0,1),DarkRed);
-        draw((1,0)--(0,0)--(0,2),Arrows(3));
-        label("$r$",(1,0),align=N);
-        draw(Label("1",Relative(1),align=W),(0,1)--(-0.05,1));
-      \end{asy}
-    \end{lrbox}
-    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
-\end{example}
+\begin{wrapfigure}[8]{O}{5cm}
+  \begin{asy}[width=5cm]
+    size(8cm); 
+    import graph3;
 
-\begin{solution}
-  (a) Since $f(r)$ decreases as $r$ decreases and $f$ is bounded below,
-  Definition~\ref{defn:limmon} says that the desired limit exists and
-  is equal to the greatest lower bound of the range of $f$. Since the
-  range of $f$ is the interval $(1,2)$, we see that the greatest lower
-  bound is $\boxed{1}$.
+    draw(O--1.2*Z,Arrow3());
+    draw(O--X,Arrow3());
+    draw(O--Y,Arrow3()); 
+    
+    triple f(pair z) {return (z.x*cos(z.y),z.x*sin(z.y),z.x^2);}
+    triple g(pair z) {return (1e-2+1/2 + z.x*cos(z.y),
+      1e-2+1/2 + z.x*sin(z.y),
+      (1/2 + z.x*cos(z.y))^2 +
+      (1/2 + z.x*sin(z.y))^2);}
 
-  (b) Similarly, since $g(r)$ increases as $r$ decreases and is
-  bounded above, Definition~\ref{defn:limmon} says that the desired
-  limit exists and is equal to the least upper bound of the range of
-  $f$. We can see from the geometric definition of cosine (see
-  Section~\ref{sec:trigreview}) that $1$ is an upper bound for the
-  range of $\cos$ and that no smaller number is an upper
-  bound. Therefore, the limit is equal to $\boxed{1}$.
-\end{solution}
+    real L = 1/2;
+    real eps = 0.16;
+    real x = 1;
+    real y = 0.3; 
 
-Definition~\ref{defn:limmon} has many restrictions: it only applies to
-monotone, single-variable functions, and it is fundamentally
-one-sided.* Nevertheless, we can bootstrap our way from
-Definition~\ref{defn:limmon} to the fully general setting in $\R^n$: \sidenote{*
-  This means that only values of $r$ to the right of zero are
-  considered. Often the notation $\lim_{r\to 0^+}$ is used to
-  communicate the exclusion of values to the left, but this notation is
-  not necessary here since the domain of $f$ includes no negative
-  values}[-5cm]
+    currentprojection = perspective(2,4,1.4); 
+    
+    surface s = surface((-y,x,L-eps)--(x,x,L-eps)--(x,-y,L-eps)--(-y,-y,L-eps)--cycle);
+    surface t = surface((-y,x,L+eps)--(x,x,L+eps)--(x,-y,L+eps)--(-y,-y,L+eps)--cycle); 
 
-\begin{defn}{Limit of a function of function of multiple
-    variables}{limit_full_general} \parskip = 6pt Let $n \geq 1$. Suppose that
-  $D \subset \R^n$, that $\mathbf{a} \in D$, and that $f:D \to
-  \R$ is a function. For each $r \in (0,1)$, we consider the \textbf{punctured ball}
-  $B^\star(\mathbf{a},r) = \{\mathbf{x} \in \R^n \,: \, 0 <
-  \left|\mathbf{x} - \mathbf{a}\right| < r \}$ of radius $r$ centered
-  at $\mathbf{a}$.
+    pen planecolor = LightSeaGreen; 
+    
+    draw(s,planecolor+opacity(0.5));
+    draw(surface(xscale(-0.21)*yscale(0.15)*"$L-\epsilon$",s,0.05,0.05,5e-3),gray); 
+    draw(t,planecolor+opacity(0.5));
+    draw(surface(xscale(-0.21)*yscale(0.15)*"$L+\epsilon$",t,0.02,0.02,5e-3),gray); 
+    
+    draw(surface(f,(0,0),(1,pi/2),20),LightSeaGreen+opacity(0.3),black);
+    draw(surface(g,(0,0),(0.1,2*pi),50),green+opacity(0.6)); 
+    draw(surface(circle(c=(1/2,1/2,0),r=0.1,normal=Z)),DarkRed+opacity(0.5));
+    
+    draw(arc((0,0,L+eps),(sqrt(L+eps),0,L+eps),(0,sqrt(L+eps),L+eps)),0.4*planecolor+linewidth(1.1));
+    draw(arc((0,0,L-eps),(sqrt(L-eps),0,L-eps),(0,sqrt(L-eps),L-eps)),0.4*planecolor+linewidth(1.1)); 
+    
+    dot("$B((a,b),\delta)$",(1/2,1/2,0),align=1.5*S);
+    dot((1/2,1/2,1/2));
 
-  We define* $m(r)$ and $M(r)$ so that $[m(r),M(r)]$ is the smallest
-  interval which contains the image of $B^\star(\mathbf{a},r) \cap D$ under
-  $f$. Then the limit of $f(\mathbf{x})$ as
-  $\mathbf{x} \to \mathbf{a}$ exists if and only if $m(r)$ and $M(r)$
-  converge to a common value $L$ as $r \to 0$. In that case, we say
-  $\displaystyle{\lim_{\mathbf{x} \to \mathbf{a}} f(\mathbf{x}) = L}$. \sidenote{*
-    Roughly speaking, $m(r)$ and $M(r)$ tell us how small and how large
-    $f(\mathbf{x})$ can be for $\mathbf{x}$ within $r$ of
-    $\mathbf{a}$}
-\end{defn}
+    draw((1/2,1/2,1/2)--(1/2,1/2,0),dashed); 
 
-\begin{example}{}{}
-  Show that the limit of $\cos (1/x)$ does not exist as $x\to0$. 
-\end{example}
+    label("$f(x,y)$",(0,0,1.1),align=E); 
+  \end{asy}
+  \caption{The definition of a limit for a two-variable function \label{fig:twoDlimit}}
+\end{wrapfigure}
 
-\begin{solution}
-  For any $r>0$, the function $\cos(1/x)$ has a maximum value of $1$
-  and a minimum value of $-1$ in the punctured interval
-  $B^\star(0,r)$, because $\cos(1/x) = 1$ whenever $x = \tfrac{1}{\pi
-    k}$ for some even integer $k$, and $\cos(1/x) = -1$ whenever $x=
-  \tfrac{1}{\pi k}$ for some odd integer $k$.
-  
-  Therefore, $M$ is the constant function $1$ and $m$
-  is the constant function $-1$. These functions converge to different
-  values, so the limit does not exist. 
-\end{solution}
+One way to think about this definition is to consider the
+shadow$^\dagger$ of the disk* $B((a,b),\delta)$ on the graph (see
+Figure~\ref{fig:twoDlimit}). The limit exists and equals $L$ if for
+every $\epsilon$, there exists $\delta$ small enough that this shadow
+lies entirely in the slab $L - \epsilon < z < L +
+\epsilon$. \sidenote{* $B((a,b),r)$ means the ball of radius $r$
+  centered at $(a,b)$ }[-16mm] \sidenote{$^\dagger$\textit{Shadow}
+  here means the set of points $(x,y,f(x,y))$ where
+  $(x,y) \in B((a,b),\delta)$}[-1mm]
 
-\begin{example}{}{}
-  Use Definition~\ref{defn:limit_full_general} to show directly that*
-  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
-    3}$.
-  \sidenote{* See Figure~\ref{fig:limitshrink} for a graph }
-\end{example}
+% A plane and a line are geometrically different in a way that has major
+% implications for thinking about limits: there are only two directions
+% from which to approach a point on a line, but there are infinitely
+% many ways of approaching a point in the plane. The following example
+% illustrates a sort of convergence failure which can occur in the
+% higher dimensional case.
 
-\begin{solution}
-  Writing $f(x,y) \colonequals 3 + x^2 - y^2$ in terms of polar coordinates as
-  $3 + r^2(\cos^2 \theta - \sin^2 \theta) = 3 +r^2 \cos2\theta$, we
-  see that the least and greatest values of $f(x,y)$ for
-  $(x,y) \in B^\star((0,0),r)$ are $m(r) = 3-r^2$ and
-  $M(r) = 3 + r^2$, respectively. These values converge as $r\to 0$ to a common
-  value of $3$, by Definition~\ref{defn:limmon}. Therefore,
-  $\displaystyle{\lim_{(x,y) \to (0,0)} \left[3 + x^2 - y^2\right] =
-    3}$. 
-\end{solution}
-
-\begin{example}{}{}
-  Show that* $f(x,y) = -\frac{xy}{x^2 + y^2}$ does not have a limit as
-  $(x,y) \to (0,0)$. \sidenote{* See Figure~\ref{fig:limitshrink2} for
-    a graph}
-\end{example}
-
-\begin{solution}
-  Expressing the value of the function in polar coordinates, we find
-  that
-  $f(x,y) =\frac{ r^2 \sin \theta \cos \theta}{r^2(\cos^2 \theta + \sin^2
-    \theta)} = \tfrac{1}{2} \sin 2\theta$. Therefore, we have $m(r) =
-  -\tfrac{1}{2}$ and $M(r) = \tfrac{1}{2}$ for all values of $r$. Since
-  these functions converge to the unequal values $-\tfrac{1}{2}$ and
-  $\tfrac{1}{2}$, we see that the limit does not exist. 
-\end{solution}
-
-\begin{center} 
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 0.5; 
-      size(45mm);
-      real eps = 0.58;
-      real eps2 = 0.04; 
-      draw(Label("$m(r)=-\frac{1}{2}$",Relative(1),align=E),(0,eps,-1/2)--(0,eps+eps2,-1/2),fontsize(6));
-      draw(Label("$M(r) =
-      \frac{1}{2}$",Relative(1),align=E),(0,eps,1/2)--(0,eps+eps2,1/2),fontsize(6));
-      draw((0,eps+eps2/2,-1/2) -- (0,eps+eps2/2,1/2)); 
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--1.2*X,Arrow3());
-      draw(O--1.15*Y,Arrow3());
-      draw(-1.1*Z--1.1*Z,Arrows3());
-      real theta = pi/4; 
-      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-        return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
-      }
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
-      }
-      label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-    \end{asy}
-  \end{minipage}
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 1/2^4; 
-      size(45mm);
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--1.2*X,Arrow3());
-      draw(O--1.15*Y,Arrow3());
-      draw(-1.1*Z--1.1*Z,Arrows3());
-      real theta = pi/4; 
-      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-        return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
-      }
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
-      }
-      label("$\displaystyle{f(x,y) = -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-    \end{asy}
-  \end{minipage}
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 1/2^6; 
-      size(45mm);
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--1.2*X,Arrow3());
-      draw(O--1.15*Y,Arrow3());
-      draw(-1.1*Z--1.1*Z,Arrows3());
-      real theta = pi/4; 
-      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-        return min(0.5,-p.x*p.y/(p.x^2 + p.y^2));
-      }
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),-sin(theta)*cos(theta));
-      }
-      label("$\displaystyle{f(x,y) =
-        -\frac{xy}{x^2+y^2}}$",(0,0,0.95),0.4*LightSeaGreen,align=3*E);
-      draw(Label("$\frac{1}{2}$",Relative(1),align=E),1/2*Z--1/2*Z+0.05*Y);
-      draw(Label("$-\frac{1}{2}$",Relative(1),align=E),-1/2*Z-- -1/2*Z+0.05*Y); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-    \end{asy}
-  \end{minipage}
-  \captionof{figure}{The image under $f$ of the ball of radius $r$ is
-    $\left[-\tfrac{1}{2},\tfrac{1}{2}\right]$ no matter how small $r$
-    is. So the limit does not exist} \label{fig:limitshrink}
-\end{center}
-
-
-\begin{center} 
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      size(45mm);
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 0.75;
-      real eps = 0.82;
-      real eps2 = 0.04; 
-      draw(Label("$m(r)=3-r^2$",Relative(1),align=E),(0,eps,3-rad^2)--(0,eps+eps2,3-rad^2),fontsize(6));
-      draw(Label("$M(r)=3+r^2$",Relative(1),align=E),(0,eps,3+rad^2)--(0,eps+eps2,3+rad^2),fontsize(6));
-      draw(Label("$r$",Relative(0.5),align=S),(0,0,0)--(rad*cos(60*pi/180),rad*sin(60*pi/180),0)); 
-      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--4*X,Arrow3());
-      draw(O--4*Y,Arrow3());
-      draw(O--4*Z,Arrow3());
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
-      }
-      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-    \end{asy}
-  \end{minipage}
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      size(45mm);
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 4/2^4;
-      real eps = 0.32;
-      real eps2 = 0.04; 
-      draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
-      draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
-      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--4*X,Arrow3());
-      draw(O--4*Y,Arrow3());
-      draw(O--4*Z,Arrow3());
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
-      }
-      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-    \end{asy}
-  \end{minipage}
-  \begin{minipage}{0.32\textwidth}  
-    \centering
-    \begin{asy}
-      import graph3;
-      size(45mm);
-      defaultpen(fontsize(7));
-      material surfacemat = material(diffusepen=LightSeaGreen,
-      emissivepen=0.2*LightSeaGreen);
-      currentprojection = perspective(10,4,4);
-      int n = 10;
-      real rad = 4/2^5;
-      real eps = rad*1.2;
-      real eps2 = 0.04; 
-      draw((0,eps,3-rad^2)--(0,eps+eps2,3-rad^2));
-      draw((0,eps,3+rad^2)--(0,eps+eps2,3+rad^2));
-      draw((0,eps+eps2/2,3-rad^2) -- (0,eps+eps2/2,3+rad^2)); 
-      draw(surface(circle((0,0,0),rad,Z)),opacity(0.3)); 
-      draw(O--4*X,Arrow3());
-      draw(O--4*Y,Arrow3());
-      draw(O--4*Z,Arrow3());
-      triple g(pair p) {
-        real r = p.x;
-        real theta = p.y;
-        return (r*cos(theta),r*sin(theta),3+r^2*cos(2*theta)); 
-      }
-      label("$\displaystyle{f(x,y) = 3 + x^2 - y^2}$",(0,0,3.95),0.4*LightSeaGreen,align=3*E); 
-      surface s = surface(g,(0,0),(rad,2*pi),50, Spline); 
-      draw(s,surfacemat);
-      label("3",3*Z,align=2*W); 
-    \end{asy}
-  \end{minipage}
-  \captionof{figure}{The image under $f$ of the ball of radius $r$ is
-    the interval $[3-r^2, 3+r^2]$, which shrinks down around 3 as $r
-    \to 0$. So the limit exists and equals 3 
-  } \label{fig:limitshrink2}
-\end{center}
-
-\vspace{-12pt} 
 
 \begin{exercise}{}{}
   Show that Definitions~\ref{defn:limit_full_general} and
   \ref{defn:limit} are equivalent.
 \end{exercise} \enlargethispage{1cm}
-
-
-
-\begin{exercise}{}{}
-  Use Definition~\ref{defn:limit_full_general} to show that
-  $f(x,y) = \sin\left(\tfrac{1}{x^2 + y^2}\right)$ does not have a
-  limit as $(x,y) \to (0,0)$.
-\end{exercise}
-
-
-
-\begin{exercise}{}{}
-  In this problem, we will see how to discover the nonexistence of the
-  limit in Example~\ref{exam:parab_nolimit} without needing the hint
-  to look at parabolic paths through the origin.
-
-  Find $M(r)$ and $m(r)$ for the function $f(x,y) = -x^2y/(x^4 + y^2)$
-  by showing that
-  $f(s\cos \theta, s\sin \theta) = \frac{s \cos^{2}{\theta}
-    \sin{\theta}}{s^{2} \cos^{4}{\theta} + \sin^{2}{\theta}}$. Then
-  use single-variable calculus to find the maximum and minimum value
-  of this expression as $s$ ranges over $[0,r]$, for each fixed value
-  of $\theta$. Finally, find the minimum of those minima as
-  $\theta$ ranges over $[0,2\pi]$, and similarly for the maxima. 
-\end{exercise}
-
-% using SymPy
-% @vars r θ
-% f = -x^2*y/(x^4+y^2)
-% g = simplify(f(r*cos(θ),r*sin(θ)))
-% solve(diff(g,r),r)
-
-\newpage 
 
 \subsection{A rigorous formulation of arclength}
 \label{sec:arclengthappendix}
@@ -10811,10 +10733,10 @@ Definition~\ref{defn:arclength}, applies to \textit{fractal} curves:
   this procedure is repeated for all $n=0,1,2,\ldots$.
   
   \begin{center} 
-    \includegraphics[width=2.85cm]{figures/koch0.pdf} \:
-    \includegraphics[width=3.8cm]{figures/koch1.pdf} \:
-    \includegraphics[width=3.8cm]{figures/koch2.pdf} \:
-    \includegraphics[width=3.8cm]{figures/koch3.pdf}
+    \includegraphics[width=2.28cm]{figures/koch0.pdf} \:
+    \includegraphics[width=3.04cm]{figures/koch1.pdf} \:
+    \includegraphics[width=3.04cm]{figures/koch2.pdf} \:
+    \includegraphics[width=3.04cm]{figures/koch3.pdf}
   \end{center}
   
   Find the length of the Koch snowflake. 
@@ -11811,16 +11733,25 @@ x^x*(log(x) + 1)
   \]
 \end{aexercise}
 
-\newpage 
-
 \asubsection{sec:vectors}
+
+\begin{aexercise}
+  \begin{minipage}[t]{0.58\textwidth}
+    The point $M$ is the midpoint of $P$ and $Q$. Express $\mathbf{c}$
+    in terms of $\mathbf{a}$ and $\mathbf{b}$, and express $\mathbf{d}$
+    in terms of $\mathbf{a}$ and $\mathbf{b}$.
+  \end{minipage} \hspace{6mm}
+  \begin{minipage}[t]{0.4\textwidth}
+    \raisebox{\dimexpr -\height + 1.5ex\relax}{\includegraphics[width=5cm]{exercisefigures/midpoint}}
+  \end{minipage}
+\end{aexercise}
 
 \begin{aexercise}
   Consider the vectors $\mathbf{u}$, $\mathbf{v}$ and $\mathbf{w}$ in
   the figure below.
 
   \begin{center}
-    \includegraphics{exercisefigures/parallelogram}
+    \includegraphics[width=6cm]{exercisefigures/parallelogram}
   \end{center}
 
   (i) Find scalars $a$ and $b$ such that
@@ -11833,17 +11764,6 @@ x^x*(log(x) + 1)
   b\mathbf{v}$. You may assume that both $a$ and $b$ are integer
   multiples of $0.5$. Express your answer as an ordered pair $(a,b)$,
   written in the box.
-\end{aexercise}
-
-\begin{aexercise}
-  \begin{minipage}[t]{0.58\textwidth}
-    The point $M$ is the midpoint of $P$ and $Q$. Express $\mathbf{c}$
-    in terms of $\mathbf{a}$ and $\mathbf{b}$, and express $\mathbf{d}$
-    in terms of $\mathbf{a}$ and $\mathbf{b}$.
-  \end{minipage} \hspace{6mm}
-  \begin{minipage}[t]{0.4\textwidth}
-    \raisebox{\dimexpr -\height + 1.5ex\relax}{\includegraphics[width=5cm]{exercisefigures/midpoint}}
-  \end{minipage}
 \end{aexercise}
 
 \begin{aexercise}
@@ -11908,7 +11828,7 @@ x^x*(log(x) + 1)
   $(\vec{a}\times\vec{b})\times(\vec{c}\times\vec{d})=\vec{0}$.
 \end{aexercise}
 
-\begin{aexercise}
+\begin{aexercise}[enhanced, breakable] 
   The volume of a parallelepiped is the product of the area of its
   base and its height. Consider the parallelepiped spanned by
   $\mathbf{a}$, $\mathbf{b}$, and $\mathbf{c}$. You may suppose for
@@ -12147,6 +12067,27 @@ x^x*(log(x) + 1)
   $\lim_{\mathbf{x}\to \mathbf{0}}h(\mathbf{x}) = 0$, then
   $\lim_{\mathbf{x}\to \mathbf{0}}f(\mathbf{x}) = 0$.
 \end{aexercise}
+
+\begin{aexercise}
+  In this problem, we will see how to discover the nonexistence of the
+  limit in Example~\ref{exam:parab_nolimit} without needing the hint
+  to look at parabolic paths through the origin.
+
+  Find $m(r)$ and $M(r)$ for the function $f(x,y) = -x^2y/(x^4 + y^2)$
+  by showing that
+  $f(s\cos \theta, s\sin \theta) = \frac{s \cos^{2}{\theta}
+    \sin{\theta}}{s^{2} \cos^{4}{\theta} + \sin^{2}{\theta}}$. Then
+  use single-variable calculus to find the maximum and minimum value
+  of this expression as $s$ ranges over $[0,r]$, for each fixed value
+  of $\theta$. Finally, find the minimum of those minima as
+  $\theta$ ranges over $[0,2\pi]$, and similarly for the maxima. 
+\end{aexercise}
+
+% using SymPy
+% @vars r θ
+% f = -x^2*y/(x^4+y^2)
+% g = simplify(f(r*cos(θ),r*sin(θ)))
+% solve(diff(g,r),r)
 
 \asubsection{sec:partial}
 
@@ -12937,7 +12878,7 @@ S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
 
 \begin{aexercise}
   Find the work done on a particle by a force
-  $\mathbf{F}=\langle xyz−\e^x, −xyz, x^2yz+sin z \rangle$ on a
+  $\mathbf{F}=\langle xyz-\e^x, -xyz, x^2yz+sin z \rangle$ on a
   particle that moves along the line segments from $(0, 0, 0)$, then
   to $(1, 1, 1)$, then to $(0, 0, 2)$, then back to $(0, 0, 0)$.
 \end{aexercise}
