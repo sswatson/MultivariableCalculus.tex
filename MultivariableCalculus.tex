@@ -1,16 +1,33 @@
-\documentclass{watsonbook}
-\raggedbottom 
-\input{header.tex}
+% !TEX program = lualatex
+% !TEX options = --shell-escape
+\documentclass[prettycode,shellescape]{watsonbook}
+
+% --- Include interactive 3D graphics 
+% --- only usable with Adobe Reader
+% --- increases size of file about fivefold
+% --- (\documentclass[3D]{watsonbook} to use)
+\makeatletter
+\if@threedoption
+  \input{header3d.tex}
+\else
+  \input{header.tex}
+\fi
+\makeatother
+% --------------------------------------------
+
+% --- remove quotation marks for inclusion of 
+% --- generated asymptote images. Required 
+% --- because we're using the LuaLaTeX engine
+\input{asymptote-fix.tex}
+% --------------------------------------------
 
 \begin{document}
 
-% -- comment if using bleed option ---------------------
 \input{titlepage.tex}
 \newpage 
 \pagecolor{white} 
 \hphantom{a} \thispagestyle{empty} 
 \newpage
-%-------------------------------------------------
 
 \chapter*{Preface} \thispagestyle{empty} 
 
@@ -38,7 +55,7 @@ discussion, or examples:
   multivariable topics with nice exposition and some beautiful applets for exploring the
   ideas developed in this course. 
 \item A standard multivariable calculus textbook.  
-\item 3blue1brown, a math video creator with an excellent series on
+\item 3Blue1Brown, a math video creator with an excellent series on
   linear algebra. Unfortunately he hasn't done multivariable calculus
   yet, so these videos will only be available for the vector topics. 
 \end{enumerate}
@@ -48,7 +65,7 @@ The following margin note icons in the text are clickable:
 \item \href{http://cocalc.com}{\cocalc}\,
   links to a CoCalc worksheet with a relevant calculation (see Appendix~\ref{sec:sagemath} for more
   discussion)
-\item \href{http://3blue1brown.com}{\tbob} \, links to a relevant 3blue1brown YouTube video.
+\item \href{http://3blue1brown.com}{\tbob} \, links to a relevant 3Blue1Brown YouTube video.
 \item \href{http://mathinsight.org}{\mi} \, links to a relevant page at \url{mathinsight.org}
 \end{enumerate}
 
@@ -67,7 +84,7 @@ no matter how minor.
 
 \newpage
 
-\pagenumbering{arabic} 
+\pagenumbering{arabic}
 
 \null\vfill 
 
@@ -159,7 +176,7 @@ no matter how minor.
     label("$z$",(4*Z),align=N);
   \end{asy}
   \caption{Coordinates in $\R^3$ \label{fig:space}}
-\end{wrapfigure} 
+\end{wrapfigure}
 
 We visualize the set of \textbf{real numbers} (denoted by $\R$ or
 $\R^1$) as a line, called the \textit{real number line}
@@ -796,7 +813,7 @@ and area as 2-dimensional volume. \sidenote{* Reversing the
   orientation of three points $A$, $B$, and $C$ means that if these
   points are given in counterclockwise order around the triangle
   $ABC$, then their images are in clockwise order around the triangle
-  they form}[-4cm]
+  they form}[-35mm]
 
 \begin{defn}{Determinant }{def:det} \bang{-5mm}
   The \textbf{determinant} of a linear transformation from $\R^n$ to
@@ -1193,7 +1210,21 @@ problems.
 \end{example}
 
 \begin{solution} 
-  \begin{minipage}{12.5cm}
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(3cm);
+      label("$O$",(0,0),align=W);
+      label("$A$",(2,1),align=E);
+      label("$B$",(1,3),align=N);
+      draw((0,0)--(2,1)--(1,3)--cycle);
+      draw((0,0)--(2,1),SeaGreen,Arrow());
+      draw((0,0)--(1,3),MidnightBlue,Arrow());
+      draw((1,1/2)--(1/2,3/2),Arrow());
+      label("$\mathbf{u}$",(1,1/2),align=SE,SeaGreen);
+      label("$\mathbf{v}$",(1/2,3/2),align=WNW,MidnightBlue);
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}[][4pt]
     Define $\vec{u}$ and $\vec{v}$ to be two vectors with a common
     tail at one vertex $O$ of the triangle and heads at the other two
     vertices $A$ and $B$ as shown. Then the vectors from $O$ to the
@@ -1208,21 +1239,7 @@ problems.
     is $\vec{v} - \vec{u}$.  Therefore, $\vec{w}$ has the same
     direction as the vector from $A$ to $B$ (by
     Observation~\ref{obs:vecparallel}) and is half as long.
-  \end{minipage} \quad 
-  \begin{minipage}{3.2cm}
-    \begin{asy}
-      size(3cm);
-      label("$O$",(0,0),align=W);
-      label("$A$",(2,1),align=E);
-      label("$B$",(1,3),align=N);
-      draw((0,0)--(2,1)--(1,3)--cycle);
-      draw((0,0)--(2,1),SeaGreen,Arrow());
-      draw((0,0)--(1,3),MidnightBlue,Arrow());
-      draw((1,1/2)--(1/2,3/2),Arrow());
-      label("$\mathbf{u}$",(1,1/2),align=SE,SeaGreen);
-      label("$\mathbf{v}$",(1/2,3/2),align=WNW,MidnightBlue);
-    \end{asy}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 \begin{exercise}{}{}
@@ -1277,8 +1294,22 @@ Now we establish the relationship between the dot product and angle.
   between $\vec{u}$ and $\vec{v}$. 
 \end{example}
 
-\begin{solution} 
-  \begin{minipage}{12.5cm}
+\begin{solution}
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(3cm);
+      real ep = 0.2;
+      draw((0,0)--(2,1)--(1,3)--cycle);
+      draw((0,0)--(2,1),Arrow());
+      draw((0,0)--(1,3),Arrow());
+      draw((1,3)--(2,1),Arrow());
+      label("$\theta$",(0.3,0.38));
+      label("$\mathbf{u}$",(1,1/2),align=SE);
+      label("$\mathbf{v}$",(1/2,3/2),align=WNW);
+      label("$\mathbf{u} - \mathbf{v}$",(3/2,2),align=ENE);
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     We apply the law of cosines to the triangle with sides
     $\vec{u}$, $\vec{v}$, and $\vec{u} - \vec{v}$. We get 
     \[
@@ -1295,27 +1326,12 @@ Now we establish the relationship between the dot product and angle.
     \]
     Subtracting these equations yields $\vec{u} \cdot \vec{v} =
     |\vec{u}| |\vec{v}| \cos\theta$. 
-  \end{minipage} \quad 
-  \begin{minipage}{3.2cm}
-    \begin{asy}
-      size(3cm);
-      real ep = 0.2;
-      draw((0,0)--(2,1)--(1,3)--cycle);
-      draw((0,0)--(2,1),Arrow());
-      draw((0,0)--(1,3),Arrow());
-      draw((1,3)--(2,1),Arrow());
-      label("$\theta$",(0.3,0.38));
-      label("$\mathbf{u}$",(1,1/2),align=SE);
-      label("$\mathbf{v}$",(1/2,3/2),align=WNW);
-      label("$\mathbf{u} - \mathbf{v}$",(3/2,2),align=ENE);
-    \end{asy}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 Particularly noteworthy is the case where $\theta$ is a right angle:
 We say that two vectors are \textbf{perpendicular} or
-\textbf{orthogonal} or  \textbf{normal} if they
-meet at a right angle. 
+\textbf{orthogonal} or  \textbf{normal} if they meet at a right angle. 
 
 \begin{obs}{Perpendicular vectors}{} \bang{-5mm}
   Two vectors $\vec{u}$ and $\vec{v}$ are perpendicular if and
@@ -1437,7 +1453,7 @@ In the last section we introduced a vector product which reveals
 information about \textit{angle}; in this section we'll see a new
 vector product which gives us information about \textit{area}.
 
-\begin{wrapfigure}[9]{O}{4cm}
+\begin{wrapfigure}[8]{O}{4cm}
   \begin{asy}[width=4cm]
     import three;
     import tube;
@@ -1982,41 +1998,76 @@ Given a curve in $\R^n$, a path $\mathbf{r}$ that traces it out is
 called a parametric equation for the curve. \enlargethispage{1cm} 
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.74\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(3cm); 
+      import graph3;
+      
+      real h = 1.5; 
+      triple[] axes = new triple[] {X, Y, Z};
+      for(int i=0; i<axes.length; ++i){
+        draw(O--h*axes[i],Arrow3());
+      }
+      
+      currentlight.background = softblue; 
+      currentprojection = perspective(4,2,2); 
+      
+      draw(unitsphere,material(diffusepen=SeaGreen,specularpen=0.2*white,emissivepen=0.35*white)); 
+      draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
+      (-0.2,-0.2),(1.2,1.2)),
+      MidnightBlue+opacity(0.5),MidnightBlue); 
+      
+      draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+        1/2 - 1/2*sin(t), 
+        1/2+1/2*sin(t));},0,2*pi)); 
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Find a parametric equation describing the intersection of the sphere
     \[x^2 + y^2 + z^2 = 1\]
     and the plane \[y + z = 1.\]
-  \end{minipage} \quad 
-  \begin{minipage}[t]{0.23\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        size(3cm); 
-        import graph3;
-        
-        real h = 1.5; 
-        triple[] axes = new triple[] {X, Y, Z};
-        for(int i=0; i<axes.length; ++i){
-          draw(O--h*axes[i],Arrow3());
-        }
-        
-        currentlight.background = softblue; 
-        currentprojection = perspective(4,2,2); 
-        
-        draw(unitsphere,material(diffusepen=SeaGreen,specularpen=0.2*white,emissivepen=0.35*white)); 
-        draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
-        (-0.2,-0.2),(1.2,1.2)),
-        MidnightBlue+opacity(0.5),MidnightBlue); 
-        
-        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
-          1/2 - 1/2*sin(t), 
-          1/2+1/2*sin(t));},0,2*pi)); 
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
-  \begin{minipage}{0.64\textwidth}  \parskip = 0.2 in 
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(5cm); 
+      import graph3; 
+      currentlight.background = softyellow;
+      defaultpen(fontsize(6)); 
+      
+      real h = 1.5; 
+      triple[] axes = new triple[] {X, Y, Z};
+      for(int i=0; i<axes.length; ++i){
+        draw(O--h*axes[i],Arrow3());
+      }
+      
+      currentprojection = perspective(4,1.6,2); 
+      
+      draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
+      (-1.0,-0.2),(1.2,1.2)),
+      MidnightBlue+opacity(0.5),MidnightBlue); 
+      
+      draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+        1/2 - 1/2*sin(t), 
+        1/2+1/2*sin(t));},0,2*pi),MidnightBlue+linewidth(0.7));
+      
+      draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
+        0, 
+        1/2+1/2*sin(t));},0,2*pi),DarkRed+linewidth(0.7));
+      draw(surface(new triple(pair p) {
+        real y = p.x, t = p.y; 
+        return (1/sqrt(2)*cos(t),
+        y, 
+        1/2+1/2*sin(t));},
+      (-1,0),(1.15,2*pi),Spline),opacity(0.4)+red,red); 
+      
+      label("$y + z = 1$",h*Z,MidnightBlue,align=2*E);
+      label("$x^2 + 2z^2 - 2z = 0$",0.3*h*X-0.2*Y,DarkRed,align=W); 
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     The main idea is to reduce the 3D problem to a 2D problem by finding
     a shadow of the curve that we can parameterize. Looking at the
     figure, it appears that the shadow of this curve in the $xz$
@@ -2031,46 +2082,7 @@ called a parametric equation for the curve. \enlargethispage{1cm}
     \[
       2x^2 + 4\left(z - \tfrac{1}{2}\right)^2  = 1. 
     \]
-  \end{minipage} \quad 
-  \begin{minipage}{0.32\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        size(5cm); 
-        import graph3; 
-        currentlight.background = softyellow;
-        defaultpen(fontsize(6)); 
-        
-        real h = 1.5; 
-        triple[] axes = new triple[] {X, Y, Z};
-        for(int i=0; i<axes.length; ++i){
-          draw(O--h*axes[i],Arrow3());
-        }
-        
-        currentprojection = perspective(4,1.6,2); 
-        
-        draw(surface(new triple(pair p) {real x=p.x, z=p.y; return (x,1-z,z);},
-        (-1.0,-0.2),(1.2,1.2)),
-        MidnightBlue+opacity(0.5),MidnightBlue); 
-        
-        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
-          1/2 - 1/2*sin(t), 
-          1/2+1/2*sin(t));},0,2*pi),MidnightBlue+linewidth(0.7));
-        
-        draw(graph(new triple(real t) {return (1/sqrt(2)*cos(t),
-          0, 
-          1/2+1/2*sin(t));},0,2*pi),DarkRed+linewidth(0.7));
-        draw(surface(new triple(pair p) {
-          real y = p.x, t = p.y; 
-          return (1/sqrt(2)*cos(t),
-          y, 
-          1/2+1/2*sin(t));},
-        (-1,0),(1.15,2*pi),Spline),opacity(0.4)+red,red); 
-        
-        label("$y + z = 1$",h*Z,MidnightBlue,align=2*E);
-        label("$x^2 + 2z^2 - 2z = 0$",0.3*h*X-0.2*Y,DarkRed,align=W); 
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
   
   The intersection of this surface with the $xz$-plane is an ellipse
   which can be parameterized as
@@ -2154,7 +2166,45 @@ called a parametric equation for the curve. \enlargethispage{1cm}
 \end{example}
 
 \begin{solution}
-  \begin{minipage}{0.7\textwidth} \parskip = 0.2 in 
+  \begin{lrbox}{\asybox}
+    \begin{asy} 
+      import graph3; 
+      size(4cm);
+      
+      currentprojection=perspective(5.7,3.1,3.26); 
+      currentlight.background = softyellow;
+      
+      draw(O--1.4*X,Arrow3());
+      draw(O--1.4*Y,Arrow3());
+      draw(O--1.2*Z,Arrow3());
+      
+      triple f(real t){
+        return (cos(2*pi*t), sin(2*pi*t), t);
+      }
+      
+      path3 g = graph(f,0,1);
+      
+      draw(g,DarkRed+linewidth(0.5)); 
+      
+      int n = 7;
+      pen segmentpen = MidnightBlue; 
+      for(int i = 0; i <= n; ++i) {
+        if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
+        dot(f(i/n),segmentpen); 
+      }
+      
+      int n = 20;
+      pen segmentpen = SeaGreen+linewidth(0.62); 
+      for(int i = 0; i <= n; ++i) {
+        if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
+        dot(f(i/n),segmentpen+linewidth(1.7)); 
+      }
+      
+      label("$n = 7$", (0.0,-0.5,0.4),MidnightBlue);
+      label("$n = 20$",(0.0,-0.45,0.15),SeaGreen); 
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Since the speed of the bug is constant and the whole journey takes a
     second, the speed in meters per second is equal to the length of the
     bug's path divided by 1 second.
@@ -2165,47 +2215,7 @@ called a parametric equation for the curve. \enlargethispage{1cm}
     approximately equal to $|\mathbf{v}(t)|\Delta t$. Fixing a large
     integer $n$ and splitting up the interval $[0,1]$ into $n$ intervals
     of width $\Delta t = 1/n$, total distance is approximately
-  \end{minipage}
-  \begin{minipage}{0.29\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy} 
-        import graph3; 
-        size(4cm);
-        
-        currentprojection=perspective(5.7,3.1,3.26); 
-        currentlight.background = softyellow;
-        
-        draw(O--1.4*X,Arrow3());
-        draw(O--1.4*Y,Arrow3());
-        draw(O--1.2*Z,Arrow3());
-        
-        triple f(real t){
-          return (cos(2*pi*t), sin(2*pi*t), t);
-        }
-        
-        path3 g = graph(f,0,1);
-        
-        draw(g,DarkRed+linewidth(0.5)); 
-        
-        int n = 7;
-        pen segmentpen = MidnightBlue; 
-        for(int i = 0; i <= n; ++i) {
-          if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
-          dot(f(i/n),segmentpen); 
-        }
-        
-        int n = 20;
-        pen segmentpen = SeaGreen+linewidth(0.62); 
-        for(int i = 0; i <= n; ++i) {
-          if (i < n) draw(f(i/n)--f((i+1)/n),segmentpen);
-          dot(f(i/n),segmentpen+linewidth(1.7)); 
-        }
-        
-        label("$n = 7$", (0.0,-0.5,0.4),MidnightBlue);
-        label("$n = 20$",(0.0,-0.45,0.15),SeaGreen); 
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
   \[
     \overbrace{|\mathbf{v}(0)|\Delta t}^{\text{over }[0,\Delta t]}+
     \overbrace{|\mathbf{v}(\Delta t)|\Delta t}^{\text{over }[\Delta t,2\Delta t]} +
@@ -2438,29 +2448,27 @@ planes. Here's an archetypal example.
 \end{exercise}
 
 \begin{exercise}{}{}
-  \begin{minipage}[t]{0.6\textwidth} 
+  \begin{lrbox}{\asybox} 
+    \begin{asy}
+      import graph3; 
+      currentlight.background = softgreen; 
+      size(5.5cm);
+      draw(O--2*X,Arrow3());
+      draw(O--2*Y,Arrow3());
+      draw(O--1.5*Z,Arrow3());
+      
+      real f(pair z) {return z.y^2 - z.x^2;}
+      
+      surface s=surface(f,(-1,-1),(1,1),20,Spline);
+      
+      draw(s, material(diffusepen=0.4*LightSeaGreen+0.6*black+opacity(0.5),
+      emissivepen=0.4*LightSeaGreen+0.6*black+opacity(0.5)),black+opacity(0.3));
+    \end{asy}
+  \end{lrbox} 
+  \begin{insetfigure}{\usebox{\asybox}}
     Show that the graph of $z = y^2 - x^2$ looks like the figure
     shown. This is called a hyperbolic paraboloid.
-  \end{minipage}
-  \begin{minipage}[t]{0.38\textwidth}
-    \begin{lrbox}{\asybox} 
-      \begin{asy}
-        import graph3; 
-        currentlight.background = softgreen; 
-        size(5.5cm);
-        draw(O--2*X,Arrow3());
-        draw(O--2*Y,Arrow3());
-        draw(O--1.5*Z,Arrow3());
-        
-        real f(pair z) {return z.y^2 - z.x^2;}
-        
-        surface s=surface(f,(-1,-1),(1,1),20,Spline);
-        
-        draw(s, material(diffusepen=0.4*LightSeaGreen+0.6*black+opacity(0.5),
-        emissivepen=0.4*LightSeaGreen+0.6*black+opacity(0.5)),black+opacity(0.3));
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{exercise}
 
 
@@ -2525,52 +2533,50 @@ satisfies the inequalities if and only if the point is in the given solid.
 \end{example}
 
 \begin{solution}[title=Solution, breakable]
-  \begin{minipage}[t]{0.7\textwidth} \parskip = 0.2 in The problem is
-    asking us to find the points whose cylindrical coordinates satisfy
-    all of the given inequalities. Such a point is less than or equal
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      import graph3; 
+      currentlight.background=softyellow; 
+      size(3.0cm);
+      draw(O--1.2*X,Arrow3());
+      draw(O--Y,Arrow3());
+      draw(O--1.3*Z,Arrow3());
+      
+      currentprojection = perspective(2,5,2); 
+      
+      triple stop(pair p){return (p.x*cos(p.y),p.x*sin(p.y),1);}
+      triple sbottom(pair p){return (p.x*cos(p.y),p.x*sin(p.y),0);}
+      triple scurvy(pair p){return (cos(p.y),sin(p.y),p.x);}
+      triple sside(pair p){return (p.y*cos(pi/3),p.y*sin(pi/3),p.x);}
+      
+      surface s = surface(stop,(0,0),(1,pi/3),20,Spline);
+      surface t = surface(sbottom,(0,0),(1,pi/3),10);
+      surface u = surface(scurvy,(0,0),(1,pi/3),10);
+      surface v = surface(sside,(0,0),(1,1),10);
+
+      draw(s,LightSeaGreen+opacity(0.5),black);
+      draw(t,LightSeaGreen+opacity(0.5));
+      draw(u,LightSeaGreen+opacity(0.5),black);
+      draw(v,LightSeaGreen+opacity(0.5),black);
+
+      draw(graph(new triple(real t) {return stop((1,t));},0,pi/3,20,Spline));
+      draw(graph(new triple(real t) {return stop((t,0));},0,1,20,Spline));
+      draw(graph(new triple(real t) {return stop((t,pi/3));},0,1,20,Spline));
+      draw(graph(new triple(real t) {return sbottom((1,t));},0,pi/3,20,Spline));
+      draw(graph(new triple(real t) {return sbottom((t,0));},0,1,20,Spline));
+      draw(graph(new triple(real t) {return sbottom((t,pi/3));},0,1,20,Spline));
+      draw(graph(new triple(real t) {return scurvy((t,0));},0,1,20,Spline));
+      draw(graph(new triple(real t) {return scurvy((t,pi/3));},0,1,20,Spline));
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
+    The problem is asking us to find the points whose cylindrical coordinates satisfy all of the given inequalities. Such a point is less than or equal
     to 4 units from the $z$-axis, lies between the half-planes
     $\theta=0$ and $\theta=\pi/3$, and is above the $xy$-plane and
     less than two units away from it. The set of such points is shown
     to the right.
-  \end{minipage}
-  \begin{minipage}[t]{0.29\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        import graph3; 
-        currentlight.background=softyellow; 
-        size(3.0cm);
-        draw(O--1.2*X,Arrow3());
-        draw(O--Y,Arrow3());
-        draw(O--1.3*Z,Arrow3());
-        
-        currentprojection = perspective(2,5,2); 
-        
-        triple stop(pair p){return (p.x*cos(p.y),p.x*sin(p.y),1);}
-        triple sbottom(pair p){return (p.x*cos(p.y),p.x*sin(p.y),0);}
-        triple scurvy(pair p){return (cos(p.y),sin(p.y),p.x);}
-        triple sside(pair p){return (p.y*cos(pi/3),p.y*sin(pi/3),p.x);}
-        
-        surface s = surface(stop,(0,0),(1,pi/3),20,Spline);
-        surface t = surface(sbottom,(0,0),(1,pi/3),10);
-        surface u = surface(scurvy,(0,0),(1,pi/3),10);
-        surface v = surface(sside,(0,0),(1,1),10);
+  \end{insetfigure}
 
-        draw(s,LightSeaGreen+opacity(0.5),black);
-        draw(t,LightSeaGreen+opacity(0.5));
-        draw(u,LightSeaGreen+opacity(0.5),black);
-        draw(v,LightSeaGreen+opacity(0.5),black);
-
-        draw(graph(new triple(real t) {return stop((1,t));},0,pi/3,20,Spline));
-        draw(graph(new triple(real t) {return stop((t,0));},0,1,20,Spline));
-        draw(graph(new triple(real t) {return stop((t,pi/3));},0,1,20,Spline));
-        draw(graph(new triple(real t) {return sbottom((1,t));},0,pi/3,20,Spline));
-        draw(graph(new triple(real t) {return sbottom((t,0));},0,1,20,Spline));
-        draw(graph(new triple(real t) {return sbottom((t,pi/3));},0,1,20,Spline));
-        draw(graph(new triple(real t) {return scurvy((t,0));},0,1,20,Spline));
-        draw(graph(new triple(real t) {return scurvy((t,pi/3));},0,1,20,Spline));
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
   This region is one-sixth of a cylinder whose volume is
   $\pi r^2 h = 32\pi$, so its volume is $\boxed{\frac{16\pi}{3}}$.
 \end{solution}
@@ -2612,50 +2618,48 @@ and $\phi$ do not play symmetric roles.* \sidenote{* This is because
 \end{example}
 
 \begin{solution}
-  \begin{minipage}[t]{0.7\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy} 
+      import graph3;
+      currentlight.background = softyellow; 
+      size(4cm); 
+      draw(O--1.2*X,Arrow3());
+      draw(O--Y,Arrow3());
+      draw(O--1.2*Z,Arrow3());
+      
+      currentprojection = perspective(2,5,2);
+
+      real theta = pi/4; 
+
+      triple soutside(pair p){return (cos(p.x)*cos(p.y),cos(p.x)*sin(p.y),sin(p.x));}
+      triple sinside(pair p){return 0.5*(cos(p.x)*cos(p.y),cos(p.x)*sin(p.y),sin(p.x));}
+      triple sside(pair p){return p.x*(cos(p.y)*cos(theta),cos(p.y)*sin(theta),sin(p.y));}
+
+      surface s = surface(soutside,(0,0),(pi/2,theta),10,Spline);
+      surface t = surface(sinside,(0,0),(pi/2,theta),10,Spline);
+      surface u = surface(sside,(1/2,0),(1,pi/2),10,Spline);
+      draw(s,LightSeaGreen+opacity(0.5),black);
+      draw(t,LightSeaGreen+opacity(0.5));
+      draw(u,LightSeaGreen+opacity(0.5),black);
+
+      draw(graph(new triple(real t) {return soutside((0,t));},0,theta,20,Spline));
+      draw(graph(new triple(real t) {return soutside((t,0));},0,pi/2,20,Spline));
+      draw(graph(new triple(real t) {return soutside((t,theta));},0,pi/2,20,Spline));
+      draw(graph(new triple(real t) {return sinside((0,t));},0,theta,20,Spline));
+      draw(graph(new triple(real t) {return sinside((t,0));},0,pi/2,20,Spline));
+      draw(graph(new triple(real t) {return sinside((t,theta));},0,pi/2,20,Spline));
+      draw(graph(new triple(real t) {return sinside((t,theta));},0,pi/2,20,Spline));
+      draw(graph(new triple(real t) {return sside((t,0));},1/2,1,20,Spline));
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     The set of points with $\rho \leq 1$ is the set of points on or
     inside of the sphere of radius 1 centered at the origin. Imposing
     the additional constraint $\rho \geq \tfrac{1}{2}$ removes the
     sphere of radius $\tfrac{1}{2}$ centered at the origin.  Then the
     angular constraints carve out a portion of this hollowed out
     sphere, as shown.
-  \end{minipage}
-  \begin{minipage}[t]{0.29\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy} 
-        import graph3;
-        currentlight.background = softyellow; 
-        size(4cm); 
-        draw(O--1.2*X,Arrow3());
-        draw(O--Y,Arrow3());
-        draw(O--1.2*Z,Arrow3());
-        
-        currentprojection = perspective(2,5,2);
-
-        real theta = pi/4; 
-
-        triple soutside(pair p){return (cos(p.x)*cos(p.y),cos(p.x)*sin(p.y),sin(p.x));}
-        triple sinside(pair p){return 0.5*(cos(p.x)*cos(p.y),cos(p.x)*sin(p.y),sin(p.x));}
-        triple sside(pair p){return p.x*(cos(p.y)*cos(theta),cos(p.y)*sin(theta),sin(p.y));}
-
-        surface s = surface(soutside,(0,0),(pi/2,theta),10,Spline);
-        surface t = surface(sinside,(0,0),(pi/2,theta),10,Spline);
-        surface u = surface(sside,(1/2,0),(1,pi/2),10,Spline);
-        draw(s,LightSeaGreen+opacity(0.5),black);
-        draw(t,LightSeaGreen+opacity(0.5));
-        draw(u,LightSeaGreen+opacity(0.5),black);
-
-        draw(graph(new triple(real t) {return soutside((0,t));},0,theta,20,Spline));
-        draw(graph(new triple(real t) {return soutside((t,0));},0,pi/2,20,Spline));
-        draw(graph(new triple(real t) {return soutside((t,theta));},0,pi/2,20,Spline));
-        draw(graph(new triple(real t) {return sinside((0,t));},0,theta,20,Spline));
-        draw(graph(new triple(real t) {return sinside((t,0));},0,pi/2,20,Spline));
-        draw(graph(new triple(real t) {return sinside((t,theta));},0,pi/2,20,Spline));
-        draw(graph(new triple(real t) {return sinside((t,theta));},0,pi/2,20,Spline));
-        draw(graph(new triple(real t) {return sside((t,0));},1/2,1,20,Spline));
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}  
+  \end{insetfigure}
 \end{solution}
 
 \begin{exercise}{}{}
@@ -2705,6 +2709,7 @@ and $\phi$ do not play symmetric roles.* \sidenote{* This is because
     \end{asy}
   \end{minipage}
 \end{exercise}
+
 
 \begin{exercise}{}{}
   Determine the graph of the spherical-coordinate equation $\rho =
@@ -2764,33 +2769,30 @@ and $h$ are from $\R$ to $\R$)}[16mm]
 \end{defn}
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.75\textwidth} \parskip = 12pt 
+  \begin{lrbox}{\asybox} 
+    \begin{asy}
+      size(3cm);
+      import graph;
+      defaultpen(fontsize(8)); 
+      real f(real r) { return 1 + r^2; }
+      real g(real r) {return cos(r);} 
+      draw(Label("$f(r)$",Relative(0.7),align=1.5*WNW),graph(f,0,1),MidnightBlue);
+      draw(Label("$g(r)$",Relative(0.7),align=NE),graph(g,0,1),DarkRed);
+      draw((1,0)--(0,0)--(0,2),Arrows(3));
+      label("$r$",(1,0),align=N);
+      draw(Label("1",Relative(1),align=W),(0,1)--(-0.05,1));
+      dot((0,1),UnFill);
+      dot((1,2),MidnightBlue,UnFill);
+      dot((1,cos(1)),DarkRed,UnFill);
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     (a) Find the limit as $r \to 0$ of the function $f(r) = 1 + r^2$ defined
     on $(0,1)$.
 
     (b) Find the limit as $r \to 0$ of the function $g(r) = \cos r$ defined
     on $(0,1)$.
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}
-    \begin{lrbox}{\asybox} 
-      \begin{asy}
-        size(3cm);
-        import graph;
-        defaultpen(fontsize(8)); 
-        real f(real r) { return 1 + r^2; }
-        real g(real r) {return cos(r);} 
-        draw(Label("$f(r)$",Relative(0.7),align=1.5*WNW),graph(f,0,1),MidnightBlue);
-        draw(Label("$g(r)$",Relative(0.7),align=NE),graph(g,0,1),DarkRed);
-        draw((1,0)--(0,0)--(0,2),Arrows(3));
-        label("$r$",(1,0),align=N);
-        draw(Label("1",Relative(1),align=W),(0,1)--(-0.05,1));
-        dot((0,1),UnFill);
-        dot((1,2),MidnightBlue,UnFill);
-        dot((1,cos(1)),DarkRed,UnFill);
-      \end{asy}
-    \end{lrbox}
-    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -2841,8 +2843,7 @@ one-sided.* We will drop all these restrictions in one swoop:
     $B^\star(\mathbf{a},r) \cap D$}[-5mm]
 \end{defn}
 
-Let's begin with a function defined on $\R^1$ whose limit at the
-origin doesn't exist. 
+To illustrate this definition, let's look at a function defined on $\R^1$ whose limit at the origin doesn't exist. 
 
 \begin{example}{}{oscill}
   Show that the limit of $\cos (1/x)$ does not exist as $x\to0$. 
@@ -2876,8 +2877,8 @@ functions of multiple variables can look quite different:
     punctured ball} $(t \cos \theta, t\sin \theta)$. For all $t > 0$,
   we have
   \[
-    f(t\cos\theta, t\sin \theta) = \frac{ t^2 \sin \theta \cos
-      \theta}{t^2(\cos^2 \theta + \sin^2 \theta)} = \tfrac{1}{2} \sin
+    f(t\cos\theta, t\sin \theta) = -\frac{ t^2 \sin \theta \cos
+      \theta}{t^2(\cos^2 \theta + \sin^2 \theta)} = -\tfrac{1}{2} \sin
     2\theta. 
   \]
   Therefore, for any $r > 0$, we have $m(r) = -\tfrac{1}{2}$ and $M(r) =
@@ -3108,6 +3109,7 @@ functions of multiple variables can look quite different:
     is. So the limit does not exist} \label{fig:limitnoshrink}
 \end{center}
 
+
 \vspace{-12pt} 
 
 \begin{exercise}{}{}
@@ -3139,13 +3141,13 @@ existence of a limit: \sidenote{* Indeed, these values are all equal
   values of the function on $B^\star((a,b),r)$. Similarly,
   $M(r) \geq \max(L_1,L_2)$ for all $r > 0$. Therefore,
   $\lim_{r\to 0} m(r) \leq \min(L_1, L_2)$ while
-  $\lim_{r\to 0} M(r) \geq \max(L_1,L_2)$, so the limit of $f(x,y)$ does not
+  $\lim_{r\to 0} M(r) \geq \max(L_1,L_2)$. So the limit of $f(x,y)$ does not
   exist as $(x,y) \to (a,b)$.
 
 \end{solution}
 
 With the notion of a multidimensional limit in hand, we can define
-continuity the same as in the one-dimensional case.
+continuity the same way we did for the one-dimensional case.
 
 \begin{defn}{}{continuity}
   Suppose $n \geq 2$. A function $f: \R^n \to \R$ is continuous at a
@@ -3210,20 +3212,8 @@ approach. Remarkably, this turns out not to be the case:
   exist and are equal. 
 \end{example}
 
-\begin{solution}
-  \begin{minipage}{0.7\textwidth}
-    We begin by checking the limit along the line $\mathbf{r}(t) = (t\cos
-    \theta, t \sin \theta)$ (which is the line passing through the
-    origin as well as the point on the unit circle whose angle with
-    respect to the positive $x$-axis is $\theta$). We find
-    \begin{align*}
-      f(t\cos\theta, t \sin \theta) &= \frac{-t^3
-                                      \cos^2\theta \sin \theta}{t^4 \cos^4 \theta + t^2 \sin^2 \theta} \\
-                                    &= \frac{-t \cos^2\theta \sin \theta}{t^2 \cos^4 \theta + \sin^2
-                                      \theta}. 
-    \end{align*}
-  \end{minipage}
-  \begin{minipage}{0.29\textwidth}
+\begin{solution} 
+  \begin{lrbox}{\asybox}
     \begin{asy}
       import graph3;
       size(45mm);
@@ -3263,7 +3253,19 @@ approach. Remarkably, this turns out not to be the case:
       (0.0,0),(pi/2,1),prec1, prec2);
       draw(s,surfacemat);
     \end{asy}
-  \end{minipage}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
+    We begin by checking the limit along the line $\mathbf{r}(t) = (t\cos
+    \theta, t \sin \theta)$ (which is the line passing through the
+    origin as well as the point on the unit circle whose angle with
+    respect to the positive $x$-axis is $\theta$). We find
+    \begin{align*}
+      f(t\cos\theta, t \sin \theta) &= \frac{-t^3
+                                      \cos^2\theta \sin \theta}{t^4 \cos^4 \theta + t^2 \sin^2 \theta} \\
+                                    &= \frac{-t \cos^2\theta \sin \theta}{t^2 \cos^4 \theta + \sin^2
+                                      \theta}. 
+    \end{align*}
+  \end{insetfigure}
   If we consider the limit of this expression as $t\to 0$ with
   $\theta$ fixed, then the $\cos \theta$ and $\sin \theta$ factors are
   constants. So we see that the numerator converges to $0$ and the
@@ -3370,38 +3372,36 @@ derivative of a single-variable function.
 \end{solution}
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.7\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=4cm]
+      import graph3; 
+
+      draw(O--2.2*X,Arrow3());
+      draw(O--2.2*Y,Arrow3());
+      draw(O--1.1*Z,Arrow3());
+
+      currentprojection = perspective(5,2,2);
+      currentlight.background = softblue; 
+      
+      real theta = pi/4; 
+
+      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+        real x = p.x, y = p.y; 
+        return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
+      }
+
+      label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+
+      surface s = surface(f,(0,0),(2,2),20,Spline);
+      draw(s,LightSeaGreen,MidnightBlue);
+      dot((1,1,f((1,1))),softblue);
+      label("$(1,1,f(1,1))$",(1.4,0.8,0.2),softblue+fontsize(8)); 
+    \end{asy}
+  \end{lrbox} 
+  \begin{insetfigure}{\usebox{\asybox}}
     Consider the function $f$ whose graph is shown. Determine the sign
     of $(\partial_x f)(1,1)$ and the sign of $(\partial_y f)(1,1)$.
-  \end{minipage}
-  \begin{minipage}[t]{0.29\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=4cm]
-        import graph3; 
-
-        draw(O--2.2*X,Arrow3());
-        draw(O--2.2*Y,Arrow3());
-        draw(O--1.1*Z,Arrow3());
-
-        currentprojection = perspective(5,2,2);
-        currentlight.background = softblue; 
-        
-        real theta = pi/4; 
-
-        real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-          real x = p.x, y = p.y; 
-          return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
-        }
-
-        label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-
-        surface s = surface(f,(0,0),(2,2),20,Spline);
-        draw(s,LightSeaGreen,MidnightBlue);
-        dot((1,1,f((1,1))),softblue);
-        label("$(1,1,f(1,1))$",(1.4,0.8,0.2),softblue+fontsize(8)); 
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -3611,6 +3611,10 @@ taking partial derivatives.
   \sin y$. 
 \end{exercise}
 
+\begin{exercise}{}{}
+  Suppose that $f(4.2,6.8) = 2$, $f(4.3,6.8) = 3$, $f(4.2,6.9) = 4$, and $f(4.3,6.9) = 6$. Justify the approximation $\partial_x \partial_y f(4.2,6.8) \approx 100$. Apply similar reasoning to obtain the approximation $\partial_y \partial_x f(4.2,6.8) \approx 100$.
+\end{exercise}
+
 \section{Linear approximation} \label{sec:linapprox} 
 
 \milink{linear_approximation_multivariable}{linear approximation}
@@ -3755,16 +3759,9 @@ for the distance from $(x,y)$ to $(a,b)$ in the plane.
   \end{asy}
 \end{lrbox}
 
-\insetfigure{
-  Graphically, Definition~\ref{defn:diff} says that a function is
-differentiable at $(a,b)$ if we can draw a plane which is tangent*
-to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* To
-  interpret this statement as a theorem, we would need to first say
-  what it means for the plane to be \textit{tangent} on some basis
-  other than Definition~\ref{defn:diff} (to avoid circular
-  reasoning). So take this as intuition only}[0cm]
 
-\vspace{12pt} 
+\begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{A plane tangent to the graph of a function $f$ \label{fig:tangentplane}}]
+Graphically, Definition~\ref{defn:diff} says that a function is differentiable at $(a,b)$ if we can draw a plane which is tangent* to the graph of $f$ at the point $(a,b,f(a,b))$. \sidenote{* To interpret this statement as a theorem, we would need to first say what it means for the plane to be \textit{tangent} on some basis other than Definition~\ref{defn:diff} (to avoid circular reasoning). So take this as intuition only}[0cm]
 
 In Theorem~\ref{th:diff_linear}, the coefficients of the approximating
 function $L$ are the value of the function $f$ at $a$ and the
@@ -3772,8 +3769,8 @@ derivative of $f$ at $a$. The coefficients in
 Definition~\ref{defn:diff} are also quantities that we have names for:
 as suggested by Figure~\ref{fig:tangentplane}, $c_1$ is the value of
 the function at $(a,b)$ and $c_1$ and $c_2$ are the two partial
-derivatives at $(a,b)$.}{\usebox{\asybox}}[\captionof{figure}{A plane
-tangent to the graph of a function $f$ \label{fig:tangentplane}}]
+derivatives at $(a,b)$.
+\end{insetfigure}
 
 \vspace{12pt} 
 
@@ -3808,7 +3805,7 @@ Let's see how this theorem can be used numerically.
   \end{align*}
   Therefore, $f(0.99,0.98) \approx f(1,1) + 0(0.99-1) +
   \frac{1}{2}(0.98-1) = \frac{1}{2} + \frac{1}{2} \cdot
-  (-\frac{1}{50}) = 0.49$. \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/substitute.ipynb}{\cocalc} \, The actual value is
+  (-\frac{1}{50}) = 0.49$. \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/substitute.ipynb?session=default}{\cocalc} \, The actual value is
     $0.490197\ldots$ } 
 \end{solution}
 
@@ -4094,37 +4091,35 @@ $\partial D$. Let's do an example. \sidenote{* The notation
   includes points in $D$ and points not in $D$}[-2cm]
 
 \begin{example}{}{optim2d}
-  \begin{minipage}[t]{0.6\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=5cm]
+      import graph3; 
+      
+      picture myaxes;
+      draw(myaxes,O--1.2*X,Arrow3());
+      draw(myaxes,O--1.2*Y,Arrow3());
+      draw(myaxes,O--1.2*Z,Arrow3());
+      
+      currentprojection = perspective(5,2,2);
+      currentlight.background = softblue; 
+      
+      real f(pair p){ 
+        real x = p.x, y = p.y; 
+        return 1 - (x-1/2)^2 - (y-1/3)^2;
+      }
+      
+      add(myaxes); 
+      surface s = surface(f,(0,0),(1,1),20,Spline);
+      draw(s,MidnightBlue+opacity(0.4),MidnightBlue);
+      draw(surface((0,0)--(1,0)--(1,1)--(0,1)--cycle),white+opacity(0.5));
+      label("$f(x,y)$", (0,0,1), MidnightBlue, align=E); 
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Find the extreme values of the function
     \[f(x,y) = -x^2 - y^2 + x + \frac{2}{3} y + \frac{23}{36}\] over
     the square $[0,1]^2$.
-  \end{minipage}
-  \begin{minipage}[t]{0.39\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=5cm]
-        import graph3; 
-        
-        picture myaxes;
-        draw(myaxes,O--1.2*X,Arrow3());
-        draw(myaxes,O--1.2*Y,Arrow3());
-        draw(myaxes,O--1.2*Z,Arrow3());
-        
-        currentprojection = perspective(5,2,2);
-        currentlight.background = softblue; 
-        
-        real f(pair p){ 
-          real x = p.x, y = p.y; 
-          return 1 - (x-1/2)^2 - (y-1/3)^2;
-        }
-        
-        add(myaxes); 
-        surface s = surface(f,(0,0),(1,1),20,Spline);
-        draw(s,MidnightBlue+opacity(0.4),MidnightBlue);
-        draw(surface((0,0)--(1,0)--(1,1)--(0,1)--cycle),white+opacity(0.5));
-        label("$f(x,y)$", (0,0,1), MidnightBlue, align=E); 
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -4331,8 +4326,7 @@ Appendix~\ref{sec:proof_sdt}.
   equal to zero. Therefore, we have found all the critical points.
 
   To apply the second derivative test, we work out that*
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/Second_derivative_test.ipynb}{\cocalc}
-    Definitely want to use some computational assistance here}
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/Second_derivative_test.ipynb?session=default}{\cocalc} Definitely want to use some computational assistance here}
   \begin{align*}
     D = \partial_x^2 f \partial_y^2 f - (\partial_x\partial_{y} f)^2 =
     \bigg(- 32 x^{6} - 128 x^{4} y^{2}
@@ -4342,7 +4336,22 @@ Appendix~\ref{sec:proof_sdt}.
       y^{2} + 24\bigg) \e^{-2x^2 - 2y^2}. 
   \end{align*}
 
-  \begin{minipage}[t]{0.59\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(0,38mm);
+      import graph3;
+      currentlight.background=softyellow; 
+      settings.outformat="pdf";
+      real f(pair z) {return (2*z.x^2+3*z.y^2)*exp(-z.x^2-z.y^2);}
+      draw(surface(f,(-2,-2),(2,2),nx=32,Spline),
+      LightSeaGreen+opacity(0.8),MidnightBlue);
+      draw(Label("$x$",Relative(1),align=W),O--2.2*X,Arrow3());
+      draw(Label("$y$",Relative(1),align=E),O--2.2*Y,Arrow3());
+      draw(Label("$f(x,y) = (2x^2+3y^2)\e^{-x^2-y^2}$",Relative(1),align=N),
+      O--1.8*Z,Arrow3());
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{The graph of $f$} \label{fig:cowboy}]
     Then we check the sign of $D$ at each critical point: 
     \[ \renewcommand{\arraystretch}{2.0}
       \begin{array}{c|ccccc}
@@ -4356,26 +4365,7 @@ Appendix~\ref{sec:proof_sdt}.
     that $\partial_{x}^2 f$ at these points is equal to $4$, $-2/e$,
     and $-2/e$, respectively. Thus $f$ has a local minimum at the
     origin and a local maximum at $(0,1)$ and $(0,-1)$.
-  \end{minipage}
-  \begin{minipage}[t]{0.4\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        size(0,38mm);
-        import graph3;
-        currentlight.background=softyellow; 
-        settings.outformat="pdf";
-        real f(pair z) {return (2*z.x^2+3*z.y^2)*exp(-z.x^2-z.y^2);}
-        draw(surface(f,(-2,-2),(2,2),nx=32,Spline),
-        LightSeaGreen+opacity(0.8),MidnightBlue);
-        draw(Label("$x$",Relative(1),align=W),O--2.2*X,Arrow3());
-        draw(Label("$y$",Relative(1),align=E),O--2.2*Y,Arrow3());
-        draw(Label("$f(x,y) = (2x^2+3y^2)\e^{-x^2-y^2}$",Relative(1),align=N),
-        O--1.8*Z,Arrow3());
-      \end{asy}
-    \end{lrbox}
-    \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-    \captionof{figure}{The graph of $f$} \label{fig:cowboy} 
-  \end{minipage}
+  \end{insetfigure}
 
   These classifications accord with the graph of $f$, shown in
   Figure~\ref{fig:cowboy}.
@@ -4420,7 +4410,72 @@ Figure~\ref{fig:dirder}). \sidenote{* That is: \\ up/down,
   \]  
 \end{defn}
 
-\begin{minipage}[t]{0.6\textwidth} \parskip = 0.2 in
+\begin{lrbox}{\asybox}
+  \begin{asy}[width=7cm]
+    import graph3;
+    
+    draw(O--2.2*X,Arrow3());
+    draw(O--2.2*Y,Arrow3());
+    draw(O--1.1*Z,Arrow3());
+    
+    currentprojection = perspective(5,2,2);
+    
+    real theta = pi/4; 
+    
+    real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+      real x = p.x, y = p.y; 
+      return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
+    }
+    
+    real mx = -0.805541521045397;
+    real my = 0.236292179506650;  
+    
+    real L(pair p) {return f((1,1)) + mx*(p.x - 1) + my*(p.y - 1);}
+    
+    triple g(real x) {return (x,1,f((x,1)));}
+    triple h(real y) {return (1,y,f((1,y)));}
+    
+    label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+    
+    surface s = surface(f,(0,0),(2,2),20,Spline);
+    draw(s,LightSeaGreen+opacity(0.2),MidnightBlue);
+    
+    real w = 0.5; 
+    surface t = surface(L,(1-w,1-w),(1+w,1+w));
+    dot((1,1,f((1,1))),MidnightBlue);
+    real eps = 0.3;
+    draw(circle(c=(1,1,0),r=eps,normal=Z),0.8*white+dashed); 
+    pair u = (2/sqrt(5),1/sqrt(5));
+    triple j(real t) {return (1 + u.x*t, 1+u.y*t, f((1+u.x*t, 1+u.y*t)));}
+    draw(graph(j,-1,1.12,100),MidnightBlue); 
+    
+    draw((1,1,f((1,1))) -- (1+eps*u.x,1+eps*u.y, f((1+eps*u.x,1+eps*u.y))),
+    MidnightBlue+linewidth(1.0),Arrow3(6));
+    
+    draw((1,0,0)--(1,2,0),gray);
+    draw((0,1,0)--(2,1,0),gray);
+    draw("$(a,b) + h\mathbf{u}$",(1,1,0)--(1,1,0) + (0.95*eps*u.x,0.95*eps*u.y,0),gray+fontsize(8),Arrow3(4),align=10*SW);
+    draw((1.65,0.95,0)--(1.02+eps*u.x,0.98+eps*u.y,0),gray,Arrow3(2)); 
+    dot((1+eps*u.x,1+eps*u.y,0), gray+linewidth(1.5)); 
+    draw((1,1,f((1,1))) --
+    (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) --
+    (1+eps*u.x,1+eps*u.y,f((1+eps*u.x,1+eps*u.y))),0.2*white,align=2*SE);
+    
+    draw((1,1.2,0.15)--(1+eps*u.x,1+eps*u.y+0.01,0.04+0.5*(eps*mx*u.x + eps*my*u.y) + f((1,1))),gray,Arrow3(2));
+    
+    triple A = (1,1,0);
+    triple uu = 1.12*(u.x,u.y,0);
+    triple zz = 0.5 * Z; 
+    
+    draw(surface(A-uu -- A+uu -- A+uu+zz -- A-uu+zz--cycle),opacity(0.2)+MidnightBlue); 
+    
+    label("$f((a,b) + h \mathbf{u}) - f(a,b)$",(1,1.2,0.1),black+fontsize(8), align=NE);
+    
+    dot("$(a,b)$", (1,1,0), gray+fontsize(8)+linewidth(1.5), align=10*WSW);
+    draw((1.27,0.8,0)--(1.02,0.98,0),gray,Arrow3(2)); 
+  \end{asy}
+\end{lrbox}
+\begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{The derivative of $f$ in the direction $\mathbf{u}$ \label{fig:dirder}}]
   In other words, move $(x,y)$ a small distance $h$ in the
   $\mathbf{u}$ direction, measure how much $f$ changed, and then
   divide by $h$.
@@ -4435,78 +4490,7 @@ Figure~\ref{fig:dirder}). \sidenote{* That is: \\ up/down,
   $hc_2u_2$ over the $\langle 0, hu_2 \rangle$ step. Altogether, the
   change of $L$ is equal to $(c_1u_1 + c_2u_2 )h$. This
   leads to the following theorem.
-\end{minipage}
-\begin{minipage}[t]{0.39\textwidth}
-  \centering 
-  \begin{lrbox}{\asybox}
-    \begin{asy}[width=7cm]
-      import graph3;
-      
-      draw(O--2.2*X,Arrow3());
-      draw(O--2.2*Y,Arrow3());
-      draw(O--1.1*Z,Arrow3());
-      
-      currentprojection = perspective(5,2,2);
-      
-      real theta = pi/4; 
-      
-      real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
-        real x = p.x, y = p.y; 
-        return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
-      }
-      
-      real mx = -0.805541521045397;
-      real my = 0.236292179506650;  
-      
-      real L(pair p) {return f((1,1)) + mx*(p.x - 1) + my*(p.y - 1);}
-      
-      triple g(real x) {return (x,1,f((x,1)));}
-      triple h(real y) {return (1,y,f((1,y)));}
-      
-      label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
-      
-      surface s = surface(f,(0,0),(2,2),20,Spline);
-      draw(s,LightSeaGreen+opacity(0.2),MidnightBlue);
-      
-      real w = 0.5; 
-      surface t = surface(L,(1-w,1-w),(1+w,1+w));
-      dot((1,1,f((1,1))),MidnightBlue);
-      real eps = 0.3;
-      draw(circle(c=(1,1,0),r=eps,normal=Z),0.8*white+dashed); 
-      pair u = (2/sqrt(5),1/sqrt(5));
-      triple j(real t) {return (1 + u.x*t, 1+u.y*t, f((1+u.x*t, 1+u.y*t)));}
-      draw(graph(j,-1,1.12,100),MidnightBlue); 
-      
-      draw((1,1,f((1,1))) -- (1+eps*u.x,1+eps*u.y, f((1+eps*u.x,1+eps*u.y))),
-      MidnightBlue+linewidth(1.0),Arrow3(6));
-      
-      draw((1,0,0)--(1,2,0),gray);
-      draw((0,1,0)--(2,1,0),gray);
-      draw("$(a,b) + h\mathbf{u}$",(1,1,0)--(1,1,0) + (0.95*eps*u.x,0.95*eps*u.y,0),gray+fontsize(8),Arrow3(4),align=10*SW);
-      draw((1.65,0.95,0)--(1.02+eps*u.x,0.98+eps*u.y,0),gray,Arrow3(2)); 
-      dot((1+eps*u.x,1+eps*u.y,0), gray+linewidth(1.5)); 
-      draw((1,1,f((1,1))) --
-      (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) --
-      (1+eps*u.x,1+eps*u.y,f((1+eps*u.x,1+eps*u.y))),0.2*white,align=2*SE);
-      
-      draw((1,1.2,0.15)--(1+eps*u.x,1+eps*u.y+0.01,0.04+0.5*(eps*mx*u.x + eps*my*u.y) + f((1,1))),gray,Arrow3(2));
-      
-      triple A = (1,1,0);
-      triple uu = 1.12*(u.x,u.y,0);
-      triple zz = 0.5 * Z; 
-      
-      draw(surface(A-uu -- A+uu -- A+uu+zz -- A-uu+zz--cycle),opacity(0.2)+MidnightBlue); 
-      
-      label("$f((a,b) + h \mathbf{u}) - f(a,b)$",(1,1.2,0.1),black+fontsize(8), align=NE);
-      
-      dot("$(a,b)$", (1,1,0), gray+fontsize(8)+linewidth(1.5), align=10*WSW);
-      draw((1.27,0.8,0)--(1.02,0.98,0),gray,Arrow3(2)); 
-    \end{asy}
-  \end{lrbox}
-  \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \captionof{figure}{The derivative of $f$ in the direction
-    $\mathbf{u}$ \label{fig:dirder}}
-\end{minipage}
+\end{insetfigure}
 
 \begin{theo}{Directional derivative formula}{dirder}
   If $f:\R^2 \to \R$ is differentiable at $(a,b)$ and
@@ -4517,6 +4501,7 @@ Figure~\ref{fig:dirder}). \sidenote{* That is: \\ up/down,
   \]
   where $(\nabla f)(a,b)= \langle (\partial_x f)(a,b), (\partial_y f)(a,b) \rangle$. 
 \end{theo}
+
 
 The quantity $(\nabla f)(a,b)$ introduced in
 Theorem~\ref{th:dirder}---the vector of partial derivatives of $f$
@@ -4561,51 +4546,85 @@ $\R^2$.
 \end{solution}
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.6\textwidth} 
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=4.5cm]
+      defaultpen(fontsize(10));
+      import contour; 
+      
+      draw((0,0)--(2,0),Arrow());
+      draw((0,0)--(0,2),Arrow());
+      
+      real f(real x, real y) {return (x-1)^2-(y-1)^2;}
+      int n=10;
+      real[] c=new real[n];
+      for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
+      
+      srand(123); 
+      
+      pen[] p=sequence(new pen(int i) {
+        return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
+      },c.length);
+      
+      Label[] Labels=sequence(new Label(int i) {
+        return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
+        UnFill(1bp));
+      },c.length);
+      
+      guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
+      
+      draw(Labels,g,p);
+      
+      pair z = arcpoint(g[7][0],0.6); 
+      dot(z, MidnightBlue+linewidth(4.0));
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Some of the level curves of a function $g(x,y)$ are shown. Sketch
     the direction of the gradient at the marked point.
-  \end{minipage}
-  \begin{minipage}[t]{0.4\textwidth} 
-    \begin{center}
-      \begin{lrbox}{\asybox}
-        \begin{asy}[width=4.5cm]
-          defaultpen(fontsize(10));
-          import contour; 
-          
-          draw((0,0)--(2,0),Arrow());
-          draw((0,0)--(0,2),Arrow());
-          
-          real f(real x, real y) {return (x-1)^2-(y-1)^2;}
-          int n=10;
-          real[] c=new real[n];
-          for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
-          
-          srand(123); 
-          
-          pen[] p=sequence(new pen(int i) {
-            return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
-          },c.length);
-          
-          Label[] Labels=sequence(new Label(int i) {
-            return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
-            UnFill(1bp));
-          },c.length);
-          
-          guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
-          
-          draw(Labels,g,p);
-          
-          pair z = arcpoint(g[7][0],0.6); 
-          dot(z, MidnightBlue+linewidth(4.0));
-        \end{asy}
-      \end{lrbox}
-      \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-    \end{center}
-  \end{minipage}
+  \end{insetfigure}
 \end{example} 
 
 \begin{solution}
-  \begin{minipage}[t]{0.8\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=25mm]
+      defaultpen(fontsize(10));
+      import contour; 
+      
+      draw((0,0)--(2,0),Arrow());
+      draw((0,0)--(0,2),Arrow());
+
+      real f(real x, real y) {return (x-1)^2-(y-1)^2;}
+      int n=10;
+      real[] c=new real[n];
+      for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
+      
+      srand(123); 
+      
+      pen[] p=sequence(new pen(int i) {
+        return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
+      },c.length);
+      
+      Label[] Labels=sequence(new Label(int i) {
+        return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
+        UnFill(1bp));
+      },c.length);
+      
+      guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
+      
+      draw(Labels,g,p);
+      
+      pair z = arcpoint(g[7][0],0.6); 
+      dot(z, MidnightBlue+linewidth(4.0));
+      
+      pair gradf(pair z) {return (2*z.x-2, 2-2*z.y);}
+      real eps = 0.05 ;
+      draw(z--z+eps*gradf(z), MidnightBlue+linewidth(1.0), Arrow(3));
+      
+      eps *= 3; 
+      clip(box(z-(1.3*eps,eps),z+(1.3*eps,eps)));
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     The key idea is that a function neither increases or decreases
     along its level curve. Therefore, $g$ has directional derivative
     equal to 0 in the direction of any line tangent the level curve
@@ -4613,48 +4632,7 @@ $\R^2$.
     \textbf{gradient of $g$ is orthogonal to $g$'s level curve} at any
     given point. So the gradient looks like the figure shown (zoomed
     in). \bang{-5.5mm}
-  \end{minipage}
-  \begin{minipage}[t]{0.19\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=25mm]
-        defaultpen(fontsize(10));
-        import contour; 
-        
-        draw((0,0)--(2,0),Arrow());
-        draw((0,0)--(0,2),Arrow());
-
-        real f(real x, real y) {return (x-1)^2-(y-1)^2;}
-        int n=10;
-        real[] c=new real[n];
-        for(int i=0; i < n; ++i) c[i]=(i-n/2)/n;
-        
-        srand(123); 
-        
-        pen[] p=sequence(new pen(int i) {
-          return (c[i] >= 0 ? solid : gray)+fontsize(6pt);
-        },c.length);
-        
-        Label[] Labels=sequence(new Label(int i) {
-          return Label(c[i] != 0 ? (string) c[i] : "",Relative(unitrand()),(0,0),
-          UnFill(1bp));
-        },c.length);
-        
-        guide[][] g = contour(f,(0.1,0.1),(1.9,1.9),c); 
-        
-        draw(Labels,g,p);
-        
-        pair z = arcpoint(g[7][0],0.6); 
-        dot(z, MidnightBlue+linewidth(4.0));
-        
-        pair gradf(pair z) {return (2*z.x-2, 2-2*z.y);}
-        real eps = 0.05 ;
-        draw(z--z+eps*gradf(z), MidnightBlue+linewidth(1.0), Arrow(3));
-        
-        eps *= 3; 
-        clip(box(z-(1.3*eps,eps),z+(1.3*eps,eps)));
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 The gradient of a function from $\R^3$ to $\R$ is likewise defined to
@@ -4875,7 +4853,7 @@ parameterize* the boundary of the disk as \sidenote{* To
 \]
 Then the single-variable function $t\mapsto f(\mathbf{r}(t))$ can be
 optimized over $[0,2\pi]$ using the standard single-variable technique (as in
-Example~\ref{exam:optim1d}).\sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/minimize_on_circle.ipynb}{\cocalc}
+Example~\ref{exam:optim1d}).\sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/minimize_on_circle.ipynb?session=default}{\cocalc}
   The minimum is $0.\overline{5}$} 
 
 
@@ -5026,6 +5004,7 @@ to the constraint $g(\mathbf{x}) = c$ by solving the system of \textbf{Lagrange
 with the only caveat that we have to watch out for the possibility
 that $\nabla g = \mathbf{0}$. Let's see how this works out for the
 example from the beginning of the section.
+
 
 \begin{example}{}{lagrange}
   Find the maximum and minimum values of
@@ -5463,7 +5442,7 @@ rectangular regions $D$. \sidenote{* The fundamental theorem of
   \]
   We can again evaluate this integral using the fundamental theorem to get
   a final answer of $\boxed{\frac{1}{\pi}}$. \sidenote{ 
-    \href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/riemann_sum.ipynb}{\cocalc} For some
+    \href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/riemann_sum.ipynb?session=default}{\cocalc} For some
     confidence that our answer is reasonable, we can calculate a
     Riemann sum for this integrand.  
   } 
@@ -6208,7 +6187,7 @@ directly in polar coordinates. Let's do an example.
   $y$, we need to substitute $x = r\cos \theta$ and $y = r\sin
   \theta$ to discover the value of $f$ at the point whose polar
   coordinates are $(r,\theta)$. So we get
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/polar_integral.ipynb}{\cocalc} This one is tedious if done by
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/polar_integral.ipynb?session=default}{\cocalc} This one is tedious if done by
     hand, so we use computer algebra assistance}
   \[
     \int_0^{2\pi} \int_0^{1+\cos \theta} (r \cos\theta + r\sin
@@ -6386,149 +6365,145 @@ of that appendix is the spherical coordinate volume differential $\d V =
       \end{asy}
     \end{center}
   \end{minipage}
-  
-  \begin{minipage}[t]{0.5\textwidth} \parskip = 0.2 in
+
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      import graph3;
+      size(5cm);
+      
+      currentlight.background = softyellow; 
+      
+      picture myaxes(real h){
+        picture result; 
+        draw(result,O--h*X,Arrow3());
+        draw(result,O--h*Y,Arrow3());
+        draw(result,O--h*Z,Arrow3());
+        return result;
+      }
+      
+      material surfacemat = material(opacity=0.4,diffusepen=0.5*black+0.5*LightSeaGreen,
+      emissivepen=0.5*black+0.5*LightSeaGreen); 
+      pen surfacepen = LightSeaGreen+opacity(0.4); 
+      pen wirepen = MidnightBlue;
+      
+      triple xyz(real rho, real theta, real phi){
+        return rho*(cos(theta)*sin(phi), sin(theta)*sin(phi), cos(phi)); 
+      }
+      
+      int n = 20;
+      real phi = pi/4;
+      real eps = 2*pi/n; 
+      
+      void drawpatch(picture pic=currentpicture,
+      real r1, real r2,
+      real theta1, real theta2,
+      real phi1, real phi2, bool opaque = false){ 
+        real[] rvals = {r1, r2};
+        real[] thvals = {theta1, theta2};
+        real[] phvals = {phi1, phi2}; 
+        for(int i=0; i<rvals.length; ++i){
+          real r = rvals[i]; 
+          draw(pic,surface(new triple(pair p){return xyz(r,p.x,p.y);},
+          (thvals[0],phvals[0]),
+          (thvals[1],phvals[1]),
+          10,
+          Spline), opaque ? surfacemat : surfacepen, nullpen);
+        } 
+        for(int i=0; i<thvals.length; ++i){
+          real th = thvals[i]; 
+          draw(pic,surface(new triple(pair p){return xyz(p.x,th,p.y);},
+          (rvals[0], phvals[0]),
+          (rvals[1], phvals[1]),
+          10,
+          Spline), opaque ? surfacemat : surfacepen, nullpen);
+        }
+        
+        for(int i=0; i<phvals.length; ++i){
+          real ph = phvals[i]; 
+          draw(pic,surface(new triple(pair p){return xyz(p.x,p.y,ph);},
+          (rvals[0], thvals[0]),
+          (rvals[1], thvals[1]),
+          10,
+          Spline), opaque ? surfacemat : surfacepen, nullpen);
+        }
+        
+        for(int i=0; i<thvals.length; ++i){
+          for(int j=0; j<phvals.length; ++j){
+            real th = thvals[i];
+            real ph = phvals[j];
+            draw(pic,graph(new triple(real t){return xyz(t,th,ph);},
+            rvals[0],
+            rvals[1],
+            10,
+            Spline), wirepen);
+          }
+        }
+        for(int i=0; i<rvals.length; ++i){
+          for(int j=0; j<phvals.length; ++j){
+            real r = rvals[i];
+            real ph = phvals[j];
+            draw(pic,graph(new triple(real t){return xyz(r,t,ph);},
+            thvals[0],
+            thvals[1],
+            10,
+            Spline), wirepen);
+          }
+        }
+        for(int i=0; i<thvals.length; ++i){
+          for(int j=0; j<rvals.length; ++j){
+            real th = thvals[i];
+            real r = rvals[j];
+            draw(pic,graph(new triple(real t){return xyz(r,th,t);},
+            phvals[0],
+            phvals[1],
+            10,
+            Spline), wirepen);
+          }
+        }
+      }
+      
+      real r1 = 0.8, r2 = 1;
+      real theta1 = pi/4, theta2 = pi/4 + eps;
+      real phi1 = theta1, phi2 = theta2; 
+      
+      add(myaxes(1.25));
+      currentprojection = perspective(5,0.4,0.3);
+      
+      drawpatch(r1, r2, theta1, theta2, theta1, theta2);
+      
+      triple M = 0.5*(xyz(r1,theta2,phi2)+xyz(r2,theta2,phi2)); 
+      label("$\Delta \rho$", M,align=2*SE); 
+      draw(M - 0.07*Z + 0.07*Y -- M,Arrow3(4.5));
+      
+      triple M = xyz(r2,theta2,0.5*phi1+0.5*phi2);
+      label("$\rho \, \Delta \phi$", M,align=2.5*NE);
+      draw(M + 0.06*(Y+Z) -- M, Arrow3(4.5)); 
+      
+      triple M = 0.5*(xyz(r2,theta1,phi1)+xyz(r2,theta2,phi1));
+      label("$\rho \, \sin \phi  \, \Delta \theta$", M, align=5*N); 
+      draw(M + 0.11*Z -- M, Arrow3(4.5)); 
+      
+      draw(circle((0,0,r2*cos(phi1)),r2*sin(phi1),normal=Z),dashed+gray);
+      draw(xyz(r2,theta1,phi1)--(0,0,r2*cos(phi1))--xyz(r2,theta2,phi1));
+      triple A = (0,0,r2*cos(phi1)); 
+      triple B = xyz(r2,theta1,phi1);
+      triple C = 0.7*A + 0.3*B;
+      triple D = 0.3*A + 0.7*B; 
+      triple h = -0.1*Z;
+      draw(surface(yscale(-0.8)*"$\rho \sin \phi$",surface(C--D--D+h--C+h--cycle),0,0,0)); 
+      
+      draw(xyz(r1,theta2,phi1)--O--xyz(r1,theta2,phi2),dashed+gray);
+      draw(xyz(r1,theta1,phi1)--O--xyz(r1,theta1,phi2),dashed+gray);  
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     To see why the top edge length is $\rho \sin \phi \Delta \theta$,
     note that the dashed circle in the figure has radius
     $\rho \sin \phi$, since the \textit{cylindrical} radial coordinate
     $r$ satisfies the equation $r = \rho \sin \phi$. Thus the volume
     of the patch is approximately
     $\rho^2 \sin \phi \Delta \rho\, \Delta \phi \, \Delta \theta$.
-  \end{minipage}
-  \begin{minipage}[t]{0.5\textwidth}
-    \begin{center}
-      \begin{lrbox}{\asybox}
-        \begin{asy}
-          import graph3;
-          size(5cm);
-          
-          currentlight.background = softyellow; 
-          
-          picture myaxes(real h){
-            picture result; 
-            draw(result,O--h*X,Arrow3());
-            draw(result,O--h*Y,Arrow3());
-            draw(result,O--h*Z,Arrow3());
-            return result;
-          }
-          
-          material surfacemat = material(opacity=0.4,diffusepen=0.5*black+0.5*LightSeaGreen,
-          emissivepen=0.5*black+0.5*LightSeaGreen); 
-          pen surfacepen = LightSeaGreen+opacity(0.4); 
-          pen wirepen = MidnightBlue;
-          
-          triple xyz(real rho, real theta, real phi){
-            return rho*(cos(theta)*sin(phi), sin(theta)*sin(phi), cos(phi)); 
-          }
-          
-          int n = 20;
-          real phi = pi/4;
-          real eps = 2*pi/n; 
-          
-          void drawpatch(picture pic=currentpicture,
-          real r1, real r2,
-          real theta1, real theta2,
-          real phi1, real phi2, bool opaque = false){ 
-            real[] rvals = {r1, r2};
-            real[] thvals = {theta1, theta2};
-            real[] phvals = {phi1, phi2}; 
-            for(int i=0; i<rvals.length; ++i){
-              real r = rvals[i]; 
-              draw(pic,surface(new triple(pair p){return xyz(r,p.x,p.y);},
-              (thvals[0],phvals[0]),
-              (thvals[1],phvals[1]),
-              10,
-              Spline), opaque ? surfacemat : surfacepen, nullpen);
-            } 
-            for(int i=0; i<thvals.length; ++i){
-              real th = thvals[i]; 
-              draw(pic,surface(new triple(pair p){return xyz(p.x,th,p.y);},
-              (rvals[0], phvals[0]),
-              (rvals[1], phvals[1]),
-              10,
-              Spline), opaque ? surfacemat : surfacepen, nullpen);
-            }
-            
-            for(int i=0; i<phvals.length; ++i){
-              real ph = phvals[i]; 
-              draw(pic,surface(new triple(pair p){return xyz(p.x,p.y,ph);},
-              (rvals[0], thvals[0]),
-              (rvals[1], thvals[1]),
-              10,
-              Spline), opaque ? surfacemat : surfacepen, nullpen);
-            }
-            
-            for(int i=0; i<thvals.length; ++i){
-              for(int j=0; j<phvals.length; ++j){
-                real th = thvals[i];
-                real ph = phvals[j];
-                draw(pic,graph(new triple(real t){return xyz(t,th,ph);},
-                rvals[0],
-                rvals[1],
-                10,
-                Spline), wirepen);
-              }
-            }
-            for(int i=0; i<rvals.length; ++i){
-              for(int j=0; j<phvals.length; ++j){
-                real r = rvals[i];
-                real ph = phvals[j];
-                draw(pic,graph(new triple(real t){return xyz(r,t,ph);},
-                thvals[0],
-                thvals[1],
-                10,
-                Spline), wirepen);
-              }
-            }
-            for(int i=0; i<thvals.length; ++i){
-              for(int j=0; j<rvals.length; ++j){
-                real th = thvals[i];
-                real r = rvals[j];
-                draw(pic,graph(new triple(real t){return xyz(r,th,t);},
-                phvals[0],
-                phvals[1],
-                10,
-                Spline), wirepen);
-              }
-            }
-          }
-          
-          real r1 = 0.8, r2 = 1;
-          real theta1 = pi/4, theta2 = pi/4 + eps;
-          real phi1 = theta1, phi2 = theta2; 
-          
-          add(myaxes(1.25));
-          currentprojection = perspective(5,0.4,0.3);
-          
-          drawpatch(r1, r2, theta1, theta2, theta1, theta2);
-          
-          triple M = 0.5*(xyz(r1,theta2,phi2)+xyz(r2,theta2,phi2)); 
-          label("$\Delta \rho$", M,align=2*SE); 
-          draw(M - 0.07*Z + 0.07*Y -- M,Arrow3(4.5));
-          
-          triple M = xyz(r2,theta2,0.5*phi1+0.5*phi2);
-          label("$\rho \, \Delta \phi$", M,align=2.5*NE);
-          draw(M + 0.06*(Y+Z) -- M, Arrow3(4.5)); 
-          
-          triple M = 0.5*(xyz(r2,theta1,phi1)+xyz(r2,theta2,phi1));
-          label("$\rho \, \sin \phi  \, \Delta \theta$", M, align=5*N); 
-          draw(M + 0.11*Z -- M, Arrow3(4.5)); 
-          
-          draw(circle((0,0,r2*cos(phi1)),r2*sin(phi1),normal=Z),dashed+gray);
-          draw(xyz(r2,theta1,phi1)--(0,0,r2*cos(phi1))--xyz(r2,theta2,phi1));
-          triple A = (0,0,r2*cos(phi1)); 
-          triple B = xyz(r2,theta1,phi1);
-          triple C = 0.7*A + 0.3*B;
-          triple D = 0.3*A + 0.7*B; 
-          triple h = -0.1*Z;
-          draw(surface(yscale(-0.8)*"$\rho \sin \phi$",surface(C--D--D+h--C+h--cycle),0,0,0)); 
-          
-          draw(xyz(r1,theta2,phi1)--O--xyz(r1,theta2,phi2),dashed+gray);
-          draw(xyz(r1,theta1,phi1)--O--xyz(r1,theta1,phi2),dashed+gray);  
-        \end{asy}
-      \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-    \end{center}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 \begin{example}{}{spherical-mass}
@@ -6605,7 +6580,7 @@ of that appendix is the spherical coordinate volume differential $\d V =
   For the integrand, we should substitute the spherical coordinate
   formulas for $x$, $y$, and $z$. However, we know that it will simplify
   to $\frac{1}{\rho^2}$, since $\rho^2 = x^2 + y^2 + z^2$. So we get
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/cone_integral.ipynb}{\cocalc}
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/cone_integral.ipynb?session=default}{\cocalc}
     Help with calculating this integral}
   \[
     \int_{0}^{2\pi}\int_0^{\pi/4} \int_0^{\sec \phi} \rho^{-2} \rho^2 \sin
@@ -6627,6 +6602,7 @@ of that appendix is the spherical coordinate volume differential $\d V =
   it as integral over a 3D region and then rewriting that integral
   using cylindrical coordinates. 
 \end{exercise}
+
 
 \section{Integration in custom coordinates} \label{sec:changeofvariables}
 
@@ -6925,12 +6901,9 @@ the rod where it balances. The center of mass of a rod with constant
 mass density is the point halfway between the rod's ends. But what if
 the rod has a varying mass density?
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=12cm]{figures/centerofmass}
-  \caption{A rod with mass density indicated by color}
-  \label{fig:rod} 
-\end{figure}
+\begin{center}
+  \singlefigurecaption[width=12cm]{figures/centerofmass}{A rod with mass density indicated by color \label{fig:rod}}
+\end{center}
 
 \sidenote{* See Section \ref{sec:moments-inertia} for more discussion
   on torque}[1mm] Clearly the rod in Figure~\ref{fig:rod} will tip to
@@ -6967,7 +6940,7 @@ integral, and solve for $x_0$ to find
 \]
 In other words, the location of the center of mass is equal to
 \textbf{the density-weighted average value of the coordinate function
-  $\bm{x}$}.
+  $\mathbf{x}$}.
 
 We can apply the same idea (one axis at a time) to a \textbf{lamina},
 which is a plate* occupying a region $L\subset \R^2$ and having mass
@@ -7034,6 +7007,22 @@ the corresponding coordinate functions: \sidenote{* By slight abuse of
 
 \subsection{Moments of inertia} \label{sec:moments-inertia}
 
+\begin{lrbox}{\asybox}
+  \begin{asy}
+    size(5cm); 
+    import graph3;
+    usepackage("bm");
+    real h = 10;
+    currentprojection=perspective(43,23,23); 
+    draw(Label("$\ell$",Relative(0.8),align=E),(0,0,2)--(0,0,h),gray);
+    draw(Label("$\boldsymbol{\tau}$",Relative(0.8),align=E),(0,0,5)--(0,0,6.5),SeaGreen+linewidth(0.8),Arrow3());
+    triple P = (3,4,5);
+    dot(P);
+    draw(Label("$\mathbf{r}$",Relative(0.5)),(0,0,5)--P,DarkRed,Arrow3()); 
+    draw(Label("$\mathbf{a}$"),P--P+(-1,1,0),MidnightBlue,Arrow3()); 
+  \end{asy}
+\end{lrbox}
+
 Newton's second law says that
 \begin{equation} \label{eq:newton2nd} 
   \mathbf{F} = m \mathbf{a},
@@ -7043,12 +7032,12 @@ upon a particle, its mass, and its resulting acceleration,
 respectively. The rotational analogue of Newton's second law says
 that, for any line $\ell$ in space,
 \begin{equation} \label{eq:newton2nd_rot} 
-  {\bm \tau} = I {\bm \alpha}, 
+  \boldsymbol{\tau} = I \boldsymbol{\alpha}
 \end{equation}
-\begin{minipage}[t]{0.7\textwidth}
+\begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{The vectors $\boldsymbol{\tau}, \mathbf{a}$, and $\mathbf{\mathbf{r}}$} \label{fig:MOI}]
   where $\tau$ is the torque about $\ell$ being applied to the
   particle, $I$ is the particle's \textbf{moment of inertia} about
-  $\ell$, and ${\bm \alpha}$ is the angular acceleration of the
+  $\ell$, and $\boldsymbol{\alpha}$ is the angular acceleration of the
   particle about $\ell$. Thus the moment of inertia is the rotational
   analogue of mass.
   
@@ -7061,38 +7050,13 @@ that, for any line $\ell$ in space,
   \[
     \mathbf{r} \times \mathbf{F} = m \mathbf{r} \times \mathbf{a}. 
   \]
-  We define the torque about $\ell$ to be ${\bm \tau} \colonequals
+  We define the torque about $\ell$ to be $\boldsymbol{\tau} \colonequals
   \mathbf{r} \times \mathbf{F}$. Letting $r = |\mathbf{r}|$ be the
   distance from $\ell$ to the particle, we define the angular
-  acceleration of the particle about $\ell$ to be ${\bm \alpha} =
+  acceleration of the particle about $\ell$ to be $\boldsymbol{\alpha} =
   \frac{\mathbf{r}}{r} \times \frac{\mathbf{a}}{r}$. Then we obtain
   \eqref{eq:newton2nd_rot} with $I = mr^2$.
-\end{minipage}
-\begin{minipage}[t]{0.29\textwidth}
-  \begin{center}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        size(5cm); 
-        import graph3;
-        usepackage("bm");
-        real h = 10;
-        currentprojection=perspective(43,23,23); 
-        draw(Label("$\ell$",Relative(0.8),align=E),(0,0,2)--(0,0,h),gray);
-        draw(Label("${\bm \tau}$",Relative(0.8),align=E),(0,0,5)--(0,0,6.5),SeaGreen+linewidth(0.8),Arrow3());
-        triple P = (3,4,5);
-        dot(P);
-        draw(Label("$\mathbf{r}$",Relative(0.5)),(0,0,5)--P,DarkRed,Arrow3()); 
-        draw(Label("$\mathbf{a}$"),P--P+(-1,1,0),MidnightBlue,Arrow3()); 
-      \end{asy}
-    \end{lrbox}
-    \raisebox{\dimexpr -\height + 1.5 ex\relax}{\usebox{\asybox}}
-
-    \vspace{-8mm} 
-    
-    \captionof{figure}{The vectors ${\bm \tau}, \mathbf{a}$, and
-      $\mathbf{\mathbf{r}}$} \label{fig:MOI}
-  \end{center}
-\end{minipage}
+\end{insetfigure}
 
 \begin{exercise}{Angular acceleration}{}
   Show that $\left|\frac{\mathbf{r}}{r} \times
@@ -7163,88 +7127,85 @@ property that the probability that $P$ lies in any region $A$ given by
 integrating $f$ over $A$. \sidenote{* or pdf, for short}
 
 \begin{example}{}{triple20}
-  \begin{minipage}[t]{0.65\textwidth} \parskip = 10 pt Suppose that
-    the probability density function for the random point where your
-    dart hits the dartboard* $D=\R^2$ is given by \sidenote{* This
-      function is positive everywhere in $\R^2$, so the ``dartboard''
-      includes the disk shown as well as the (infinite) wall it is
-      mounted on---this is realistic insofar as one can indeed hit
-      the wall with a dart throw}
-    \[
-      f(x,y) = \frac{1}{\pi} \e^{-x^2 - y^2}, 
-    \]
-    where the origin is situated at the dartboard's bull's eye, and
-    where $x$ and $y$ are measured in inches. Find the probability of
-    scoring triple 20 on your next throw. 
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      size(5cm);
+      int[] labels = {6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8,
+        16, 7, 19, 3, 17, 2, 15, 10}; 
 
-    Note: the triple 20 region is the smaller of the two thin red
-    strips in the sector labeled ``20''. The inner and outer radii of
-    this thin strip are 3.85 inches and 4.2 inches, respectively.
-  \end{minipage} \hfill
-  \begin{minipage}[t]{0.32\textwidth }
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        size(5cm);
-        int[] labels = {6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8,
-          16, 7, 19, 3, 17, 2, 15, 10}; 
+      real rbull = 0.25,
+      rbullouter = 1.25/2,
+      rtripleinner = 3.85,
+      rtripleouter = 4.2,
+      rdoubleinner = 6.7 - 0.35,
+      rdoubleouter = 6.7, 
+      r = 17.75/2;
+      pair O = (0,0); 
 
-        real rbull = 0.25,
-        rbullouter = 1.25/2,
-        rtripleinner = 3.85,
-        rtripleouter = 4.2,
-        rdoubleinner = 6.7 - 0.35,
-        rdoubleouter = 6.7, 
-        r = 17.75/2;
-        pair O = (0,0); 
+      fill(circle(O,r)); // black background disk
 
-        fill(circle(O,r)); // black background disk
-
-        for(int i=0; i< labels.length; ++i){ // number labels
-          label(string(labels[i]),(rdoubleouter+r)/2*dir(i*360/20),white+fontsize(10));
-        }
-
-        // coloring sectors tan, red, and green 
-        for(int i=0; i<20; ++i){
-          real width = 360/20; 
-          real theta = width*i + 1/2*width;
-          if (i % 2 == 1) {
-          fill(rbullouter*dir(theta)--arc(O,rtripleinner,theta,theta+width)--
-          arc(O,rbullouter,theta+width,theta)--cycle,Tan);
-          fill(rtripleouter*dir(theta)--arc(O,rdoubleinner,theta,theta+width)--
-          arc(O,rtripleouter,theta+width,theta)--cycle,Tan);
-          fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
-          arc(O,rtripleinner,theta+width,theta)--cycle,Green);
-          fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
-          arc(O,rdoubleinner,theta+width,theta)--cycle,Green);
-        }
-        else {
-          fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
-          arc(O,rtripleinner,theta+width,theta)--cycle,Red);
-          fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
-          arc(O,rdoubleinner,theta+width,theta)--cycle,Red);
-        }
+      for(int i=0; i< labels.length; ++i){ // number labels
+        label(string(labels[i]),(rdoubleouter+r)/2*dir(i*360/20),white+fontsize(10));
       }
 
-      // bullseyes
-
-      fill(circle(O,rbullouter),Green);
-      fill(circle(O,rbull),Red); 
-
-      // white lines separating regions
-      draw(circle(O,rdoubleouter),white);
-      draw(circle(O,rdoubleinner),white);
-      draw(circle(O,rtripleouter),white);
-      draw(circle(O,rtripleinner),white);
-      draw(circle(O,rbull),white);
-      draw(circle(O,rbullouter),white);
+      // coloring sectors tan, red, and green 
       for(int i=0; i<20; ++i){
-        real theta = 360/20*i + 1/2*(360/20); 
-        draw(rbullouter*dir(theta)--rdoubleouter*dir(theta),white);
+        real width = 360/20; 
+        real theta = width*i + 1/2*width;
+        if (i % 2 == 1) {
+        fill(rbullouter*dir(theta)--arc(O,rtripleinner,theta,theta+width)--
+        arc(O,rbullouter,theta+width,theta)--cycle,Tan);
+        fill(rtripleouter*dir(theta)--arc(O,rdoubleinner,theta,theta+width)--
+        arc(O,rtripleouter,theta+width,theta)--cycle,Tan);
+        fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
+        arc(O,rtripleinner,theta+width,theta)--cycle,Green);
+        fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
+        arc(O,rdoubleinner,theta+width,theta)--cycle,Green);
       }
-    \end{asy}
-  \end{lrbox}
-  \raisebox{\dimexpr -\height + 1.5 ex \relax}{\usebox{\asybox}}
-\end{minipage}
+      else {
+        fill(rtripleinner*dir(theta)--arc(O,rtripleouter,theta,theta+width)--
+        arc(O,rtripleinner,theta+width,theta)--cycle,Red);
+        fill(rdoubleinner*dir(theta)--arc(O,rdoubleouter,theta,theta+width)--
+        arc(O,rdoubleinner,theta+width,theta)--cycle,Red);
+      }
+    }
+
+    // bullseyes
+
+    fill(circle(O,rbullouter),Green);
+    fill(circle(O,rbull),Red); 
+
+    // white lines separating regions
+    draw(circle(O,rdoubleouter),white);
+    draw(circle(O,rdoubleinner),white);
+    draw(circle(O,rtripleouter),white);
+    draw(circle(O,rtripleinner),white);
+    draw(circle(O,rbull),white);
+    draw(circle(O,rbullouter),white);
+    for(int i=0; i<20; ++i){
+      real theta = 360/20*i + 1/2*(360/20); 
+      draw(rbullouter*dir(theta)--rdoubleouter*dir(theta),white);
+    }
+  \end{asy}
+\end{lrbox}
+\begin{insetfigure}{\usebox{\asybox}}
+  Suppose that the probability density function for the random point where your
+  dart hits the dartboard* $D=\R^2$ is given by \sidenote{* This
+  function is positive everywhere in $\R^2$, so the ``dartboard''
+  includes the disk shown as well as the (infinite) wall it is
+  mounted on---this is realistic insofar as one can indeed hit
+  the wall with a dart throw}
+  \[
+    f(x,y) = \frac{1}{\pi} \e^{-x^2 - y^2}, 
+  \]
+  where the origin is situated at the dartboard's bull's eye, and
+  where $x$ and $y$ are measured in inches. Find the probability of
+  scoring triple 20 on your next throw. 
+
+  Note: the triple 20 region is the smaller of the two thin red
+  strips in the sector labeled ``20''. The inner and outer radii of
+  this thin strip are 3.85 inches and 4.2 inches, respectively.
+\end{insetfigure}
 \end{example}
 
 \newcommand{\ri}{r_{\mathrm{i}}} \newcommand{\ro}{r_{\mathrm{o}}}
@@ -7492,7 +7453,7 @@ probability-weighted integral of $g$.
   $f(x,y) = \frac{363}{310}- \frac{30}{31} \left(x - y - \frac{1}{10}\right)^{2} 
   $ on $[0,1]^2$, then what is the probability that
   your friend scores higher than you on the exam?*
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/testscorepdf.ipynb}{\cocalc}
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/testscorepdf.ipynb?session=default}{\cocalc}
     help with calculating this integral}
 \end{exercise}
 
@@ -7560,36 +7521,33 @@ where $G$ is the gravitational constant and $Mm$ is the product of
 the masses of particle and the attracting body at $(1,1,1)$. 
 
 \begin{exercise}{}{}
-  \begin{minipage}[t]{0.58\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      import graph;
+      size(6cm); 
+      
+      real eps = 0.2; 
+      pair a=(0,0), b = (2,1);
+
+      path vector(pair z) {return (0,0)--(1-z.y^2,0);}
+
+      draw(a--(b.x+eps,0),Arrow(4));
+      draw(a--(0,b.y+eps),Arrow(4));
+
+      real eps = 0.03; 
+      draw(Label("2",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
+      draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
+
+      add(vectorfield(vector,(eps,eps),b));
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     The vector plot shown represents the velocity of water on the
     surface of a river. The water is
     flowing due east, and it is flowing faster near the south end of
     the river than the north. Come up with a vector field $\mathbf{F}$
     whose vector plot looks approximately like the one shown.
-  \end{minipage}
-  \begin{minipage}[t]{0.4\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        import graph;
-        size(6cm); 
-        
-        real eps = 0.2; 
-        pair a=(0,0), b = (2,1);
-
-        path vector(pair z) {return (0,0)--(1-z.y^2,0);}
-
-        draw(a--(b.x+eps,0),Arrow(4));
-        draw(a--(0,b.y+eps),Arrow(4));
-
-        real eps = 0.03; 
-        draw(Label("2",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
-        draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
-
-        add(vectorfield(vector,(eps,eps),b));
-      \end{asy}
-    \end{lrbox}
-    \hfill \raisebox{\dimexpr-\height+1.5ex\relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{exercise}
 
 \milink{line_integral_vector_field_introduction}{line integrals}
@@ -8438,51 +8396,49 @@ the following theorem.
   vector field}
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.7\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=4cm]
+      import three;
+      
+      currentlight.background = softblue;
+      currentprojection = perspective(20,12,8); 
+
+      int n = 10;
+      pen waterblue = rgb(0.8,0.8,0.99);
+      
+      triple A = (3,0,0);
+      triple B = (3,0,1);
+      triple C = (1,1,1);
+      triple D = (1,1,0);
+      
+      draw(A--B--C--D--cycle);
+      
+      real t; 
+      for(int i=1; i<n; ++i){
+        t = i/n; 
+        draw(interp(A,B,t)--interp(D,C,t),gray);
+        draw(interp(B,C,t)--interp(A,D,t),gray); 
+      }
+      
+      pen waterpen = waterblue + opacity(0.4); 
+      
+      draw(box((0,0,0),(4,1,1)),MidnightBlue);
+      
+      int n = 2; 
+      for(int i=-n; i<=n; ++i){
+        for(int j=-n; j<=n; ++j){
+          draw((0,1/2+i/5,1/2+j/5)--(4,1/2+i/5,1/2+j/5),waterpen+linewidth(2.0)); 
+        }
+      }
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Consider a constant-velocity river flowing through a net as
     shown. Find the volume of water flowing through the net per unit
     time, in terms of the area $A$ of the net, the velocity $v$, and
     the angle $\theta$ between the direction of the river's flow and a
     vector normal to the plane of the net.
-  \end{minipage}
-  \begin{minipage}[t]{0.29\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=4cm]
-        import three;
-        
-        currentlight.background = softblue;
-        currentprojection = perspective(20,12,8); 
-
-        int n = 10;
-        pen waterblue = rgb(0.8,0.8,0.99);
-        
-        triple A = (3,0,0);
-        triple B = (3,0,1);
-        triple C = (1,1,1);
-        triple D = (1,1,0);
-        
-        draw(A--B--C--D--cycle);
-        
-        real t; 
-        for(int i=1; i<n; ++i){
-          t = i/n; 
-          draw(interp(A,B,t)--interp(D,C,t),gray);
-          draw(interp(B,C,t)--interp(A,D,t),gray); 
-        }
-        
-        pen waterpen = waterblue + opacity(0.4); 
-        
-        draw(box((0,0,0),(4,1,1)),MidnightBlue);
-        
-        int n = 2; 
-        for(int i=-n; i<=n; ++i){
-          for(int j=-n; j<=n; ++j){
-            draw((0,1/2+i/5,1/2+j/5)--(4,1/2+i/5,1/2+j/5),waterpen+linewidth(2.0)); 
-          }
-        }
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -8704,81 +8660,78 @@ through the bottom of the box is approximately
 $P(x, y, z)\, \Delta x \,\Delta y$. Thus the difference is approximately
 $(\partial_z P)(x,y,z) \, \Delta x \,  \Delta y \, \Delta z$, and the
 difference per unit volume is $\partial_z P(x,y,z)$. Similarly, the front/back
-and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ to
-the net flow density through the small box.
+and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ to the net flow density through the small box.
 
 
 \begin{example}{}{div}
-  \begin{minipage}[t]{0.5\textwidth}
+  \begin{lrbox}{\asybox}
+  \begin{asy}[width=7cm]
+    import graph;
+    picture vectorfieldmid(path vector(pair), pair a, pair b,
+    int nx=nmesh, int ny=nx, bool truesize=false,
+    real maxlength=truesize ? 0 : maxlength(a,b,nx,ny),
+    bool cond(pair z)=null, pen p=currentpen,
+    arrowbar arrow=Arrow, margin margin=PenMargin)
+    {
+      picture pic;
+      real dx=1/nx;
+      real dy=1/ny;
+      bool all=cond == null;
+      real scale;
+      
+      if(maxlength > 0) {
+        real size(pair z) {
+          path g=vector(z);
+          return abs(point(g,size(g)-1)-point(g,0));
+        }
+        real max=size(a);
+        for(int i=0; i <= nx; ++i) {
+          real x=interp(a.x,b.x,i*dx);
+          for(int j=0; j <= ny; ++j)
+          max=max(max,size((x,interp(a.y,b.y,j*dy))));
+        }
+        scale=max > 0 ? maxlength/max : 1;
+      } else scale=1;
+      
+      for(int i=0; i <= nx; ++i) {
+        real x=interp(a.x,b.x,i*dx);
+        for(int j=0; j <= ny; ++j) {
+          real y=interp(a.y,b.y,j*dy);
+          pair z=(x,y);
+          if(all || cond(z)) {
+            path g=scale(scale)*vector(z);
+            if(truesize)
+            draw(z,pic,g,p,arrow);
+            else
+            draw(pic,shift(-point(g,size(g)-1)/2)*shift(z)*g,p,arrow,margin);
+          }
+        }
+      }
+      return pic;
+    }
+    size(8cm); 
+    
+    real eps = 0.2; 
+    
+    pair a=(0,0);
+    pair b=(1,1);
+    
+    path vector(pair z) {return (0,0)--(z.x^2,-z.y^2);}
+    
+    draw(a--(b.x+eps,0),Arrow(4));
+    draw(a--(0,b.y+eps),Arrow(4));
+    
+    real eps = 0.03; 
+    draw(Label("1",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
+    draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
+    
+    add(vectorfieldmid(vector,(eps,eps),b,Arrow(3)));
+  \end{asy}
+\end{lrbox} 
+  \begin{insetfigure}{\usebox{\asybox}}
     Figure out where $\nabla \cdot \mathbf{F}$ is positive for the
     vector field $\mathbf{F}$ shown.
-  \end{minipage}
-  \begin{minipage}[t]{0.48\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=7cm]
-        import graph;
-        picture vectorfieldmid(path vector(pair), pair a, pair b,
-        int nx=nmesh, int ny=nx, bool truesize=false,
-        real maxlength=truesize ? 0 : maxlength(a,b,nx,ny),
-        bool cond(pair z)=null, pen p=currentpen,
-        arrowbar arrow=Arrow, margin margin=PenMargin)
-        {
-          picture pic;
-          real dx=1/nx;
-          real dy=1/ny;
-          bool all=cond == null;
-          real scale;
-          
-          if(maxlength > 0) {
-            real size(pair z) {
-              path g=vector(z);
-              return abs(point(g,size(g)-1)-point(g,0));
-            }
-            real max=size(a);
-            for(int i=0; i <= nx; ++i) {
-              real x=interp(a.x,b.x,i*dx);
-              for(int j=0; j <= ny; ++j)
-              max=max(max,size((x,interp(a.y,b.y,j*dy))));
-            }
-            scale=max > 0 ? maxlength/max : 1;
-          } else scale=1;
-          
-          for(int i=0; i <= nx; ++i) {
-            real x=interp(a.x,b.x,i*dx);
-            for(int j=0; j <= ny; ++j) {
-              real y=interp(a.y,b.y,j*dy);
-              pair z=(x,y);
-              if(all || cond(z)) {
-                path g=scale(scale)*vector(z);
-                if(truesize)
-                draw(z,pic,g,p,arrow);
-                else
-                draw(pic,shift(-point(g,size(g)-1)/2)*shift(z)*g,p,arrow,margin);
-              }
-            }
-          }
-          return pic;
-        }
-        size(8cm); 
-        
-        real eps = 0.2; 
-        
-        pair a=(0,0);
-        pair b=(1,1);
-        
-        path vector(pair z) {return (0,0)--(z.x^2,-z.y^2);}
-        
-        draw(a--(b.x+eps,0),Arrow(4));
-        draw(a--(0,b.y+eps),Arrow(4));
-        
-        real eps = 0.03; 
-        draw(Label("1",Relative(1)),(b.x,0)--(b.x,-eps),align=S);
-        draw(Label("1",Relative(1)),(0,b.y)--(-eps,b.y),align=W);
-        
-        add(vectorfieldmid(vector,(eps,eps),b,Arrow(3)));
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -8794,6 +8747,7 @@ the net flow density through the small box.
   from them.
 \end{solution}
 
+
 \begin{exercise}{}{}
   Find the divergence of the gravitational vector field in
   \eqref{eq:gravity}. 
@@ -8806,7 +8760,7 @@ the net flow density through the small box.
   $\mathbf{F} = \langle xy, y^2 \rangle$. Then evaluate
   $\nabla \cdot \mathbf{F}$ and find where
   $\nabla \cdot \mathbf{F} > 0$ algebraically.
-  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/vector_plot.ipynb}{\cocalc}
+  \sidenote{\href{https://cocalc.com/projects/7925f475-a0bd-4621-b78a-466c24c7863c/files/vector_plot.ipynb?session=default}{\cocalc}
     for drawing a vector plot}
 \end{exercise}
 
@@ -8846,45 +8800,43 @@ point in this field. The corresponding component of the curl measures
 how rapidly and in which direction this paddle wheel turns.
 
 \begin{example}{}{}
-  \begin{minipage}[t]{0.5\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=7cm]
+      import multitools;
+      currentprojection=perspective(5,2.8,1.1);
+      
+      currentlight.background = softblue;
+      
+      path3 gravity(triple t){
+        return length(t) == 0 ? O--O : O--(t.x*t.z,t.x^2+t.y*t.z,t.z);
+      }
+      
+      triple A = (0,0,0);
+      triple B = (1,1,1);
+      
+      add(VectorPlot3D(gravity,A,B,4,4,4,maxlength=0.2,minlength=0.025,p=LightSeaGreen,Arrow3(6)));
+      
+      real l = 1.2;
+      pen axispen = gray+opacity(0.5);
+      
+      draw(O--O+l*X,axispen,Arrow3());
+      draw(O--O+l*Y,axispen,Arrow3());
+      draw(O--O+l*Z,axispen,Arrow3());
+      
+      real t = 0.13; 
+      real a = t+0.495, b = t+0.505;
+      real c = t+0.4, d = t+0.6; 
+      
+      draw(shift(0,0,-0.01)*extrude((c,a)--(c,b)--(d,b)--(d,a)--cycle,0.02*Z),LightBlue);
+      draw(shift(0,0,-0.01)*extrude((a,c)--(b,c)--(b,d)--(a,d)--cycle,0.02*Z),LightBlue);
+      draw(shift(0,0,-0.01)*extrude(circle(((a+b)/2,(a+b)/2),0.015),0.08*Z),LightBlue);      
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Consider the vector field $\mathbf{F}$ shown. Find the
     sign of the $z$-component of the curl of $\mathbf{F}$ at any point
     in the $xy$-plane.
-  \end{minipage}
-  \begin{minipage}[t]{0.49\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=7cm]
-        import multitools;
-        currentprojection=perspective(5,2.8,1.1);
-        
-        currentlight.background = softblue;
-        
-        path3 gravity(triple t){
-          return length(t) == 0 ? O--O : O--(t.x*t.z,t.x^2+t.y*t.z,t.z);
-        }
-        
-        triple A = (0,0,0);
-        triple B = (1,1,1);
-        
-        add(VectorPlot3D(gravity,A,B,4,4,4,maxlength=0.2,minlength=0.025,p=LightSeaGreen,Arrow3(6)));
-        
-        real l = 1.2;
-        pen axispen = gray+opacity(0.5);
-        
-        draw(O--O+l*X,axispen,Arrow3());
-        draw(O--O+l*Y,axispen,Arrow3());
-        draw(O--O+l*Z,axispen,Arrow3());
-        
-        real t = 0.13; 
-        real a = t+0.495, b = t+0.505;
-        real c = t+0.4, d = t+0.6; 
-        
-        draw(shift(0,0,-0.01)*extrude((c,a)--(c,b)--(d,b)--(d,a)--cycle,0.02*Z),LightBlue);
-        draw(shift(0,0,-0.01)*extrude((a,c)--(b,c)--(b,d)--(a,d)--cycle,0.02*Z),LightBlue);
-        draw(shift(0,0,-0.01)*extrude(circle(((a+b)/2,(a+b)/2),0.015),0.08*Z),LightBlue);      
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height + 1.5ex}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{example}
 
 \begin{solution}
@@ -9108,42 +9060,40 @@ $D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
 \end{exercise}
 
 \begin{exercise}{}{weirdsurface}
-  \begin{minipage}[t]{0.5\textwidth}
+  \begin{lrbox}{\asybox}
+    \begin{asy}[width=7cm]
+      import graph3;
+      currentprojection=perspective(5,2.5,2);
+      currentlight.background = softgreen; 
+      
+      triple f(pair p){
+        real x = p.x, y = p.y;
+        return (x,y,10*x*y*(1-x)*(1-y)); 
+      }
+      
+      real l = 1.1;
+      pen axispen = gray+opacity(0.5);
+      triple newO = O; 
+      draw(newO--newO+l*X,axispen,Arrow3());
+      draw(newO--newO+l*Y,axispen,Arrow3());
+      draw(newO--newO+l/2*Z,axispen,Arrow3()); 
+      
+      draw(surface(f,(0,0),(1,1),20,Spline),LightSeaGreen+opacity(0.7),MidnightBlue+thin()); 
+      draw((0,0,0)--(0,1,0)--(1,1,0)--(1,0,0)--cycle);
+
+      real eps = 0.05; 
+      draw(Label("1",Relative(1.0),align=S),(1,0,0)--(1,0,-eps));
+      draw(Label("1",Relative(1.0),align=S),(0,1,0)--(0,1,-eps)); 
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     Consider the vector field
     $\mathbf{F} = \langle x^3, xz, 1-3zx^2 \rangle$. Verify that the
     divergence of $\mathbf{F}$ is zero everywhere. Then use the
     divergence theorem to calculate the flow of $\mathbf{F}$ through
     the surface $S$ shown. Note that this is not a closed surface: it
     excludes the square $[0,1]^2 \times \{0\}$ on the bottom.
-  \end{minipage}
-  \begin{minipage}[t]{0.48\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}[width=7cm]
-        import graph3;
-        currentprojection=perspective(5,2.5,2);
-        currentlight.background = softgreen; 
-        
-        triple f(pair p){
-          real x = p.x, y = p.y;
-          return (x,y,10*x*y*(1-x)*(1-y)); 
-        }
-        
-        real l = 1.1;
-        pen axispen = gray+opacity(0.5);
-        triple newO = O; 
-        draw(newO--newO+l*X,axispen,Arrow3());
-        draw(newO--newO+l*Y,axispen,Arrow3());
-        draw(newO--newO+l/2*Z,axispen,Arrow3()); 
-        
-        draw(surface(f,(0,0),(1,1),20,Spline),LightSeaGreen+opacity(0.7),MidnightBlue+thin()); 
-        draw((0,0,0)--(0,1,0)--(1,1,0)--(1,0,0)--cycle);
-
-        real eps = 0.05; 
-        draw(Label("1",Relative(1.0),align=S),(1,0,0)--(1,0,-eps));
-        draw(Label("1",Relative(1.0),align=S),(0,1,0)--(0,1,-eps)); 
-      \end{asy}
-    \end{lrbox}\raisebox{\dimexpr -\height + 1.5ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{exercise}
 
 \newpage 
@@ -9346,11 +9296,11 @@ such a way that its boundary is preserved:
 \end{lrbox}
 
 \begin{example}{}{twopieces}
-  \insetfigure{
-    Verify Stokes' theorem for the portion of the cone $z = \sqrt{x^2
-      +y^2}$ between the planes $z = 1$ and $z = 4$ and the vector field
-    $\mathbf{F} = \langle x^2y, z, y \rangle$.
-  }{\usebox{\asybox}}
+  \begin{insetfigure}{\usebox{\asybox}}
+  Verify Stokes' theorem for the portion of the cone $z = \sqrt{x^2
+  +y^2}$ between the planes $z = 1$ and $z = 4$ and the vector field
+  $\mathbf{F} = \langle x^2y, z, y \rangle$.
+  \end{insetfigure}
 \end{example}
 
 \begin{lrbox}{\asybox}
@@ -9439,7 +9389,10 @@ such a way that its boundary is preserved:
     \langle -u  \cos v, -u \sin v, u \rangle \, \d u\, \d v = -
     \frac{255\pi}{4}. 
   \]
-  \insetfigure{Since the normal vector
+  \begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{The normal vectors
+    for the surface integral and the corresponding orientations of the
+    boundary arcs in Stokes' theorem \label{fig:stokesorientation}}]
+Since the normal vector
     $\langle -u \cos v, -u \sin v, u \rangle$ points in/up for all
     $(u,v) \in [1,4]\times [0,2\pi]$, the value $- \frac{255\pi}{4}$
     represents the flow of the curl $\mathbf{F}$ from the
@@ -9455,9 +9408,8 @@ such a way that its boundary is preserved:
     Figure~\ref{fig:stokesorientation}). We can see from this
     procedure that the top edge of the surface is oriented
     counterclockwise when viewed from
-    above. }{\usebox{\asybox}}[\captionof{figure}{The normal vectors
-    for the surface integral and the corresponding orientations of the
-    boundary arcs in Stokes' theorem \label{fig:stokesorientation}}]
+    above. 
+  \end{insetfigure}
 
   Since the bottom edge of each patch is oriented \textit{clockwise}
   when viewed from above, the bottom edge of the surface should be
@@ -9513,13 +9465,10 @@ sphere, a donut, or a rectangular prism) is zero:
 
 \chapter*{Colophon}
 
-This text was typeset with pdf\LaTeX, using \texttt{tcolorbox} and a version of the
-\texttt{mathpazo} package's Palatino fonts which was modified to borrow
-Greek symbols from Utopia and blackboard bold symbols from Computer
-Modern. The cover art was rendered using Ti\textit{k}Z. 
+This text was typeset with Lua\LaTeX, using \texttt{tcolorbox} and a version of the \texttt{mathpazo} package's Palatino fonts which was modified to borrow Greek symbols from Utopia and blackboard bold symbols from Computer Modern. The cover art was rendered using Ti\textit{k}Z. 
 
 The figures are all produced in Asymptote and are included using the
-\texttt{asymptote} \LaTeX package. All the files necessary to produce
+\texttt{asymptote} \LaTeX\ package. All the files necessary to produce
 this document are available at \url{github.com/sswatson}.
 
 \appendix
@@ -9541,8 +9490,10 @@ particular element is in it. For example, we say that $1 \in A$ (read
 ``1 is an element of $A$''), while $2 \notin A$ (``2 is not an element
 of $A$'').
 
+\vspace{-8pt}
+
 Some sets with standard and specially typeset names include 
-\begin{itemize} 
+\begin{itemize}[topsep=-6pt]
 \item $\R$, the set of real numbers, 
 \item $\mathbb{Q}$, the set of rational numbers, 
 \item $\mathbb{Z}$, the set of integers, and 
@@ -9550,7 +9501,7 @@ Some sets with standard and specially typeset names include
 \end{itemize}
 
 \begin{tcolorbox}[title = Subsets and set equality, parbox = false,
-  colframe = MidnightBlue, colback=softblue]
+  colframe = MidnightBlue, colback=softblue] \parskip = 4pt
   We say that $A \subset B$ (read ``$A$ is a \textbf{subset} of $B$'')
   if every element of $A$ is an element of $B$. For example,
   \[
@@ -9567,7 +9518,7 @@ matters is what is in and what is not. It is customary to writesets with
 \end{tcolorbox} \enlargethispage{1cm} 
 
 \begin{tcolorbox}[title = Intersections and unions, parbox = false,
-  colframe = MidnightBlue, colback=softblue] 
+  colframe = MidnightBlue, colback=softblue] \parskip = 4pt
   We write $A\cap B$, the \textbf{intersection} of $A$ and $B$, for
   the set of all the elements that are in both $A$ and $B$. So, for
   example,
@@ -11305,7 +11256,7 @@ the function simultaneously.
 \end{lrbox}
 
 \begin{solution}
-  \begin{minipage}[t]{0.78\textwidth} 
+  \begin{insetfigure}{\usebox{\asybox}}
     Consider the path which begins at $(0,0)$, proceeds in a straight
     line to $(0.005,642)$, then in a straight line to $(0.01,0)$, and
     from there directly across to $(1,0)$. Every vertical line between
@@ -11313,10 +11264,7 @@ the function simultaneously.
     path is the graph of a function. The area under the graph of this
     function is the area of a triangle with base $0.01$ and height
     642, so its area is indeed 3.21.
-  \end{minipage} \hfill 
-  \begin{minipage}[t]{0.20\textwidth}
-    \raisebox{\dimexpr -\height + 1.5 ex \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 Note that in our solution to Example~\ref{exam:straightlines}, we
@@ -11339,6 +11287,7 @@ comes to proving the existence of functions with desired properties.
   that there exists a discontinuous function which does not satisfy
   the conclusion of the intermediate value theorem.
 \end{exercise}
+
 
 \begin{lrbox}{\asybox}
   \begin{asy} 
@@ -11391,7 +11340,7 @@ comes to proving the existence of functions with desired properties.
 \end{example}
 
 \begin{solution}
-  \begin{minipage}[t]{0.65\textwidth}
+  \begin{insetfigure}{\usebox{\asybox}}
     We can just directly define the function to do what we want. There
     are lots of options, so let's get a little creative. For each
     $t \geq 0$, we define* \sidenote{* The only concern here would be
@@ -11412,12 +11361,7 @@ comes to proving the existence of functions with desired properties.
     $(x,y) = \left(\tfrac{1}{4}, -\tfrac{1}{4}\right)$, in which case
     we set $f(x,y) = \frac{1}{8}$. The figure shown illustrates the
     graph of this function.
-  \end{minipage} \hfill
-  \begin{minipage}[t]{0.34\textwidth}
-    \centering 
-    \raisebox{\dimexpr -\height + 1.5 ex \relax}{
-      \usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{solution}
 
 \begin{exercise}{}{}
@@ -11469,7 +11413,32 @@ considering what can go wrong. \sidenote{We will focus on integrating
   functions which take on negative or zero values}
 
 \begin{exercise}{A cautionary tale}{cautionarytale}
-  \begin{minipage}[t]{0.64\textwidth} \parskip = 0.2 in 
+  \begin{lrbox}{\asybox}
+    \begin{asy}
+      defaultpen(fontsize(10));
+      size(5.3cm);
+      import graph;
+      real f(real x){ return 0.1 + 1/5*x*x;}
+      picture gr;
+      draw(gr,graph(f,0,2),MidnightBlue);
+      draw(gr,(0,0)--(2,0));
+      draw(gr,(0,0)--(0,1),Arrow(2));
+      real eps = 0.05;
+      draw(gr,Label("1",Relative(1),align=S),(2,0)--(2,-eps));
+      
+      label(gr,"$x$",(2,0),align=E,MidnightBlue);
+      label(gr,"$f(x)$",(0,1.05),align=N,MidnightBlue);
+      
+      int n = 8;
+      add(gr);
+      for(int i=0;i< 2*n; ++i){
+        draw((i/n,f(i/n))--((i+1)/n,f(i/n)),MidnightBlue);
+        draw(((i+1)/n,f(i/n))--((i+1)/n,f((i+1)/n)),MidnightBlue+linetype(new real[] \
+        {1,2})+linewidth(0.25));
+      }
+    \end{asy}
+  \end{lrbox}
+  \begin{insetfigure}{\usebox{\asybox}}
     For each positive integer $n$, consider the greatest function $f_n$
     which is piecewise constant over each interval
     $\left[\frac{i}{n}, \frac{i+1}{n}\right)$, where $i$ ranges from 0
@@ -11480,35 +11449,7 @@ considering what can go wrong. \sidenote{We will focus on integrating
     count only the horizontal steps or (ii) count the horizontal and
     vertical steps). Does this approximate the arc length of $f$ over
     $[0,1]$ increasingly well as $n\to\infty$?
-  \end{minipage}
-  \begin{minipage}[t]{0.35\textwidth}
-    \begin{lrbox}{\asybox}
-      \begin{asy}
-        defaultpen(fontsize(10));
-        size(5.3cm);
-        import graph;
-        real f(real x){ return 0.1 + 1/5*x*x;}
-        picture gr;
-        draw(gr,graph(f,0,2),MidnightBlue);
-        draw(gr,(0,0)--(2,0));
-        draw(gr,(0,0)--(0,1),Arrow(2));
-        real eps = 0.05;
-        draw(gr,Label("1",Relative(1),align=S),(2,0)--(2,-eps));
-        
-        label(gr,"$x$",(2,0),align=E,MidnightBlue);
-        label(gr,"$f(x)$",(0,1.05),align=N,MidnightBlue);
-        
-        int n = 8;
-        add(gr);
-        for(int i=0;i< 2*n; ++i){
-          draw((i/n,f(i/n))--((i+1)/n,f(i/n)),MidnightBlue);
-          draw(((i+1)/n,f(i/n))--((i+1)/n,f((i+1)/n)),MidnightBlue+linetype(new real[] \
-          {1,2})+linewidth(0.25));
-        }
-      \end{asy}
-    \end{lrbox} \raisebox{\dimexpr -\height+1.5ex
-      \relax}{\usebox{\asybox}}
-  \end{minipage}
+  \end{insetfigure}
 \end{exercise}
 
 \begin{wrapfigure}[12]{O}[1cm]{5cm}
@@ -11736,14 +11677,11 @@ x^x*(log(x) + 1)
 \asubsection{sec:vectors}
 
 \begin{aexercise}
-  \begin{minipage}[t]{0.58\textwidth}
+  \begin{insetfigure}{\includegraphics[width=4.5cm]{exercisefigures/midpoint}}
     The point $M$ is the midpoint of $P$ and $Q$. Express $\mathbf{c}$
     in terms of $\mathbf{a}$ and $\mathbf{b}$, and express $\mathbf{d}$
     in terms of $\mathbf{a}$ and $\mathbf{b}$.
-  \end{minipage} \hspace{6mm}
-  \begin{minipage}[t]{0.4\textwidth}
-    \raisebox{\dimexpr -\height + 1.5ex\relax}{\includegraphics[width=5cm]{exercisefigures/midpoint}}
-  \end{minipage}
+  \end{insetfigure}
 \end{aexercise}
 
 \begin{aexercise}
@@ -12324,7 +12262,7 @@ x^x*(log(x) + 1)
     \frac{f(i/n,j/n,k/n)}{n^3}.
   \]
   (b) At \texttt{sagecell.sagemath.org}, use the code
-\begin{verbatim} 
+\begin{pythonblock}[title=]
 n = 20
 var("x","y","z","i","j","k")
 f(x,y,z) = 1/(x+y+z+1)
@@ -12332,7 +12270,7 @@ assume(0<x<1);assume(0<y<1);assume(0<z<1)
 I = integrate(integrate(integrate(f(x,y,z),x,0,1),y,0,1),z,0,1)
 S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
 (I,S,N(I),N(S))
-\end{verbatim}
+\end{pythonblock}
   which gives the exact values of the integral and $S_{20}$ followed
   by their decimal representations, to show that $S_{20}$ is close to
   the value of the integral. Increase $n$ (just change the first line
@@ -12848,17 +12786,11 @@ S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
 \end{aexercise}
 
 \begin{aexercise}
-  \begin{minipage}[t]{0.7\linewidth}
+  \begin{insetfigure}{\includegraphics[width=4cm]{exercisefigures/roundedcube}}
     Use the divergence theorem to calculate the flow of the vector
     field $(x^2 \sin y, x \cos y, -xz \sin y)$ through the ``rounded
     cube'' \[x^8 + y^8 + z^8 = 8.\]
-  \end{minipage} 
-  \begin{minipage}[t]{0.3\linewidth}
-    \begin{center}
-      \raisebox{\dimexpr -\height +1.5ex
-        \relax}{\includegraphics[width=4cm]{exercisefigures/roundedcube}}
-    \end{center}
-  \end{minipage}
+  \end{insetfigure}
 \end{aexercise}
 
 \asubsection{sec:stokes}
@@ -12891,6 +12823,5 @@ S = sum(sum(sum(f(i/n,j/n,k/n)/n^3,k,1,n),j,1,n),i,1,n)
   that if $C_1$ and $C_2$ are any two such curves enclosing the same
   area, then the integrals around $C_1$ and $C_2$ are equal.
 \end{aexercise} 
-
 
 \end{document}

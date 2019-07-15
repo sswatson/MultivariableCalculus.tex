@@ -1,0 +1,47 @@
+\ifluatex
+\makeatletter
+\def\asy@input@graphic{%
+  \ifASYinline
+    \IfFileExists{"\AsyFile.tex"}{%
+      \catcode`:=12\relax
+      \@@input"\AsyFile.tex"\relax
+    }{%
+      \PackageWarning{asymptote}{file `\AsyFile.tex' not found}%
+    }%
+  \else
+    \IfFileExists{"\AsyFile.\AsyExtension"}{%
+      \ifASYattach
+        \ifASYPDF
+          \IfFileExists{"\AsyFile+0.pdf"}{%
+            \setbox\ASYbox=\hbox{\includegraphics[hiresbb]{\AsyFile+0.pdf}}%
+          }{%
+            \setbox\ASYbox=\hbox{\includegraphics[hiresbb]{\AsyFile.pdf}}%
+          }%
+        \else
+          \setbox\ASYbox=\hbox{\includegraphics[hiresbb]{\AsyFile.eps}}%
+        \fi
+        \textattachfile{\AsyFile.\AsyExtension}{\phantom{\copy\ASYbox}}%
+        \vskip-\ht\ASYbox
+        \indent
+        \box\ASYbox
+      \else
+        \ifASYPDF
+          \includegraphics[hiresbb]{\AsyFile.pdf}%
+        \else
+          \includegraphics[hiresbb]{\AsyFile.eps}%
+        \fi
+      \fi
+    }{%
+      \IfFileExists{"\AsyFile.tex"}{%
+        \catcode`:=12
+        \@@input"\AsyFile.tex"\relax
+      }{%
+        \PackageWarning{asymptote}{%
+          file `\AsyFile.\AsyExtension' not found%
+        }%
+      }%
+    }%
+  \fi
+}
+\makeatother
+\fi
