@@ -493,6 +493,8 @@ form ``constant times variable'' are allowed: \sidenote{* Actually,
   linearity is the pair of properties $f(x + y) = f(x) + f(y)$ and
   $f(ax) = af(x)$, and we only get these if we insist $b=0$}[-2cm]
 
+  \enlargethispage{5mm}
+
 \begin{defn}{Linearity}{def:linear2}
   A function $f$ from $\R^2$ to $\R^2$ is \textbf{linear} if there
   exist* $a,b,c,d \in \R$ so that \sidenote{* This notation means that
@@ -4699,9 +4701,7 @@ in the value of $f(g(t))$. Thus $\tfrac{\d}{\d t} f(g(t)) =
 g'(t)f'(g(t))$. 
 
 The simplest multivariable generalization of this idea is to define a
-function from $\R$ to $\R$ by composing a function $\mathbf{r}: \R
-\to \R^2$
-with a function $f: \R^2 \to \R$. Let's look at an example.
+function from $\R$ to $\R$ by composing a differentiable function $\mathbf{r}: \R \to \R^2$ with a differentiable function $f: \R^2 \to \R$. Let's look at an example.
 
 \begin{example}{}{chainrule}
   Suppose $f(x,y) = \sin xy \cos y$ and $\mathbf{r}(t) = (\e^t,
@@ -4723,10 +4723,77 @@ with a function $f: \R^2 \to \R$. Let's look at an example.
   \end{align*}
 \end{solution}
 
-The multivariable chain rule gives us an alternative approach which
-describes the relationship between $(f\circ \mathbf{r})'(t)$ and the
-derivatives of $f$ and $\mathbf{r}$. Let's write
-$\mathbf{r}(t) = \langle r_1(t), r_2(t) \rangle$.  When we change
+\begin{lrbox}{\asybox}
+  \begin{asy}[width=6cm]
+import graph3;
+draw(O--2.2*X,Arrow3());
+draw(O--2.2*Y,Arrow3());
+draw(O--1.1*Z,Arrow3());
+
+currentprojection = perspective(5,2,2);
+
+real theta = pi/4; 
+
+real f(pair p){ if (p.x == p.y && p.y == 0) {return 0.0;}
+    real x = p.x, y = p.y; 
+    return 2*x*y*exp(-2*x^2-(y-0.8)^3); 
+}
+
+real mx = -0.805541521045397;
+real my = 0.236292179506650;  
+
+real L(pair p) {return f((1,1)) + mx*(p.x - 1) + my*(p.y - 1);}
+
+triple g(real x) {return (x,1,f((x,1)));}
+triple h(real y) {return (1,y,f((1,y)));}
+
+label("$f(x,y)$",(0,0,0.95),0.4*LightSeaGreen,align=3*E); 
+
+surface s = surface(f,(0,0),(2,2),20,Spline);
+draw(s,LightSeaGreen+opacity(0.2),MidnightBlue);
+
+real w = 0.5; 
+surface t = surface(L,(1-w,1-w),(1+w,1+w));
+dot((1,1,f((1,1))),MidnightBlue);
+real eps = 0.2;
+pair u = (2/sqrt(5),1/sqrt(5));
+triple j(real t) {return (1 + u.x*t + t^2, 1+u.y*t, f((1 + u.x*t + t^2, 1+u.y*t)));}
+triple ell(real t) {return (1 + u.x*t + t^2, 1+u.y*t, 0);}
+real lb = -1.2; 
+real ub = 0.6;
+draw(graph(j,lb,ub,100),MidnightBlue); 
+draw(graph(ell,lb,ub,100),DarkGreen); 
+
+draw((1,1,f((1,1))) -- (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) -- j(eps), 0.2*white,align=2*SE);
+
+triple A = (1,1,0);
+triple uu = 1.12*(u.x,u.y,0);
+triple zz = 0.5 * Z; 
+
+real t = 0; 
+real h = 0.2; 
+
+dot("$\mathbf{r}(t)$", (1,1,0), DarkGreen+fontsize(8)+linewidth(3.5), align=4SW);
+dot("$\mathbf{r}(t+h)$", (j(t+h).x,j(t+h).y,0), DarkGreen+fontsize(8)+linewidth(3.5), align=2E);
+dot("$f(\mathbf{r}(t))$", (1,1,f((1,1))), MidnightBlue+fontsize(8)+linewidth(1.5), align=2ENE);
+dot("$f(\mathbf{r}(t+h))$", j(t+h), MidnightBlue+fontsize(8)+linewidth(3.5), align=2ENE);
+
+draw((0,2,0.6) -- (0,1,0.6) -- (0,1,1.0), DarkRed,Arrows3());
+
+triple ins(real t) {
+    return (0, 1 + 0.5*(t - lb), 0.6 + 0.8*f((j(t).x,j(t).y)));
+}
+
+draw(graph(ins, lb, ub),DarkRed);
+
+label("$f\circ \mathbf{r}$",(0,1,1),align=NE,DarkRed); 
+dot(Label("$t$",align=SE),(0, 1 + 0.5 * (0-lb), 0.6),DarkRed);
+dot((0, 1 + 0.5 * (0-lb), 0.6 + 0.8*f((j(0).x,j(0).y))),DarkRed); 
+\end{asy}
+\end{lrbox}
+
+\begin{insetfigure}{\usebox{\asybox}}[\captionof{figure}{The composition $f\circ \mathbf{r}$ can be visualized using a slice of the graph of $f$ along the path $\mathbf{r}$. The graph of the composition $f\circ \mathbf{r}$ is shown in the red inset figure.}]
+In our solution to Example~\ref{exam:chainrule}, we composed the given functions before differentiating. The \textbf{multivariable chain rule} is an alternate approach which describes the general relationship between $(f\circ \mathbf{r})'(t)$ and the derivatives of $f$ and $\mathbf{r}$. Let's write $\mathbf{r}(t) = \langle r_1(t), r_2(t) \rangle$.  When we change
 $t$ by $h$, the value of $f(\mathbf{r}(t))$ changes as follows: 
 \[
   f\left(
@@ -4738,8 +4805,25 @@ The change of $hr_1'(t)$ in the first argument induces a change of
 $hr_1'(t) (\partial_xf)(\mathbf{r}(t))$ in the value of $f$, while
 the change of $hr_2'(t)$ in the second argument induces a change of
 $hr_2'(t) (\partial_yf)(\mathbf{r}(t))$. By linear approximation,
-the overall change is the sum of these two changes. Dividing by $h$
-and taking $h \to 0$ then gives the following theorem.
+the overall change is the \textit{sum} of these two changes. 
+\end{insetfigure}
+
+More precisely, if we define $L$ to be the linear approximation of $f$ at $\mathbf{r}(t)$, and then we have* \sidenote{* In the first step we're essentially swapping out $f$ for $L$, the idea being that they're essentially the same when zoomed way in around $\mathbf{r}(t)$.} 
+\begin{align*}
+  (f\circ \mathbf{r})'(t) &= \lim_{h \to 0} \frac{f(\mathbf{r}(t+h))-f(\mathbf{r}(t))}{h} \\ 
+  &= \lim_{h \to 0} \frac{
+    \color{DarkGreen}{L(\mathbf{r}(t+h))} 
+  \color{DarkRed}{- L(\mathbf{r}(t+h))+f(\mathbf{r}(t+h))}
+  \color{DarkGreen}{-f(\mathbf{r}(t))}}{h}\\ 
+  &= \lim_{h \to 0} \left[ \color{DarkGreen}{\frac{L(\mathbf{r}(t+h)) - f(\mathbf{r}(t))}{h}} + 
+  \color{DarkRed}{\frac{f(\mathbf{r}(t+h))-L(\mathbf{r}(t+h))}{h}} \color{black}\right]. 
+\end{align*}
+The second term goes to 0 as $h \to 0$ since $f$ is differentiable, so we're left with* \sidenote{* The change in $L$ is $x$-slope times $x$-change plus $y$-slope times $y$-change.}
+\begin{align*}
+  \lim_{h \to 0} \frac{L(\mathbf{r}(t+h)) - f(\mathbf{r}(t))}{h} &= 
+  \lim_{h \to 0} \frac{(\partial_x f)(a,b)(r_1(t+h) - r_1(t)) + (\partial_y f)(a,b)(r_2(t+h) - r_2(t))}{h}. 
+\end{align*}
+Taking $h \to 0$ gives us a factor of $r_1'(t)$ in the first term and $r_2'(t)$ in the second term, yielding the following theorem.
 
 \begin{theo}{Multivariable chain rule}{chainrule}
   If $f : \R^2 \to \R$ and $\mathbf{r} = \langle r_1,  r_2\rangle :
@@ -4841,7 +4925,7 @@ over a disk $D$ (see Figure~\ref{fig:lagrange})? Let's consider the
 disk $D$ of radius $\tfrac{1}{2}$ centered at
 $\left(\tfrac{1}{2}, \tfrac{1}{2}\right)$.
 
-We could actually take a similar approach to this problem. We can
+We could take a similar approach to this problem. We can
 parameterize* the boundary of the disk as \sidenote{* To
   \textit{parameterize} a curve means to find a path which traces it
   out}
@@ -4976,6 +5060,9 @@ $\nabla g \neq \mathbf{0}$, this means that they are parallel! By
 Observation~\ref{obs:vecparallel}, then, there exists a scalar
 $\lambda$ such that $\nabla f = \lambda \nabla g$.
 
+\sidenote{* So far we've been considering the restriction
+  of $f$ to the boundary of a region $D$, but any level set of a
+  differential function $g$ will do}[5mm]
 \begin{theo}{Method of Lagrange multipliers}{lagrange}
   Suppose $f: \R^n \to \R$ and $g:\R^n \to \R$ are differentiable
   functions and $c \in \R$. If the restriction of $f$ to the level
@@ -4985,9 +5072,7 @@ $\lambda$ such that $\nabla f = \lambda \nabla g$.
   \[
     \nabla f (\mathbf{x}) = \lambda \nabla g (\mathbf{x}). 
   \]
-\end{theo} \sidenote{* So far we've been considering the restriction
-  of $f$ to the boundary of a region $D$, but any level set of a
-  differential function $g$ will do}[-2cm]
+\end{theo} 
 
 \bang{15mm} 
 Theorem~\ref{th:lagrange} implies that we can optimize $f(\mathbf{x})$ subject
@@ -5079,13 +5164,8 @@ The following example is a 3D application of Lagrange multipliers.
     g(x,y,z) = 2yz + 2xz + xy = 72, 
   \]
   while the objective function is the volume $f(x,y,z) =
-  xyz$. Setting up the Lagrange equations, we get
-  \begin{align*}
-    yz &= \lambda(2z + y) \\
-    xz &= \lambda(2z + x) \\
-    xy &= \lambda(2x + 2y) \\
-    2yz + 2xz + xy &= 72, 
-  \end{align*}
+  xyz$. Setting up the Lagrange equations, we get $yz = \lambda(2z + y)$ 
+    $xz = \lambda(2z + x)$, $xy = \lambda(2x + 2y)$, and $2yz + 2xz + xy = 72$,
   where the last one is the constraint equation. Multiplying the
   first two equations by $x$ and $y$, respectively, and setting
   the resulting right-hand sides equal implies that either $\lambda
@@ -10917,7 +10997,7 @@ Substituting $x-x_0 = (\partial_x f)(x_0,y_0)$ and $y-y_0 =
 (\partial_y f)(x_0,y_0)$, we find that the third component should be
 the squared gradient of $f$ at $(x_0,y_0)$.
 
-\newpage
+\clearpage
 
 \subsection{The Riemann integral} \label{sec:riemannintegral} 
 
