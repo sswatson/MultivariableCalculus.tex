@@ -4761,10 +4761,8 @@ triple j(real t) {return (1 + u.x*t + t^2, 1+u.y*t, f((1 + u.x*t + t^2, 1+u.y*t)
 triple ell(real t) {return (1 + u.x*t + t^2, 1+u.y*t, 0);}
 real lb = -1.2; 
 real ub = 0.6;
-draw(graph(j,lb,ub,100),MidnightBlue); 
-draw(graph(ell,lb,ub,100),DarkGreen); 
-
-draw((1,1,f((1,1))) -- (1,1,f((1,1))) + (eps*u.x,eps*u.y,0) -- j(eps), 0.2*white,align=2*SE);
+draw(graph(j,lb,ub,100),MidnightBlue);
+draw(graph(ell,lb,ub,100),DarkGreen);
 
 triple A = (1,1,0);
 triple uu = 1.12*(u.x,u.y,0);
@@ -4775,7 +4773,9 @@ real h = 0.2;
 
 dot("$\mathbf{r}(t)$", (1,1,0), DarkGreen+fontsize(8)+linewidth(3.5), align=4SW);
 dot("$\mathbf{r}(t+h)$", (j(t+h).x,j(t+h).y,0), DarkGreen+fontsize(8)+linewidth(3.5), align=2E);
-dot("$f(\mathbf{r}(t))$", (1,1,f((1,1))), MidnightBlue+fontsize(8)+linewidth(1.5), align=2ENE);
+draw((1,1,0) -- (1,1,f((1,1))),gray); 
+draw((j(t+h).x,j(t+h).y,0)-- j(t+h),gray);
+dot("$f(\mathbf{r}(t))$", (1,1,f((1,1))), MidnightBlue+fontsize(8)+linewidth(1.5), align=2E);
 dot("$f(\mathbf{r}(t+h))$", j(t+h), MidnightBlue+fontsize(8)+linewidth(3.5), align=2ENE);
 
 draw((0,2,0.6) -- (0,1,0.6) -- (0,1,1.0), DarkRed,Arrows3());
