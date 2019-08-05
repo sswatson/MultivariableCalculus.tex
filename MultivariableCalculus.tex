@@ -7640,7 +7640,7 @@ to move along the path? \sidenote{* A
   vector field in which the vectors represent a physical force}[-1cm]
 
 If the force field were constant and the path were straight, then
-physics tells us tha work is equal to the product of the magnitude $F$
+physics tells us that work is equal to the product of the magnitude $F$
 of the force, the distance $d$ traveled, and the cosine of the angle
 $\theta$ between the force and the path. Alternatively, we may
 interpret the force and distance as vectors $\mathbf{F}$ and
@@ -8102,13 +8102,11 @@ curve and double integrals over the enclosed region. \sidenote{*
     \end{asy}
   \end{minipage}
   \[
-    \overbrace{N\left(x+\frac{\Delta x}{2}, y\right) \Delta y}^{\text{integral over right
-        side}} -   \overbrace{N\left(x-\frac{\Delta x}{2}, y\right) \Delta y}^{\text{integral over left
-        side}} \approx (\partial_x N)(x,y) \, \Delta x \, \Delta y. 
+    \overbrace{N\left(x+\frac{\Delta x}{2}, y\right) \Delta y}^{\text{$\mathbf{F}$ at midpoint dotted with $\langle 0, \Delta y \rangle$ step}} - \overbrace{N\left(x-\frac{\Delta x}{2}, y\right) \Delta y}^{\text{$\mathbf{F}$ at midpoint dotted with $\langle 0, -\Delta y \rangle$ step}} \approx (\partial_x N)(x,y) \, \Delta x \, \Delta y. 
   \]
   Similarly, the contribution of the top and bottom sides is
-  $-(\partial_y M)(x,y)\, \Delta x \, \Delta y$. So all together,
-  \textbf{circulation} of $\mathbf{F}$ around $R$ is
+  $-(\partial_y M)(x,y)\, \Delta x \, \Delta y$. So all together, the
+  \textbf{circulation}* \sidenote{* \textit{Circulation} is a synonym of \textit{line integral} which is used only when curve starts and ends at the same point.}[-12mm] of $\mathbf{F}$ around $R$ is
   $(\partial_xN - \partial_y M)\, \Delta x \, \Delta y$. This is also
   approximately equal to the integral of $(\partial_xN - \partial_y M)$
   over $R$, since $\partial_xN - \partial_y M$ is approximately constant
@@ -8704,16 +8702,15 @@ over $D$:
 
 \section{Divergence and curl} \label{sec:divcurl} 
 
-One classic and well-known vector calculus book is \textit{div, grad,
-  curl, and all that} by H.M. Schey.* We have already discussed the
-gradient, and in this section we will develop the two other
-fundamental vector calculus derivative operators: divergence and
-curl. We will emphasize the underlying physical intuition. \sidenote{*
-  Highly recommended}[-5mm]
+As suggested by the title of the classic book \textit{div, grad, curl, and all that} by H.M. Schey*, the gradient is one of the main characters in the vector calculus story. In this section we will develop the two other fundamental vector calculus derivative operators: \textit{divergence} and \textit{curl}. Like Schey, we will emphasize the underlying physical intuition. \sidenote{* Highly recommended}[-5mm]
 
 \subsection{Divergence}
 
 \milink[-6mm]{divergence_idea}{divergence} 
+
+The \textbf{divergence} of a vector field $\mathbf{F} = \langle M, N, P \rangle$ is the function whose value at a point $(x,y,z)$ is equal to the \textbf{net flow density} of $\mathbf{F}$ out of a small region located at $(x,y,z)$. In other words, if we put a small box of dimensions $\Delta x \times \Delta y \times \Delta z$ centered at $(x,y,z)$, then the ratio of the net flow of $\mathbf{F}$ out of the box to the volume of the box converges to $\operatorname{div}\mathbf{F}(x,y,z)$ as $(\Delta x, \Delta y, \Delta z) \to 0$. 
+
+Let's work out a formula for $\operatorname{div}\mathbf{F}$. The net flow through the top of the box of dimensions $\Delta x \times \Delta y \times \Delta z$ centered at $(x,y,z)$ is approximately* \sidenote{* The normal vector for the top is $\langle 0, 0, 1\rangle$, and that dots with $\mathbf{F}$ to give $P$.} $P(x,y,z+\Delta z/2)\Delta x \Delta y$, and the net flow through the bottom of the box is approximately $P(x, y, z-\Delta z/2)\, \Delta x \,\Delta y$. Thus the difference is approximately $(\partial_z P)(x,y,z) \, \Delta x \,  \Delta y \, \Delta z$, and the difference per unit volume is $\partial_z P(x,y,z)$. Similarly, the front/back and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ to the net flow density out of the box. Therefore, $\operatorname{div} \mathbf{F} = \partial_x M  +\partial _y N + \partial_zP$. This formula suggests the alternate notation $\nabla \cdot \mathbf{F}$ for the divergence of $\mathbf{F}$. 
 
 \begin{defn}{Divergence}{divergence}
   The \textbf{divergence} of a vector field
@@ -8726,26 +8723,11 @@ curl. We will emphasize the underlying physical intuition. \sidenote{*
 \end{defn}
 
 For example, the divergence of $\langle x^2, xy, z \rangle$ is
-$2x + x + 1 = 3x + 1$. The divergence of $\mathbf{F}$ can be
-interpreted physically as the \textbf{net flow} of $\mathbf{F}$ out of
-a small region located at $(x,y,z)$ per volume of that region. 
-
-\sidenote{* We dot the normal vector $\langle 0, 0, 1
-  \rangle$ with $\langle M, N, P \rangle$ to account for the cosine
-  factor}
-To see this, note that if we put a small box of dimensions $\Delta x, \Delta y, \Delta z$
-around $(x,y,z)$, then the net flow through the top of the box is
-approximately* $P(x,y,z+\Delta z)\Delta x \Delta y$, and the net flow
-through the bottom of the box is approximately
-$P(x, y, z)\, \Delta x \,\Delta y$. Thus the difference is approximately
-$(\partial_z P)(x,y,z) \, \Delta x \,  \Delta y \, \Delta z$, and the
-difference per unit volume is $\partial_z P(x,y,z)$. Similarly, the front/back
-and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ to the net flow density through the small box.
-
+$2x + x + 1 = 3x + 1$.
 
 \begin{example}{}{div}
   \begin{lrbox}{\asybox}
-  \begin{asy}[width=7cm]
+  \begin{asy}[width=5cm]
     import graph;
     picture vectorfieldmid(path vector(pair), pair a, pair b,
     int nx=nmesh, int ny=nx, bool truesize=false,
@@ -8848,6 +8830,12 @@ and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ 
 
 \milink[-6mm]{curl_idea}{curl} 
 
+The \textbf{curl} of a vector field $\mathbf{F} = \langle M, N, P \rangle$ is the vector field whose value at a point $(x,y,z)$ describes the \textbf{circulation density} of $\mathbf{F}$ around $(x,y,z)$. Specifically, consider a curve $\ell$ centered at a point $(x,y,z)$ looping counterclockwise around the vector $\langle 0, 0, 1 \rangle$. We define the \textit{third} component of $\operatorname{curl} \mathbf{F}(x,y,z)$ to be the limit as the size of the loop tends to zero of the ratio of $\int_\ell \mathbf{F} \cdot \mathrm{d} \mathbf{r}$ to the area enclosed by $\ell$. We define the first two components of $\operatorname{curl} \mathbf{F}(x,y,z)$ similarly, with $\ell$ running counterclockwise around $\langle 1, 0, 0 \rangle$ or $\langle 0, 1, 0 \rangle$, respectively, instead of $\langle 0, 0, 1 \rangle$.
+
+By Green's theorem, third component of the curl is equal to* \sidenote{* Since Green's theorem says that circulation equals $\partial_x N - \partial_yM$ integrated, it can be interpreted as the assertion "circulation density is given by $\partial_x N - \partial_yM$".} $\partial_x N - \partial_yM$.  If we swap out $(x,y)$ for $(y,z)$ or $(z,x)$ to get similar formulas for the first two coordinates, we find that $\operatorname{curl} \mathbf{F} = \big\langle \partial_y P - \partial_z N, \:
+-\partial_x P  + \partial_z M, \:
+\partial_x N - \partial_y M \big\rangle$. This formula suggests the notation $\nabla \times \mathbf{F}$ for the curl of $\mathbf{F}$. 
+
 \begin{defn}{Curl}{curl}
   The \textbf{curl} of a vector field $\mathbf{F} = \langle M, N, P \rangle$ is
   a vector field on $\R^3$ defined by \renewcommand\arraystretch{1.4}
@@ -8865,23 +8853,17 @@ and left/right sides contribute $\partial_x M(x,y,z)$ and $\partial_y N(x,y,z)$ 
   \]
 \end{defn}
 
-We've already seen the third component, $\partial_x N - \partial_y M$,
-in Green's theorem. In the context, $\partial_x N - \partial_y M$
-measures the line integral (per unit of enclosed area) around a small
-loop perpendicular to the $z$-axis. This quantity is called
-\textbf{circulation density}. The other two components of
-$\nabla \times \mathbf{F}$ supplement this information by providing
-the circulation density with respect to the $x$ and $y$ directions.
+\enlargethispage{10mm}
 
-We can visualize this idea physically by interpreting the vector field
-as a flow velocity and imagining placing a small paddle wheel (with an
-axis of rotation in the $x$, $y$, or $z$ direction) at a particular
+Another way to visualize curl physically is to interpret the vector field
+as a fluid velocity field and place a small paddle wheel (with an
+axis of rotation in a coordinate direction) at a particular
 point in this field. The corresponding component of the curl measures
 how rapidly and in which direction this paddle wheel turns.
 
 \begin{example}{}{}
   \begin{lrbox}{\asybox}
-    \begin{asy}[width=7cm]
+    \begin{asy}[width=5cm]
       import multitools;
       currentprojection=perspective(5,2.8,1.1);
       
@@ -8929,30 +8911,24 @@ how rapidly and in which direction this paddle wheel turns.
 \end{solution}
 
 When we studied gradients, we learned that directional derivatives of
-a function in the coordinate directions determine its directional
+a function in the coordinate directions actaully determine its directional
 derivatives in all directions: the derivative in the
 $\langle u_1, u_2 \rangle$ direction is equal to a linear combination
 with weights $u_1$ and $u_2$ of the derivatives in the coordinate
-directions. The same idea holds for the curl:
-\begin{theo}{}{curl} \bang{-3mm} The circulation density of a vector
-  field $\mathbf{F}$ with respect to a unit vector $\mathbf{u} $ is
+directions. The same idea holds for the curl: if $\mathbf{u}$ is a unit vector, let's define $\operatorname{curl}_{\mathbf{u}}\mathbf{F}$ to be the circulation density of $\mathbf{F}$ in the counterclockwise direction around $\mathbf{u}$. More precisely, if $\ell$ is a small loop which is
+perpendicular to $\mathbf{u}$ and oriented counterclockwise as viewed
+from the head of $\mathbf{u}$, then the ratio of
+$\int_{\ell} \mathbf{F} \cdot \d\mathbf{r}$ to the area enclosed by
+$\ell$ converges to $\operatorname{curl}_{\mathbf{u}}\mathbf{F}$ as the size of $\ell$ tends to zero. 
+
+\begin{theo}{}{curl} \bang{-3mm} The circulation density $\operatorname{curl}_{\mathbf{u}}\mathbf{F}$ of a vector
+  field $\mathbf{F}$ around a unit vector $\mathbf{u}$ is
   equal to $\left(\nabla \times \mathbf{F}\right) \cdot
   \mathbf{u}$.
 \end{theo}
 
+Thus $\nabla \times \mathbf{F}$ is a vector field whose \textbf{main purpose is to be dotted with unit vectors to compute circulation}. We will revisit this idea in Section~\ref{sec:stokes} when we discuss Stokes' theorem.
 
-This means that if $C_r$ is a small loop of radius $r$ which is
-perpendicular to $\mathbf{u}$ and oriented counterclockwise as viewed
-from the head of $\mathbf{u}$, then the ratio of
-$\int_{C_r} \mathbf{F} \cdot \d\mathbf{r}$ to the area enclosed by
-$C_r$ is approximately equal to the value of
-$\left(\nabla \times \mathbf{F}\right) \cdot \mathbf{u}$ at some point
-inside the loop. More precisely, if we shrink $C_r$ down around a
-point by taking $r \to 0$, then the limit of
-$\int_{C_r} \mathbf{F} \cdot \d\mathbf{r}$ divided by the area
-enclosed by $C_r$ converges to
-$\left(\nabla \times \mathbf{F}\right) \cdot \mathbf{u}$ at that
-point.
 \begin{example}{}{}
   Find the orientation for a paddle wheel at the point $(1,1,1)$ in
   the velocity field $\langle xyz,x^2 - y, z \rangle$ which will
@@ -8990,7 +8966,7 @@ point.
 
 \milink{divergence_theorem_idea}{the divergence theorem}
 
-\begin{wrapfigure}[8]{O}[1cm]{5cm}
+\begin{wrapfigure}[11]{O}[1cm]{5cm}
   \centering
   \begin{asy} 
     size(5cm);
@@ -9027,20 +9003,9 @@ point.
 \end{wrapfigure}
 
 
-Suppose that $\mathbf{F}: \R^3 \to \R^3$ is a vector field. As
-discussed in the previous section, the divergence of $\mathbf{F}$ at
-each point measures the net flow of $\mathbf{F}$ out of a small region
-around that point, per unit volume. Note that to integrate
-$\nabla \cdot \mathbf{F}$ over a region $D$ in $\R^3$, we divide $D$
-into many small pieces, multiply the volume of each piece by the value
-of $\nabla \cdot \mathbf{F}$ there, and sum the results. The
-contribution of each piece is the net flow out of that piece*, so when
-we add the contributions of all the pieces, we get the net flow out of
-$D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
-  The contribution of each piece is the divergence somewhere in the
-  piece times its volume, and the divergence equals flow per unit
-  volume, so the product is the net flow out of the piece}[-1cm]
+Suppose that $\mathbf{F}: \R^3 \to \R^3$ is a vector field. Just as integrating mass density yields total mass, or integrating charge density yields total charge, integrating flow density yields total flow. This fact is called the \textit{divergence theorem}. 
 
+The property of physical mass which makes it compatible with the idea of computing a total by integrating a density function is \textbf{additivity}: any way you divide up a solid, its mass is equal to the sum of the masses of its parts. Flow density works similarly: the net flow out of a region $D$ is equal to the sum of the net flows out any set of regions in a subdivision of $D$. This is because any surface connecting adjoining regions contributes two opposite terms to the sum (see Figure~\ref{fig:divergencetheorem}). 
 
 %\begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth -
 %  4.25cm \relax]{Divergence theorem}{divergence}
@@ -9050,7 +9015,7 @@ $D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
   piecewise smooth surface $S = \partial D$, then 
   \[
     \overbrace{\iiint_D \nabla \cdot \mathbf{F} \,
-      \d V}^{\text{pointwise net flow density
+      \d V}^{\text{net flow density
         integrated over $D$}} = \overbrace{\iint_{\partial D}
       \mathbf{F} \cdot \, {\d}\mathbf{A}}^{\text{total flow out through
         $\partial D$}}. 
@@ -9182,7 +9147,7 @@ $D$. This idea is called the \textit{divergence theorem}.  \sidenote{*
 
 \milink{stokes_theorem_idea}{Stokes' theorem}
 
-\begin{wrapfigure}[12]{O}[1cm]{5cm}
+\begin{wrapfigure}[13]{O}[1cm]{5cm}
   \begin{asy}
     size(5cm);
     import graph3;
@@ -9251,15 +9216,9 @@ written as
 \]
 The argument for Green's theorem then applies even if $S$ doesn't lie
 in a plane, because Theorem~\ref{th:curl} tells us that
-$\nabla \times \mathbf{F} \cdot \d\mathbf{A}$ measures the circulation
+$\nabla \times \mathbf{F} \cdot \mathbf{n}\,\d A = \nabla \times \mathbf{F} \cdot \d\mathbf{A}$ yields the circulation
 around a small patch of the surface $S$. As we discussed for Green's
-theorem, if you divide a surface into many small patches and sum the
-circulations around all of them, you get the circulation around the
-boundary of the surface.  This generalization of Green's theorem is
-known as \textit{Stokes' theorem}.* \sidenote{* If you take a
-  differential geometry course, you will learn a far more general
-  result of the same name which implies the divergence theorem and
-  Theorem~\ref{th:stokes} as special cases}[-4mm]
+theorem, circulation is additive: if you divide a surface into many small patches and sum the circulations around all of them, you get the circulation around the boundary of the surface. Thus we arrive at a generalization of Green's theorem known as \textit{Stokes' theorem}.* \sidenote{* If you take a differential geometry course, you will learn a far more general result of the same name which implies the divergence theorem and Theorem~\ref{th:stokes} as special cases}[-4mm]
 
 % \begin{theo}[left skip = 4.25 cm, width = \dimexpr \textwidth - 4.25
 %   cm \relax]{Stokes' theorem}{stokes}
@@ -9272,7 +9231,7 @@ known as \textit{Stokes' theorem}.* \sidenote{* If you take a
     Example~\ref{exam:twopieces}}[12mm]
   \[
     \overbrace{\iint_S \nabla \times \mathbf{F} \cdot
-      \d\mathbf{A}}^{\text{pointwise circulation density integrated
+      \d\mathbf{A}}^{\text{circulation density integrated
         over $S$}} =
     \overbrace{\int_{\partial S} \mathbf{F} \cdot
       \d\mathbf{r}}^{\text{circulation around $\partial S$}}. 
